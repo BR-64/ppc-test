@@ -15,7 +15,7 @@
                         'href' => route('product.view', $product->item_code),
                         'removeUrl' => route('cart.remove', $product),
                         'updateQuantityUrl' => route('cart.update-quantity', $product),
-                        'type'=>$product->preorder,
+                        'type'=>$product->pre_order,
                     ])
                 )
             }},

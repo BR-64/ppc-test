@@ -28,7 +28,7 @@ class CartController extends Controller
         $quantity = $request->post('quantity', 1);
         $user = $request->user();
 
-        $type = $product->preorder;
+        $type = $product->pre_order;
         
         if ($user) {
 

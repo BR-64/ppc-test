@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('portfolios', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('collection_name', 255);
+            $table->string('image', 255)->nullable();
+            $table->string('published', 2000)->nullable();
+            $table->string('brand_name')->nullable();
             $table->timestamps();
         });
+        //
     }
 
     /**
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('portfolios');
+        //
     }
 };

@@ -8,7 +8,7 @@
         'image' => $product->image,
         'title' => $product->item_code,
         'price' => $product->retail_price,
-        'preorder'=>$product->preorder,
+        'preorder'=>$product->pr_eorder,
         'cat'=>$product->pcategory_id,
         'addToCartUrl' => route('cart.add', $product)]) 
         }})" class="">
@@ -159,10 +159,10 @@
                 class="qtyinputbox focus:border-purple-500 focus:outline-none rounded"/>        
                 </div>
                 <div class="additem3">
-                    <div x-show="{{$product->preorder}} == 0">
+                    <div x-show="{{$product->pre_order}} == 0">
                         <button @click="addToCart($refs.quantityEl.value)"class="addtocart">Add to Cart</button>
                     </div>
-                    <div x-show="{{$product->preorder}} == 1">
+                    <div x-show="{{$product->pre_order}} == 1">
                         <button @click="addToCart($refs.quantityEl.value)"class="addtocart">Pre-Order</button>
                     </div>
                 </div>
