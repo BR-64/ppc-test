@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('portfolio_image')->nullable();
             $table->text('portfolio_description')->nullable();
             $table->timestamps();
+            $table->string('type')->nullable();
+            $table->string('name2')->nullable();
         });
     }
 
