@@ -49,9 +49,6 @@ return new class extends Migration
             $table->tinyInteger('published',1);
             $table->tinyInteger('newp',1);
             $table->tinyInteger('hilight',1);
-            $table->string('image',2000);
-
-
             $table->string('image', 2000)->nullable();
 
             $table->foreignIdFor(User::class, 'created_by')->nullable();
