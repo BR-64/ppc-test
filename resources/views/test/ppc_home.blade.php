@@ -13,7 +13,7 @@
     @vite(['resources/css/style3.css', 'resources/js/app.js'])
 
 
-    <title>Prempracha Online Store</title>
+    <title>Prempracha Online Store test</title>
 
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap');
@@ -183,7 +183,7 @@
       <div class="bottom"></div>
 
       <img src="/PPC-3_1.jpg" alt="">
-      <img src="{{ asset('storage/PPC-3_1.jpg') }}" alt="">
+      <img src="{{ asset('storage/banner/PPC-3_1.jpg') }}" alt="">
 
       <div class="footspace"></div>
     </x-app-layout>
