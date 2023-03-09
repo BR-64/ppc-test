@@ -13,7 +13,7 @@
     @vite(['resources/css/style3.css', 'resources/js/app.js'])
 
 
-    <title>Prempracha Online Store test</title>
+    <title>Prempracha Online Store test2</title>
 
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap');
