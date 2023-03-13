@@ -10,7 +10,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
-use App\Models\portfolio;
+use App\Models\Portfolio;
 
 class pProductController extends Controller
 
@@ -21,7 +21,7 @@ class pProductController extends Controller
         $products = pProduct::query()
             ->where('published', '=', 1)
             ->orderBy('updated_at', 'desc')
-            ->paginate(300);
+            ->paginate(30);
             
         $filter_collections = pProduct::distinct()->get('collection');
         $filter_cats = pProduct::distinct()->get('category');
@@ -81,7 +81,7 @@ class pProductController extends Controller
 
     public function view(pProduct $product)
     {
-        $gallery =portfolio::query()
+        $gallery =Portfolio::query()
         ->where('item_code', '=',$product->item_code)
         ->latest()->get(); ;
 
@@ -145,6 +145,7 @@ class pProductController extends Controller
                 AllowedFilter::exact('finish'),
                 ])
             ->get();
+            // ->paginate(20);
 
 
         $filterables = [

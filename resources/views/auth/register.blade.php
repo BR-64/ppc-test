@@ -38,7 +38,7 @@
             </div>
     </div>
     <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
-        <h2 class="text-xl font-semibold mb-2">Personal details</h2>
+        <h2 class="text-xl font-semibold mb-2">Personal details (optional)</h2>
 
             <div class="mb-4">
                 <div class="mb-3">
