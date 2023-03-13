@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\pProductController;
 use App\Http\Controllers\pProductController_test;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\ShopScroll;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/lv', ShopScroll::class);
+
 Route::get('/test', [pProductController::class, 'infinit'])->name('product.test');
 
 Route::get('/bship', [ProfileController::class, 'billshipView'])->name('billship');
@@ -33,13 +36,11 @@ Route::get('/checkoutinfo', function(){
 
 Route::middleware(['guestOrVerified'])->group(function () {
     Route::get('/ppt', [pProductController::class, 'test'])->name('test');
-    // Route::get('/pp/{cat}', [pProductController::class, 'index'])->name('shop.cat');
+
     Route::get('/shop', [pProductController::class, 'index'])->name('shop');
     Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf');
     Route::get('/shop/{cat?}', [pProductController::class, 'catFilter'])->name('shop.cat');
     Route::get('/', [pProductController::class, 'test'])->name('test');
-    // Route::get('/', [ProductController::class, 'index'])->name('home');
-    // Route::get('/product/{product:slug}', [ProductController::class, 'view'])->name('product.view');
     Route::get('/product/{product:item_code}', [pProductController::class, 'view'])->name('product.view');
 
     Route::get('/collection', [pCollectionController::class, 'index'])->name('product.collection');

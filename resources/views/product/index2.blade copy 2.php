@@ -39,6 +39,7 @@
               </div>
           @endforeach
       </div>
+    </div>
 
     <?php endif; ?>
     <div class="footspace"></div>

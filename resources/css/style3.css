@@ -520,6 +520,19 @@ header {
   padding-top: 20px;
 }
 
+.pgallpic {
+  /* width: 363px; */
+  height: 250px;
+  padding: 1%;
+  margin: auto;
+}
+
+.pgallpicthumb {
+  width: 363px;
+  /* height: 250px; */
+  margin: auto;
+}
+
 .potherspic {
   display: flex;
   flex: 1 1 1;

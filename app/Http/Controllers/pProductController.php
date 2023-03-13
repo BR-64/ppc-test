@@ -10,9 +10,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
+use App\Models\portfolio;
 
 class pProductController extends Controller
+
 {
+
     public function index()
     {
         $products = pProduct::query()
@@ -78,7 +81,14 @@ class pProductController extends Controller
 
     public function view(pProduct $product)
     {
-        return view('product.view', ['product' => $product]);
+        $gallery =portfolio::query()
+        ->where('item_code', '=',$product->item_code)
+        ->latest()->get(); ;
+
+        return view('product.view', [
+            'product' => $product,
+            'gallery'=>$gallery
+        ]);
     }
 
 
@@ -116,6 +126,7 @@ class pProductController extends Controller
         ]);
 
         return view('product.index2',[
+        // return view('livewire.shop-scroll',[
             'products'=>$products,
             'filterables'=> $filterables,
         ]);

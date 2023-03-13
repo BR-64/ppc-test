@@ -23,6 +23,9 @@
 
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+    @livewireStyles
+
 </head>
 <body>
 @include('layouts.navigation')
@@ -71,5 +74,7 @@
 @include('layouts.footer')
 
 <!--/ Toast -->
+    @livewireScripts
+
 </body>
 </html>
