@@ -11,18 +11,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
     <!-- Scripts -->
-    @vite(['resources/css/style3.css',
+    @vite(['resources/css/style3.css','resources/css/app.css',
     'resources/js/app.js'
     ])
 
     {{-- @vite([ 'resources/js/app.js']) --}}
-    <style>
+    {{-- <style>
         [x-cloak] {
             display: none !important;
         }
+    </style> --}}
 
-
-    </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
     @livewireStyles

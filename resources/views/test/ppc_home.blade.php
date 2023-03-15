@@ -10,7 +10,7 @@
     {{-- <link rel="stylesheet" href="public/css/style3.css" /> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/style3.css') }}" > --}}
 
-    @vite(['resources/css/style3.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/style3.css', 'resources/js/app.js']) --}}
 
 
     <title>Prempracha Online Store test2</title>
@@ -203,7 +203,7 @@
           </br>
             Tel.: 66 5333 8540, 66 5333 8857
         </br> Email: <a href="mailto:info@prempracha.com">info@prempracha.com</a>
-      </br></br>Operating Hour: 8:30 - 17:30, 
+      </br></br>Operating Hour: 8:30 - 17:30 hrs, 
     </br>Monday - Saturday<br>
             <div class="footericon">
 

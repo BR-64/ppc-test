@@ -42,9 +42,9 @@
   }
 }
 
-body {
+/* body {
   background-color: #e5e7eb;
-}
+} */
 
 .wysiwyg-content h3,
 .wysiwyg-content h4 {
@@ -68,8 +68,4 @@ body {
 .table-sm > tbody > tr > td,
 .table-sm > thead > tr > th {
   padding: 0.25rem;
-}
-
-.prembg {
-  background: #32322f;
 }

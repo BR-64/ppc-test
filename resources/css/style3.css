@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap");
 
-html {
+/* html {
   background-color: grey;
-}
+} */
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -65,6 +65,10 @@ p {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.prembg {
+  background: #32322f;
 }
 
 .button1 {
