@@ -12,6 +12,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      height:55px;
     }
 
     swiper-slide img {
@@ -34,13 +35,14 @@
     }
 
     .mySwiper {
-      height: 10%;
+      height: 55px;
       /* width: 80%; */
       width: 363px;
+      margin-top: 5px;
     }
 
     .mySwiper2 {
-      height: 32%;
+      height: 250px;
       box-sizing: content-box;
       /* padding: 10px 0; */
 

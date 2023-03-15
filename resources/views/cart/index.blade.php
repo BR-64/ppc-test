@@ -139,7 +139,6 @@
                                 Proceed to Checkout
                             </button>
 
-                            <button class=" w-full py-3 text-lg" style="margin: 10px; background-color: #5BBB64">test</button>
                         </form>
 
                         <br>

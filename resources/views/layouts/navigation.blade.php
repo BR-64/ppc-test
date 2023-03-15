@@ -6,13 +6,18 @@
         cartItemsCount: {{ \App\Helpers\Cart::getCartItemsCount() }},
     }"
     @cart-change.window="cartItemsCount = $event.detail.count"
-    class="flex justify-end prembg shadow-md "
+    class="flex justify-space-between prembg shadow-md "
 >
+<div >
+<a href="{{ route('test') }}" class="block p-4"> 
+    <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/ppclogo.png" alt=""> 
+</a>
+</div>
+<div class="spacebox1">
+
+</div>
     <div>
-        <a href="{{ route('test') }}" class="block py-navbar-item px-4"> Prempracha </a>
-    </div>
-    <div>
-        <a href="{{ route('shopf') }}" class="block py-navbar-item px-5"> Shop </a>
+        <a href="{{ route('shopf') }}" class="relative flex justify-end p-6 transition-colors"> Shop </a>
     </div>
     <div>
         <a

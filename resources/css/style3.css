@@ -15,7 +15,7 @@ body {
 
 a {
   /* display: inline-block; */
-  display: block;
+  /* display: block; */
 }
 
 ้h1,
@@ -182,21 +182,34 @@ footer {
 
 header {
   position: sticky;
-  top: 0;
+  top: 0px;
   z-index: 200;
   margin: 0 0;
+  height: 65px;
+  position: -webkit-sticky;
 }
 
 .header {
+  display: flex;
   text-align: center;
   justify-content: center;
+  align-items: center;
   box-sizing: border-box;
+  flex-direction: row;
   color: white;
   background: #32322f;
-  height: 70px;
+  max-height: 70px;
   margin: 0 0;
   /* border: 1px solid yellow; */
   /* margin-bottom: 15px; */
+}
+
+.spacebox1 {
+  width: 25%;
+}
+
+.nav.div {
+  max-height: 50px;
 }
 
 .logo {
@@ -207,7 +220,7 @@ header {
 }
 
 .mainlogo {
-  margin-top: 7px;
+  /* margin-top: 12px; */
   object-fit: contain;
   max-height: 50px;
 }
@@ -538,7 +551,7 @@ header {
 
 .pgallpicthumb {
   width: 363px;
-  /* height: 250px; */
+  height: 55px;
   margin: auto;
 }
 
@@ -559,6 +572,8 @@ header {
   text-align: center;
 }
 .pprice {
+  font-weight: bold;
+  margin: 15px 0 8px 0;
 }
 
 /* ------------------------------------------- */
@@ -702,6 +717,7 @@ tr {
   padding: 12px 16px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #ffffff;
+  text-transform: uppercase;
 }
 
 .preorder {
@@ -908,7 +924,8 @@ tr {
 /* ------------------ Slider ---------------- */
 .swiper {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: calc(100vh - calc(100vh - 100%));
 }
 
 .swiper-slide {
