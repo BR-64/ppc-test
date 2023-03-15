@@ -4,6 +4,11 @@
     "src": "resources/js/app.js",
     "isEntry": true
   },
+  "resources/css/reset.css": {
+    "file": "assets/reset.4b167f23.css",
+    "src": "resources/css/reset.css",
+    "isEntry": true
+  },
   "resources/css/style3.css": {
     "file": "assets/style3.4e3154e8.css",
     "src": "resources/css/style3.css",
