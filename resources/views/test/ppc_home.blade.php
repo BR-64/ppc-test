@@ -43,14 +43,14 @@
         <div class="gridShopCat">
           <div class="SCat">
             <a href="{{ route('shop.cat', "vase") }}"><img src="https://smoootstudio.com/pic/prempracha/pic/cat1.jpg" alt="" />
-            <div class="centered">Vase</div>
             </a>
+            <div class="centered">Vase</div>
           </div>
           <div class="SCat">
             <a href="{{ route('shop.cat', "tableware") }}">
             <img src="https://smoootstudio.com/pic/prempracha/pic/cat2.jpg" alt="" />
-            <div class="centered">Tableware</div>
           </a>
+          <div class="centered">Tableware</div>
           </div>
           <div class="SCat">
             <a href="{{ route('shop.cat', "Cup & Mug") }}">
