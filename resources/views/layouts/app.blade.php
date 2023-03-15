@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
     <!-- Scripts -->
-    @vite(['resources/css/style3.css','resources/css/app.css',
-    'resources/js/app.js'
+    @vite([
+        'resources/css/reset.css',
+        'resources/css/style3.css',
+        'resources/css/app.css',
+        'resources/js/app.js'
     ])
 
     {{-- @vite([ 'resources/js/app.js']) --}}

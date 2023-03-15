@@ -13,6 +13,10 @@ body {
   background: #32322f;
 }
 
+a {
+  /* display: inline-block; */
+}
+
 ้h1,
 h2,
 h3,

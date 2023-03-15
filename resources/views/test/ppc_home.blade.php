@@ -182,9 +182,6 @@
       </div>
       <div class="bottom"></div>
 
-      <img src="/PPC-3_1.jpg" alt="">
-      <img src="{{ asset('storage/banner/PPC-3_1.jpg') }}" alt="">
-
       <div class="footspace"></div>
     </x-app-layout>
 
