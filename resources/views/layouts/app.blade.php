@@ -12,7 +12,13 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
-
+    @vite([
+        'resources/css/reset.css',
+        'resources/css/app.css',
+        'resources/js/app.js',
+        'resources/css/style3.css'
+        ])
+        
     <!-- Scripts -->
     <style>
         [x-cloak] {
@@ -33,13 +39,7 @@
         -moz-appearance: textfield;
         }
 
-        
-        @vite([
-            'resources/css/reset.css',
-            'resources/css/app.css',
-            'resources/js/app.js',
-            'resources/css/style3.css'
-            ])
+
 
     </style>
 
