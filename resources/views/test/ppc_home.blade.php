@@ -6,7 +6,6 @@
   </head>
 
   <x-app-layout>
-  <body>
     <main>
 
   <!-- portfolio-area -->
@@ -34,7 +33,7 @@
             
           {{-- </div> --}}
       </div>
-      
+
       <div class="mainHL">
         <h4 class="deco">Highlight</h4>
 {{-- Highlight slider --}}
@@ -133,7 +132,7 @@
 
 
 <!-- Initialize Swiper -->
-<script>
+  <script>
   var swiper = new Swiper(".mySwiper", {
     pagination: {
       el: ".swiper-pagination",
@@ -141,5 +140,4 @@
   });
   </script>      
 
-</body>
 </x-app-layout>

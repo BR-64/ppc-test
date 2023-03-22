@@ -8,7 +8,7 @@
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>test2 Prempracha Online Store </title>
+    <title>test3 Prempracha Online Store </title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
@@ -18,7 +18,7 @@
         'resources/js/app.js',
         'resources/css/style3.css'
         ])
-        
+
     <!-- Scripts -->
     <style>
         [x-cloak] {
