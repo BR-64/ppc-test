@@ -501,7 +501,7 @@ header {
   z-index: 1;
 }
 
-.SCat .centered {
+.centered {
   position: relative;
   z-index: 100;
   top: -80%;

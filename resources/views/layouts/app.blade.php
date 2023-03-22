@@ -39,8 +39,6 @@
         -moz-appearance: textfield;
         }
 
-
-
     </style>
 
 
