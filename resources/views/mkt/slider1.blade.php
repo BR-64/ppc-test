@@ -1,5 +1,4 @@
 
-<body>
     @php
     $mktSliders = App\Models\Portfolio::query()
         ->where('type', '=', 'main_banner')
@@ -33,5 +32,4 @@
     });
   </script> --}}
 
-</body>
 

@@ -6,7 +6,6 @@
 </head>
 
 
-<body>
     @php
     $mktSliders = App\Models\Portfolio::query()
         // ->where('type', '=', 'main_banner')
@@ -26,8 +25,4 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
-
-
-
-</body>
 
