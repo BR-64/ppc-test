@@ -8,13 +8,17 @@
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>Prempracha Online Store test2</title>
+    <title>test2 Prempracha Online Store </title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
 
     <!-- Scripts -->
     <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
          @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap');
 
         /* Chrome, Safari, Edge, Opera */
@@ -29,17 +33,15 @@
         -moz-appearance: textfield;
         }
 
-        [x-cloak] {
-            display: none !important;
-        }
+        
+        @vite([
+            'resources/css/reset.css',
+            'resources/css/app.css',
+            'resources/js/app.js'
+            'resources/css/style3.css',
+            ])
+
     </style>
-    
-    @vite([
-        'resources/css/reset.css',
-        'resources/css/style3.css',
-        'resources/css/app.css',
-        'resources/js/app.js'
-    ])
 
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
