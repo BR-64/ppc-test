@@ -37,8 +37,8 @@
         @vite([
             'resources/css/reset.css',
             'resources/css/app.css',
-            'resources/js/app.js'
-            'resources/css/style3.css',
+            'resources/js/app.js',
+            'resources/css/style3.css'
             ])
 
     </style>
