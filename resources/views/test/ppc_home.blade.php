@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php
-/** @var \Illuminate\Database\Eloquent\Collection $products */
-?>
+
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Prempracha Online Store test2</title>
-
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap');
-    </style>
-
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
   </head>
 
+  <x-app-layout>
   <body>
-    <x-app-layout>
     <main>
 
   <!-- portfolio-area -->
@@ -115,45 +101,44 @@
       <div class="bottom"></div>
 
       <div class="footspace"></div>
-    </x-app-layout>
-
-
-    
+      
+      
+      
     </main>
     <footer>
-    <table class="footercontent"  border="0" cellspacing="0" cellpadding="0">
-      <tbody>
-        <tr>
-          <td height="140" align="center" bgcolor="#b2b2b2" class="linkGray">
-           <br>
-           <h2 style="font-size: 17px;">Prempracha’s Collection</h2>
-            224 M.3, Chiang mai-Sankampang Rd., T.Tonpao, A.Sankampang Chiang mai, 
-            50130 Thailand<br />
-          </br>
+      <table class="footercontent"  border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td height="140" align="center" bgcolor="#b2b2b2" class="linkGray">
+              <br>
+              <h2 style="font-size: 17px;">Prempracha’s Collection</h2>
+              224 M.3, Chiang mai-Sankampang Rd., T.Tonpao, A.Sankampang Chiang mai, 
+              50130 Thailand<br />
+            </br>
             Tel.: 66 5333 8540, 66 5333 8857
-        </br> Email: <a href="mailto:info@prempracha.com">info@prempracha.com</a>
-      </br></br>Operating Hour: 8:30 - 17:30 hrs, 
-    </br>Monday - Saturday<br>
-            <div class="footericon">
+          </br> Email: <a href="mailto:info@prempracha.com">info@prempracha.com</a>
+        </br></br>Operating Hour: 8:30 - 17:30 hrs, 
+      </br>Monday - Saturday<br>
+      <div class="footericon">
+        
+        <a class="icon" href="https://www.facebook.com/premprachaco/" target="_blank"><img src="https://smoootstudio.com/pic/prempracha/pic/icon_fb.png" width="32" height="32" alt="Facebook"/></a> 
+        
+        <a class="icon" href="https://www.instagram.com/premprachaco/" target="_blank"><img src="https://smoootstudio.com/pic/prempracha/pic/icon_ig.png" width="32" height="32" alt="instagram"/></a><br></td>
+      </div>
+    </tr>
+  </tbody>
+</table>
+</footer>
 
-              <a class="icon" href="https://www.facebook.com/premprachaco/" target="_blank"><img src="https://smoootstudio.com/pic/prempracha/pic/icon_fb.png" width="32" height="32" alt="Facebook"/></a> 
-              
-              <a class="icon" href="https://www.instagram.com/premprachaco/" target="_blank"><img src="https://smoootstudio.com/pic/prempracha/pic/icon_ig.png" width="32" height="32" alt="instagram"/></a><br></td>
-            </div>
-            </tr>
-      </tbody>
-    </table>
-  </footer>
 
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    pagination: {
+      el: ".swiper-pagination",
+    },
+  });
+  </script>      
 
-    <!-- Initialize Swiper -->
-    <script>
-      var swiper = new Swiper(".mySwiper", {
-        pagination: {
-          el: ".swiper-pagination",
-        },
-      });
-    </script>      
-
-  </body>
-</html>
+</body>
+</x-app-layout>

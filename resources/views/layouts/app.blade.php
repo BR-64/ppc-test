@@ -6,13 +6,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
 
-    <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title>
+    {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
+
+    <title>Prempracha Online Store test2</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
 
     <!-- Scripts -->
     <style>
+         @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap');
+
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
