@@ -1045,3 +1045,71 @@ swiper-pagination {
   align-items: start;
   padding: 3px;
 }
+
+/* ------------------------------swiper */
+
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 10%;
+  object-fit: cover;
+}
+
+swiper-container {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper {
+  height: 55px;
+  /* width: 80%; */
+  width: 363px;
+  margin-top: 5px;
+}
+
+.mySwiper2 {
+  width: 363px;
+
+  height: 250px;
+  /* box-sizing: content-box; */
+  /* padding: 10px 0; */
+}
+
+.mySwiper2 swiper-slide {
+  width: 25%;
+  height: 10%;
+  opacity: 0.4;
+}
+
+.mySwiper2 .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+swiper-slide img {
+  display: block;
+  width: 10%;
+  height: 10%;
+  object-fit: cover;
+}

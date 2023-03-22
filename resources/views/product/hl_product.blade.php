@@ -1,4 +1,3 @@
-
 <div class="mainHL swiper mySwiper">
     <div class="swiper-wrapper">
             <div class="gridHLmain swiper-slide">
@@ -58,7 +57,7 @@
             @endforeach
         </div>
 
-        <div class="swiper-pagination"></div>
     </div>
+    <div class="swiper-pagination"></div>
 
 </div>
