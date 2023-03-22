@@ -38,9 +38,8 @@
         <h4 class="deco">Highlight</h4>
 {{-- Highlight slider --}}
           @include('product.hl_product')
-
-
       </div>
+      
       <div class="newproducts">
         <h4 class="deco">New Products</h4>
         <div class="gridNewProduct">
