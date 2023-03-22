@@ -7,28 +7,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {{-- <link rel="stylesheet" href="public/css/style3.css" /> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/style3.css') }}" > --}}
-
-    {{-- @vite(['resources/css/style3.css', 'resources/js/app.js']) --}}
-
 
     <title>Prempracha Online Store test2</title>
 
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap');
     </style>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
   </head>
+
   <body>
     <x-app-layout>
-
-    {{-- <header>
-      <div class="header">
-        <a href="index.html">
-          <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/prempralogo.png" alt="" />
-        </a>
-      </div>
-    </header> --}}
     <main>
 
   <!-- portfolio-area -->
@@ -53,15 +45,13 @@
           </p> --}}
           {{-- <div class="prem_banner"> --}}
             @include('mkt.prem_slider')
-
-            {{-- <img class="prem_banner" src="https://smoootstudio.com/pic/prempracha/pic/S__48660498.jpg" alt="" /> --}}
             
           {{-- </div> --}}
       </div>
       <div class="mainHL">
         <h4 class="deco">Highlight</h4>
 {{-- Highlight slider --}}
-@include('product.hl_product')
+  @include('product.hl_product')
 
 
       </div>
@@ -154,6 +144,16 @@
       </tbody>
     </table>
   </footer>
+
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        pagination: {
+          el: ".swiper-pagination",
+        },
+      });
+    </script>      
 
   </body>
 </html>

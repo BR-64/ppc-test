@@ -1,9 +1,3 @@
-<head>
-  <!-- Link Swiper's CSS -->
-  {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
-
-  <!-- Demo styles -->
-</head>
 
 <body>
     @php
@@ -26,5 +20,18 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
+
+      <!-- Swiper JS -->
+    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script> --}}
+
 </body>
 

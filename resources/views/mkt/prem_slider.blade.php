@@ -5,16 +5,6 @@
   <!-- Demo styles -->
 </head>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-<!-- Initialize Swiper -->
-<script>
-  var swiper = new Swiper(".mySwiper", {
-    pagination: {
-      el: ".swiper-pagination",
-    },
-  });
-</script>
 
 <body>
     @php
@@ -37,7 +27,7 @@
         </div>
     </div>
 
-  <!-- Swiper JS -->
+
 
 </body>
 
