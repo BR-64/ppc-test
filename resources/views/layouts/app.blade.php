@@ -10,7 +10,26 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
+
     <!-- Scripts -->
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+    
     @vite([
         'resources/css/reset.css',
         'resources/css/style3.css',
@@ -18,18 +37,26 @@
         'resources/js/app.js'
     ])
 
-    {{-- @vite([ 'resources/js/app.js']) --}}
-    {{-- <style>
-        [x-cloak] {
-            display: none !important;
-        }
-    </style> --}}
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://kit.fontawesome.com/071439a03d.js" crossorigin="anonymous"></script>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>
 
     @livewireStyles
 
 </head>
+
 <body>
 @include('layouts.navigation')
 
@@ -44,7 +71,7 @@
     x-transition
     x-cloak
     @notify.window="show($event.detail.message)"
-    class="fixed w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 bg-emerald-500 text-white"
+    class="front fixed w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 bg-emerald-500 text-white"
 >
     <div class="font-semibold" x-text="message"></div>
     <button

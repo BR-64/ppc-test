@@ -9,7 +9,7 @@
     class="flex justify-space-between prembg shadow-md "
 >
 <div >
-<a href="{{ route('test') }}" class="block p-4"> 
+<a href="{{ route('test') }}" class="block p-2"> 
     <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/ppclogo.png" alt=""> 
 </a>
 </div>

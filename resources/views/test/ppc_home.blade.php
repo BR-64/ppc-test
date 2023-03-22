@@ -44,18 +44,19 @@
         <a href="{{ route('homeprem')}}">
           <img class="logo" src="https://smoootstudio.com/pic/prempracha/pic/premlg1.png" alt="" />
         </a>
-        <h4>Prem ceramic</h4>
-        <p >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur
-          magnam qui porro similique doloremque, quia illum harum id velit
-          totam? Tempora perferendis unde doloribus corporis itaque nemo sed,
-          dolorem aspernatur.
-        </p>
-        <div class="gridgall">
-          <img class="fg1" src="https://smoootstudio.com/pic/prempracha/pic/test9.jpg" alt="" />
-          <img class="fg2" src="https://smoootstudio.com/pic/prempracha/pic/test9.jpg" alt="" />
-          <img class="fg3" src="https://smoootstudio.com/pic/prempracha/pic/test1.jpg" alt="" />
-        </div>
+          {{-- <h4>Prem ceramic</h4> --}}
+          {{-- <p >
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur
+            magnam qui porro similique doloremque, quia illum harum id velit
+            totam? Tempora perferendis unde doloribus corporis itaque nemo sed,
+            dolorem aspernatur.
+          </p> --}}
+          {{-- <div class="prem_banner"> --}}
+            @include('mkt.prem_slider')
+
+            {{-- <img class="prem_banner" src="https://smoootstudio.com/pic/prempracha/pic/S__48660498.jpg" alt="" /> --}}
+            
+          {{-- </div> --}}
       </div>
       <div class="mainHL">
         <h4 class="deco">Highlight</h4>
@@ -79,14 +80,14 @@
                   'cat'=>$newproduct->pcategory_id,
                   'addToCartUrl' => route('cart.add', $newproduct)
               ]) }})"
-              class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
+              class=""
           >
               <a href="{{ route('product.view', $newproduct->item_code) }}"
                  class="aspect-w-3 aspect-h-2 block overflow-hidden">
                   <img
                       src="{{ $newproduct->image }}"
                       alt="{{ $newproduct->item_code }}"
-                      class="NPpic"
+                      class="NPpic border border-1 border-gray-200 rounded-sm bg-white "
                   />
               </a>
           </div>

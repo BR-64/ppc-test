@@ -44,6 +44,10 @@ h5 {
   margin: 0 5px;
 }
 
+.front {
+  z-index: 100;
+}
+
 .pagehead {
   padding: 40px;
   text-align: center;
@@ -233,13 +237,22 @@ header {
 
 /* ------------------------------------ section */
 .banner {
-  height: 90vh;
+  height: 80vh;
   width: 100vw;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   background-size: cover;
   background-position: center;
   object-fit: contain;
+}
+
+.prem_banner {
+  height: 60vh;
+  width: 90vw;
+  margin: auto;
+  margin-bottom: 10px;
+  max-width: 350px;
+  max-height: 500px;
 }
 
 /* --------------------------------- PremColl */
@@ -298,7 +311,7 @@ header {
   text-align: center;
   color: white;
   width: 370px;
-  height: 100%;
+  /* height: 100%; */
   box-sizing: border-box;
   /* border: 1px solid yellow; */
   margin: auto;
@@ -441,12 +454,12 @@ header {
   color: black;
   background-color: #32322f;
 
-  width: 390px;
+  width: 90%;
   box-sizing: border-box;
   /* border: 1px solid yellow; */
   margin: auto;
   padding: 10px 0px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .shopcat h4 {
@@ -545,7 +558,7 @@ header {
 .pgallpic {
   /* width: 363px; */
   height: 250px;
-  padding: 1%;
+  padding: 1% 0;
   margin: auto;
 }
 
@@ -696,6 +709,15 @@ tr {
   height: 30px;
 }
 
+.piccart {
+  min-width: 100px;
+}
+
+.binicon {
+  margin-top: 10px;
+  color: red;
+}
+
 .addtocart {
   justify-self: end;
   align-self: center;
@@ -839,11 +861,56 @@ tr {
 
 .qtyinput {
   color: black;
-  margin: 15px;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#qty {
+  text-align: center;
+}
+
+#qty_sm {
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  padding: 0;
 }
 
 .qtyinputbox {
-  width: 100px;
+  width: 45px;
+  padding: 0;
+}
+
+.qtycart {
+  width: 45px;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.incre {
+  color: #cda577;
+  margin: 0px 10px;
+  font-size: 36px;
+}
+
+.decre {
+  color: #cda577;
+  margin: 0px 15px;
+  font-size: 36px;
+}
+
+.incre_sm {
+  color: #cda577;
+  margin: 0px 5px;
+  font-size: 20px;
+}
+
+.decre_sm {
+  color: #cda577;
+  margin: 0px 15px;
+  font-size: 24px;
 }
 
 .footericon {
@@ -956,4 +1023,25 @@ tr {
 
 swiper-pagination {
   margin-top: 200px;
+}
+
+/* cart */
+.piccol {
+  width: 100%;
+  border-style: solid;
+  max-width: 200px;
+}
+
+.prodcol {
+  width: 100%;
+  border-style: solid;
+  align-items: start;
+  padding: 3px;
+}
+
+.calcol {
+  width: 100%;
+  border-style: solid;
+  align-items: start;
+  padding: 3px;
 }

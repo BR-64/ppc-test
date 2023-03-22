@@ -42,8 +42,10 @@
     }
 
     .mySwiper2 {
+      width: 363px;
+
       height: 250px;
-      box-sizing: content-box;
+      /* box-sizing: content-box; */
       /* padding: 10px 0; */
 
     }

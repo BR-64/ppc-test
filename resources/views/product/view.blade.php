@@ -36,59 +36,81 @@
 
         <div class="centercontainer">
             <h3 class="pprice">THB {{number_format($product->retail_price)}}</h3>
-            <div class="pdetails2">
-            <table>
-                <tr>
-                <td><h5>code</h5></td>
-                <td><p>{{$product->item_code}}</p></td>
-                </tr>
-                <tr>
-                <td><h5>type</h5></td>
-                <td><p>{{$product->type}}</p></td>
-                </tr>
-                <tr>
-                <td><h5>color</h5></td>
-                <td><p>{{$product->color}}</p></td>
-                </tr>
-                <tr>
-                <td><h5>finish</h5></td>
-                <td><p>{{$product->finish}}</p></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                <td><h5>collection</h5></td>
-                <td><p>{{$product->collection}}</p></td>
-                </tr>
-                <tr>
-                <td><h5>dimension </br>W-L-H (cm)</h5></td>
-                <td><p>{{$product->wlh}}</p></td>
-                </tr>
-            </table>
-            <table class="descript">
-                <tr>
-                <td><h5>description</h5></td>
-                </tr>
-                <tr>
-                <td>
-                    <p class="description">
-                        {{$product->product_description}}
-                    </p>
-                </td>
-                </tr>
-            </table>
+            <div class="pdetails2" >
+                <table>
+                    <tr>
+                    <td><h5>code</h5></td>
+                    <td><p>{{$product->item_code}}</p></td>
+                    </tr>
+                    <tr>
+                    <td><h5>type</h5></td>
+                    <td>
+                        <a href="/shop/f?filter%5Btype%5D={{$product->type}}" >
+                            <p>{{$product->type}}</p>
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td><h5>color</h5></td>
+                    <td>
+                        <a href="/shop/f?filter%5Bcolor%5D={{$product->color}}">
+                            <p>{{$product->color}}</p>
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td><h5>finish</h5></td>
+                    <td>
+                        <a href="/shop/f?filter%5Bfinish%5D={{$product->finish}}">
+                            <p>{{$product->finish}}</p>
+                        </a>
+                    </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                    <td><h5>collection</h5></td>
+                    <td>
+                        <a href="/shop/f?filter%5Bcollection%5D={{$product->collection}}">
+                            <p>{{$product->collection}}</p>
+                        </a>
+                    </td>                    
+                    </tr>
+                    <tr>
+                    <td><h5>W-L-H (cm)</h5></td>
+                    <td><p>{{$product->wlh}}</p></td>
+                    </tr>
+                </table>
+                <table class="descript">
+                    <tr>
+                    <td><h5>description</h5></td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <p class="description">
+                            {{$product->product_description}}
+                        </p>
+                    </td>
+                    </tr>
+                </table>
                 <div class="stock">
                 <p>Stock : xx</p>
                 </div>
-                <div class="qtyinput">
-                    
+                <div class="qtyinput">  
+                    <div class="decre">
+                        <button onclick="decrenum()">-</button>
+                    </div>  
                     <input
+                    id='qty'
                     type="number"
                     name="quantity"
                     x-ref="quantityEl"
                     value="1"
-                min="1"
-                class="qtyinputbox focus:border-purple-500 focus:outline-none rounded"/>        
+                    min="1"
+                class="qtyinputbox focus:outline-none rounded"/>       
+                    <div class="incre">
+                        <button  onclick="increnum()">+</button>
+                    </div>
                 </div>
                 <div class="additem3">
                     <div x-show="{{$product->pre_order}} == 0">
@@ -116,5 +138,15 @@
         </div>
 
     </div>
+
+    <script>
+        var i = 1;
+        function increnum() {
+            document.getElementById('qty').value = ++i;
+        }
+        function decrenum() {
+            document.getElementById('qty').value = --i;
+        }
+    </script>
     
 </x-app-layout>
