@@ -37,7 +37,7 @@
       <div class="mainHL">
         <h4 class="deco">Highlight</h4>
 {{-- Highlight slider --}}
-          @include('product.hl_product')
+          {{-- @include('product.hl_product') --}}
       </div>
 
       <div class="newproducts">
