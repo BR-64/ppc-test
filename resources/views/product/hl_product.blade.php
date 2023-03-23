@@ -1,4 +1,15 @@
-<div class="mainHL swiper mySwiper">
+<style>
+.mySwiper_hl{
+  height: 500px;
+  width: 100%;
+  height: 30vh;
+  /* width: 363px; */
+  margin-top: 5px;
+  }
+
+</style>
+
+<div class="swiper mySwiper_hl">
     <div class="swiper-wrapper">
             <div class="gridHLmain swiper-slide">
                 @foreach($hlproducts as $key => $hlproduct)
@@ -61,3 +72,11 @@
     <div class="swiper-pagination"></div>
 
 </div>
+
+<script>
+    var swiper = new Swiper(".mySwiper_hl", {
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>

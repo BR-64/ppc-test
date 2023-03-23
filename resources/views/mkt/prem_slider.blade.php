@@ -13,9 +13,13 @@
         ->latest()->get();
     @endphp
 
+<style>
+
+</style>
+
   <!-- Swiper -->
   <div class="prem_banner">
-      <div class="swiper mySwiper">
+      <div class="swiper mySwiper_prem">
           <div class="swiper-wrapper">
               @foreach($mktSliders as $slide)
               <div class="swiper-slide"><img src="{{$slide->portfolio_image}}" alt=""></div>
@@ -24,5 +28,13 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-    </div>
+  </div>
+
+  <script>
+    var swiper = new Swiper(".mySwiper_prem", {
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>
 
