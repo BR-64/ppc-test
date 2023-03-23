@@ -8,7 +8,7 @@
       @endphp
   
   <!-- Swiper -->
-        <div class="premcol_cover swiper mySwiper">
+        <div class="premcol_cover swiper mySwiper_prem">
             <div class="swiper-wrapper">
                 @foreach($mktSliders as $slide)
                 <div class="swiper-slide"><img src="{{$slide->portfolio_image}}" alt=""></div>
@@ -23,7 +23,7 @@
 
   <!-- Initialize Swiper -->
   <script>
-    var swiper = new Swiper(".mySwiper", {
+    var swiper = new Swiper(".mySwiper_prem", {
       pagination: {
         el: ".swiper-pagination",
       },
