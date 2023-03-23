@@ -38,6 +38,10 @@ h5 {
   margin: 10px;
 }
 
+.nomar {
+  margin: 0;
+}
+
 .deco::before,
 .deco::after {
   content: url(../pic/rec.png);
@@ -714,7 +718,8 @@ tr {
 }
 
 .binicon {
-  margin-top: 10px;
+  margin: auto;
+  margin-top: 15px;
   color: red;
 }
 
@@ -1027,23 +1032,26 @@ swiper-pagination {
 
 /* cart */
 .piccol {
-  width: 100%;
+  width: 30vw;
   border-style: solid;
   max-width: 200px;
 }
 
 .prodcol {
-  width: 100%;
+  width: 20vw;
   border-style: solid;
   align-items: start;
   padding: 3px;
+  min-width: 120px;
 }
 
 .calcol {
-  width: 100%;
+  width: 20vw;
   border-style: solid;
   align-items: start;
   padding: 3px;
+  min-width: 100px;
+  margin-left: 15px;
 }
 
 /* ------------------------------swiper */

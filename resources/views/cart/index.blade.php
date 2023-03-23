@@ -35,39 +35,39 @@
                             <div x-data="productItem(product)">
                                 <div
                                     class=" w-full flex flex-row items-top gap-4 flex-1">
-                                    <a :href="product.href"
-                                    class=" flex items-top justify-center overflow-hidden">
-                                        <img :src="product.image" class=" piccol object-cover" alt=""/>
-                                    </a>
+                                    <div class="piccol">
+                                        <a :href="product.href"
+                                        class=" flex items-top justify-center overflow-hidden">
+                                            <img :src="product.image" class=" piccol object-cover" alt=""/>
+                                        </a>
+                                    </div>
                                     <div class="flex flex-col justify-between flex-1">
                                         <div class="flex justify-between mb-3">
                                             <div class="prodcol">
 
                                                 <div class="text-sm">
-                                                    <h3 x-text="product.title"></h3>
-                                                    <p x-text="product.dimension"></p>
+                                                    <h3 class="nomar" x-text="product.title"></h3>
+                                                    <p class="nomar"x-text="product.dimension"></p>
                                                 </div>
                                             </div>
                                             <div class="calcol flex flex-col justify-between items-end">
-                                            <span class="text-sm font-semibold">
-                                                THB <span x-text="product.price"></span>
-                                            </span>
-                                            <div class="flex items-center">
-                                                <p class="text-sm">Qty:</p>
-                                                <input
-                                                    type="number"
-                                                    min="1"
-                                                    x-model="product.quantity"
-                                                    @change="changeQuantity()"
-                                                    class="qtycart  border-gray-200" 
-                                                />
-                                            </div>
-                                            <a
-                                            href="#"
-                                            @click.prevent="removeItemFromCart()"
-                                            class="binicon"
-                                        ><i class="fa-solid fa-trash"></i></a
-                                        >
+                                                <div class="text-sm font-semibold items-end">
+                                                    THB 
+                                                    <span x-text="product.price">
+                                                    </span>
+                                                    </div>
+                                                <div class="flex items-center">
+                                                    <p class="text-sm nomar">Qty:</p>
+                                                    <input
+                                                        type="number"
+                                                        min="1"
+                                                        x-model="product.quantity"
+                                                        @change="changeQuantity()"
+                                                        class="qtycart  border-gray-200" 
+                                                    />
+                                                </div>
+                                                    <i class="fa-solid fa-trash binicon" 
+                                                    @click.prevent="removeItemFromCart()"></i>
                                                 {{-- <div class="qtyinput">  
                                                     <div class="incre_sm">
                                                         <button onclick="decrenum()"><i class="fa-regular fa-square-minus"></i></button>
@@ -110,40 +110,39 @@
                             <div x-data="productItem(product)">
                                 <div
                                     class=" w-full flex flex-row items-top gap-4 flex-1">
-                                    <a :href="product.href"
-                                    class=" flex items-top justify-center overflow-hidden">
-                                        <img :src="product.image" class=" piccol object-cover" alt=""/>
-                                    </a>
+                                    <div class="piccol">
+                                        <a :href="product.href"
+                                        class=" flex items-top justify-center overflow-hidden">
+                                            <img :src="product.image" class=" piccol object-cover" alt=""/>
+                                        </a>
+                                    </div>
                                     <div class="flex flex-col justify-between flex-1">
                                         <div class="flex justify-between mb-3">
                                             <div class="prodcol">
 
                                                 <div class="text-sm">
-                                                    <h3 x-text="product.title"></h3>
-                                                    <p x-text="product.dimension"></p>
+                                                    <h3 class="nomar" x-text="product.title"></h3>
+                                                    <p class="nomar"x-text="product.dimension"></p>
                                                 </div>
                                             </div>
                                             <div class="calcol flex flex-col justify-between items-end">
-                                            <span class="text-sm font-semibold">
-                                                THB <span x-text="product.price"></span>
-                                            </span>
-                                            <div class="flex items-center">
-                                                <p class="text-sm">Qty:</p>
-                                                <input
-                                                    type="number"
-                                                    min="1"
-                                                    x-model="product.quantity"
-                                                    @change="changeQuantity()"
-                                                    class="qtycart  border-gray-200" 
-                                                />
-                                            </div>
-                                            <a
-                                            href="#"
-                                            @click.prevent="removeItemFromCart()"
-                                            class="binicon "
-                                        ><i class="fa-solid fa-trash"></i></a
-                                        >
-                                            </div>
+                                                <div class="text-sm font-semibold items-end">
+                                                    THB 
+                                                    <span x-text="product.price">
+                                                    </span>
+                                                    </div>
+                                                <div class="flex items-center">
+                                                    <p class="text-sm nomar">Qty:</p>
+                                                    <input
+                                                        type="number"
+                                                        min="1"
+                                                        x-model="product.quantity"
+                                                        @change="changeQuantity()"
+                                                        class="qtycart  border-gray-200" 
+                                                    />
+                                                </div>
+                                                <i class="fa-solid fa-trash binicon" 
+                                                @click.prevent="removeItemFromCart()"></i>
                                                 
                                         </div>
                                     </div>
