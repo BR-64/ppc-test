@@ -8,7 +8,7 @@
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>test5 Prempracha Online Store </title>
+    <title>test6 Prempracha Online Store </title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 

@@ -174,6 +174,29 @@
                             </button>
 
                         </form>
+{{-- 
+                        <form method="POST" action="/checkout">
+                            <script type="text/javascript"
+                            src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+                            data-apikey="pkey_test_20923L43S4RABbtwVoMIzsopFCYzyZnyMwFsn"
+                            data-amount="1.00"
+                            data-payment-methods="card"
+                            data-name="Your Shop Name"
+                            data-mid="451320492949001">
+                            </script>
+                            <button> K chekout</button>
+                        </form> --}}
+
+                        <form method="POST" action="/checkout">
+                            <script type="text/javascript"
+                                src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+                                data-apikey="pkey_prod_75677dushd74774gdgdgd77d7dhsgfhfghfhgdh"
+                                data-amount="13.00"
+                                data-payment-methods="qr"
+                                data-order-id="${order_id}">
+                            </script>
+                            <button>k qr</button>
+                            </form>
 
                         <br>
                         <form action="{{route('cart.quotation')}}" method="post">
