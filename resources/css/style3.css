@@ -369,12 +369,14 @@ header {
 .gridHLmain {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: auto;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 30px;
+  /* margin: auto; */
   /* height: 20 vh; */
   height: 280px;
-  row-gap: 0px;
+  width: 370px;
   margin-bottom: 30px;
+  /* margin: 30px; */
 }
 
 .gridHL {
@@ -386,8 +388,9 @@ header {
 }
 
 .HLpic {
-  max-width: 180px;
-  min-height: 114px;
+  max-width: 190px;
+  max-height: 114px;
+  object-fit: cover;
   margin: auto;
 }
 
@@ -405,8 +408,8 @@ header {
   width: 370px;
   height: 204px;
   box-sizing: border-box;
-  /* border: 1px solid yellow; */
   margin: auto;
+  margin-top: 60px;
   margin-bottom: 60px;
 }
 
@@ -1017,7 +1020,7 @@ tr {
 }
 
 .swiper-slide img {
-  display: block;
+  /* display: block; */
   /* width: 100%;
   height: 100%; */
   object-fit: cover;
@@ -1072,7 +1075,7 @@ swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   height: 55px;
