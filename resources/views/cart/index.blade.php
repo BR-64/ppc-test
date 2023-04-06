@@ -190,13 +190,26 @@
                         <form method="POST" action="/checkout">
                             <script type="text/javascript"
                                 src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
-                                data-apikey="pkey_prod_75677dushd74774gdgdgd77d7dhsgfhfghfhgdh"
-                                data-amount="13.00"
+                                data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
+                                data-amount="1450.00"
                                 data-payment-methods="qr"
-                                data-order-id="${order_id}">
+                                data-order-id="1234">
                             </script>
                             <button>k qr</button>
                             </form>
+
+                            {{-- <form method="POST" action="checkout/success">
+                                <script type="text/javascript"
+                                    src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+                                    data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
+                                    data-amount="174.00"
+                                    data-currency="THB"
+                                    data-payment-methods="card"
+                                    data-name="test prempracha"
+                                    data-mid="451320492949001">
+                                </script>
+                                <button>test</button>
+                                </form> --}}
 
                         <br>
                         <form action="{{route('cart.quotation')}}" method="post">
