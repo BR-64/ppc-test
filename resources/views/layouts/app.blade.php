@@ -42,7 +42,6 @@
 
     </style>
 
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://kit.fontawesome.com/071439a03d.js" crossorigin="anonymous"></script>
 
@@ -55,9 +54,6 @@
 <body>
 @include('layouts.navigation')
 
-<div>
-
-</div>
     <main >
         {{ $slot }}
     </main>

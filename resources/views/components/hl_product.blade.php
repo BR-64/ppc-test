@@ -15,10 +15,10 @@
                             class="HLpic"
                             />
                         </a>
-                </div>
+                    </div>
                         @endif
                     @endforeach
-            </div>
+                </div>
                 <div class="gridHLmain ">
                     @foreach($hlproducts as $key => $hlproduct)
                         @if($key>=4 && $key <8)
@@ -52,12 +52,13 @@
                     @endforeach
             </div>
 
-            <div class="gridHLmain swiper-slide"></div>
+        <div class="gridHLmain swiper-slide"></div>
 
         <div class="gridHLmain swiper-slide"></div>
         <div class="gridHLmain swiper-slide"></div>
     </div>
     <div class="swiper-pagination"></div>
+    </div>
 </div>
 
 <script>

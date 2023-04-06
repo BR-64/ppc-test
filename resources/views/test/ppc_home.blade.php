@@ -35,7 +35,6 @@
 
       <div class="footspace"></div>
       
-      <div>
       <footer>
         <table class="footercontent"  border="0" cellspacing="0" cellpadding="0">
           <tbody>
@@ -60,7 +59,6 @@
       </tbody>
     </table>
   </footer>
-</div>
 
 
 
