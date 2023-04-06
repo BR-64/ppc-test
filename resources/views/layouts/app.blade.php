@@ -104,7 +104,7 @@
 @include('layouts.footer')
 
 <!--/ Toast -->
-    @livewireScripts
+@livewireScripts
 
 </body>
 </html>
