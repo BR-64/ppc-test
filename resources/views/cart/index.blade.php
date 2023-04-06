@@ -191,9 +191,9 @@
                             <script type="text/javascript"
                                 src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
                                 data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
-                                data-amount="1450.00"
+                                data-amount="145.00"
                                 data-payment-methods="qr"
-                                data-order-id="1234">
+                                data-order-id="order1234">
                             </script>
                             <button>k qr</button>
                             </form>
