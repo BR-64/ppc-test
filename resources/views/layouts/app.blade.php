@@ -106,5 +106,8 @@
 <!--/ Toast -->
 @livewireScripts
 
+
 </body>
+
+
 </html>

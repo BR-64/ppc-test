@@ -168,7 +168,7 @@ p {
 /* --------------------------------------------------- */
 
 main {
-  display: block;
+  /* display: block; */
   background: #32322f;
   justify-content: center;
 }
@@ -181,11 +181,14 @@ footer {
   width: 100%;
   color: black;
   font-size: 1rem;
+  align-items: center;
+  /* width: 100vw; */
 }
 
 .footercontent {
   margin: auto;
-  width: 390px;
+  /* width: 390px; */
+  color: black;
 }
 
 header {
@@ -442,7 +445,7 @@ header {
   text-align: center;
 
   width: 370px;
-  height: 362px;
+  height: 300px;
   box-sizing: border-box;
   /* border: 1px solid yellow; */
   margin: auto;
