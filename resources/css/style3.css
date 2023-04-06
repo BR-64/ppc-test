@@ -44,8 +44,8 @@ h5 {
 
 .deco::before,
 .deco::after {
-  content: url(../pic/rec.png);
-  margin: 0 5px;
+  /* content: url(../pic/rec.png);
+  margin: 0 5px; */
 }
 
 .front {
@@ -389,6 +389,13 @@ header {
   max-width: 180px;
   min-height: 114px;
   margin: auto;
+}
+
+.SCpic {
+  max-width: 180px;
+  min-height: 114px;
+  margin: auto;
+  object-fit: cover;
 }
 
 /* --------------------------------------------------- */

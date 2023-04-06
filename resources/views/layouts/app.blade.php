@@ -10,14 +10,15 @@
 
     <title>test6 Prempracha Online Store </title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
     @vite([
         'resources/css/reset.css',
         'resources/css/app.css',
         'resources/js/app.js',
         'resources/css/style3.css'
         ])
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
 
     <!-- Scripts -->
     <style>

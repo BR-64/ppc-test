@@ -26,7 +26,7 @@
             </div>
       </div>
       <div class="SCat">
-          <img src="https://smoootstudio.com/pic/prempracha/pic/cat4.jpg" alt="" />
+          <img src="https://smoootstudio.com/pic/prempracha/pic/cat6.jpg" alt="" />
           <div class="centered">
               <a href="{{ route('shop.cat', "figurine") }}">
               Figurine
@@ -42,7 +42,7 @@
           </div>
       </div>
       <div class="SCat">
-          <img src="https://smoootstudio.com/pic/prempracha/pic/cat6.jpg" alt="" />
+          <img src="https://smoootstudio.com/pic/prempracha/pic/cat4.jpg" alt="" />
           <div class="centered">
               <a href="{{ route('shop.cat', "Decorative items") }}">
               Decoratives
