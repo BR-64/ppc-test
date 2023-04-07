@@ -16,9 +16,9 @@
     {{-- <h2 class="pagehead">Shop All</h2> --}}
     <br>
 
-    {{-- @livewire('shop-scroll') --}}
+    @livewire('shop-scroll')
 
-    <div class="pccoll">
+    {{-- <div class="pccoll">
         <div class="gridHL">
     <!-- Product Item -->
           @foreach($products as $product)
@@ -41,8 +41,7 @@
                 </div>
             @endforeach
         </div>
-        {{-- {{$products->links()}} --}}
-      </div>
+    </div> --}}
 
 
     <?php endif; ?>

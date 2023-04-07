@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/lv', ShopScroll::class);
 
-Route::get('/test', [pProductController::class, 'infinit'])->name('product.test');
+Route::get('/infi', [pProductController::class, 'infinit'])->name('product.infini');
 
 Route::get('/bship', [ProfileController::class, 'billshipView'])->name('billship');
 

@@ -174,12 +174,12 @@ class pProductController extends Controller
         $products=pProduct::query()
         ->where('published', '=', 1)
         ->orderBy('updated_at', 'desc')
-        ->paginate(10);
+        ->paginate(20);
 
-        // if($request->ajax()){
-        //         $view=view('data',compact('products'))->render();
-        //     return response()->json(['html'=>$view]);
-        // }
+        if($request->ajax()){
+                $view=view('data',compact('products'))->render();
+            return response()->json(['html'=>$view]);
+        }
 
         return view('product.infinit',compact('products'));
     }
