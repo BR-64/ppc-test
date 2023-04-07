@@ -45,7 +45,7 @@
                     <tr>
                     <td><h5>type</h5></td>
                     <td>
-                        <a href="/shop/f?filter%5Btype%5D={{$product->type}}" >
+                        <a href="/shop/f2?filter%5Btype%5D={{$product->type}}" >
                             <p>{{$product->type}}</p>
                         </a>
                     </td>
@@ -53,7 +53,7 @@
                     <tr>
                     <td><h5>color</h5></td>
                     <td>
-                        <a href="/shop/f?filter%5Bcolor%5D={{$product->color}}">
+                        <a href="/shop/f2?filter%5Bcolor%5D={{$product->color}}">
                             <p>{{$product->color}}</p>
                         </a>
                     </td>
@@ -61,7 +61,7 @@
                     <tr>
                     <td><h5>finish</h5></td>
                     <td>
-                        <a href="/shop/f?filter%5Bfinish%5D={{$product->finish}}">
+                        <a href="/shop/f2?filter%5Bfinish%5D={{$product->finish}}">
                             <p>{{$product->finish}}</p>
                         </a>
                     </td>
@@ -71,7 +71,7 @@
                     <tr>
                     <td><h5>collection</h5></td>
                     <td>
-                        <a href="/shop/f?filter%5Bcollection%5D={{$product->collection}}">
+                        <a href="/shop/f2?filter%5Bcollection%5D={{$product->collection}}">
                             <p>{{$product->collection}}</p>
                         </a>
                     </td>                    
