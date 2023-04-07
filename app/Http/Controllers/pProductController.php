@@ -125,7 +125,7 @@ class pProductController extends Controller
             'filterables'=>$filterables
         ]);
 
-        return view('product.index2',[
+        return view('product.index_fil',[
         // return view('livewire.shop-scroll',[
             'products'=>$products,
             'filterables'=> $filterables,
