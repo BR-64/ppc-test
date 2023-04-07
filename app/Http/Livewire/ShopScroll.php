@@ -8,10 +8,10 @@ use Livewire\Component;
 class ShopScroll extends Component
 {
     public $totalRecords;
-    public $loadAmount =20;
+    public $loadAmount =10;
 
     public function loadMore(){
-        $this->loadAmount += 20;
+        $this->loadAmount += 10;
     }
 
     public function mount(){
@@ -22,7 +22,7 @@ class ShopScroll extends Component
     {
         return view('livewire.shop-scroll')
         ->with(
-            'products',pProduct::orderBy('created_at','asc')
+            'products',pProduct::orderBy('id','desc')
             ->limit($this->loadAmount)->get()
         );
     }
