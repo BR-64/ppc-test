@@ -145,7 +145,7 @@ p {
   display: grid;
   /* grid-template-columns: 1fr 1fr; */
   margin-bottom: 8px;
-  width: 20vw;
+  /* width: 20vw; */
 }
 
 .card2 img {
