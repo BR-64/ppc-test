@@ -168,6 +168,41 @@ class pProductController extends Controller
             'filterables'=>$filterables
         ]);
     }
+    public function qfilter2(){
+        $qproducts = QueryBuilder::for (pProduct::class)
+            // ->allowedFilters(['collection'])
+            ->allowedFilters([
+                AllowedFilter::exact('collection'),
+                AllowedFilter::exact('category'),
+                AllowedFilter::exact('type'),
+                AllowedFilter::exact('brand'),
+                AllowedFilter::exact('color'),
+                AllowedFilter::exact('finish'),
+                ])
+            ->get();
+            // ->paginate(20);
+
+
+        $filterables = [
+            'collection' => pProduct::distinct()->get('collection'),
+            'category' => pProduct::distinct()->get('category'),
+            'type' => pProduct::distinct()->get('type'),
+            'brand' => pProduct::distinct()->get('brand_name'),
+            'color' => pProduct::distinct()->get('color'),
+            'finish' => pProduct::distinct()->get('finish'),
+        ];
+                // dd($qproducts);
+
+        View::share('sharedData', [
+            'products' => $qproducts,
+            'filterables'=>$filterables
+        ]);
+
+        return view('product.index_fil', [
+            'products' => $qproducts,
+            'filterables'=>$filterables
+        ]);
+    }
 
     public function infinit(Request $request){
 

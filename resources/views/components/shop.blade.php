@@ -65,7 +65,7 @@
         @endforeach
         <div>
           {{-- <input type="text" :value="Fil_coll"> --}}
-          <a x-bind:href="'/shop/f'
+          <a x-bind:href="'/shop/f2'
           +'?filter%5Bcollection%5D='+Fil_coll
           +'&filter%5Bcategory%5D='+Fil_cat
           +'&filter%5Btype%5D='+Fil_type
