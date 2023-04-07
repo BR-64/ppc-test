@@ -22,7 +22,7 @@ class ShopScroll extends Component
     {
         return view('livewire.shop-scroll')
         ->with(
-            'products',pProduct::orderBy('created_at','desc')
+            'products',pProduct::orderBy('created_at','asc')
             ->limit($this->loadAmount)->get()
         );
     }
