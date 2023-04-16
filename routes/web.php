@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\pProductController;
 use App\Http\Controllers\pProductController_test;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\testapi;
 use App\Http\Livewire\ShopScroll;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/json', [testapi::class, 'getJSON'])->name('getjson');
 
 Route::get('/lv', ShopScroll::class);
 

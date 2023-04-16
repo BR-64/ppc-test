@@ -167,6 +167,7 @@
                         </p>
 
                         <form action="{{route('cart.checkout')}}" method="post">
+                        {{-- <form action="{{route('getjson')}}" method="post"> --}}
                             @csrf
                             <button type="submit" class="btn-primary w-full py-3 text-lg">
                             {{-- <button type="submit" class="tcolor1 w-full py-3 text-lg"> --}}
@@ -186,7 +187,7 @@
                             </script>
                             <button> K chekout</button>
                         </form> --}}
-
+{{-- 
                         <form method="POST" action="/checkout">
                             <script type="text/javascript"
                                 src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
@@ -196,7 +197,7 @@
                                 data-order-id="order1234">
                             </script>
                             <button>k qr</button>
-                            </form>
+                            </form> --}}
 
                             {{-- <form method="POST" action="checkout/success">
                                 <script type="text/javascript"
@@ -210,6 +211,23 @@
                                 </script>
                                 <button>test</button>
                                 </form> --}}
+
+
+                                <form method="POST" action="{{route('getjson')}}">
+                                    @csrf
+                                    <script type="text/javascript"
+                                        src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+                                        data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
+                                        data-amount="1900.00"
+                                        data-currency="THB"
+                                        data-payment-methods="card"
+                                        data-name="Test shop"
+                                        description="product21"
+                                        reference_order="test124"
+                                        data-mid="451320492949001">
+                                    </script>
+                                        <button>test pay</button>
+                                    </form>
 
                         <br>
                         <form action="{{route('cart.quotation')}}" method="post">
