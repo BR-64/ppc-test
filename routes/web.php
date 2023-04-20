@@ -79,7 +79,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('order.view');
 
-    
+
 
 
 
@@ -91,7 +91,7 @@ Route::post('/quotation', [CheckoutController::class, 'quotation'])->name('cart.
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
 
-Route::post('/', [kCheckoutController::class, 'webhook']);
+// Route::post('/', [kCheckoutController::class, 'webhook']);
 
 
 require __DIR__ . '/auth.php';
