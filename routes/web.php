@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\testapi;
 use App\Http\Livewire\ShopScroll;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\kCheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,8 @@ Route::middleware(['guestOrVerified'])->group(function () {
     Route::get('/collection', [pCollectionController::class, 'index'])->name('product.collection');
     Route::get('/collection/{col?}', [pCollectionController::class, 'view'])->name('product.collection.view');
     Route::get('/prem', [pCollectionController::class, 'prem'])->name('homeprem');
+
+
     
 
     Route::prefix('/cart')->name('cart.')->group(function () {
@@ -76,6 +79,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('order.view');
 
+    
+
+
+
 //  Quotation 
 Route::post('/quotation', [CheckoutController::class, 'quotation'])->name('cart.quotation');
 
@@ -83,5 +90,8 @@ Route::post('/quotation', [CheckoutController::class, 'quotation'])->name('cart.
 });
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
+
+Route::post('/', [kCheckoutController::class, 'webhook']);
+
 
 require __DIR__ . '/auth.php';
