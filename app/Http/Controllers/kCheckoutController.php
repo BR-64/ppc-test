@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class kCheckoutController extends Controller
 {
-    public function webhook(Request $request){
+    public function webhook(){
     
-        $varname = json_decode(file_get_contents('php://input'));
+        // $varname = json_decode(file_get_contents('php://input'));
 
-        echo $varname;
+        // echo $varname;
 
-        // $obj=json_decode($_POST['transaction_state']);
+        $obj=json_decode($_POST['transaction_state']);
 
         // try{
         //     $obj=json_decode($_POST['transaction_state']);
@@ -23,7 +23,7 @@ class kCheckoutController extends Controller
 
         // };
 
-        // echo $obj;
+        echo $obj;
         
     return response('', 200);
 

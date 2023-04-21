@@ -86,8 +86,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
 //  Quotation 
 Route::post('/quotation', [CheckoutController::class, 'quotation'])->name('cart.quotation');
 
-
 });
+
+Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.credit');
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
 
