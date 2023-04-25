@@ -25,7 +25,9 @@ class kCheckoutController extends Controller
 
         echo $obj;
         
-    return response('', 200);
+    // return response('', 200);
+    return view('test.ppc_home');
+
 
     }
     //
