@@ -12,9 +12,9 @@ class kCheckoutController extends Controller
 
         // echo $varname;
 
-        $obj=json_decode($request->post());
+        // $obj=json_decode($request->post());
 
-        // $obj=json_decode($_POST['transaction_state']);
+        $obj=json_decode($_POST['status']);
 
         // try{
         //     $obj=json_decode($_POST['transaction_state']);
