@@ -92,7 +92,7 @@ Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.cr
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
 
-// Route::post('/', [kCheckoutController::class, 'webhook']);
+Route::post('/credit', [kCheckoutController::class, 'webhook']);
 
 
 require __DIR__ . '/auth.php';
