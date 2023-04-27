@@ -79,6 +79,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('order.view');
 
+    Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
+
 
 
 
@@ -92,7 +94,6 @@ Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.cr
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
 
-Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
 
 Route::post('/payment', [kCheckoutController::class, 'payredirect']);
 
