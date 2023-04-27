@@ -6,6 +6,81 @@ use Illuminate\Http\Request;
 
 class kCheckoutController extends Controller
 {
+
+    public function payment(Request $request){
+    $R_amount=$_POST["amount"];
+    $R_paymentmethod=$_POST["paymentmethod"];
+    $R_product=$_POST["product"];
+    $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC";
+    $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M";
+
+
+    function callAPI($method, $url, $data){
+        $curl = curl_init();
+     
+        switch ($method){
+           case "POST":
+              curl_setopt($curl, CURLOPT_POST, 1);
+              if ($data)
+                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+              break;
+           case "PUT":
+              curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+              if ($data)
+                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);			 					
+              break;
+           default:
+              if ($data)
+                 $url = sprintf("%s?%s", $url, http_build_query($data));
+        }
+     
+        // OPTIONS:
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+           'x-api-key: skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M',
+           'Content-Type: application/json',
+        ));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+     
+        // EXECUTE:
+        $result = curl_exec($curl);
+        if(!$result){die("Connection Failure");}
+        curl_close($curl);
+        return $result;
+     }
+
+     if ($R_paymentmethod == "card" )
+     {
+         $R_TOKEN=$_POST["token"];
+         $reforder = rand();
+         
+     $data_array =  array(
+          "amount"=> $R_amount,
+              "currency" => "THB",
+          "description" => $R_product,
+              "source_type" => "card",
+              "mode" => "token",
+              "token" => $R_TOKEN,
+              "reference_order" => $reforder,
+            "additional_data" => [
+              "mid"=> "451320492949001"
+       ]
+     
+     );
+        //call charge API with Token
+        $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
+         
+         echo ($make_call);
+         $response = json_decode($make_call, true);
+
+         $rediurl=$response["redirect_url"];
+         return redirect($rediurl);
+         
+    }
+     
+    }
+
     public function webhook(Request $request){
     
         // $varname = json_decode(file_get_contents('php://input'));
@@ -26,10 +101,20 @@ class kCheckoutController extends Controller
         // };
 
         echo $obj;
-        
-    return response('', 200);
+    
+    response()->json(['success' => 'success'], 200);
+
+    return redirect('/');
+
     // return view('test.ppc_home');
 
+
+    }
+    public function payredirect(Request $request){
+    
+    response()->json(['success' => 'success'], 200);
+
+    return redirect('/');
 
     }
     //

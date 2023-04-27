@@ -39,7 +39,7 @@ Route::get('/checkoutinfo', function(){
 });
 
 Route::middleware(['guestOrVerified'])->group(function () {
-    Route::get('/ppt', [pProductController::class, 'test'])->name('test');
+    // Route::get('/ppt', [pProductController::class, 'test'])->name('test');
 
     Route::get('/shop', [pProductController::class, 'index'])->name('shop');
     Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf');
@@ -92,7 +92,10 @@ Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.cr
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
 
-Route::post('/payment', [kCheckoutController::class, 'webhook']);
+Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
+
+Route::post('/payment', [kCheckoutController::class, 'payredirect']);
+
 
 
 require __DIR__ . '/auth.php';
