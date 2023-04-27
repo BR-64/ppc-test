@@ -15,14 +15,14 @@ class kCheckoutController extends Controller
         // $varname = json_decode(file_get_contents('php://input'));
 
         // echo $varname;
-
-
     
-        if($obj='success'){
-            return view('checkout.success');
+        if($obj=='success'){
+            // return view('checkout.success');
+            return view('checkout.failure');
         } 
         else{
-            return view('checkout.failure');
+            // return view('checkout.failure');
+            return view('checkout.success');
         }
 
     }

@@ -104,6 +104,4 @@ Route::get('/paytest', function(){
 });
 
 
-
-
 require __DIR__ . '/auth.php';
