@@ -95,7 +95,14 @@ Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.cr
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
 
 
-Route::post('/payment', [kCheckoutController::class, 'payredirect']);
+Route::post('/kpayment', [kCheckoutController::class, 'kpayment'])->name('kpayment');
+
+Route::post('/payment', [kCheckoutController::class, 'paymentresult'])->name('paymentresult');
+
+Route::get('/paytest', function(){
+    return view('checkout.paytest');
+});
+
 
 
 

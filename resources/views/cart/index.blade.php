@@ -213,7 +213,7 @@
                                 </form> --}}
 
 
-                                <form method="POST" action="{{route('payment')}}">
+                                <form method="POST" action="{{route('kpayment')}}">
                                     @csrf
                                     <script type="text/javascript"
                                         src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
