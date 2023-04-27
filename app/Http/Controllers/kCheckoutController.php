@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class kCheckoutController extends Controller
 {
     public function paymentresult(Request $request){
+
         $obj=json_decode($_POST['status']);
         response()->json(['success' => 'success'], 200);
 
@@ -17,12 +18,10 @@ class kCheckoutController extends Controller
         // echo $varname;
     
         if($obj=='success'){
-            // return view('checkout.success');
-            return view('checkout.failure');
+            return view('checkout.success');
         } 
         else{
-            // return view('checkout.failure');
-            return view('checkout.success');
+            return view('checkout.failure');
         }
 
     }
