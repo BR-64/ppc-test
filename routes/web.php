@@ -99,9 +99,23 @@ Route::post('/kpayment', [kCheckoutController::class, 'kpayment'])->name('kpayme
 
 Route::post('/payment', [kCheckoutController::class, 'paymentresult'])->name('paymentresult');
 
+//// k webhook notify
+Route::post('/qr', [kCheckoutController::class, 'webhook'])->name('noti_qr');
+Route::post('/credit', [kCheckoutController::class, 'webhook'])->name('noti_card');
+
 Route::get('/paytest', function(){
     return view('checkout.paytest');
 });
+
+Route::get('/payqr', function(){
+    return view('checkout.payQR');
+})->name('payQR');
+
+Route::get('/dd', function(){
+    return view('test.dd');
+})->name('dd');
+
+
 
 
 require __DIR__ . '/auth.php';

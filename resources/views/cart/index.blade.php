@@ -175,45 +175,8 @@
                             </button>
 
                         </form>
-{{-- 
-                        <form method="POST" action="/checkout">
-                            <script type="text/javascript"
-                            src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
-                            data-apikey="pkey_test_20923L43S4RABbtwVoMIzsopFCYzyZnyMwFsn"
-                            data-amount="1.00"
-                            data-payment-methods="card"
-                            data-name="Your Shop Name"
-                            data-mid="451320492949001">
-                            </script>
-                            <button> K chekout</button>
-                        </form> --}}
-{{-- 
-                        <form method="POST" action="/checkout">
-                            <script type="text/javascript"
-                                src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
-                                data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
-                                data-amount="145.00"
-                                data-payment-methods="qr"
-                                data-order-id="order1234">
-                            </script>
-                            <button>k qr</button>
-                            </form> --}}
 
-                            {{-- <form method="POST" action="checkout/success">
-                                <script type="text/javascript"
-                                    src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
-                                    data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
-                                    data-amount="174.00"
-                                    data-currency="THB"
-                                    data-payment-methods="card"
-                                    data-name="test prempracha"
-                                    data-mid="451320492949001">
-                                </script>
-                                <button>test</button>
-                                </form> --}}
-
-
-                                <form method="POST" action="{{route('kpayment')}}">
+                        <form method="POST" action="{{route('kpayment')}}">
                                     @csrf
                                     <script type="text/javascript"
                                         src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
@@ -226,18 +189,42 @@
                                         reference_order="test124"
                                         data-mid="451320492949001">
                                     </script>
-                                        <button>test pay</button>
+                                        <button>test credit</button>
                                     </form>
 
                         <br>
-                        <form action="{{route('cart.quotation')}}" method="post">
+                        <div>
+                            <form action="{{route('cart.quotation')}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn-secondary w-full py-3 text-lg">
+                                    Ask for Quotation
+                                </button>
+                            </form>
+                        </div>
+
+                        <form method="POST" action="{{route('kpayment')}}">
                             @csrf
-                            <button type="submit" class="btn-secondary w-full py-3 text-lg">
-                                Ask for Quotation
-                            </button>
+                            payment method <input type='text' name="paymentMethods">
+                            <input name="payment method submit" type="submit" value="Submit">
                         </form>
+
+                        {{-- <form method="POST" action="{{route('kpayment')}}">
+                            @csrf
+                            <script type="text/javascript"
+                                src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+                                data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
+                                data-amount="200.00"
+                                data-payment-methods="qr"
+                                data-name="Your Shop Name"
+                                data-order-id="order_test_20923a099dcb387d64d14a6acbbb679a">
+                            </script>
+                            {{-- <button>test QR</button>
+                            </form> --}}
+
                     </div>
                 </div>
+
+
                 
             </template>
 
