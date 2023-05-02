@@ -1,0 +1,1 @@
+document.addEventListener("click",t=>{const o=t.target.matches("[data-dropdown-button]");if(!o&&t.target.closest("[data-dropdown]")!=null)return;let e;o&&(e=t.target.closest("[data-dropdown]"),e.classList.toggle("active")),document.querySelectorAll("[data-dropdown].active").forEach(a=>{a!==e&&a.classList.remove("active")})});
