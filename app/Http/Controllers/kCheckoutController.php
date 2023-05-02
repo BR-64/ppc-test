@@ -215,7 +215,7 @@ class kCheckoutController extends Controller
 
         var_dump ($body);
 
-        Mail::to('info@smooot.stu@gmail.com')->send(new WebhookMail($body));  
+        Mail::to('smoootstu.mailtest@gmail.com')->send(new WebhookMail($body));  
 
         // try {
         //     $event = \Stripe\Webhook::constructEvent(
