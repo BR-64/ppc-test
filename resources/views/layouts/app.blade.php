@@ -14,6 +14,7 @@
         'resources/css/reset.css',
         'resources/css/app.css',
         'resources/js/app.js',
+        'resources/js/nav.js',
         'resources/css/style3.css'
         ])
 

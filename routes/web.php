@@ -10,7 +10,9 @@ use App\Http\Controllers\pProductController_test;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\testapi;
 use App\Http\Livewire\ShopScroll;
+use App\Mail\WebhookMail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\kCheckoutController;
 
 /*
@@ -24,7 +26,7 @@ use App\Http\Controllers\kCheckoutController;
 |
 */
 
-Route::post('/json', [testapi::class, 'getJSON'])->name('getjson');
+// Route::post('/json', [testapi::class, 'getJSON'])->name('getjson');
 
 Route::get('/lv', ShopScroll::class);
 
@@ -38,6 +40,8 @@ Route::get('/checkoutinfo', function(){
     return view('checkout.index');
 });
 
+Route::get('/chksum', [kCheckoutController::class, 'chkout_summary']);
+
 Route::middleware(['guestOrVerified'])->group(function () {
     // Route::get('/ppt', [pProductController::class, 'test'])->name('test');
 
@@ -45,7 +49,7 @@ Route::middleware(['guestOrVerified'])->group(function () {
     Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf');
     Route::get('/shop/f2', [pProductController::class, 'qfilter2'])->name('shopf2');
     Route::get('/shop/{cat?}', [pProductController::class, 'catFilter'])->name('shop.cat');
-    Route::get('/', [pProductController::class, 'test'])->name('test');
+    Route::get('/', [pProductController::class, 'home'])->name('test');
     Route::get('/product/{product:item_code}', [pProductController::class, 'view'])->name('product.view');
 
     Route::get('/collection', [pCollectionController::class, 'index'])->name('product.collection');
@@ -115,7 +119,12 @@ Route::get('/dd', function(){
     return view('test.dd');
 })->name('dd');
 
+// Route::get('/webhookemail', function(){
+//     Mail::to('info@smooot.stu@gmail.com')->send(new WebhookMail());
+//     return new WebhookMail();
+// });
 
+Route::get('/webhookmail',[kCheckoutController::class,'webhook']);
 
 
 require __DIR__ . '/auth.php';

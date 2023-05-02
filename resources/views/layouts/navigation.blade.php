@@ -8,16 +8,62 @@
     @cart-change.window="cartItemsCount = $event.detail.count"
     class="flex justify-space-between prembg shadow-md "
 >
-<div >
-<a href="{{ route('test') }}" class="block p-2"> 
-    <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/ppclogo.png" alt=""> 
-</a>
-</div>
 <div class="spacebox1">
+    <div >
+        <a href="{{ route('test') }}" class="block p-2"> 
+            <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/ppclogo.png" alt=""> 
+        </a>
+    </div>
 
 </div>
+
+{{-- dropdown 2 //////////////////////////////////////////////////////// --}}
+        {{-- <div class="dropdown ">
+            <div class="dropbtn">Products</div>
+
+            <div class="dropdown-one">
+                @foreach($sharedData['filterables'] as $key=>$filter)
+                <div id="link1" class="dItem" href="#">
+                    <h3 class="drop1">{{$key}}</h3>
+                        <div class="dropdown-two">
+
+                            <h1 class="">{{$key}}</h1>
+            
+                    @foreach($filter as $key=>$cat)
+                        @if($cat->collection)
+                            <a class="dItem" href="?filter%5Bcollection%5D={{$cat['collection']}}">
+                                {{$cat['collection']}}
+                            </a>
+                        @elseif($cat->category)
+                            <a class="dItem" href="?filter%5Bcategory%5D={{$cat['category']}}">
+                                {{$cat['category']}}
+                            </a>
+                        @elseif($cat->type)
+                            <a class="dItem" href="?filter%5Btype%5D={{$cat['type']}}">
+                                {{$cat['type']}}
+                            </a>
+                        @elseif($cat->color)
+                            <a class="dItem" href="?filter%5Bcolor%5D={{$cat['color']}}">
+                                {{$cat['color']}}
+                            </a>
+                        @elseif($cat->finish)
+                            <a class="dItem" href="?filter%5Btype%5D={{$cat['finish']}}">
+                                {{$cat['finish']}}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    </div>
+                    </div>
+                @endforeach
+
+        
+            </div>
+        </div> --}}
+{{-- //////////////////////////////////////////////////////// --}}
+
     <div>
-        <a href="{{ route('shopf') }}" class="relative flex justify-end p-6 transition-colors"> Shop </a>
+        <a href="{{ route('shopf') }}" class="relative flex justify-end p-6 link"> Shop </a>
     </div>
     <div>
         <a
@@ -204,7 +250,7 @@
                 <li>
                     <a
                         href="{{ route('login') }}"
-                        class="flex items-center py-2 px-3 transition-colors hover:bg-slate-800"
+                        class="flex items-center py-2 px-3 link"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -385,7 +431,7 @@
                 <li>
                     <a
                         href="{{ route('login') }}"
-                        class="flex items-center py-navbar-item px-navbar-item hover:bg-slate-900"
+                        class="flex items-center py-navbar-item px-navbar-item link"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

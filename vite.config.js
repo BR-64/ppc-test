@@ -10,6 +10,7 @@ export default defineConfig({
         "resources/css/style3.css",
         // "resources/assets/scss/main.scss",
         "resources/js/app.js",
+        "resources/js/nav.js",
       ],
       refresh: true,
     }),

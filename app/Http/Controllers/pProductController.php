@@ -50,7 +50,7 @@ class pProductController extends Controller
 
     }
 
-    public function test(){
+    public function home(){
         $products = pProduct::query()
             ->where('published', '=', 1)
             ->orderBy('updated_at', 'desc')
@@ -70,12 +70,25 @@ class pProductController extends Controller
                 ->paginate(4);
 
         // $filterables = pProduct::select('collection')->distinct()->get();
+        $filterables = [
+            'collection' => pProduct::distinct()->get('collection'),
+            'category' => pProduct::distinct()->get('category'),
+            'type' => pProduct::distinct()->get('type'),
+            'brand' => pProduct::distinct()->get('brand_name'),
+            'color' => pProduct::distinct()->get('color'),
+            'finish' => pProduct::distinct()->get('finish'),
+        ];
+
+        View::share('sharedData', [
+            'filterables'=>$filterables
+        ]);
 
         return view('test.ppc_home', [
             'products' => $products,
             'newproducts' => $newproducts,
             'hlproducts' => $hlproducts,
             'collections' => $collections,
+            // 'filterables'=> $filterables
         ]);
     }
 

@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
 use Illuminate\Http\Request;
-use app\models\Payment;
+use App\Models\Payment;
+use App\Enums\PaymentStatus;
+use App\Models\webhook;
+use App\Helpers\Cart;
+use App\Mail\WebhookMail;
+use App\Models\CartItem;
+use App\Models\OrderItem;
+use Illuminate\Support\Facades\Mail;
 
 class kCheckoutController extends Controller
 {
@@ -70,7 +78,7 @@ class kCheckoutController extends Controller
 
     }
     public function kpayment(Request $request){
-    // $R_amount=$_POST["amount"];
+    $R_amount=$_POST["amount"];
     $R_paymentmethod=$_POST["paymentMethods"];
     // $R_product=$_POST["product"];
 
@@ -118,8 +126,8 @@ class kCheckoutController extends Controller
              $reforder = rand();
              
          $data_array =  array(
-            //   "amount"=> $R_amount,
-              "amount"=> 5000,
+              "amount"=> $R_amount,
+            //   "amount"=> 5000,
                   "currency" => "THB",
               "description" => "test product",
                   "source_type" => "card",
@@ -141,12 +149,13 @@ class kCheckoutController extends Controller
              return redirect($rediurl);
              
         } else if ($R_paymentmethod == "qr" ){
+            $R_amount=$_POST["amount"];
 
             // $R_OrderID=$_POST["id"];
             $reforder = rand();
 
             $data_array =  array(
-            "amount"=> 22200,
+            "amount"=> $R_amount,
             "currency"=> "THB",
             "description"=> "TESTPRODUCT",
             "source_type"=> "qr",
@@ -202,9 +211,11 @@ class kCheckoutController extends Controller
         $payload = @file_get_contents('php://input');
         $body = json_decode($payload,true);
 
-        echo $payload;
+        // echo $payload;
 
         var_dump ($body);
+
+        Mail::to('info@smooot.stu@gmail.com')->send(new WebhookMail($body));  
 
         // try {
         //     $event = \Stripe\Webhook::constructEvent(
@@ -242,9 +253,14 @@ class kCheckoutController extends Controller
 
                 echo ("\n".'  source ID '.$body['source']['id']);
 
-                // $payment = Payment::create([
-                //     'amount'=>$payload['amount']
-                // ]);
+                $payment = webhook::create([
+                    // 'id'=>(int)substr($body['id'],-2),
+                    'amount'=>$body['amount'],
+                    'order_id'=>(int)substr($body['id'],-2),
+                    'status'=>$body['status'],
+                    'type'=>$body['object'],
+                    'created_at'=>$body
+                ]);
 
                 // $this->createOrderPay($payment);
                 break;
@@ -271,10 +287,10 @@ class kCheckoutController extends Controller
         $payment->status = PaymentStatus::Paid->value;
         $payment->update();
 
-        $order = $payment->order;
+        // $order = $payment->order;
 
-        $order->status = OrderStatus::Paid->value;
-        $order->update();
+        // $order->status = OrderStatus::Paid->value;
+        // $order->update();
 
     }
     private function updateOrderPay(Payment $payment)
@@ -291,6 +307,51 @@ class kCheckoutController extends Controller
         // foreach ([...$adminUsers, $order->user] as $user) {
         //     Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
         // }
+    }
+
+    public function chkout_summary(){
+        [$products, $cartItems] = Cart::getProductsAndCartItems();
+
+        $orderItems = [];
+        $lineItems = [];
+        $totalPrice = 0;
+        foreach ($products as $product) {
+            $quantity = $cartItems[$product->id]['quantity'];
+            $totalPrice += $product->retail_price * $quantity;
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'thb',
+                    'product_data' => [
+                        'name' => $product->item_code,
+                       'images' => [$product->image]
+                    ],
+                    'unit_amount' => $product->retail_price * 100,
+                ],
+                'quantity' => $quantity,
+            ];
+            $orderItems[] = [
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'unit_price' => $product->retail_price
+            ];
+        }
+
+        return view('checkout.summary',[
+                'items'=>$lineItems,
+                'orderitems'=> $orderItems,
+                'totalprice'=> $totalPrice,
+                'kk'=>11
+            ]);
+    }
+
+    public function test(){
+        $payload = @file_get_contents('php://input');
+        $body = json_decode($payload,true);
+
+        echo $payload;
+
+        var_dump ($body);
+
     }
 
 }
