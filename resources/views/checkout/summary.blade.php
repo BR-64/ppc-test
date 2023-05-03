@@ -48,7 +48,7 @@
             </form>
         </div>
 
-        <div class="border-4 border-white">
+        {{-- <div class="border-4 border-white">
             <h3>Credit Card MCC</h3>
             <form method="POST" action="{{route('kpayment')}}">
                 @csrf
@@ -67,7 +67,7 @@
             <input type="hidden" name="amount" value="{{$totalprice}}">          
 
             </form>
-        </div>
+        </div> --}}
 
         <div>
             <h3>QR code</h3>
