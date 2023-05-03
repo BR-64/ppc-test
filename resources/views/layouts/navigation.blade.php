@@ -31,23 +31,23 @@
             
                     @foreach($filter as $key=>$cat)
                         @if($cat->collection)
-                            <a class="dItem" href="/shop/?filter%5Bcollection%5D={{$cat['collection']}}">
+                            <a class="dItem" href="/shop/f2?filter%5Bcollection%5D={{$cat['collection']}}">
                                 {{$cat['collection']}}
                             </a>
                         @elseif($cat->category)
-                            <a class="dItem" href="/shop/?filter%5Bcategory%5D={{$cat['category']}}">
+                            <a class="dItem" href="/shop/f2?filter%5Bcategory%5D={{$cat['category']}}">
                                 {{$cat['category']}}
                             </a>
                         @elseif($cat->type)
-                            <a class="dItem" href="/shop/?filter%5Btype%5D={{$cat['type']}}">
+                            <a class="dItem" href="/shop/f2?filter%5Btype%5D={{$cat['type']}}">
                                 {{$cat['type']}}
                             </a>
                         @elseif($cat->color)
-                            <a class="dItem" href="/shop/?filter%5Bcolor%5D={{$cat['color']}}">
+                            <a class="dItem" href="/shop/f2?filter%5Bcolor%5D={{$cat['color']}}">
                                 {{$cat['color']}}
                             </a>
                         @elseif($cat->finish)
-                            <a class="dItem" href="/shop/?filter%5Btype%5D={{$cat['finish']}}">
+                            <a class="dItem" href="/shop/f2?filter%5Btype%5D={{$cat['finish']}}">
                                 {{$cat['finish']}}
                             </a>
                         @endif
