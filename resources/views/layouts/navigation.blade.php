@@ -47,7 +47,7 @@
                                 {{$cat['color']}}
                             </a>
                         @elseif($cat->finish)
-                            <a class="dItem" href="/shop/f2?filter%5Btype%5D={{$cat['finish']}}">
+                            <a class="dItem" href="/shop/f2?filter%5Bfinish%5D={{$cat['finish']}}">
                                 {{$cat['finish']}}
                             </a>
                         @endif
