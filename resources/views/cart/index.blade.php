@@ -22,7 +22,7 @@
                 )
             }},
             get cartTotal() {
-                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(2)
+                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
             },
             get cartto(){
                 return number_format('2000')
@@ -170,6 +170,7 @@
                             <span id="cartTotal" class="text-xl" x-text="`THB ${cartTotal}`"></span>
                             {{-- <span id="cartTotal" class="text-xl" x-text="`THB ${cartto}`"></span> --}}
                         </div>
+                        <span id="totalprice"></span>
                         <p class="text-gray-500 mb-6">
                             Shipping calculated at checkout.
                         </p>
@@ -231,6 +232,8 @@ function format(n, sep, decimals) {
         + sep
         + n.toFixed(decimals).split(sep)[1];
 }
+
+document.getElementById("totalprice").innterHTML=cartto()
 
     </script>
 
