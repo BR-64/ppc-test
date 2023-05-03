@@ -22,8 +22,11 @@
                 )
             }},
             get cartTotal() {
-                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(0)
+                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(2)
             },
+            get cartto(){
+                return number_format('2000')
+            }
             {{-- cartto: cartTotal() --}}
         }" class="bg-white p-4 rounded-lg shadow">
             <!-- Product Items -->
@@ -165,7 +168,7 @@
                         </span>
                                 
                             <span id="cartTotal" class="text-xl" x-text="`THB ${cartTotal}`"></span>
-                            {{-- <div x-text='${cartTotal}'></div> --}}
+                            {{-- <span id="cartTotal" class="text-xl" x-text="`THB ${cartto}`"></span> --}}
                         </div>
                         <p class="text-gray-500 mb-6">
                             Shipping calculated at checkout.

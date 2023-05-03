@@ -120,23 +120,50 @@ class kCheckoutController extends Controller
             return $result;
          }
     
-         if ($R_paymentmethod == "card" )
+         if ($R_paymentmethod == "card_DCC" )
+         {
+             $R_TOKEN=$_POST["token"];
+             $R_dcc_cur=$_POST["dcc_currency"];
+             $reforder = rand();
+             
+         $data_array =  array(
+                "amount"=> $R_amount,
+                "currency" => $R_dcc_cur,
+                "description" => "test product",
+                "source_type" => "card",
+                "mode" => "token",
+                "token" => $R_TOKEN,
+                "reference_order" => $reforder,
+                "additional_data" => [
+                //   "mid"=> "401232949944001"
+                  "mid"=> "451320492949001"
+           ]
+         
+         );
+            //call charge API with Token
+            $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
+             
+             echo ($make_call);
+             $response = json_decode($make_call, true);
+    
+             $rediurl=$response["redirect_url"];
+             return redirect($rediurl);
+             
+        } else if ($R_paymentmethod == "card_MCC" )
          {
              $R_TOKEN=$_POST["token"];
              $reforder = rand();
              
          $data_array =  array(
-              "amount"=> $R_amount,
-            //   "amount"=> 5000,
-                  "currency" => "THB",
-              "description" => "test product",
-                  "source_type" => "card",
-                  "mode" => "token",
-                  "token" => $R_TOKEN,
-                  "reference_order" => $reforder,
+                "amount"=> $R_amount,
+                "currency" => "THB",
+                "description" => "test product",
+                "source_type" => "card",
+                "mode" => "token",
+                "token" => $R_TOKEN,
+                "reference_order" => $reforder,
                 "additional_data" => [
-                //   "mid"=> "401232949944001"
-                  "mid"=> "451320492949001"
+                  "mid"=> "401232949944001"
            ]
          
          );
@@ -344,7 +371,8 @@ class kCheckoutController extends Controller
         return view('checkout.summary',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
-                'totalprice'=> number_format($totalPrice),
+                'totalprice'=> $totalPrice,
+                'totalpriceShow'=> number_format($totalPrice),
                 'kk'=>11
             ]);
     }

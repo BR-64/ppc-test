@@ -22,7 +22,7 @@
         </div>
         @endforeach
 
-    <h3> {{$totalprice}}</h3>
+    <h3> {{$totalpriceShow}}</h3>
     <h3>{{$kk}}</h3>
 
     </br>
@@ -30,7 +30,7 @@
     <div class="payoption ">
         <div class="border-4 border-white">
             <h3>Credit Card DCC</h3>
-            <form method="POST" action="{{route('kpayment')}}">
+            {{-- <form method="POST" action="{{route('kpayment')}}">
                 @csrf
                 <script type="text/javascript"
                 src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
@@ -46,10 +46,10 @@
             </script>
             <input type="hidden" name="amount" value="{{$totalprice}}">          
 
-            </form>
+            </form> --}}
         </div>
 
-        {{-- <div class="border-4 border-white">
+        <div class="border-4 border-white">
             <h3>Credit Card MCC</h3>
             <form method="POST" action="{{route('kpayment')}}">
                 @csrf
@@ -65,10 +65,11 @@
                 data-mid="401232949944001"
                 >
             </script>
+            {{-- <input type="hidden" name="paymentMethods"  value="card_MCCf"> --}}
             <input type="hidden" name="amount" value="{{$totalprice}}">          
 
             </form>
-        </div> --}}
+        </div>
 
         <div>
             <h3>QR code</h3>
