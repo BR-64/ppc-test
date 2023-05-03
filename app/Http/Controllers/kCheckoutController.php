@@ -79,12 +79,17 @@ class kCheckoutController extends Controller
     }
     public function kpayment(Request $request){
     $R_amount=$_POST["amount"];
-    $R_paymentmethod=$_POST["paymentMethods"];
+    // $R_paymentmethod=$_POST["paymentMethods"];
+    $R_paytype=$_POST["paytype"];
     // $R_product=$_POST["product"];
 
     $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC";
     $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M";
 
+    $payload = @file_get_contents('php://input');
+    $body = json_decode($payload,true);
+
+    var_dump ($body);
         function callAPI($method, $url, $data){
             $curl = curl_init();
          
@@ -120,9 +125,9 @@ class kCheckoutController extends Controller
             return $result;
          }
     
-         if ($R_paymentmethod == "card_DCC" )
-         {
+         if ($R_paytype == "card_DCC" ){
              $R_TOKEN=$_POST["token"];
+            //  $R_TOKEN2=$_POST["_token"];
              $R_dcc_cur=$_POST["dcc_currency"];
              $reforder = rand();
              
@@ -133,10 +138,11 @@ class kCheckoutController extends Controller
                 "source_type" => "card",
                 "mode" => "token",
                 "token" => $R_TOKEN,
+                // "token" => $R_TOKEN2,
                 "reference_order" => $reforder,
                 "additional_data" => [
-                //   "mid"=> "401232949944001"
-                  "mid"=> "451320492949001"
+                  "mid"=> "451320492949001",
+                //   "tid"=>"88292023"
            ]
          
          );
@@ -145,12 +151,14 @@ class kCheckoutController extends Controller
              
              echo ($make_call);
              $response = json_decode($make_call, true);
+
+            var_dump($response);
+
     
              $rediurl=$response["redirect_url"];
              return redirect($rediurl);
              
-        } else if ($R_paymentmethod == "card_MCC" )
-         {
+        } elseif ($R_paytype == "card_MCC" ){
              $R_TOKEN=$_POST["token"];
              $reforder = rand();
              
@@ -165,7 +173,6 @@ class kCheckoutController extends Controller
                 "additional_data" => [
                   "mid"=> "401232949944001"
            ]
-         
          );
             //call charge API with Token
             $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
@@ -175,10 +182,11 @@ class kCheckoutController extends Controller
     
              $rediurl=$response["redirect_url"];
              return redirect($rediurl);
-             
-        } else if ($R_paymentmethod == "qr" ){
-            $R_amount=$_POST["amount"];
 
+            // var_dump($response);
+
+             
+        } elseif ($R_paytype == "qr" ){
             // $R_OrderID=$_POST["id"];
             $reforder = rand();
 
@@ -200,8 +208,7 @@ class kCheckoutController extends Controller
                 'qrinfo'=>$response
             ]);
 
-        } else if ($R_paymentmethod == "alipay" ){
-
+        } elseif ($R_paytype == "alipay" ){
             $reforder = rand();
 
             $data_array =  array(
@@ -226,13 +233,9 @@ class kCheckoutController extends Controller
     
              $rediurl=$response["redirect_url"];
              return redirect($rediurl);
-        }
-    
-
-    // return redirect('/');
-
+        }    
     }
-    //
+
 
     public function webhook()
     {
