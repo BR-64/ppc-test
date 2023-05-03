@@ -106,6 +106,7 @@ Route::post('/payment', [kCheckoutController::class, 'paymentresult'])->name('pa
 //// k webhook notify
 Route::post('/qr', [kCheckoutController::class, 'webhook'])->name('noti_qr');
 Route::post('/credit', [kCheckoutController::class, 'webhook'])->name('noti_card');
+Route::post('/walletali', [kCheckoutController::class, 'webhook'])->name('noti_card');
 
 Route::get('/paytest', function(){
     return view('checkout.paytest');

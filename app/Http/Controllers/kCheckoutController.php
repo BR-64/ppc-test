@@ -135,7 +135,8 @@ class kCheckoutController extends Controller
                   "token" => $R_TOKEN,
                   "reference_order" => $reforder,
                 "additional_data" => [
-                  "mid"=> "451320492949001"
+                  "mid"=> "401232949944001"
+                //   "mid"=> "451320492949001"
            ]
          
          );
@@ -246,40 +247,44 @@ class kCheckoutController extends Controller
         //         echo 'Received unknown event type ' . $event->type;
         // }
 
-        switch($body['object']){
-            case 'qr':
-                echo ($body['id']);
-                echo (' QR payment amount is ' .$body['amount']);
+        // switch($body['object']){
+        //     case 'qr':
+        //         echo ($body['id']);
+        //         echo (' QR payment amount is ' .$body['amount']);
 
-                echo ("\n".'  source ID '.$body['source']['id']);
+        //         echo ("\n".'  source ID '.$body['source']['id']);
 
-                $payment = webhook::create([
-                    // 'id'=>(int)substr($body['id'],-2),
-                    'amount'=>$body['amount'],
-                    'order_id'=>(int)substr($body['id'],-2),
-                    'status'=>$body['status'],
-                    'type'=>$body['object'],
-                    'created_at'=>$body
-                ]);
+        //         $payment = webhook::create([
+        //             // 'id'=>(int)substr($body['id'],-2),
+        //             'amount'=>$body['amount'],
+        //             'order_id'=>(int)substr($body['id'],-2),
+        //             'status'=>$body['status'],
+        //             'type'=>$body['object'],
+        //             'created_at'=>$body
+        //         ]);
 
-                // $this->createOrderPay($payment);
-                break;
+        //         // $this->createOrderPay($payment);
+        //         break;
 
-            case 'charge':
-                echo ($body['id']);
-                echo  (' Credit Card payment amount is'. $body['amount']);
+        //     case 'charge':
+        //         echo ($body['id']);
+        //         echo  (' Credit Card payment amount is'. $body['amount']);
 
-                echo (' source ID'.$body['source']);
+        //         echo (' source ID'.$body['source']);
 
-                break;
+        //         break;
             
-                default:
-                echo 'Received unknown event type ';
+        //         default:
+        //         echo 'Received unknown event type ';
 
 
-        }
+        // }
 
-        return response('', 200);
+        return response()->json(['Message'=>'status code 200 ok'], 200);
+        // return Response::json([
+        //     'hello' => $value
+        // ], 200); // Status code here
+        
     }
 
     private function createOrderPay(Payment $payment)

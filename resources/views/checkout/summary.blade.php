@@ -40,7 +40,9 @@
                 data-name="Test shop"
                 description="product21"
                 reference_order="test124"
-                data-mid="451320492949001">
+                {{-- data-mid="451320492949001" --}}
+                data-mid="401232949944001"
+                >
             </script>
             <input type="hidden" name="amount" value="{{$totalprice}}">          
 
@@ -58,6 +60,20 @@
 
             <input type="hidden" name="amount" value="{{$totalprice}}">          
             <input class="subbut" type="submit"value="Pay with QR">
+            </form>
+        </div>
+
+        <div>
+            <h3>Alipay</h3>
+            <form class="qrform" method="POST" action="{{route('kpayment')}}">
+                @csrf
+            <input type="hidden" name="paymentMethods"  value="alipay">
+            {{-- <label for="qr">QR</label> --}}
+            {{-- <input name="paymentMethods" type="radio" value="Submit" id="card">
+            <label for="card">credit card</label> --}}
+
+            <input type="hidden" name="amount" value="{{$totalprice}}">          
+            <input class="subbut" type="submit"value="Pay with Ali">
             </form>
         </div>
     </div>
