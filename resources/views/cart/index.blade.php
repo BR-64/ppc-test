@@ -11,6 +11,7 @@
                         'image' => $product->image,
                         'title' => $product->item_code,
                         'price' => $product->retail_price,
+                        'price_re' => number_format($product->retail_price),
                         'dimension' => $product->wlh,
                         'quantity' => $cartItems[$product->id]['quantity'],
                         'href' => route('product.view', $product->item_code),
@@ -21,14 +22,16 @@
                 )
             }},
             get cartTotal() {
-                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(2)
+                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(0)
             },
+            {{-- cartto: cartTotal() --}}
         }" class="bg-white p-4 rounded-lg shadow">
             <!-- Product Items -->
             <template x-if="cartItems.length">
                 <div>
 <!-- Product Item -->
 <h2>In Stock</h2>
+<h2 x-text="cartto">In Stock</h2>
                     <template x-for="product of cartItems" :key="product.id">
 {{-- Normal Items --}}
                         <template x-if="product.type == 0">  
@@ -53,7 +56,7 @@
                                             <div class="calcol flex flex-col justify-between items-end">
                                                 <div class="text-sm font-semibold items-end">
                                                     THB 
-                                                    <span x-text="product.price">
+                                                    <span x-text="product.price_re">
                                                     </span>
                                                     </div>
                                                 <div class="flex items-center">
@@ -128,7 +131,7 @@
                                             <div class="calcol flex flex-col justify-between items-end">
                                                 <div class="text-sm font-semibold items-end">
                                                     THB 
-                                                    <span x-text="product.price">
+                                                    <span x-text="product.price_re">
                                                     </span>
                                                     </div>
                                                 <div class="flex items-center">
@@ -214,6 +217,18 @@
         function decrenum() {
             document.getElementById('qty_sm').value = --i;
         }
+
+        
+
+function format(n, sep, decimals) {
+    sep = sep || "."; // Default to period as decimal separator
+    decimals = decimals || 2; // Default to 2 decimals
+
+    return n.toLocaleString().split(sep)[0]
+        + sep
+        + n.toFixed(decimals).split(sep)[1];
+}
+
     </script>
 
 </x-app-layout>
