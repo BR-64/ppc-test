@@ -28,7 +28,7 @@
     <h2>Payment option</h2>
     <div class="payoption ">
         <div class="border-4 border-white">
-            <h3>Credit Card</h3>
+            <h3>Credit Card DCC</h3>
             <form method="POST" action="{{route('kpayment')}}">
                 @csrf
                 <script type="text/javascript"
@@ -40,7 +40,27 @@
                 data-name="Test shop"
                 description="product21"
                 reference_order="test124"
-                {{-- data-mid="451320492949001" --}}
+                data-mid="451320492949001"
+                >
+            </script>
+            <input type="hidden" name="amount" value="{{$totalprice}}">          
+
+            </form>
+        </div>
+
+        <div class="border-4 border-white">
+            <h3>Credit Card MCC</h3>
+            <form method="POST" action="{{route('kpayment')}}">
+                @csrf
+                <script type="text/javascript"
+                src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+                data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
+                data-amount={{$totalprice}}
+                data-currency="THB"
+                data-payment-methods="card"
+                data-name="Test shop"
+                description="product21"
+                reference_order="test124"
                 data-mid="401232949944001"
                 >
             </script>
