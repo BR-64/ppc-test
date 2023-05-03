@@ -157,17 +157,20 @@
                         <div class="flex justify-between">
                             <span class="font-semibold">Subtotal 
                             <span class="notice">(included tax)
+                            {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
                             </span>
                         </span>
                                 
                             <span id="cartTotal" class="text-xl" x-text="`THB ${cartTotal}`"></span>
+                            {{-- <div x-text='${cartTotal}'></div> --}}
                         </div>
                         <p class="text-gray-500 mb-6">
                             Shipping calculated at checkout.
                         </p>
 
-                        <form action="{{route('cart.checkout')}}" method="post">
-                        {{-- <form action="{{route('getjson')}}" method="post"> --}}
+                        {{-- <form action="{{route('cart.checkout')}}" method="post"> --}}
+
+                        <form action="{{route('checkout.summary')}}" method="get">
                             @csrf
                             <button type="submit" class="btn-primary w-full py-3 text-lg">
                             {{-- <button type="submit" class="tcolor1 w-full py-3 text-lg"> --}}
@@ -175,22 +178,6 @@
                             </button>
 
                         </form>
-
-                        <form method="POST" action="{{route('kpayment')}}">
-                                    @csrf
-                                    <script type="text/javascript"
-                                        src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
-                                        data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
-                                        data-amount="1900.00"
-                                        data-currency="THB"
-                                        data-payment-methods="card"
-                                        data-name="Test shop"
-                                        description="product21"
-                                        reference_order="test124"
-                                        data-mid="451320492949001">
-                                    </script>
-                                        <button>test credit</button>
-                                    </form>
 
                         <br>
                         <div>
@@ -201,26 +188,6 @@
                                 </button>
                             </form>
                         </div>
-
-                        <form method="POST" action="{{route('kpayment')}}">
-                            @csrf
-                            payment method <input type='text' name="paymentMethods">
-                            <input name="payment method submit" type="submit" value="Submit">
-                        </form>
-
-                        {{-- <form method="POST" action="{{route('kpayment')}}">
-                            @csrf
-                            <script type="text/javascript"
-                                src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
-                                data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
-                                data-amount="200.00"
-                                data-payment-methods="qr"
-                                data-name="Your Shop Name"
-                                data-order-id="order_test_20923a099dcb387d64d14a6acbbb679a">
-                            </script>
-                            {{-- <button>test QR</button>
-                            </form> --}}
-
                     </div>
                 </div>
 

@@ -135,8 +135,8 @@ class kCheckoutController extends Controller
                   "token" => $R_TOKEN,
                   "reference_order" => $reforder,
                 "additional_data" => [
-                  "mid"=> "401232949944001"
-                //   "mid"=> "451320492949001"
+                //   "mid"=> "401232949944001"
+                  "mid"=> "451320492949001"
            ]
          
          );
@@ -344,7 +344,7 @@ class kCheckoutController extends Controller
         return view('checkout.summary',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
-                'totalprice'=> $totalPrice,
+                'totalprice'=> number_format($totalPrice),
                 'kk'=>11
             ]);
     }

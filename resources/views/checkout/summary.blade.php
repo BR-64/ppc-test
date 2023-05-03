@@ -22,9 +22,10 @@
         </div>
         @endforeach
 
-    <h3>{{$totalprice}}</h3>
+    <h3> {{$totalprice}}</h3>
     <h3>{{$kk}}</h3>
 
+    </br>
     <h2>Payment option</h2>
     <div class="payoption ">
         <div class="border-4 border-white">
@@ -71,6 +72,7 @@
 
         <div>
             <h3>QR code</h3>
+        </br>
             <form class="qrform" method="POST" action="{{route('kpayment')}}">
                 @csrf
             <input type="hidden" name="paymentMethods"  value="qr">
@@ -85,6 +87,7 @@
 
         <div>
             <h3>Alipay</h3>
+        </br>
             <form class="qrform" method="POST" action="{{route('kpayment')}}">
                 @csrf
             <input type="hidden" name="paymentMethods"  value="alipay">

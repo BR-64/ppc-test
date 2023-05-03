@@ -18,7 +18,7 @@
 </div>
 
 {{-- dropdown 2 //////////////////////////////////////////////////////// --}}
-        {{-- <div class="dropdown ">
+        <div class="dropdown ">
             <div class="dropbtn">Products</div>
 
             <div class="dropdown-one">
@@ -59,7 +59,7 @@
 
         
             </div>
-        </div> --}}
+        </div>
 {{-- //////////////////////////////////////////////////////// --}}
 
     <div>

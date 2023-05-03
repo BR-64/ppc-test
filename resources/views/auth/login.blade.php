@@ -3,11 +3,12 @@
         <h2 class="pagehead">
             Login to your account
         </h2>
-        <p class="text-center text-gray-500 mb-6">
+        <p class="text-center mb-6 text-gray-500">
             or
             <a
                 href="{{ route('register') }}"
-                class="text-sm text-purple-700 hover:text-purple-600"
+                style="color:#5bbb64;"
+                class=" "
             >
                 create new account
             </a>
@@ -29,11 +30,14 @@
                     id="loginRememberMe"
                     type="checkbox"
                     class="mr-3 rounded border-gray-300 text-purple-500 focus:ring-purple-500"
+                    
                 />
                 <label for="loginRememberMe" class="prodinfo">Remember Me</label>
             </div>
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="text-sm text-purple-700 hover:text-purple-600">
+                <a href="{{ route('password.request') }}" class="text-sm"
+                style="color:#5bbb64;"
+                >
                     Forgot Password?
                 </a>
             @endif
