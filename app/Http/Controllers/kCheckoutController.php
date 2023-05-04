@@ -10,7 +10,9 @@ use App\Models\webhook;
 use App\Helpers\Cart;
 use App\Mail\WebhookMail;
 use App\Models\CartItem;
+use App\Models\Order;
 use App\Models\OrderItem;
+
 use Illuminate\Support\Facades\Mail;
 
 class kCheckoutController extends Controller
@@ -344,7 +346,9 @@ class kCheckoutController extends Controller
         // }
     }
 
-    public function chkout_summary(){
+    public function chkout_summary(Request $request){
+        $user = $request->user();
+
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
         $orderItems = [];
@@ -370,6 +374,35 @@ class kCheckoutController extends Controller
                 'unit_price' => $product->retail_price
             ];
         }
+
+        // Create Order
+            $orderData = [
+                    'total_price' => $totalPrice,
+                    'status' => OrderStatus::Unpaid,
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
+                ];
+            $order = Order::create($orderData);
+
+        // Create Order Items
+        foreach ($orderItems as $orderItem) {
+            $orderItem['order_id'] = $order->id;
+            OrderItem::create($orderItem);
+        }
+
+        $paymentData = [
+            'order_id' => $order->id,
+            'amount' => $totalPrice,
+            'status' => PaymentStatus::Pending,
+            'type' => 'cc',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            // 'session_id' => $session->id
+        ];
+        Payment::create($paymentData);
+
+        CartItem::where(['user_id' => $user->id])->delete();
+        
 
         return view('checkout.summary',[
                 'items'=>$lineItems,

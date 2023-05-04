@@ -177,7 +177,7 @@
 
                         {{-- <form action="{{route('cart.checkout')}}" method="post"> --}}
 
-                        <form action="{{route('checkout.summary')}}" method="get">
+                        <form action="{{route('checkout.summary')}}" method="post">
                             @csrf
                             <button type="submit" class="btn-primary w-full py-3 text-lg">
                             {{-- <button type="submit" class="tcolor1 w-full py-3 text-lg"> --}}

@@ -40,7 +40,7 @@ Route::get('/checkoutinfo', function(){
     return view('checkout.index');
 });
 
-Route::get('/chksum', [kCheckoutController::class, 'chkout_summary'])->name('checkout.summary');
+// Route::get('/chksum', [kCheckoutController::class, 'chkout_summary'])->name('checkout.summary');
 
 Route::middleware(['guestOrVerified'])->group(function () {
     // Route::get('/ppt', [pProductController::class, 'test'])->name('test');
@@ -82,6 +82,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('order.view');
+
+    Route::post('/chksum', [kCheckoutController::class, 'chkout_summary'])->name('checkout.summary');
+
 
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
 
