@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td class="font-bold py-1 px-2">SubTotal</td>
-                    <td>Thb {{ number_format($order->total_price,2) }}</td>
+                    <td>Thb {{ number_format($order->total_price) }}</td>
                     {{-- <td>Thb {{ $order->total_price }}</td> --}}
                 </tr>
                 </tbody>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center mx-3">Qty: {{$item->quantity}} </div>
-                            <span class="text-lg font-semibold"> Thb {{$item->unit_price}} </span>
+                            <span class="text-lg font-semibold"> Thb {{number_format($item->unit_price)}} </span>
                         </div>
                     </div>
                 </div>
