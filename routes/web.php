@@ -87,22 +87,18 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
-
-
-
-
-
-//  Quotation 
-Route::post('/quotation', [CheckoutController::class, 'quotation'])->name('cart.quotation');
+    //  Quotation 
+    Route::post('/kpayment', [kCheckoutController::class, 'kpayment'])->name('kpayment');
+    
+    Route::post('/quotation', [kCheckoutController::class, 'quotation'])->name('checkout.quotation');
 
 });
 
-Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.credit');
+// Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.credit');
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
 
 
-Route::post('/kpayment', [kCheckoutController::class, 'kpayment'])->name('kpayment');
 
 Route::post('/payment', [kCheckoutController::class, 'paymentresult'])->name('paymentresult');
 

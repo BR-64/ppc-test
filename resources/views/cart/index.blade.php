@@ -180,19 +180,20 @@
                         <form action="{{route('checkout.summary')}}" method="post">
                             @csrf
                             <button type="submit" class="btn-primary w-full py-3 text-lg">
-                            {{-- <button type="submit" class="tcolor1 w-full py-3 text-lg"> --}}
                                 Proceed to Checkout
                             </button>
-
+                            <input type="hidden" name="checkouttype"  value="paynow">
+                            
                         </form>
-
+                        
                         <br>
                         <div>
-                            <form action="{{route('cart.quotation')}}" method="post">
+                        <form action="{{route('checkout.summary')}}" method="post">
                                 @csrf
-                                <button type="submit" class="btn-secondary w-full py-3 text-lg">
+                            <button type="submit" class="btn-secondary w-full py-3 text-lg">
                                     Ask for Quotation
-                                </button>
+                            </button>
+                            <input type="hidden" name="checkouttype"  value="quotation">
                             </form>
                         </div>
                     </div>

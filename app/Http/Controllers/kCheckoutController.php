@@ -88,6 +88,8 @@ class kCheckoutController extends Controller
     $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC";
     $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M";
 
+    
+
     $payload = @file_get_contents('php://input');
     $body = json_decode($payload,true);
 
@@ -349,6 +351,9 @@ class kCheckoutController extends Controller
     public function chkout_summary(Request $request){
         $user = $request->user();
 
+        $R_chkouttype=$_POST["checkouttype"];
+
+
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
         $orderItems = [];
@@ -382,6 +387,14 @@ class kCheckoutController extends Controller
                     'created_by' => $user->id,
                     'updated_by' => $user->id,
                 ];
+
+            if ($R_chkouttype == "paynow" ){
+            // $orderData = ['status' => OrderStatus::Unpaid];
+            $orderData['status'] = OrderStatus::Unpaid;
+            } else {
+                $orderData['status'] = OrderStatus::Quotation;
+            }
+
             $order = Order::create($orderData);
 
         // Create Order Items
@@ -390,6 +403,7 @@ class kCheckoutController extends Controller
             OrderItem::create($orderItem);
         }
 
+        // Create Payment
         $paymentData = [
             'order_id' => $order->id,
             'amount' => $totalPrice,
@@ -409,7 +423,8 @@ class kCheckoutController extends Controller
                 'orderitems'=> $orderItems,
                 'totalprice'=> $totalPrice,
                 'totalpriceShow'=> number_format($totalPrice),
-                'kk'=>11
+                'ordertype'=> $R_chkouttype,
+                'paydata'=>$paymentData
             ]);
     }
 
@@ -421,6 +436,71 @@ class kCheckoutController extends Controller
 
         var_dump ($body);
 
+    }
+
+    public function quotation(Request $request)
+    {
+               $user = $request->user();
+       
+               [$products, $cartItems] = Cart::getProductsAndCartItems();
+       
+               $orderItems = [];
+               $lineItems = [];
+               $totalPrice = 0;
+               foreach ($products as $product) {
+                   $quantity = $cartItems[$product->id]['quantity'];
+                   $totalPrice += $product->retail_price * $quantity;
+                   $lineItems[] = [
+                       'price_data' => [
+                           'currency' => 'thb',
+                           'product_data' => [
+                               'name' => $product->item_code,
+                              'images' => [$product->image]
+                           ],
+                           'unit_amount' => $product->retail_price * 100,
+                       ],
+                       'quantity' => $quantity,
+                   ];
+                   $orderItems[] = [
+                       'product_id' => $product->id,
+                       'quantity' => $quantity,
+                       'unit_price' => $product->retail_price
+                   ];
+               }
+       
+               // Create Order
+               $orderData = [
+                   'total_price' => $totalPrice,
+                   'status' => OrderStatus::Quotation,
+                   'created_by' => $user->id,
+                   'updated_by' => $user->id,
+               ];
+               $order = Order::create($orderData);
+       
+               // Create Order Items
+               foreach ($orderItems as $orderItem) {
+                   $orderItem['order_id'] = $order->id;
+                   OrderItem::create($orderItem);
+               }
+       
+               // Create Payment
+               $paymentData = [
+                   'order_id' => $order->id,
+                   'amount' => $totalPrice,
+                   'status' => PaymentStatus::Pending,
+                   'type' => 'cc',
+                   'created_by' => $user->id,
+                   'updated_by' => $user->id,
+                //    'session_id' => $session->id
+               ];
+               Payment::create($paymentData);
+       
+               CartItem::where(['user_id' => $user->id])->delete();
+       
+            //    return redirect();
+               return redirect('/orders/'.$orderItem['order_id']);
+
+       
     }
 
 }
