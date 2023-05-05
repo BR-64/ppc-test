@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container lg:w-2/3 xl:w-2/3 mx-auto blacktext">
-        <h1 class="pagehead">Your Cart Items</h1>
+        <h1 class="pagehead" style="color:black;">Your Cart Items</h1>
 
         <div x-data="{
             cartItems: {{

@@ -4,7 +4,7 @@
 
 <x-app-layout>
     <div class="container mx-auto lg:w-2/3 p-5 blacktext">
-        <h1 class="pagehead">My Orders</h1>
+        <h1 class="pagehead" style="color:black;">My Orders</h1>
         <div class="bg-white rounded-lg p-3 overflow-x-auto">
             <table class="table-auto w-full">
                 <thead>
@@ -31,12 +31,14 @@
                         <td class="py-1 px-2 whitespace-nowrap">{{$order->created_at}}</td>
                         <td class="py-1 px-2">
                             <small class="text-white py-1 px-2 rounded
-                                {{$order->isPaid() ? 'bg-emerald-500' : 'bg-gray-400' }}">
+                                {{$order->isPaid() ? 'bg-emerald-500' 
+                                // :$order->isPaid() == 'quotation'? 'bg-orange-500'
+                                :'bg-gray-400' }}">
                                 {{$order->status}}
                             </small
                             >
                         </td>
-                        <td class="py-1 px-2">THB {{$order->total_price}}</td>
+                        <td class="py-1 px-2">THB {{number_format($order->total_price)}}</td>
                         <td class="py-1 px-2 whitespace-nowrap">{{$order->items()->count()}} item(s)</td>
                         <td class="py-1 px-2 flex gap-2 w-[100px]">
                             @if (!$order->isPaid())
