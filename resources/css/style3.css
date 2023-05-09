@@ -1362,3 +1362,20 @@ swiper-slide img {
 .linklog {
   color: #5bbb64;
 }
+
+.dropdown2 {
+  float: left;
+  position: relative;
+  margin-top: 10px;
+}
+
+.navitem {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}

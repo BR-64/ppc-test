@@ -62,8 +62,10 @@
         </div>
 {{-- //////////////////////////////////////////////////////// --}}
 
-    <div>
-        <a href="{{ route('shopf') }}" class="relative flex justify-end p-6 link"> Shop </a>
+    <div class="dropdown2 ">
+        <div class="navitem">
+            <a href="{{ route('shopf') }}" > Shop </a>
+        </div>
     </div>
     <div>
         <a
