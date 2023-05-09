@@ -40,7 +40,7 @@ Route::get('/checkoutinfo', function(){
     return view('checkout.index');
 });
 
-// Route::get('/chksum', [kCheckoutController::class, 'chkout_summary'])->name('checkout.summary');
+Route::get('/chksumt', [kCheckoutController::class, 'chkout_summary_test'])->name('checkout.summary');
 
 Route::middleware(['guestOrVerified'])->group(function () {
     // Route::get('/ppt', [pProductController::class, 'test'])->name('test');

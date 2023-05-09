@@ -3,19 +3,33 @@
 
         <h1 class="pagehead2">Checkout Summary</h1>
         <h2 class ="pprice">Order Type : [{{$ordertype}}]</h2>
+        <p>OrderNumber #{{$paydata['order_id']}}</p>
 
-        @foreach($items as $product)
-        <div>
-            <p>{{$product['price_data']['product_data']['name']}}</p>
-            {{-- <p>{{$product['price_data']['product_data']->name}}</p> --}}
-            <p>{{ $product['quantity']}}</p>
+        <div class="chksum">
 
+            @foreach($items as $product)
+            <div class="ordersummary">
+                <div class="os1">
+                    <img src="{{$product['price_data']['product_data']['images']['0']}}" class="sumpic" alt=""/>
+                </div>
+                <div class="os2">
+                    <p>{{$product['price_data']['product_data']['name']}}</p>
+                    <div class="os2_1">
+                        <p>{{number_format($product['price_data']['price'])}}</p>
+                        <p>x{{ $product['quantity']}}</p>
+                    </div>
+                </div>
+                <div class="os3">
+                    <p>{{number_format( $product['itemtotal'])}}</p>
+                    
+                </div>
+            </div>
+            <hr class="my-3"/>
+            @endforeach
+    
+                <h3 class="chksumtotal">{{$totalpriceShow}}</h3>
+                
         </div>
-        @endforeach
-
-    <h3> {{$totalpriceShow}}</h3>
-
-    {{-- <p>{{$paydata['order_id']}}</p> --}}
     </br>
     <div x-data="{ordertype:{{json_encode($ordertype)}}}">
         <div x-show="ordertype == 'paynow'">
@@ -30,11 +44,11 @@
                         data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
                         data-amount={{$totalprice}}
                         data-currency="THB"
-                data-payment-methods="card"
-                data-name="Test shop Prempracha"
-                description="product21"
-                reference_order="test124"
-                data-mid="451320492949001"
+                        data-payment-methods="card"
+                        data-name="Test shop Prempracha"
+                        description="product21"
+                        reference_order="test124"
+                        data-mid="451320492949001"
                 >
             </script>
             <input type="hidden" name="paytype"  value="card_DCC">

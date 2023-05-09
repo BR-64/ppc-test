@@ -131,7 +131,6 @@ class kCheckoutController extends Controller
     
          if ($R_paytype == "card_DCC" ){
              $R_TOKEN=$_POST["token"];
-            //  $R_TOKEN2=$_POST["_token"];
              $R_dcc_cur=$_POST["dcc_currency"];
              $reforder = rand();
              
@@ -142,11 +141,9 @@ class kCheckoutController extends Controller
                 "source_type" => "card",
                 "mode" => "token",
                 "token" => $R_TOKEN,
-                // "token" => $R_TOKEN2,
                 "reference_order" => $reforder,
                 "additional_data" => [
                   "mid"=> "451320492949001",
-                //   "tid"=>"88292023"
            ]
          
          );
@@ -370,8 +367,10 @@ class kCheckoutController extends Controller
                        'images' => [$product->image]
                     ],
                     'unit_amount' => $product->retail_price * 100,
+                    'price' => $product->retail_price
                 ],
                 'quantity' => $quantity,
+                'itemtotal'=> $quantity * $product->retail_price
             ];
             $orderItems[] = [
                 'product_id' => $product->id,
@@ -425,6 +424,86 @@ class kCheckoutController extends Controller
                 'totalpriceShow'=> number_format($totalPrice),
                 'ordertype'=> $R_chkouttype,
                 'paydata'=>$paymentData
+            ]);
+    }
+    public function chkout_summary_test(Request $request){
+        // $user = $request->user();
+        // $R_chkouttype=$_POST["checkouttype"];
+
+        [$products, $cartItems] = Cart::getProductsAndCartItems();
+
+        $orderItems = [];
+        $lineItems = [];
+        $totalPrice = 0;
+        foreach ($products as $product) {
+            $quantity = $cartItems[$product->id]['quantity'];
+            $totalPrice += $product->retail_price * $quantity;
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'thb',
+                    'product_data' => [
+                        'name' => $product->item_code,
+                       'images' => [$product->image]
+                    ],
+                    'unit_amount' => $product->retail_price * 100,
+                    'price' => $product->retail_price
+                ],
+                'quantity' => $quantity,
+                'itemtotal'=> $quantity * $product->retail_price
+            ];
+
+            $orderItems[] = [
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'unit_price' => $product->retail_price
+            ];
+        }
+
+        // Create Order
+            // $orderData = [
+            //         'total_price' => $totalPrice,
+            //         'status' => OrderStatus::Unpaid,
+            //         'created_by' => $user->id,
+            //         'updated_by' => $user->id,
+            //     ];
+
+            // if ($R_chkouttype == "paynow" ){
+            // // $orderData = ['status' => OrderStatus::Unpaid];
+            // $orderData['status'] = OrderStatus::Unpaid;
+            // } else {
+            //     $orderData['status'] = OrderStatus::Quotation;
+            // }
+
+            // $order = Order::create($orderData);
+
+        // Create Order Items
+        // foreach ($orderItems as $orderItem) {
+        //     $orderItem['order_id'] = $order->id;
+        //     OrderItem::create($orderItem);
+        // }
+
+        // // Create Payment
+        // $paymentData = [
+        //     'order_id' => $order->id,
+        //     'amount' => $totalPrice,
+        //     'status' => PaymentStatus::Pending,
+        //     'type' => 'cc',
+        //     'created_by' => $user->id,
+        //     'updated_by' => $user->id,
+        //     // 'session_id' => $session->id
+        // ];
+        // Payment::create($paymentData);
+
+        // CartItem::where(['user_id' => $user->id])->delete();
+        
+
+        return view('checkout.summary',[
+                'items'=>$lineItems,
+                'orderitems'=> $orderItems,
+                'totalprice'=> $totalPrice,
+                'totalpriceShow'=> number_format($totalPrice),
+                // 'ordertype'=> $R_chkouttype,
+                // 'paydata'=>$paymentData
             ]);
     }
 

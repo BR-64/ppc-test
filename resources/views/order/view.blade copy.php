@@ -34,23 +34,25 @@
 
             @foreach($order->items as $item)
                 <!-- Order Item -->
-                <div class="ordersummary">
+                <div class="flex flex-col sm:flex-row items-center  gap-4">
                     <a href="{{ route('product.view', $item->product) }}"
-                       class="">
-                        <img src="{{$item->product->image}}" class="sumpic" alt=""/>
+                       class="w-36 h-32 flex items-center justify-center overflow-hidden">
+                        <img src="{{$item->product->image}}" class="object-cover" alt=""/>
                     </a>
-                    <div class="os2">
-                            <p>
+                    <div class="flex flex-col justify-between">
+                        <div class="flex justify-between mb-3">
+                            <h3>
+                                {{-- {{$item->product->title}} --}}
                                 {{$item->product->item_code}}
-                            </p>
-                        <div class="os2_1">
-                            Qty: {{$item->quantity}}
+                            </h3>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center mx-3">Qty: {{$item->quantity}} </div>
+                            <span class="text-lg font-semibold"> Thb {{number_format($item->unit_price)}} </span>
                         </div>
                     </div>
-                    <div class="os3">
-                        <span class=""> Thb {{number_format($item->unit_price)}} </span>
-                    </div>
                 </div>
+                <!--/ Order Item -->
                 <hr class="my-3"/>
             @endforeach
 

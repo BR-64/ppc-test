@@ -64,7 +64,7 @@ h5 {
 }
 
 p {
-  margin: 0 20px;
+  /* margin: 0 20px; */
 }
 
 .undertext {
@@ -1134,7 +1134,7 @@ swiper-slide img {
   object-fit: cover;
 }
 
-// dropdown
+/*/ dropdown  */
 .link {
   background: none;
   border: none;
@@ -1193,6 +1193,53 @@ swiper-slide img {
 }
 
 /* /////////////////////////////// checkout summary */
+.chksum {
+  background: white;
+  color: black;
+  padding: 10px;
+}
+
+.ordersummary {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-bottom: 4px;
+  justify-content: space-between;
+}
+
+.sumpic {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.os2 {
+  align-items: start;
+  text-align: left;
+  margin: 0px;
+  width: 150px;
+}
+
+.os2_1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.os3 {
+  align-items: start;
+  text-align: right;
+  margin: 0px;
+  width: 50px;
+}
+
+.chksumtotal {
+  text-align: right;
+  margin: 20px 0 0 0;
+  text-decoration-line: underline;
+  text-decoration-style: double;
+}
+
 .subbut {
   background: #0066a2;
   color: white;
@@ -1311,7 +1358,7 @@ swiper-slide img {
   margin: 0;
 }
 
-/////
+/*///         */
 .linklog {
   color: #5bbb64;
 }

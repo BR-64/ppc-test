@@ -3,16 +3,16 @@
 ?>
 
 <x-app-layout>
-    <div class="container mx-auto lg:w-2/3 p-5 blacktext">
+    <div class="container mx-auto lg:w-2/3 p-4 blacktext">
         <h1 class="pagehead" style="color:black;">My Orders</h1>
-        <div class="bg-white rounded-lg p-3 overflow-x-auto">
+        <div class="bg-white rounded-lg p-1 overflow-x-auto">
             <table class="table-auto w-full">
                 <thead>
                 <tr class="border-b-2">
                     <th class="text-left p-2">Order #</th>
                     <th class="text-left p-2">Date</th>
                     <th class="text-left p-2">Status</th>
-                    <th class="text-left p-2">SubTotal</th>
+                    <th class="text-left p-2">SubTotal (thb) </th>
                     <th class="text-left p-2">Items</th>
                     <th class="text-left p-2">Actions</th>
                 </tr>
@@ -28,7 +28,7 @@
                                 #{{$order->id}}
                             </a>
                         </td>
-                        <td class="py-1 px-2 whitespace-nowrap">{{$order->created_at}}</td>
+                        <td class="py-1 px-2 whitespace-nowrap">{{date('d.m.y', strtotime($order->created_at))}}</td>
                         <td class="py-1 px-2">
                             <small class="text-white py-1 px-2 rounded
                                 {{$order->isPaid() ? 'bg-emerald-500' 
@@ -38,8 +38,8 @@
                             </small
                             >
                         </td>
-                        <td class="py-1 px-2">THB {{number_format($order->total_price)}}</td>
-                        <td class="py-1 px-2 whitespace-nowrap">{{$order->items()->count()}} item(s)</td>
+                        <td class="py-1 px-2">{{number_format($order->total_price)}}</td>
+                        <td class="py-1 px-2 whitespace-nowrap">{{$order->items()->count()}} </td>
                         <td class="py-1 px-2 flex gap-2 w-[100px]">
                             @if (!$order->isPaid())
                                 <form action="{{ route('cart.checkout-order', $order) }}"
