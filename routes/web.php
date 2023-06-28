@@ -14,6 +14,7 @@ use App\Mail\WebhookMail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\kCheckoutController;
+use App\Http\Controllers\CheckoutSummaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,9 @@ Route::get('/checkoutinfo', function(){
     return view('checkout.index');
 });
 
-Route::get('/chksumt', [kCheckoutController::class, 'chkout_summary_test'])->name('checkout.summary');
+Route::get('/chksumt', [kCheckoutController::class, 'chkout_summary_test'])->name('checkout.summary_t');
+
+Route::get('/chksumt2', [CheckoutSummaryController::class, 'summary'])->name('checkout.summary_t2');
 
 Route::middleware(['guestOrVerified'])->group(function () {
     // Route::get('/ppt', [pProductController::class, 'test'])->name('test');
@@ -84,6 +87,11 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('order.view');
 
     Route::post('/chksum', [kCheckoutController::class, 'chkout_summary'])->name('checkout.summary');
+    Route::get('/chkstep1', [CheckoutSummaryController::class, 'chkout_step1'])->name('checkout.step1');
+    Route::get('/chkstep2', [CheckoutSummaryController::class, 'chkout_step2'])->name('checkout.step2');
+    Route::post('/chkstep3', [kCheckoutController::class, 'chkout_step3'])->name('checkout.step3');
+
+    Route::get('/testCreateSC', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
 
 
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
@@ -125,6 +133,11 @@ Route::get('/dd', function(){
 // });
 
 Route::get('/webhookmail',[kCheckoutController::class,'webhook']);
+
+
+///////////////////////////////////////// Test
+
+Route::get('/productt/{product:item_code}', [pProductController::class, 'view_test'])->name('product.view_test');
 
 
 require __DIR__ . '/auth.php';

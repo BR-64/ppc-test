@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\pProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +24,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/user', [\App\Http\Controllers\Api\AuthController::class, 'getUser']);
     Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
 
-    Route::apiResource('products', ProductController::class);
+    // Route::apiResource('products', ProductController::class);
+    Route::apiResource('products', pProductController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('customers', CustomerController::class);
     Route::get('/countries', [CustomerController::class, 'countries']);

@@ -44,21 +44,18 @@
     <br>
 
 
+    <div class="premmaincoll">
     @foreach($products as $product)
-    <div class="pccoll">
-            <!-- Product Item -->
-
-                <a href="{{ route('product.collection.view', $product->collection_name) }}">
-                    <h5>{{ $product->collection_name }}</h5>
-                    <div class="pchero">
-{{-- collection cover --}}
+          <div class="pchero">
+                    <a href="{{ route('product.collection.view', $product->collection_name) }}">
+                      <h5>{{ $product->collection_name }}</h5>
+                      
                       @include('prem.col_slide')
 
-                    </div>
-                </a>
-        <!--/ Product Item -->
-    </div>
+                    </a>
+          </div>
         @endforeach
+      </div>
 
 
 <?php endif; ?>

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Enums\AddressType;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\ProfileRequest;
@@ -23,7 +22,7 @@ class ProfileController extends Controller
         $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 //        dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
         $countries = Country::query()->orderBy('name')->get();
-        return view('profile.view', compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
+        return view('profile.view2', compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
     }
     public function billshipView(Request $request)
     {
@@ -36,8 +35,8 @@ class ProfileController extends Controller
 
         $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 
-//        dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
         $countries = Country::query()->orderBy('name')->get();
+
         return view('checkout.billing_shipping', compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
 
 
@@ -63,6 +62,7 @@ class ProfileController extends Controller
             $shippingData['type'] = AddressType::Shipping->value;
             CustomerAddress::create($shippingData);
         }
+
         if ($customer->billingAddress) {
             $customer->billingAddress->update($billingData);
         } else {
@@ -73,7 +73,10 @@ class ProfileController extends Controller
 
         $request->session()->flash('flash_message', 'Profile was successfully updated.');
 
-        return redirect()->route('profile');
+        // dd($customer->billingAddress);
+
+        // return redirect()->route('profile');
+        return redirect()->back();
 
     }
 

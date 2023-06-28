@@ -38,24 +38,22 @@
             </div>
     </div>
     <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
-        <h2 class="text-xl font-semibold mb-2">Personal details (optional)</h2>
+        <h2 class="text-xl font-semibold mb-2">Customer details (optional)</h2>
 
             <div class="mb-4">
                 <div class="mb-3">
                     <x-input
                     type="text"
                     name="first_name"
-                    {{-- value="{{old('first_name', $customer->first_name)}}" --}}
-                    placeholder="First Name"
+                    placeholder="Customer / Company name"
                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                     />
                 </div>
                 <div class="mb-3">
                     <x-input
                     type="text"
-                    name="last_name"
-                    {{-- value="{{old('first_name', $customer->first_name)}}" --}}
-                    placeholder="Last Name"
+                    name="TaxID"
+                    placeholder="Tax ID (For invoice)"
                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                     />
                 </div>
@@ -190,13 +188,10 @@
           
     </div>
         <div style="text-align: center">
-
-        <button
-            class="addtocart"
-        >
-            Signup
-        </button>
+            <button class="addtocart">Signup</button>
         </div>
     </form>
+
     <div class="footspace"></div>
+
 </x-app-layout>

@@ -9,6 +9,8 @@ use App\Models\pProduct as Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cookie;
+use App\Models\Stock;
+
 
 class CartController extends Controller
 {
@@ -18,6 +20,10 @@ class CartController extends Controller
         $total = 0;
         foreach ($products as $product) {
             $total += $product->price * $cartItems[$product->id]['quantity'];
+            // $stock= Stock::query()
+            //     ->where('item_code', '=',$product->item_code)
+            //     ->first(); ;
+            // $stocky=$product->stock->stock;
         }
 
         return view('cart.index', compact('cartItems', 'products', 'total'));

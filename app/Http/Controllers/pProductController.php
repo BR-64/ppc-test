@@ -11,6 +11,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 use App\Models\Portfolio;
+use App\Models\Stock;
 
 class pProductController extends Controller
 
@@ -20,6 +21,7 @@ class pProductController extends Controller
     {
         $products = pProduct::query()
             ->where('published', '=', 1)
+            // ->stock()->where('stock','>',100)
             ->orderBy('updated_at', 'desc')
             ->paginate(30);
             
@@ -62,8 +64,10 @@ class pProductController extends Controller
                 ->paginate(6);
         $hlproducts = pProduct::query()
                 ->where('highlight', '=', 1)
-                ->orderBy('id', 'asc')
-                ->paginate(20);
+                // ->orderBy('id', 'asc')
+                ->inRandomOrder()
+                // ->orderBy('updated_at', 'desc')
+                ->paginate(30);
         $collections=pCollection::query()
                 ->where('published', '=', 1)
                 ->orderBy('id', 'desc')
@@ -98,9 +102,108 @@ class pProductController extends Controller
         ->where('item_code', '=',$product->item_code)
         ->latest()->get(); ;
 
+        // $stock= Stock::query()
+        // ->where('item_code', '=',$product->item_code)
+        // ->first(); ;
+
+
         return view('product.view', [
             'product' => $product,
-            'gallery'=>$gallery
+            'gallery'=>$gallery,
+            'stock'=>$product->stock->stock
+        ]);
+    }
+    public function view_test(pProduct $product)
+    {
+        $gallery =Portfolio::query()
+        ->where('item_code', '=',$product->item_code)
+        ->latest()->get(); ;
+
+        // $stock= pProduct::realtimeStock($product->item_code);
+
+        $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList='.$product['item_code'];
+
+        $url2='http://1.1.220.113:7000/PrempApi.asmx/getItemData?strItemCodeList='.$product['item_code'];
+
+        // $url='http://1.1.220.113:7000/PrempApi.asmx/getAllStockBalance';
+        // $url='http://1.1.220.113:7000/PrempApi.asmx/getAllItemData';
+
+        // $url="https://dummyjson.com/products/1";
+
+        $ch = curl_init();
+        $fields=array(
+            'strItemCodeList'=> $product
+        );
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+        // curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'GET' );
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
+
+        $response = curl_exec($ch);
+
+        curl_close($ch);
+
+        // $JsonResponse=substr($response,)
+        // preg_match_all('/\(([^\)]+)\)/', $response, $matches);
+        preg_match('#\[([^]]+)\]#', $response, $match);
+        // dd($match[1]);
+
+        $fromEnpro='{{"item_code":"1AK1925Y6","weight_g":0.000000,"width_cm":21.500000,"length_cm":21.500000,"height_cm":33.500000,"retail_price":3800.000000,"img_path":""},{"item_code":"1G1523Y","weight_g":1800.000000,"width_cm":17.500000,"length_cm":17.500000,"height_cm":12.500000,"retail_price":600.000000,"img_path":""}}';
+
+        $fromEnpro2='{
+            "id": 1,
+            "title": "iPhone 9",
+            "description": "An apple mobile which is nothing like apple",
+            "price": 549,
+            "discountPercentage": 12.96,
+            "rating": 4.69,
+            "stock": 94,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+            "images": [
+                "https://i.dummyjson.com/data/products/1/1.jpg",
+                "https://i.dummyjson.com/data/products/1/2.jpg",
+                "https://i.dummyjson.com/data/products/1/3.jpg",
+                "https://i.dummyjson.com/data/products/1/4.jpg",
+                "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            ]
+        }';
+
+        // preg_match('#\[([^]]+)\]#', $fromEnpro, $match);
+        // preg_match('#\[([^]]+)\]#', $response, $match);
+
+        // $data=0;
+        // var_dump(json_decode($response));
+        // $data=json_decode($fromEnpro,true);
+        // $data=json_decode($match[1]);
+        // $stock=json_decode($response,true);
+        // $stock=$response;
+        // dd($response);
+        // dd($fromEnpro);
+        // dd($data);
+        
+        // echo($response);
+        
+        
+        $data=json_decode($match[1],true);
+        $stock=$data['STK'];
+        // dd($data);
+        
+        // print_r($data);
+
+        // $price=$pdata['retail_price'];
+
+
+
+        return view('product.view', [
+            'product' => $product,
+            'gallery'=>$gallery,
+            'stock'=>$stock,
+            // 'price'=>$price
         ]);
     }
 
@@ -147,8 +250,13 @@ class pProductController extends Controller
     }
 
     public function qfilter(){
+        // $allproducts = pProduct::query()
+        //     ->where('published', '=', 2)
+        //     ->orderBy('updated_at', 'desc')
+        //     ->paginate(30);
+
         $qproducts = QueryBuilder::for (pProduct::class)
-            // ->allowedFilters(['collection'])
+            ->where('published', '=', 0)
             ->allowedFilters([
                 AllowedFilter::exact('collection'),
                 AllowedFilter::exact('category'),
@@ -173,12 +281,14 @@ class pProductController extends Controller
 
         View::share('sharedData', [
             'products' => $qproducts,
-            'filterables'=>$filterables
+            'filterables'=>$filterables,
+            // 'products'=>$allproducts
         ]);
 
         return view('product.index2', [
             'products' => $qproducts,
-            'filterables'=>$filterables
+            'filterables'=>$filterables,
+            // 'products'=>$allproducts
         ]);
     }
     public function qfilter2(){

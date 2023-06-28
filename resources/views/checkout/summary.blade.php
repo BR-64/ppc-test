@@ -6,6 +6,12 @@
         <p>OrderNumber #{{$paydata['order_id']}}</p>
 
         <div class="chksum">
+            <h2>Customer Info</h2>
+        </div>
+
+        </br>
+        
+        <div class="chksum">
 
             @foreach($items as $product)
             <div class="ordersummary">
@@ -43,7 +49,7 @@
                         src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
                         data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
                         data-amount={{$totalprice}}
-                        data-currency="THB"
+                        {{-- data-currency="THB" --}}
                         data-payment-methods="card"
                         data-name="Test shop Prempracha"
                         description="product21"
@@ -73,9 +79,10 @@
             </br>
                 <form class="qrform" method="POST" action="{{route('kpayment')}}">
                     @csrf
-                <input type="hidden" name="paytype"  value="alipay">
-                <input type="hidden" name="amount" value="{{$totalprice}}">          
-                <input class="subbut" type="submit"value="Pay with Ali">
+                    <input type="hidden" name="paytype"  value="alipay">
+                    <input type="hidden" name="amount" value="{{$totalprice}}">          
+                    <button class="subbut" type="submit"value="Pay with Ali"  onclick="clicked(Alipay)"> Pay with Ali
+                    </button>
                 </form>
             </div>
             </div>
@@ -91,6 +98,16 @@
 
     </div>
 </div>
+
+<script>
+    function clicked(e)
+    {
+        if(!confirm('Do you want to pay with 'e'?')) {
+            e.preventDefault();
+        }
+    }
+
+</script>
 
 
 </x-app-layout>

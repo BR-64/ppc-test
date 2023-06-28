@@ -72,7 +72,7 @@
 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <img class="pgallpic" src="{{$product->image}}" />
+            <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
         </div>
         @foreach($gallery as $gall)
             <div class="swiper-slide">

@@ -63,6 +63,9 @@ h5 {
   color: #e1dad1;
 }
 
+.footcol {
+}
+
 p {
   /* margin: 0 20px; */
 }
@@ -193,8 +196,9 @@ footer {
 
 .footercontent {
   margin: auto;
-  /* width: 390px; */
+  width: 100%;
   color: black;
+  padding: -20px;
 }
 
 header {
@@ -204,6 +208,7 @@ header {
   margin: 0 0;
   height: 65px;
   position: -webkit-sticky;
+  width: 100%;
 }
 
 .header {
@@ -295,8 +300,9 @@ header {
   max-width: 275px;
   min-height: 238px;
   object-fit: cover;
-  margin-bottom: 20px;
   margin: auto;
+  margin-bottom: 80px;
+  text-align: center;
 }
 
 .premcollhero {
@@ -321,6 +327,17 @@ header {
 }
 
 .pccoll {
+  text-align: center;
+  color: white;
+  width: 370px;
+  /* height: 100%; */
+  box-sizing: border-box;
+  /* border: 1px solid yellow; */
+  margin: auto;
+  margin-bottom: 80px;
+}
+
+.premmaincoll {
   text-align: center;
   color: white;
   width: 370px;
@@ -372,7 +389,7 @@ header {
   margin: auto;
   margin-bottom: 60px;
   /* height: 30vh; */
-  height: 280px;
+  height: 300px;
 }
 
 .gridHLmain {
@@ -390,7 +407,8 @@ header {
 
 .gridHL {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr; */
+  grid-template-columns: repeat(auto-fill, 180px);
   gap: 10px;
   margin: auto;
   margin-bottom: 30px;
@@ -404,8 +422,11 @@ header {
 }
 
 .SCpic {
-  max-width: 180px;
-  min-height: 114px;
+  /* max-width: 180px;
+  max-height: 120px; */
+  /* min-height: 114px; */
+  width: 180px;
+  height: 180px;
   margin: auto;
   object-fit: cover;
 }
@@ -449,9 +470,7 @@ header {
 
 .shopcoll {
   text-align: center;
-
   width: 370px;
-  height: 300px;
   box-sizing: border-box;
   /* border: 1px solid yellow; */
   margin: auto;
@@ -1369,6 +1388,16 @@ swiper-slide img {
   margin-top: 10px;
 }
 
+.dropdown3 {
+  float: left;
+  position: relative;
+  margin-left: 20px;
+  margin-top: 10px;
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
 .navitem {
   font-size: 16px;
   border: none;
@@ -1378,4 +1407,32 @@ swiper-slide img {
   background-color: inherit;
   font-family: inherit;
   margin: 0;
+}
+
+/* ---------------------------------------- */
+.oosbanner {
+  position: absolute;
+  top: 0px;
+
+  /* z-index: 100; */
+}
+
+.preorbanner {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.rel {
+  position: relative;
+}
+
+/* --------------------------------------- */
+
+.hlitem {
+  width: 170px;
+}
+
+.summarytable {
+  text-align: left;
 }

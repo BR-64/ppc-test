@@ -6,7 +6,7 @@
                 <div class="gridHLmain ">
                     @foreach($hlproducts as $key => $hlproduct)
                         @if($key<4)
-                    <div>
+                    <div class="hlitem">
                         <a href="{{ route('product.view', $hlproduct->item_code) }}"
                             class=" block overflow-hidden">
                             <img
@@ -22,8 +22,8 @@
                 <div class="gridHLmain ">
                     @foreach($hlproducts as $key => $hlproduct)
                         @if($key>=4 && $key <8)
-                    <div>
-                        <a href="{{ route('product.view', $hlproduct->item_code) }}"
+                        <div class="hlitem">
+                            <a href="{{ route('product.view', $hlproduct->item_code) }}"
                             class=" block overflow-hidden">
                             <img
                             src="{{ $hlproduct->image }}"
@@ -38,7 +38,55 @@
                 <div class="gridHLmain ">
                     @foreach($hlproducts as $key => $hlproduct)
                     @if($key>=8 && $key <12)
-                    <div>
+                    <div class="hlitem">
+                        <a href="{{ route('product.view', $hlproduct->item_code) }}"
+                            class=" block overflow-hidden">
+                            <img
+                            src="{{ $hlproduct->image }}"
+                            alt="{{ $hlproduct->item_code }}"
+                            class="HLpic"
+                            />
+                        </a>
+                </div>
+                        @endif
+                    @endforeach
+            </div>
+                <div class="gridHLmain ">
+                    @foreach($hlproducts as $key => $hlproduct)
+                    @if($key>=12 && $key <16)
+                    <div class="hlitem">
+                        <a href="{{ route('product.view', $hlproduct->item_code) }}"
+                            class=" block overflow-hidden">
+                            <img
+                            src="{{ $hlproduct->image }}"
+                            alt="{{ $hlproduct->item_code }}"
+                            class="HLpic"
+                            />
+                        </a>
+                </div>
+                        @endif
+                    @endforeach
+            </div>
+                <div class="gridHLmain ">
+                    @foreach($hlproducts as $key => $hlproduct)
+                    @if($key>=16 && $key <20)
+                    <div class="hlitem">
+                        <a href="{{ route('product.view', $hlproduct->item_code) }}"
+                            class=" block overflow-hidden">
+                            <img
+                            src="{{ $hlproduct->image }}"
+                            alt="{{ $hlproduct->item_code }}"
+                            class="HLpic"
+                            />
+                        </a>
+                </div>
+                        @endif
+                    @endforeach
+            </div>
+                <div class="gridHLmain ">
+                    @foreach($hlproducts as $key => $hlproduct)
+                    @if($key>=20 && $key <24)
+                    <div class="hlitem">
                         <a href="{{ route('product.view', $hlproduct->item_code) }}"
                             class=" block overflow-hidden">
                             <img
@@ -53,7 +101,6 @@
             </div>
 
         <div class="gridHLmain swiper-slide"></div>
-
         <div class="gridHLmain swiper-slide"></div>
         <div class="gridHLmain swiper-slide"></div>
     </div>
