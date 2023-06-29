@@ -17,7 +17,7 @@ class pCollection extends Model
 
     public function getRouteKeyName()
     {
-        return 'item_code';
+        return 'collection_name';
     }
 
 
