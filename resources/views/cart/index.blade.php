@@ -23,14 +23,13 @@
                     ])
                 )
             }},
-            get baseDiscount(){
+            get cartto(){
                 {{-- return number_format('2000') --}}
                 {{-- cartTotal() --}}
                 {{-- return Math.floor(Math.random() * number) --}}
                 return cartTotal()
             },
             get cartTotal() {
-                bDiscount() {}
                 return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
             },
             
@@ -46,7 +45,7 @@
                     
 <!-- Product Item -->
 <h2>In Stock</h2>
-<h2 x-text="cartto">In Stock</h2>
+{{-- <h2 x-text="cartto">In Stock</h2> --}}
     <form action="{{route('checkout.step1')}}" method="get";>
                     <template x-for="product of cartItems" :key="product.id">
 {{-- Normal Items --}}
@@ -185,14 +184,14 @@
                     </template>
 <!-- subtotal -->
 
-                    <div class="border-t border-gray-300 pt-4">
+                    {{-- <div class="border-t border-gray-300 pt-4">
                         <p  x-text="`${baseDiscount}`"></p>
                         <p  x-text="`${cartTotal}`">yo</p>
                         <div class="flex justify-between">
 
                             <p>Discount</p>
                             <span id="cartTotal" class="text-m" x-text="`${cartTotal}`"></span>
-                        </div>
+                        </div> --}}
                         <div class="flex justify-between">
                             <span class="font-semibold">Subtotal 
                             <span class="notice">(included tax)
@@ -265,7 +264,7 @@ function format(n, sep, decimals) {
         + n.toFixed(decimals).split(sep)[1];
 }
 
-document.getElementById("totalprice").innterHTML=cartto()
+// document.getElementById("totalprice").innterHTML=cartto()
 
     function clicked(e)
     {

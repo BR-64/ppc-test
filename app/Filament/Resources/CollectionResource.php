@@ -7,16 +7,26 @@ use App\Filament\Resources\CollectionResource\RelationManagers;
 use App\Models\pCollection;
 use App\Models\Collection;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CollectionResource extends Resource
 {
     protected static ?string $model = pCollection::class;
+    protected static ?string $navigationLabel = 'Collections';
+
+    protected static ?string $navigationGroup = 'Product Management';
+    protected static ?int $navigationSort = 2;
+
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -24,7 +34,20 @@ class CollectionResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Fieldset::make('Collection Info')->schema([
+                    TextInput::make('id')->label('ID')->disabled(),
+                    TextInput::make('collection_name'),
+                    TextInput::make('brand_name'),
+                    Toggle::make('published')
+
+                ])->columns(3),
+                Fieldset::make('Items in Collection')->schema([
+                    TextInput::make('id')->label('ID')->disabled(),
+                    TextInput::make('collection_name'),
+                    TextInput::make('brand_name'),
+
+                ])->columns(3),
+                
             ]);
     }
 
@@ -32,8 +55,13 @@ class CollectionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('collection_name'),
-                Tables\Columns\TextColumn::make('brand_name'),
+                ImageColumn::make('image')->width(40)->height(80),
+                TextColumn::make('collection_name'),
+                TextColumn::make('brand_name'),
+                TextColumn::make('products_count')
+                // pCollection::withCount('products')
+                    ->counts('products')
+                    ->label('no. of products'),
                 //
             ])
             ->filters([

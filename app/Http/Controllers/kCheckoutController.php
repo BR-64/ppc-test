@@ -525,9 +525,9 @@ class kCheckoutController extends Controller
 
         $R_chkouttype=$_POST["checkouttype"];
         $R_shipcost=$_POST["Shipcost"];
+        $R_Insurance=$_POST["Insurance"];
 
         // dd($R_shipcost);
-
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
@@ -558,7 +558,7 @@ class kCheckoutController extends Controller
             ];
         }
 
-        $totalpayment = $totalPrice+$R_shipcost;
+        $totalpayment = $totalPrice+$R_shipcost+$R_Insurance;
 
         // // Create Order
         //     $orderData = [

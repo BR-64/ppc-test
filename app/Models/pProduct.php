@@ -15,7 +15,7 @@ class pProduct extends Model
     // use SoftDeletes;
 
     protected $table = 'p_products';
-    protected $fillable = ['title', 'description', 'image', 'published', 'image_mime', 'image_size', 'created_by', 'updated_by'];
+    protected $fillable = ['title', 'description', 'image', 'published', 'image_mime','collection','category', 'type', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by'];
 
     /**
      * Get the options for generating the slug.
