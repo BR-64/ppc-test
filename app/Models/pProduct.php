@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 // use Spatie\Sluggable\HasSlug;
 // use Spatie\Sluggable\SlugOptions;
@@ -15,7 +16,7 @@ class pProduct extends Model
     // use SoftDeletes;
 
     protected $table = 'p_products';
-    protected $fillable = ['title', 'description', 'image', 'published', 'image_mime','collection','category', 'type', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by'];
+    protected $fillable = ['item_code','title', 'description', 'image', 'published', 'image_mime','collection','category', 'type', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by'];
 
     /**
      * Get the options for generating the slug.
@@ -36,6 +37,25 @@ class pProduct extends Model
     {
         return $this->hasOne(Stock::class, 'item_code','item_code');
     }
+    public static function webstock($item_code)
+    {
+        // $stock= Stock::query()
+        // ->where('item_code', '=',$item_code)
+        // ->get('stock');
+    
+        $stock= Stock::where('item_code', '=',$item_code)->value('stock');
+
+        return $stock;
+    }
+
+    public function collection():BelongsTo
+    {
+        return $this->belongsTo(pCollection::class);
+    }
+    public function category():BelongsTo
+    {
+        return $this->belongsTo(att_category::class);
+    }
 
     public static  function realtimeStock($item_code)
     {
@@ -46,35 +66,38 @@ class pProduct extends Model
 
         // $url='http://1.1.220.113:8000/PrempApi.asmx/getStockBalance';
 
-
-
         $ch = curl_init();
 
-        $fields=array(
-            'strItemCodeList'=> $item_code
-        );
-
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'GET' );
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
 
         $response = curl_exec($ch);
-
         curl_close($ch);
 
-        $data=json_decode($response,true);
+        preg_match('#\[([^]]+)\]#', $response, $match);
+        $data=json_decode($match[1],true);
 
-        // echo($data);
+        $enprostock = $data['STK'];
 
-        // $data['STK'];
+        $webstock = self::webstock($item_code);
+        
+    /// compare to get lowest stock
+        $realtimeStock = min($enprostock,$webstock);
+    
+    /// update lowest stock to database
+        if($realtimeStock <> $webstock){
+            Stock::where('item_code', '=',$item_code)->update(['stock'=>$realtimeStock]);
+        };
+   
 
-        echo($data);
-
-        return $data;
+        return $realtimeStock;
 
         // return json_decode($response);
 
     }
+
+    
     // public static  function realtimeStock_test($item_code)
     // {
     //     return $item_code;

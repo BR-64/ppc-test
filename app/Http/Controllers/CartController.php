@@ -20,6 +20,7 @@ class CartController extends Controller
         $total = 0;
         foreach ($products as $product) {
             $total += $product->price * $cartItems[$product->id]['quantity'];
+            $realtimeStock = Product::realtimeStock($product['item_code']);
             // $stock= Stock::query()
             //     ->where('item_code', '=',$product->item_code)
             //     ->first(); ;

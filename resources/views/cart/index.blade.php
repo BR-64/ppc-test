@@ -19,6 +19,7 @@
                         'updateQuantityUrl' => route('cart.update-quantity', $product),
                         'type'=>$product->pre_order,
                         'stock'=>$product->stock->stock
+                        // 'stock'=>$product->$realtimeStock
                         // 'stock'=>(int)$product->stock->stock
                     ])
                 )

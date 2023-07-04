@@ -139,5 +139,9 @@ Route::get('/webhookmail',[kCheckoutController::class,'webhook']);
 
 Route::get('/productt/{product:item_code}', [pProductController::class, 'view_test'])->name('product.view_test');
 
+Route::get('/productstock/{product:item_code}', [pProductController::class, 'stockTest'])->name('product.view_test');
+
+Route::get('/allstock', [pProductController::class, 'getAllStockEnpro'])->name('product.view_test');
+
 
 require __DIR__ . '/auth.php';

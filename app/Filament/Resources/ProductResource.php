@@ -36,7 +36,7 @@ class ProductResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $category = att_category::pluck('category','category');
+        // $category = att_category::pluck('category_name','category');
 
         // print_r($category);
 
@@ -53,13 +53,17 @@ class ProductResource extends Resource
 
                 Forms\Components\Fieldset::make('Website Info')->schema([
                     Select::make('collection')
-                        ->options([
-                            
-                        ]),
-                        Select::make('category')
-                        ->options(
-                            $category
-                        ),
+                    ->relationship('collection', 'collection_name')
+                    ->preload()
+                    ->searchable(),
+                    Select::make('category')
+                    ->relationship('category', 'category_name')
+                    ->preload()
+                    ->searchable(),
+                    // Select::make('category')
+                    //     ->options(
+                    //         $category
+                    //     ),
                     Select::make('type')
                         ->options([
 

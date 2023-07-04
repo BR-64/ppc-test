@@ -12,4 +12,6 @@ class Stock extends Model
     protected $table = 'p_stocks';
     protected $fillable = ['stock'];
 
+
+
 }

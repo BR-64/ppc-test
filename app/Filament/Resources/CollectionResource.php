@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CollectionResource\Pages;
 use App\Filament\Resources\CollectionResource\RelationManagers;
+use App\Filament\Resources\CollectionResource\RelationManagers\ProductsRelationManager;
 use App\Models\pCollection;
 use App\Models\Collection;
 use Filament\Forms;
@@ -41,12 +42,6 @@ class CollectionResource extends Resource
                     Toggle::make('published')
 
                 ])->columns(3),
-                Fieldset::make('Items in Collection')->schema([
-                    TextInput::make('id')->label('ID')->disabled(),
-                    TextInput::make('collection_name'),
-                    TextInput::make('brand_name'),
-
-                ])->columns(3),
                 
             ]);
     }
@@ -78,6 +73,7 @@ class CollectionResource extends Resource
     public static function getRelations(): array
     {
         return [
+            ProductsRelationManager::class
             //
         ];
     }
@@ -90,4 +86,8 @@ class CollectionResource extends Resource
             'edit' => Pages\EditCollection::route('/{record}/edit'),
         ];
     }    
+
+    protected static function getNavigationBadge(): ?string{
+        return self::getModel()::count();
+    }
 }

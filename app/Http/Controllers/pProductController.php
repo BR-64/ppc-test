@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 use App\Models\Portfolio;
 use App\Models\Stock;
+use Illuminate\Support\Facades\DB;
 
 class pProductController extends Controller
 
@@ -102,15 +103,13 @@ class pProductController extends Controller
         ->where('item_code', '=',$product->item_code)
         ->latest()->get(); ;
 
-        // $stock= Stock::query()
-        // ->where('item_code', '=',$product->item_code)
-        // ->first(); ;
-
+        $stock = pProduct::realtimeStock($product['item_code']);
 
         return view('product.view', [
             'product' => $product,
             'gallery'=>$gallery,
-            'stock'=>$product->stock->stock
+            // 'stock'=>$product->stock->stock
+            'stock'=>$stock
         ]);
     }
     public function view_test(pProduct $product)
@@ -341,4 +340,64 @@ class pProductController extends Controller
 
         return view('product.infinit',compact('products'));
     }
+
+    public function stockTest(pProduct $product)
+    {
+        pProduct::realtimeStock($product->item_code);
+    }
+
+    public function getAllStockEnpro()
+    {
+        $url='http://1.1.220.113:7000/PrempApi.asmx/getAllStockBalance';
+
+        // $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList=C34ZFB19A09UW7';
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        preg_match('#\[([^]]+)\]#', $response, $match);
+        $data=json_decode($match[1],true);
+
+        $data2=json_decode($response,true);
+        
+        // $resp_arr = $response;
+        // $resp_dec = json_decode($resp_arr, true) ;
+        // $data=json_decode($response);
+
+        $data3 = json_decode( preg_replace('#\[([^]]+)\]#', '', $response), true );
+
+        $data5=$match[1];
+
+        $data6=array($data5);
+
+        // var_dump($data5);
+        $arr = array($data2);
+        // dd($data);
+        // dd($resp_dec);
+        // dd($data5);
+
+        $data7=explode("",$data5);
+
+        dd($data7);
+
+        // print_r(DB::table('p_stocks')->select('item_code','stock')->get());
+
+        // foreach($data6 as $key => $itemcode){
+        //     Stock::where('item_code','=',$itemcode)->update(['stock']);
+        // }
+
+        echo('///////////////////////////////////////////////// after updated');
+
+        // print_r(DB::table('p_stocks')->select('item_code','stock')->get());
+
+
+
+    }
+
 }
