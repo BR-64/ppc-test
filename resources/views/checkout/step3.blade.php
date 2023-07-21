@@ -17,6 +17,10 @@
             <td>Shipping Cost : </td>
             <td>{{number_format($shipcost)}}</td>
         </tr>
+        <tr class="">
+            <td>Insurance : </td>
+            <td>{{number_format($insure)}}</td>
+        </tr>
         <tr>
             <td>Total Payment : </td>
             <td class="bold">{{number_format($totalpayment)}} (thb)</td>

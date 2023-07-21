@@ -18,16 +18,22 @@ class CartController extends Controller
     {
         list($products, $cartItems) = Cart::getProductsAndCartItems();
         $total = 0;
+        $rtStock=array();
         foreach ($products as $product) {
             $total += $product->price * $cartItems[$product->id]['quantity'];
-            $realtimeStock = Product::realtimeStock($product['item_code']);
-            // $stock= Stock::query()
+
+            $rtStock[$product['item_code']]=(int)Product::realtimeStock($product['item_code']);
+
+            // $rtStock[]= Stock::query()
             //     ->where('item_code', '=',$product->item_code)
             //     ->first(); ;
             // $stocky=$product->stock->stock;
         }
 
-        return view('cart.index', compact('cartItems', 'products', 'total'));
+        // print_r($rtStock);
+        // dd($rtStock);
+
+        return view('cart.index', compact('cartItems', 'products', 'total','rtStock'));
     }
 
     public function add(Request $request, Product $product)

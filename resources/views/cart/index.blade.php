@@ -18,7 +18,7 @@
                         'removeUrl' => route('cart.remove', $product),
                         'updateQuantityUrl' => route('cart.update-quantity', $product),
                         'type'=>$product->pre_order,
-                        'stock'=>$product->stock->stock
+                        'stock'=>$rtStock[($product->item_code)]
                         // 'stock'=>$product->$realtimeStock
                         // 'stock'=>(int)$product->stock->stock
                     ])
@@ -31,7 +31,22 @@
                 return cartTotal()
             },
             get cartTotal() {
-                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
+                cartto = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
+
+                return cartto
+            },
+            get base_discount() {
+                if( 0< this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString() < 10000){
+                       return 'no discount'
+                }else if( 10000<= this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()<10000){
+                    return 500
+
+                }else if( this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString() <10000){
+                    return 500
+
+                }else {
+                    return 0
+                } 
             },
             
             {{-- stock:{{
@@ -46,7 +61,7 @@
                     
 <!-- Product Item -->
 <h2>In Stock</h2>
-{{-- <h2 x-text="cartto">In Stock</h2> --}}
+{{-- <h2 >{{$rtStock}}</h2> --}}
     <form action="{{route('checkout.step1')}}" method="get";>
                     <template x-for="product of cartItems" :key="product.id">
 {{-- Normal Items --}}
@@ -127,7 +142,6 @@
 
                     
                     {{-- Pre-order items  --}}
-                    <hr class="my-5"/>
 <h2>Pre-Order</h2>
 <p class='notice'>* Pre-Order item will be ready to ship within XX Days after payment</p>
 <template x-for="product of cartItems" :key="product.id">
@@ -179,10 +193,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="my-5"/>
                             </div>
                         </template>
                     </template>
+                    <hr class="my-5"/>
+
 <!-- subtotal -->
 
                     {{-- <div class="border-t border-gray-300 pt-4">
@@ -195,12 +210,28 @@
                         </div> --}}
                         <div class="flex justify-between">
                             <span class="font-semibold">Subtotal 
-                            <span class="notice">(included tax)
-                            {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
+                                <span class="notice">(included tax)
+                                    {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
+                                </span>
+
                             </span>
-                        </span>
                                 
                             <span id="cartTotal" class="text-xl" x-text="`THB ${cartTotal}`"></span>
+                            {{-- <span id="cartTotal" class="text-xl" x-text="`THB ${cartto}`"></span> --}}
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-semibold">Discount
+                                <span class="">
+                                    {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
+                                </span>
+                                    <p class='notice tthin'>* Distcount
+                                    </br> 10% for 10,000
+                                    </br> 15% for 20,000
+                                    </br> 20% for 30,000
+                                    </p>
+                            </span>
+                                
+                            <span id="cartTotal" class=" tthin" x-text="` ${base_discount}`"></span>
                             {{-- <span id="cartTotal" class="text-xl" x-text="`THB ${cartto}`"></span> --}}
                         </div>
                             <span id="totalprice"></span>

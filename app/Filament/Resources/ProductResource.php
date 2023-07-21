@@ -45,21 +45,32 @@ class ProductResource extends Resource
                 ViewField::make('')->view('filament.components.Image'),
                 Forms\Components\TextInput::make('item_code')->disabled(),
                 Forms\Components\Fieldset::make('Info from Enpro')->schema([
-                    Forms\Components\TextInput::make('Stock'),
+
+                    Forms\Components\TextInput::make('width'),
+                    Forms\Components\TextInput::make('length'),
+                    Forms\Components\TextInput::make('height'),
                     Forms\Components\TextInput::make('weight'),
                     Forms\Components\TextInput::make('retail_price'),
 
                 ])->columns(4)->disabled(),
+                Forms\Components\Fieldset::make('Calculated')->schema([
+
+                    Forms\Components\TextInput::make('wlh'),
+                    Forms\Components\TextInput::make('cubic_width'),
+                    Forms\Components\TextInput::make('cubic_length'),
+                    Forms\Components\TextInput::make('cubic_height'),
+                    Forms\Components\TextInput::make('cubic_cm'),
+                ])->columns(5)->disabled(),
 
                 Forms\Components\Fieldset::make('Website Info')->schema([
                     Select::make('collection')
-                    ->relationship('collection', 'collection_name')
-                    ->preload()
-                    ->searchable(),
+                        ->relationship('collection', 'collection_name')
+                        ->preload()
+                        ->searchable(),
                     Select::make('category')
-                    ->relationship('category', 'category_name')
-                    ->preload()
-                    ->searchable(),
+                        ->relationship('category', 'category_name')
+                        ->preload()
+                        ->searchable(),
                     // Select::make('category')
                     //     ->options(
                     //         $category
@@ -99,6 +110,7 @@ class ProductResource extends Resource
             ->columns([
                 ImageColumn::make('image')->width(80)->height(40),
                 Tables\Columns\TextColumn::make('item_code')->sortable(),
+                Tables\Columns\TextColumn::make('stock.stock')->sortable(),
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('color')->sortable(),
                 Tables\Columns\TextColumn::make('retail_price')->sortable(),

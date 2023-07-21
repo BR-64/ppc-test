@@ -10,7 +10,7 @@
         'price' => $product->retail_price,
         'preorder'=>$product->pr_eorder,
         'cat'=>$product->pcategory_id,
-        'stock'=>$product->stock->stock,
+        'stock'=>$product->stock,
         'addToCartUrl' => route('cart.add', $product)])
         }})" class="">
 <h2>test</h2>

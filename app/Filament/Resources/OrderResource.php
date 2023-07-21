@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Filament\Resources\OrderResource\RelationManagers\OrderitemRelationManager;
+use App\Filament\Resources\OrderResource\RelationManagers\UserRelationManager;
 use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -38,16 +40,15 @@ class OrderResource extends Resource
                     ]),
                 ])->columns(3),
                 Forms\Components\Fieldset::make('Customer Info')->schema([
-                    TextInput::make('id')->label('Order Number')->disabled(),
                     Select::make('name')
-                        ->relationship('user','name')->disabled(),
-
-
-                    TextInput::make('total_price'),
-                    Select::make('shipping')
-                    ->options([
-
-                    ]),
+                        ->relationship('customer','first_name')->disabled()
+                        ->label('Name'),
+                    Select::make('phone')
+                        ->relationship('customer','phone')->disabled()
+                        ->label('Phone'),
+                    Select::make('tax_id')
+                        ->relationship('customer','customer_taxid')
+                        ->label('Tax ID'),
                 ])->columns(3),
                 Forms\Components\TextInput::make('status'),
                 // TextInput::make('status')->required(),
@@ -68,7 +69,7 @@ class OrderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('created_at'),
                 Tables\Columns\TextColumn::make('id')->label('Doc Code'),
-               TextColumn::make('user.name'),
+               TextColumn::make('customer.first_name'),
                TextColumn::make('items_sum_quantity')
                 ->label('Quantity')
                 ->sum('items','quantity'),
@@ -103,6 +104,8 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
+        OrderitemRelationManager::class
+
             //
         ];
     }

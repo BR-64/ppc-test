@@ -50,7 +50,7 @@ class CollectionResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')->width(40)->height(80),
+                ImageColumn::make('image')->width(60)->height(120),
                 TextColumn::make('collection_name'),
                 TextColumn::make('brand_name'),
                 TextColumn::make('products_count')

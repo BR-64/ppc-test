@@ -362,40 +362,139 @@ class pProductController extends Controller
         curl_close($ch);
 
         preg_match('#\[([^]]+)\]#', $response, $match);
-        $data=json_decode($match[1],true);
+        // $data=json_decode($match[1],true);
 
-        $data2=json_decode($response,true);
+        // $data2=json_decode($response,true);
         
-        // $resp_arr = $response;
-        // $resp_dec = json_decode($resp_arr, true) ;
-        // $data=json_decode($response);
+        // $data3 = json_decode( preg_replace('#\[([^]]+)\]#', '', $response), true );
 
-        $data3 = json_decode( preg_replace('#\[([^]]+)\]#', '', $response), true );
+        // $arr = array_map(function($data5){ return $data5->value; }, $data5);
+        
+        // $data7=explode("},{",$data5);
 
-        $data5=$match[1];
+        // dd($match[0]);
 
-        $data6=array($data5);
-
-        // var_dump($data5);
-        $arr = array($data2);
-        // dd($data);
-        // dd($resp_dec);
-        // dd($data5);
-
-        $data7=explode("",$data5);
-
-        dd($data7);
+        $data8=json_decode($match[0],true);
 
         // print_r(DB::table('p_stocks')->select('item_code','stock')->get());
 
-        // foreach($data6 as $key => $itemcode){
-        //     Stock::where('item_code','=',$itemcode)->update(['stock']);
+        // dd($data8);
+
+        $newArr = array();
+        foreach($data8 as $enprodata){
+            $newArr[$enprodata['code']]=$enprodata['STK'];
+        }
+
+        foreach($newArr as $key => $stk){
+            Stock::where('item_code','=',$key)->update(['stock'=>$stk]);
+        }
+
+        echo('///////////////////////////////////////////////// update finished');
+
+        // print_r(DB::table('p_stocks')->select('item_code','stock')->get());
+
+
+
+    }
+    public function getAllDataEnpro()
+    {
+        $url='http://1.1.220.113:7000/PrempApi.asmx/getAllItemData';
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        echo($response);
+        dd('k');
+
+        preg_match('#\[([^]]+)\]#', $response, $match);
+                
+        $data99=json_decode($match[1],true);
+
+        // dd($data99);
+        $data14 = array($match[1]);
+        
+        // dd($data14);
+
+        // $data10=explode("},{",$match[1]);
+
+        $data11=trim($match[1],'[{}]');
+        // $data11=trim($match[0],'[]');
+        // dd($data11);
+
+
+        $data12=explode("},{",$data11);
+        $data13=explode(",",$data12[0]);
+        $data14=explode(":",$data13[0]);
+        // $data14=json_decode($data12[0],1);
+
+        print_r($data12);
+        preg_match_all("/ ([^:]+) : ([^,]+) /x", $data12[0], $p);
+        $array = array_combine($p[1], $p[2]);
+
+        // dd($data12);
+        dd($array);
+        dd($data13);
+        dd($data14);
+
+        $result = []; 
+            for($i=0; $i<count($keys); $i++) {
+            $result[$keys[$i]] = $vals[$i];
+            }
+
+        // $testdata=string("item_code":"002","weight_g":"0.000000","width_cm":"0.000000","length_cm":"0.000000","height_cm":"0.000000","retail_price":"1.000000","img_path":"");
+        // dd($testdata);
+
+        // dd($data12);
+        
+        $arr = array(   
+            "action: Added; amount: 1; code: RNA1; name: Mens Organic T-shirt; colour: White; size: XL",    
+            "action: Subtracted; amount: 7; code: RNC1; name: Kids Basic T-shirt; colour: Denim Blue; size: 3-4y",    
+            "action: Added; amount: 20; code: RNV1; name: Gift Voucher; style: Mens; value: £20"
+          );
+              
+          
+          
+          foreach ($arr as $string) {
+             //Build array
+             preg_match_all("/ [ ]?([^:]+): ([^;]+)[ ;]? /x", $string, $p);
+             $array = array_combine($p[1], $p[2]);
+
+             $finalArray =[];
+             $finalArray=array_push($finalArray,$array);
+          
+             //Print it or do something else with it
+            }
+            dd($array);
+
+        $data15=json_decode($data12[0],1);
+        // dd($data15);
+
+        // print_r(DB::table('p_stocks')->select('item_code','stock')->get());
+
+        // $pArr2 = array();
+        // foreach($data12 as $enprodata){
+        //     $pArr2[$enprodata['item_code']]=[
+        //         'weight'=>$enprodata['weight_g'],
+        //         'width'=>$enprodata['width_cm'],
+        //         'length'=>$enprodata['length_cm'],
+        //         'height'=>$enprodata['height_cm'],
+        //         'retail_price'=>$enprodata['retail_price']
+        //     ];
         // }
 
-        echo('///////////////////////////////////////////////// after updated');
+        // dd($pArr2);
 
-        // print_r(DB::table('p_stocks')->select('item_code','stock')->get());
+        // foreach($newArr as $key => $stk){
+        //     Stock::where('item_code','=',$key)->update(['stock'=>$stk]);
+        // }
 
+        echo('///////////////////////////////////////////////// update finished');
 
 
     }

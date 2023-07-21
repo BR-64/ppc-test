@@ -1007,6 +1007,10 @@ tr {
   font-size: 0.7em;
 }
 
+.tthin {
+  font-weight: 40;
+}
+
 .filteroption {
   /* text-decoration: underline; */
   text-align: left;

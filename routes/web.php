@@ -53,7 +53,8 @@ Route::middleware(['guestOrVerified'])->group(function () {
     Route::get('/shop/f2', [pProductController::class, 'qfilter2'])->name('shopf2');
     Route::get('/shop/{cat?}', [pProductController::class, 'catFilter'])->name('shop.cat');
     Route::get('/', [pProductController::class, 'home'])->name('test');
-    Route::get('/product/{product:item_code}', [pProductController::class, 'view'])->name('product.view');
+    // Route::get('/product/{product:item_code}', [pProductController::class, 'view'])->name('product.view');
+    Route::get('/product/{product:item_code}', [pProductController::class, 'view_test'])->name('product.view');
 
     Route::get('/collection', [pCollectionController::class, 'index'])->name('product.collection');
     Route::get('/collection/{col?}', [pCollectionController::class, 'view'])->name('product.collection.view');
@@ -142,6 +143,8 @@ Route::get('/productt/{product:item_code}', [pProductController::class, 'view_te
 Route::get('/productstock/{product:item_code}', [pProductController::class, 'stockTest'])->name('product.view_test');
 
 Route::get('/allstock', [pProductController::class, 'getAllStockEnpro'])->name('product.view_test');
+
+Route::get('/allitemdata', [pProductController::class, 'getAllDataEnpro'])->name('product.view_test');
 
 
 require __DIR__ . '/auth.php';

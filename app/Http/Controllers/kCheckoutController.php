@@ -613,6 +613,7 @@ class kCheckoutController extends Controller
                 // 'totalpaymentShow'=> number_format($totalpayment),
                 'ordertype'=> $R_chkouttype,
                 'shipcost'=> $R_shipcost,
+                'insure'=> $R_Insurance,
                 // 'paydata'=>$paymentData
             ]);
     }

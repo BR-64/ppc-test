@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 // use Spatie\Sluggable\HasSlug;
 // use Spatie\Sluggable\SlugOptions;
@@ -15,6 +16,7 @@ class pProduct extends Model
     // use HasSlug;
     // use SoftDeletes;
 
+    // protected $table = 'test_product';
     protected $table = 'p_products';
     protected $fillable = ['item_code','title', 'description', 'image', 'published', 'image_mime','collection','category', 'type', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by'];
 
@@ -33,7 +35,7 @@ class pProduct extends Model
         return 'item_code';
     }
 
-    public function stock()
+    public function stock():HasOne
     {
         return $this->hasOne(Stock::class, 'item_code','item_code');
     }

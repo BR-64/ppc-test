@@ -45,7 +45,7 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('category'),
+                TextColumn::make('category_name'),
                 TextColumn::make('description'),
                 //
             ])
