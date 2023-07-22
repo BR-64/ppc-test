@@ -142,9 +142,11 @@ Route::get('/productt/{product:item_code}', [pProductController::class, 'view_te
 
 Route::get('/productstock/{product:item_code}', [pProductController::class, 'stockTest'])->name('product.view_test');
 
-Route::get('/allstock', [pProductController::class, 'getAllStockEnpro'])->name('product.view_test');
+Route::get('/allstock', [pProductController::class, 'getAllStockEnpro'])->name('product.stock_test');
 
-Route::get('/allitemdata', [pProductController::class, 'getAllDataEnpro'])->name('product.view_test');
+Route::get('/allitemdata', [pProductController::class, 'getAllDataEnpro'])->name('product.data_test');
+
+Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.data_test2');
 
 
 require __DIR__ . '/auth.php';
