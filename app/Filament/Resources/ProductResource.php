@@ -43,6 +43,9 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 ViewField::make('')->view('filament.components.Image'),
+                FileUpload::make('image')
+                ->image()
+                ->multiple(),
                 Forms\Components\TextInput::make('item_code')->disabled(),
                 Forms\Components\Fieldset::make('Info from Enpro')->schema([
 

@@ -148,5 +148,9 @@ Route::get('/allitemdata', [pProductController::class, 'getAllDataEnpro'])->name
 
 Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.data_test2');
 
+Route::get('/getstocksdata', [pProductController::class, 'unpdateStockEnpro'])->name('product.data_test2');
+
+Route::get('/createsc', [CheckoutController::class, 'createSC'])->name('order.create_sc');
+
 
 require __DIR__ . '/auth.php';

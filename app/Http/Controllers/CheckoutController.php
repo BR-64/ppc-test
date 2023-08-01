@@ -297,4 +297,122 @@ class CheckoutController extends Controller
                return redirect($session->url);
        
     }
+
+    public function createSC(){
+        
+
+        // $scdate=date('Ymd');
+        $scdate="20231220";
+
+        ///// random no duplicate
+        // $r=range(1,100);
+        // shuffle($r);
+
+        $ref1='WB'.rand(1,100);
+
+        ////////// order data
+        $shipping_cost=400;
+        $insure_cost=550;
+        
+        // $item_sc=[
+        //     'item_code'=>$code,
+        //     'unit_code'=>'PCS',
+        //     'qty'=>$qty,
+        //     'unit_price'=>$retail_price,
+        //     'discount_amt'=>$discount
+        // ];
+
+        
+        $shipping_sc=[
+            'item_code'=>'002',
+            'unit_code'=>'BAHT',
+            'qty'=>1,
+            'unit_price'=>$shipping_cost,
+            'discount_amt'=>0
+        ];
+        
+        $insurance_sc=[
+            'item_code'=>'003',
+            'unit_code'=>'BAHT',
+            'qty'=>1,
+            'unit_price'=>$insure_cost,
+            'discount_amt'=>0
+        ];
+        
+        $item_sc_test=[
+            'item_code'=>"R34OBM859V89",
+            'unit_code'=>'PCS',
+            'qty'=>2,
+            'unit_price'=>340,
+            'discount_amt'=>0
+        ];
+        $item_sc_test2=[
+            'item_code'=>"C34IEJ5433X261",
+            'unit_code'=>'PCS',
+            'qty'=>1,
+            'unit_price'=>480,
+            'discount_amt'=>0
+        ];
+
+//         {"item_code":"R34OBM897V89","unit_code":"PCS","qty":"1","unit_price":"500","discount_amt":""}
+// ,{"item_code":"R34OBM859V89","unit_code":"PCS","qty":"1","unit_price":"2000","discount_amt":""}
+// ,{"item_code":"003","unit_code":"BAHT","qty":"1","unit_price":"550","discount_amt":"0"},{"item_code":"002","unit_code":"BAHT","qty":"1","unit_price":"1263","discount_amt":"0"}
+
+
+        $ch = curl_init();                    // Initiate cURL
+        $url = "http://1.1.220.113:7000/PrempApi.asmx/createSC"; // Where you want to post data
+
+        // $sa_header=[{"doc_date":"20231220","vat_rate":"7","discount_amt":"0","ref1":"WBtest019"}];
+        $sa_header=array([
+                "doc_date"=>$scdate,
+                "vat_rate"=>"7",
+                "discount_amt"=>"0",
+                "ref1"=>$ref1,
+            ]);
+        $sa_detail=array(
+            $item_sc_test,
+            $item_sc_test2,
+            $shipping_sc,
+            $insurance_sc,
+        );
+
+        // $sc_payload=array(
+        //     "sa_header"=>[
+        //         $sa_header
+        //     ],
+        //     "sa_detail"=>[
+        //         // $items,$shipping_sc,$insurance_sc
+        //         $item_sc_test
+        //         ]
+        //     );
+
+        // $sc_json=json_encode($sc_payload);
+        // print_r($sc_json);
+
+        $sah_json=json_encode($sa_header);
+        $sad_json=json_encode($sa_detail);
+
+        // dd($sah_json);
+        $key_val="sa_header=".$sah_json."&sa_detail=".$sad_json;
+
+        
+        print_r($key_val);
+        // dd($key_val);
+
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_POST, true);  // Tell cURL you want to post something
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $sc_json,); // Define what you want to post
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $key_val,); // Define what you want to post
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the output in string format
+
+        $output = curl_exec ($ch); // Execute
+        
+        curl_close ($ch); // Close cURL handle
+        
+        var_dump($output); // Show output
+
+        // return response()->json(['Message'=>'status code 200 ok'], 200);
+    }
 }

@@ -22,7 +22,7 @@ class pProductController extends Controller
     public function index()
     {
         $products = pProduct::query()
-            ->where('published', '=', 1)
+            ->where('published', '=', 2)
             // ->stock()->where('stock','>',100)
             ->orderBy('updated_at', 'desc')
             ->paginate(30);
@@ -250,13 +250,13 @@ class pProductController extends Controller
     }
 
     public function qfilter(){
-        // $allproducts = pProduct::query()
-        //     ->where('published', '=', 2)
-        //     ->orderBy('updated_at', 'desc')
-        //     ->paginate(30);
+        $allproducts = pProduct::query()
+            ->where('published', '=', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(30);
 
         $qproducts = QueryBuilder::for (pProduct::class)
-            ->where('published', '=', 0)
+            ->where('published', '=', 1)
             ->allowedFilters([
                 AllowedFilter::exact('collection'),
                 AllowedFilter::exact('category'),
@@ -502,6 +502,8 @@ class pProductController extends Controller
 
     public function getAllDataEnpro_v2()
     {
+        set_time_limit(300);
+
         $start = microtime(true);
 
         $webItem = pProduct::query()
@@ -544,11 +546,66 @@ class pProductController extends Controller
         
         }
 
+
         $time_elapsed_secs = microtime(true) - $start;
 
-        echo('/// update finished // Time used'.$time_elapsed_secs.' sec');
+        echo('/// update finished // Time used '.$time_elapsed_secs.' sec');
 
+    }
 
+    public function unpdateStockEnpro(){
+
+            set_time_limit(300);
+
+            $start = microtime(true);
+    
+            $webItem = pProduct::query()
+                ->where('id','>',0)
+                ->get();
+        
+            foreach($webItem as $key=>$product){
+    
+                $item_code =$product['item_code'];
+            
+                $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList='.$item_code;
+        
+                $ch = curl_init();
+        
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_URL,$url);
+                curl_setopt($ch, CURLOPT_HTTPGET, true);
+        
+                $response = curl_exec($ch);
+                curl_close($ch);
+        
+                preg_match('#\[([^]]+)\]#', $response, $match);
+                $dataEnpro=json_decode($match[1],true);
+
+                //// update data to database
+                Stock::where('item_code','=',$dataEnpro['code'])
+                ->update(['stock'=>$dataEnpro['STK']]);
+                
+                // dd($dataEnpro['code']);
+
+            }
+
+            
+        $time_elapsed_secs = microtime(true) - $start;
+
+        echo('/// update finished // Time used '.$time_elapsed_secs.' sec');
+    
+            // $newArr = array();
+            // foreach($data8 as $enprodata){
+            //     $newArr[$enprodata['code']]=$enprodata['STK'];
+            // }
+    
+            // foreach($newArr as $key => $stk){
+            //     Stock::where('item_code','=',$key)->update(['stock'=>$stk]);
+            // }
+    
+            echo('///////////////////////////////////////////////// update finished');
+    
+    
     }
 
 }
