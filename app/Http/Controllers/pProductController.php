@@ -197,6 +197,7 @@ class pProductController extends Controller
 
         // $price=$pdata['retail_price'];
         // $price=$pdata['retail_price'];
+        // $price=$pdata['retail_price'];
 
 
 
