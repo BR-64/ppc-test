@@ -56,10 +56,10 @@ class pProduct extends Model
     {
         return $this->belongsTo(pCollection::class);
     }
-    public function category():BelongsTo
-    {
-        return $this->belongsTo(att_category::class);
-    }
+    // public function category():BelongsTo
+    // {
+    //     return $this->belongsTo(att_category::class);
+    // }
 
     public static  function realtimeStock($item_code)
     {
