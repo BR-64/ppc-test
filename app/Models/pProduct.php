@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 // use Spatie\Sluggable\HasSlug;
 // use Spatie\Sluggable\SlugOptions;
+use App\Models\att_category;
+
 
 class pProduct extends Model
 {
