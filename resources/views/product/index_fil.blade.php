@@ -4,7 +4,6 @@
 /** @var \Illuminate\Database\Eloquent\Collection $products */
 ?>
  {{-- @livewireStyles --}}
- <x-app-layout>
 <x-shop>
 
 {{-- products --}}
@@ -49,6 +48,5 @@
     <?php endif; ?>
     <div class="footspace"></div>
 </x-shop>
-</x-app-layout>
 
 {{-- @livewireScripts --}}

@@ -4,6 +4,7 @@ import laravel from "laravel-vite-plugin";
 export default defineConfig({
   plugins: [
     laravel({
+      buildDirectory: "resources",
       input: [
         "resources/css/reset.css",
         "resources/css/app.css",
