@@ -8,14 +8,14 @@
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>test6 Prempracha Online Store </title>
+    <title>test 8 Prempracha Online Store </title>
 
     @vite([
-        'resources/css/style3.css',
         'resources/css/reset.css',
         'resources/css/app.css',
         'resources/js/app.js',
-        'resources/js/nav.js'
+        'resources/js/nav.js',
+        'resources/css/style3.css'
         ])
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
