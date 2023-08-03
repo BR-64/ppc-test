@@ -11,8 +11,8 @@
     <title>test 9 Prempracha Online Store </title>
 
     @vite([
-        // 'resources/css/reset.css',
-        // 'resources/css/app.css',
+        'resources/css/reset.css',
+        'resources/css/app.css',
         'resources/css/style3.css',
         'resources/js/app.js',
         'resources/js/nav.js',
