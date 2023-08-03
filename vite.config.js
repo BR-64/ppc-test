@@ -5,7 +5,7 @@ export default defineConfig({
   base: "",
   plugins: [
     laravel({
-      buildDirectory: "resources/",
+      buildDirectory: "build/",
       input: [
         "resources/css/reset.css",
         "resources/css/app.css",
