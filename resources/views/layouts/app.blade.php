@@ -8,7 +8,7 @@
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>test 9 Prempracha Online Store </title>
+    <title>test6 Prempracha Online Store </title>
 
     @vite([
         'resources/css/reset.css',
@@ -41,60 +41,6 @@
         -moz-appearance: textfield;
         }
 
-        @media only screen and (min-width: 700px) { 
-            .spacebox1 {
-                margin-right:30%;
-                }
-
-            .shopcat{
-                width:420px;
-            }
-
-            .pccoll{
-                width: 800px;
-                padding: 20px;
-                align-items: center;
-            }
-
-            .mainHL{
-                width: 800px;
-                align-items: center;
-            }
-
-            .gridHLmain{
-                margin-right: 30px;
-            }
-
-            .premmaincoll{
-                width: 800px;
-                display:grid;
-                grid-template-columns: repeat(auto-fill, 370px);
-                gap: 10px;
-                margin: auto;
-            }
-
-            .shopcoll{
-                width:800px;
-                align-items: center;
-                padding: 10px;
-            }
-
-            .SCpic {
-                margin: auto;
-                object-fit: cover;
-                min-height:300px;
-            }
-
-            .gridShopcoll{
-                grid-template-columns: repeat(auto-fill, 180px);
-                gap: 10px;
-                align-items: center;
-                width:100%;
-                padding: 10px;
-            }
-
-        }
-
     </style>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -105,22 +51,18 @@
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
 
-    <script src="sweetalert2.all.min.js"></script>
-
     @livewireStyles
 
 </head>
 
 <body>
-@include('sweetalert::alert')
-
 @include('layouts.navigation')
 
     <main >
         {{ $slot }}
     </main>
 
-<!-- Toast -->
+{{-- <!-- Toast -->
     <div
         x-data="toast"
         x-show="visible"
@@ -156,7 +98,7 @@
                 :style="{'width': `${percent}%`}"
             ></div>
         </div>
-    </div>
+    </div> --}}
 
 
 @include('layouts.footer')
