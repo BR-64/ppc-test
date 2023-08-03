@@ -11,11 +11,11 @@
     <title>test6 Prempracha Online Store </title>
 
     @vite([
+        'resources/css/style3.css'
         'resources/css/reset.css',
         'resources/css/app.css',
         'resources/js/app.js',
         'resources/js/nav.js',
-        'resources/css/style3.css'
         ])
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
