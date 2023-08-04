@@ -22,10 +22,8 @@
         <div class="gridHL">
     <!-- Product Item -->
           @foreach($products as $product)
-  
-                <div>
+                {{-- <div> --}}
                     <div class="card2">
-  
                         <a href="{{ route('product.view', $product->item_code) }}"
                           class="">
                             <img
@@ -39,7 +37,7 @@
                             <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
                         </div>
                     </div>
-                </div>
+                {{-- </div> --}}
             @endforeach
         </div>
     </div>

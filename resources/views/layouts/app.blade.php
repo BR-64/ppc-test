@@ -41,6 +41,13 @@
         -moz-appearance: textfield;
         }
 
+        @media only screen (min-width: 700px) { 
+    .pccoll{
+        width: 800px;
+
+    }
+}
+
     </style>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
