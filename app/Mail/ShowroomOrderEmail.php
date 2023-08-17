@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Symfony\Component\Mailer\Envelope;
 
-class NewOrderEmail extends Mailable
+class ShowroomOrderEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,10 +22,6 @@ class NewOrderEmail extends Mailable
     {
         $this->order=$order;
 
-
-        // $maildata=[
-        //     'totalpayment'=>number_format(($order['total_price']+$order['insurance']+$order['shipping']),2)
-        // ];
     }
 
     /**
@@ -36,11 +32,7 @@ class NewOrderEmail extends Mailable
     public function build()
     {
         return $this
-            ->subject('Confirmation of your Order')
-            // ->view('mail.TestMKdown');
-            ->markdown('mail.TestMKdown');
-            // ->with([
-            //     'totalpayment'=>number_format(($this->order['total_price']+$this->order['insurance']+$this->order['shipping']),2)
-            // ]);
+            ->subject('You have received an order! :#'.$this->order['id'])
+            ->view('mail.showroomOrder_test');
     }
 }

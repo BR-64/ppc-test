@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\kCheckoutController;
 use App\Http\Controllers\CheckoutSummaryController;
+use App\Http\Controllers\MailTestController;
+use App\Mail\testmarkdown;
 
 /*
 |--------------------------------------------------------------------------
@@ -152,5 +154,20 @@ Route::get('/getstocksdata', [pProductController::class, 'unpdateStockEnpro'])->
 
 Route::get('/createsc', [CheckoutController::class, 'createSC'])->name('order.create_sc');
 
+
+
+//////////////// test mail
+Route::get('test/mailhub', [MailTestController::class, 'view']);
+
+Route::post('test/mail/neworder', [MailTestController::class, 'newOrder'])->name('testmail_newOrder');
+Route::post('test/mail/showroomorder', [MailTestController::class, 'showroomOrder'])->name('testmail_showroomOrder');
+Route::post('test/mail/orderShipped', [MailTestController::class, 'orderShipped'])->name('testmail_orderShipped');
+Route::post('test/mail/quotation', [MailTestController::class, 'orderShipped'])->name('testmail_quotation');
+
+Route::post('test/mail/{payment}', [MailTestController::class, 'newOrder']);
+
+Route::get('test/mkdown',function(){
+    return new testmarkdown();
+});
 
 require __DIR__ . '/auth.php';

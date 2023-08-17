@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewOrderEmail;
 use App\Mail\OrderConfirmedMail;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -46,5 +47,11 @@ class OrderController extends Controller
 
         return response()->json(['Message'=>'status code 200 ok'], 200);
 
+    }
+
+    public function mail_new_order(Order $order){
+        Mail::to('admin@prempracha.com')->send(new NewOrderEmail());
+
+        return response()->json(['Message'=>'status code 200 ok'],200);
     }
 }
