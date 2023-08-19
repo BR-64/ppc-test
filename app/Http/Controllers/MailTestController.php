@@ -101,5 +101,18 @@ class MailTestController extends Controller
         return view('mail.email_test');
     }
 
+    public function PdfOrderinfo(Request $request)
+    {
+        $OrderId = $request->OrderID;
+
+        $order = Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first();
+
+        Mail::to($this->sr_mail3)->send(new PdfController($order));
+
+        return view('mail.email_test');
+    }
+
     //
 }

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\kCheckoutController;
 use App\Http\Controllers\CheckoutSummaryController;
 use App\Http\Controllers\MailTestController;
+use App\Http\Controllers\PdfController;
 use App\Mail\testmarkdown;
 
 /*
@@ -169,5 +170,10 @@ Route::post('test/mail/{payment}', [MailTestController::class, 'newOrder']);
 Route::get('test/mkdown',function(){
     return new testmarkdown();
 });
+
+Route::get('generate-pdf',[PdfController::class,'generatePdf'])->name('generate-pdf');
+// Route::post('generate-pdf',[MailTestController::class, 'PdfOrderinfo'])->name('pdf-orderinfo');
+
+Route::get('/genpdf-orderinfo/{OrderID}',[PdfController::class, 'Pdf_orderinfo'])->name('pdf-orderinfo');
 
 require __DIR__ . '/auth.php';
