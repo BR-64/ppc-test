@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -18,7 +19,7 @@ class YourQuotation extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public Order $order)
     {
         //
     }
@@ -28,23 +29,31 @@ class YourQuotation extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Envelope
      */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: 'Your Quotation',
-        );
-    }
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         subject: 'Your Quotation',
+    //     );
+    // }
 
     /**
      * Get the message content definition.
      *
      * @return \Illuminate\Mail\Mailables\Content
+     * 
      */
-    public function content()
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'view.name',
+    //     );
+    // }
+
+    public function build()
     {
-        return new Content(
-            view: 'view.name',
-        );
+        return $this
+            ->subject('Your Quotation')
+            ->markdown('mail.Quotation_test');
     }
 
     /**

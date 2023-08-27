@@ -6,13 +6,14 @@ use App\Enums\PaymentStatus;
 use App\Mail\NewOrderEmail;
 use App\Mail\OrderShippedEmail;
 use App\Mail\ShowroomOrderEmail;
+use App\Mail\YourQuotation;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use Barryvdh\DomPDF\Facade\Pdf;
-
+// use Barryvdh\DomPDF\PDF as PDF;
 
 class MailTestController extends Controller
 {
@@ -23,8 +24,8 @@ class MailTestController extends Controller
 
     private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
-    // private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
-    private $sr_mail3=['mawkard.th@gmail.com'];
+    private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
+    // private $sr_mail3=['mawkard.th@gmail.com'];
 
 
     public function view()
@@ -65,12 +66,14 @@ class MailTestController extends Controller
             'totalpayment'=>number_format(($order['total_price']+$order['insurance']+$order['shipping']),2)
         ];
 
-        $pdf = Pdf::loadView('pdf.invoice', $order);
-        return $pdf->download('invoice.pdf');
+        // $pdf = Pdf::loadView('pdf.invoice', $order);
+        // return $pdf->download('invoice.pdf');
 
         // dd($maildata['totalpayment']);
+
+        // $pdf = Pdf::loadView('pdf.shippingLabel',compact('order'));
         
-        // Mail::to($this->sr_mail3)->send(new NewOrderEmail($order,$maildata));
+        Mail::to($this->sr_mail3)->send(new NewOrderEmail($order,$maildata));
     }
 
     public function showroomOrder(Request $request)
@@ -83,8 +86,15 @@ class MailTestController extends Controller
 
         $totaypayment=0;
 
+        $maildata=[
+            'totalpayment'=>number_format(($order['total_price']+$order['insurance']+$order['shipping']),2)
+        ];
 
-        Mail::to($this->sr_mail3)->send(new ShowroomOrderEmail($order),['mdata'=>$maildata]);
+        $pdf1 = Pdf::loadView('pdf.orderinfo_test',compact('order'));
+        // $pdf2 = Pdf::loadView('pdf.shippingLabel',compact('order'));
+        // $pdf = Pdf::loadView('pdf.shippingLabel',compact('order'));
+
+        Mail::to($this->sr_mail3)->send(new ShowroomOrderEmail($order),['mdata'=>$maildata])->addStringAttachment($pdf1->output(),'orderinfo.pdf');
 
         return view('mail.email_test');
     }
@@ -110,6 +120,18 @@ class MailTestController extends Controller
                     ->first();
 
         Mail::to($this->sr_mail3)->send(new PdfController($order));
+
+        return view('mail.email_test');
+    }
+    public function quotation(Request $request)
+    {
+        $OrderId = $request->OrderID;
+
+        $order = Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first();
+
+        Mail::to($this->sr_mail3)->send(new YourQuotation($order));
 
         return view('mail.email_test');
     }

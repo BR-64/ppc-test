@@ -32,7 +32,7 @@ class ShowroomOrderEmail extends Mailable
     public function build()
     {
         return $this
-            ->subject('You have received an order! :#'.$this->order['id'])
+            ->subject('You have received an order! #'.$this->order['id'])
             ->view('mail.showroomOrder_test');
     }
 }

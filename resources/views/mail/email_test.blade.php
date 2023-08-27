@@ -88,7 +88,7 @@
                 </form>
             </div>
 {{-- PDF - Order info --}}
-        <div class="pccoll" style="width:400px;">
+        {{-- <div class="pccoll" style="width:400px;">
             <h2>PDF : Order info</br></h2>
                 <form method="POST" action="{{route('pdf-orderinfo')}}">
                     @csrf
@@ -106,7 +106,7 @@
                         </x-button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
 
     </div>
 

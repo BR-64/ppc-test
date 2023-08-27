@@ -1,7 +1,7 @@
 
 Hello Showroom!
 
-</br># Confirmation of you Order {{$order['id']}}
+<br># Confirmation of you Order {{$order['id']}}
 <p>
 
     เราได้รับออเดอร์จากลูกค้า คุณ <strong>{{$order->customer['first_name']}}</strong> หมายเลขออเดอร์ <strong>{{$order['id']}}</strong>

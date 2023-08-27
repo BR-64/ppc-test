@@ -49,15 +49,18 @@ You order **#{{$order['id']}}**  has been shipped. Your tracking number is **{{$
 Remark :
 <br>
 สินค้าทุกชิ้นเป็นสินค้าแฮนด์เมด สีและรูปทรงอาจไม่เหมือนในภาพ แต่ละชิ้นอาจจะมีความแตกต่างกันเล็กน้อย
-All of our products are handmade, therefore, colors and shapes may not be exactly the same as in the picture. Each piece will be slightly different.
+<br>
+<br>All of our products are handmade, therefore, colors and shapes may not be exactly the same as in the picture. Each piece will be slightly different.
 <br>
 <br>
 กรุณาแกะกล่องเมื่อได้รับสินค้าทันที
-Please unpack the box upon receiving the product immediately.
+<br>
+<br>Please unpack the box upon receiving the product immediately.
 <br>
 <br>
 กรุณาถ่ายภาพหรือวีดีโอ ขณะแกะกล่องสินค้า เพื่อเป็นหลักฐานหากพบว่าสินค้าเสียหายจากการแพคหรือขนส่ง และติดต่อเคลมสินค้าไปยัง <a href = "mailto: shoponline@prempracha.com">shoponline@prempracha.com</a> หรือแอดไลน์ showroomprem หรือโทร 053-338-540 ภายใน 7 วันหลังจากที่ได้รับสินค้าแล้วเท่านั้น
-Please take photos or videos. while unpacking the product as evidence if it is found that the product is damaged from packing or transportation. Please report claim to us via e-mail within 7 days of receiving the package to <a href = "mailto: shoponline@prempracha.com">shoponline@prempracha.com</a> or add LINE ID showroomprem or call +66-53-338-540
+<br>
+<br>Please take photos or videos. while unpacking the product as evidence if it is found that the product is damaged from packing or transportation. Please report claim to us via e-mail within 7 days of receiving the package to <a href = "mailto: shoponline@prempracha.com">shoponline@prempracha.com</a> or add LINE ID showroomprem or call +66-53-338-540
 </p>
 </x-mail::panel>
 <br>

@@ -163,7 +163,7 @@ Route::get('test/mailhub', [MailTestController::class, 'view']);
 Route::post('test/mail/neworder', [MailTestController::class, 'newOrder'])->name('testmail_newOrder');
 Route::post('test/mail/showroomorder', [MailTestController::class, 'showroomOrder'])->name('testmail_showroomOrder');
 Route::post('test/mail/orderShipped', [MailTestController::class, 'orderShipped'])->name('testmail_orderShipped');
-Route::post('test/mail/quotation', [MailTestController::class, 'orderShipped'])->name('testmail_quotation');
+Route::post('test/mail/quotation', [MailTestController::class, 'quotation'])->name('testmail_quotation');
 
 Route::post('test/mail/{payment}', [MailTestController::class, 'newOrder']);
 
@@ -174,6 +174,14 @@ Route::get('test/mkdown',function(){
 Route::get('generate-pdf',[PdfController::class,'generatePdf'])->name('generate-pdf');
 // Route::post('generate-pdf',[MailTestController::class, 'PdfOrderinfo'])->name('pdf-orderinfo');
 
-Route::get('/genpdf-orderinfo/{OrderID}',[PdfController::class, 'Pdf_orderinfo'])->name('pdf-orderinfo');
+Route::get('/genpdf-oinfo/{OrderID}',[PdfController::class, 'Pdf_orderinfo_test'])->name('pdf-orderinfo');
+
+Route::get('/genpdf-blabel/{OrderID}',[PdfController::class, 'Pdf_boxlabel_test'])->name('pdf-boxlabel');
+
+Route::get('/genpdf-quo/{OrderID}',[PdfController::class, 'Pdf_quotation_test'])->name('pdf-quotation');
+
+Route::get('/genpdf-inv/{OrderID}',[PdfController::class, 'Pdf_invoice'])->name('pdf-invoice');
+
+Route::view('/pdf.invoice', 'pdf.invoice');
 
 require __DIR__ . '/auth.php';
