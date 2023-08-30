@@ -43,8 +43,8 @@
               <td height="140" align="center" bgcolor="#b2b2b2" class="linkGray">
                 <br>
                 <h2 style="font-size: 17px;">Prempracha’s Collection</h2>
-                224 M.3, Chiang mai-Sankampang Rd., <br />
-                T.Tonpao, A.Sankampang Chiang mai, 50130 Thailand
+                224 M.3, Chiang mai-San Kamphaeng Rd., <br />
+                T.Tonpao, A.San Kamphaeng Chiang mai, 50130 Thailand
               </br>
               </br>
               Tel.: 66 5333 8540, 66 5333 8857

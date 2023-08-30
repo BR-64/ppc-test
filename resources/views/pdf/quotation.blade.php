@@ -140,7 +140,7 @@
 <body>
     <div class="header">
         PREMPRACHA'S COLLECTION CO., LTD. 
-        <br>224 M. 3 CHIANGMAI-SANKAMPANG RD., T.TONPAO A.SANKAMPANG, CHIANGMAI 50130 THAILAND. 
+        <br>224 M. 3 CHIANGMAI-San Kamphaeng RD., T.TONPAO A.San Kamphaeng, CHIANGMAI 50130 THAILAND. 
         <br>TEL: (66 53) 338540, 338857 FAX: (66 53) 338540 E-Mail : showroom@prempracha.com
     </div>
         <h3 class="midhead">Quotation</h3>
@@ -272,7 +272,7 @@
             <tr>
                 <td class='discountRate'colspan="4">
                     BANGKOK BANK PUBLIC COMPANY LIMITED
-                    <br>96,M.7 A.SANKUMPANG CHIANGMAI THAILAND
+                    <br>96,M.7 A.SAN KAMPHAENG CHIANGMAI THAILAND
                     <br>SWIFT CODE: BKKBTHBK
                     <br>ACC.NO. 357-3-01302-0
                     <br>ACC.NAME PREMPRACHA'S COLLECTION CO.,LTD
@@ -320,7 +320,7 @@
             <tr>
                 <td>
                     BANGKOK BANK PUBLIC COMPANY LIMITED
-                    <br>96,M.7 A.SANKUMPANG CHIANGMAI THAILAND
+                    <br>96,M.7 A.SAN KAMPHAENG CHIANGMAI THAILAND
                     <br>SWIFT CODE: BKKBTHBK
                     <br>ACC.NO. 357-3-01302-0
                     <br>ACC.NAME PREMPRACHA'S COLLECTION CO.,LTD

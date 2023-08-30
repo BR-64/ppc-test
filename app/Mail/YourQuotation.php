@@ -3,9 +3,12 @@
 namespace App\Mail;
 
 use App\Models\Order;
+use App\Models\OrderItem;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -19,8 +22,11 @@ class YourQuotation extends Mailable
      *
      * @return void
      */
-    public function __construct(public Order $order)
+    public function __construct(public Order $order, $OrderId)
     {
+        // $this->ppdf=$pdf;
+        $this->oid=$OrderId;
+
         //
     }
 
@@ -53,7 +59,10 @@ class YourQuotation extends Mailable
     {
         return $this
             ->subject('Your Quotation')
-            ->markdown('mail.Quotation_test');
+            ->markdown('mail.Quotation_test')
+            ->attachData($this->Qpdf(), 'quote.pdf', [
+                'mime' => 'application/pdf',
+            ]); 
     }
 
     /**
@@ -63,6 +72,24 @@ class YourQuotation extends Mailable
      */
     public function attachments()
     {
-        return [];
+        return [
+            // Attachment::fromData(fn () => $this->Qpdf, 'Quotation.pdf')
+            //     ->withMime('application/pdf'),
+        ];
+    }
+
+    public function Qpdf()
+    {
+        $OrderId = $this->oid;
+
+        $order = (Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first());
+        
+        $qty = OrderItem::query()
+            ->where(['order_id' => $OrderId])
+            ->sum('quantity');
+
+        $pdf = Pdf::loadView('pdf.quotation',compact('order','qty'));
     }
 }

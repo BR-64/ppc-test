@@ -86,11 +86,11 @@
             <tr>
                 <td class='left'>From :</td>
                 <td class='mid'>PREMPRACHA’S COLLECTION CO., LTD.
-                    <br>224 M.3 CHIANGMAI-SANKAMPANG RD.,
-                    <br>T.TONPAO A.SANKAMPANG
+                    <br>224 M.3 CHIANGMAI-San Kamphaeng RD.,
+                    <br>T.TONPAO A.San Kamphaeng
                     <br>CHIANGMAI THAILAND 50130 
                     <br>TEL: 053-338540, 053-338857 
-                    <br>E-mail: info@prempracha.com
+                    <br>E-mail: showroom@prempracha.com
                  </td>
             </tr>
         </table>

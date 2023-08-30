@@ -164,6 +164,7 @@ Route::post('test/mail/neworder', [MailTestController::class, 'newOrder'])->name
 Route::post('test/mail/showroomorder', [MailTestController::class, 'showroomOrder'])->name('testmail_showroomOrder');
 Route::post('test/mail/orderShipped', [MailTestController::class, 'orderShipped'])->name('testmail_orderShipped');
 Route::post('test/mail/quotation', [MailTestController::class, 'quotation'])->name('testmail_quotation');
+Route::post('test/mail/pdf', [MailTestController::class, 'mailpdf_test2'])->name('testmail_pdf');
 
 Route::post('test/mail/{payment}', [MailTestController::class, 'newOrder']);
 

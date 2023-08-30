@@ -560,49 +560,52 @@ class kCheckoutController extends Controller
 
         $totalpayment = $totalPrice+$R_shipcost+$R_Insurance;
 
-        // // Create Order
-        //     $orderData = [
-        //             'total_price' => $totalPrice,
-        //             'status' => OrderStatus::Unpaid,
-        //             'created_by' => $user->id,
-        //             'updated_by' => $user->id,
-        //         ];
+        // Create Order
+            $orderData = [
+                    'total_price' => $totalPrice,
+                    'status' => OrderStatus::Unpaid,
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
+                    'shipping' => $R_shipcost,
+                    'insurance'=>$R_Insurance,
+                    
+                ];
 
-        //     if ($R_chkouttype == "paynow" ){
-        //     // $orderData = ['status' => OrderStatus::Unpaid];
-        //     $orderData['status'] = OrderStatus::Unpaid;
-        //     } else {
-        //         $orderData['status'] = OrderStatus::Quotation;
-        //     }
+            if ($R_chkouttype == "paynow" ){
+            // $orderData = ['status' => OrderStatus::Unpaid];
+            $orderData['status'] = OrderStatus::Unpaid;
+            } else {
+                $orderData['status'] = OrderStatus::Quotation;
+            }
 
-        //     $order = Order::create($orderData);
+            $order = Order::create($orderData);
 
-        // // Create Order Items
-        // foreach ($orderItems as $orderItem) {
-        //     $orderItem['order_id'] = $order->id;
-        //     OrderItem::create($orderItem);
-        // }
+        // Create Order Items
+        foreach ($orderItems as $orderItem) {
+            $orderItem['order_id'] = $order->id;
+            OrderItem::create($orderItem);
+        }
 
-        // // Update stock
-        // foreach ($orderItems as $orderItem) {
-        //     Stock::where('item_code',$orderItem['item_code'])
-        //     ->decrement('stock',(int) $orderItem['quantity']);
-        // }
+        // Update stock
+        foreach ($orderItems as $orderItem) {
+            Stock::where('item_code',$orderItem['item_code'])
+            ->decrement('stock',(int) $orderItem['quantity']);
+        }
 
         
-        // // Create Payment
-        // $paymentData = [
-        //     'order_id' => $order->id,
-        //     'amount' => $totalpayment,
-        //     'status' => PaymentStatus::Pending,
-        //     'type' => 'cc',
-        //     'created_by' => $user->id,
-        //     'updated_by' => $user->id,
-        //     // 'session_id' => $session->id
-        // ];
-        // Payment::create($paymentData);
+        // Create Payment
+        $paymentData = [
+            'order_id' => $order->id,
+            'amount' => $totalpayment,
+            'status' => PaymentStatus::Pending,
+            'type' => 'cc',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            // 'session_id' => $session->id
+        ];
+        Payment::create($paymentData);
 
-        // CartItem::where(['user_id' => $user->id])->delete();
+        CartItem::where(['user_id' => $user->id])->delete();
         
 
         return view('checkout.step3',[

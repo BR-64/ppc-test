@@ -8,11 +8,15 @@ use App\Mail\OrderShippedEmail;
 use App\Mail\ShowroomOrderEmail;
 use App\Mail\YourQuotation;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Mail\Markdown;
+use Illuminate\Support\Facades\Session;
+
 // use Barryvdh\DomPDF\PDF as PDF;
 
 class MailTestController extends Controller
@@ -24,8 +28,8 @@ class MailTestController extends Controller
 
     private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
-    private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
-    // private $sr_mail3=['mawkard.th@gmail.com'];
+    // private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
+    private $sr_mail3=['mawkard.th@gmail.com'];
 
 
     public function view()
@@ -130,11 +134,98 @@ class MailTestController extends Controller
         $order = Order::query()
                     ->where(['id' => $OrderId])
                     ->first();
+        
+        $qty = OrderItem::query()
+                    ->where(['order_id' => $OrderId])
+                    ->sum('quantity');
+        
+        $pdf = Pdf::loadView('pdf.quotation',compact('order','qty'));
+        
 
-        Mail::to($this->sr_mail3)->send(new YourQuotation($order));
+        Mail::to($this->sr_mail3)
+            ->send(new YourQuotation($order,$OrderId));
+            // ->attachData($pdf->output(), "text.pdf");
+
+        // Mail::to($this->sr_mail3)
+        //     ->send(new YourQuotation($order),function($message)use($pdf) {
+        //             $message->attachData($pdf->output(), "text.pdf");
+        //         });
+
+        // Mail::to($this->sr_mail3)
+        // ->send('mail.Quotation_test',$order);
+        
+        // Mail::send('mail.Quotation_test',$order);
 
         return view('mail.email_test');
     }
 
-    //
+    public function mailpdf_markdown_test(Request $request)
+    {
+        $data["email"] = "contact@cdlcell.com";
+        $data["title"] = "cdlcell";
+        $data["body"] = "Demo";
+
+        $OrderId = $request->OrderID;
+
+        $order = Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first();
+        
+        $qty = OrderItem::query()
+                    ->where(['order_id' => $OrderId])
+                    ->sum('quantity');
+  
+        $pdf = Pdf::loadView('pdf.quotation',compact('order','qty'));
+  
+        Mail::send('mail.Quotation_test', $data, function($message)use($data, $pdf) {
+            $message->to($data["email"], $data["email"])
+                    ->subject($data["title"])
+                    ->attachData($pdf->output(), "text.pdf");
+        });
+  
+        dd('Mail sent successfully');
+    }
+    public function mailpdf_test2(Request $request)
+    {
+        
+        $OrderId = $request->OrderID;
+        
+        $order = Order::query()
+        ->where(['id' => $OrderId])
+        ->first();
+        
+        $qty = OrderItem::query()
+        ->where(['order_id' => $OrderId])
+        ->sum('quantity');
+        
+        $data = array(
+            'id' => $request->OrderID,
+            // 'name' =>  $cusname
+            'name' =>  $order->customer['first_name']
+        );
+        
+        // dd($data['name']);
+
+        $pdf = Pdf::loadView('pdf.orderinfo',compact('order','qty'));
+        $pdf2 = Pdf::loadView('pdf.invoice',compact('order','qty'));
+        $pdf3 = Pdf::loadView('pdf.shippingLabel',compact('order','qty'));
+        
+
+    Mail::send('mail.showroomOrder', $data, function($message) use ($data,$pdf,$pdf2,$pdf3){
+            $message->from('info@**********');
+            $message->to($this->sr_mail3);
+            $message->subject('You have received an order! '.$data['name']);
+
+
+            //Attach PDF doc
+            $message->attachData($pdf->output(),'orderinfo_'.$data['name'].'.pdf');
+            $message->attachData($pdf2->output(),'invoice_'.$data['name'].'.pdf');
+            $message->attachData($pdf3->output(),'boxlabel_'.$data['name'].'.pdf');
+        });
+
+    Session::flash('success', 'Hello &nbsp;'.$data['name'].'&nbsp;Thank You for choosing us. Will reply to your query as soon as possible');
+
+    return redirect()->back();
+    }
+
 }

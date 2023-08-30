@@ -39,7 +39,7 @@ class PdfController extends Controller
 
         // dd($order);
 
-        $pdf = Pdf::loadView('pdf.orderinfo_test', $order);
+        $pdf = Pdf::loadView('pdf.orderinfo', $order);
         return $pdf->download('orderinfo.pdf');
 
     }
@@ -56,7 +56,7 @@ class PdfController extends Controller
         // $pdf = Pdf::loadView('pdf.orderinfo_test',$order);
 
         return $pdf->stream('orderinfo.pdf');
-        // return $pdf->download('orderinfo.pdf');
+        // return $pdf->download('orderinfo_'.$order['id'].'.pdf');
 
     }
     public function Pdf_boxlabel_test(Request $request)
@@ -71,7 +71,7 @@ class PdfController extends Controller
         $pdf = Pdf::loadView('pdf.shippingLabel',compact('order'));
 
         return $pdf->stream('boxlabel.pdf');
-        // return $pdf->download('boxlabel.pdf');
+        // return $pdf->download('boxlabel_'.$order['id'].'.pdf');
     }
     public function Pdf_quotation_test(Request $request)
     {
@@ -88,7 +88,7 @@ class PdfController extends Controller
         $pdf = Pdf::loadView('pdf.quotation',compact('order','qty'));
 
         return $pdf->stream('quotation.pdf');
-        // return $pdf->download('quotation.pdf');
+        // return $pdf->download('quotation_'.$order['id'].'.pdf');
     }
     public function Pdf_invoice(Request $request)
     {
@@ -102,9 +102,11 @@ class PdfController extends Controller
             ->where(['order_id' => $OrderId])
             ->sum('quantity');
 
+        // dd($order['id']);
+
         $pdf = Pdf::loadView('pdf.invoice',compact('order','qty'));
 
-        return $pdf->stream('invoice.pdf');
-        // return $pdf->download('quotation.pdf');
+        return $pdf->stream('invoice_'.$order['id'].'.pdf');
+        // return $pdf->download('invoice_'.$order['id'].'.pdf');
     }
 }

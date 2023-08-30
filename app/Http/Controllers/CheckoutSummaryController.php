@@ -65,6 +65,10 @@ class CheckoutSummaryController extends Controller
                 'unit_price' => $product->retail_price
             ];
         }
+
+
+
+
         
 
         return view('checkout.step1_test',[
@@ -88,8 +92,8 @@ class CheckoutSummaryController extends Controller
         $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 
         $shipcountry = $customer->shippingAddress->country_code;
-        $domestic= $shipcountry==='THA';       
-
+        $domestic= $shipcountry==='THA'; 
+        
         $countries = Country::query()->orderBy('name')->get();
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
@@ -201,7 +205,9 @@ if($nonFullCubicBoxCubic<>0){
 
     if ($domestic){
         $maxrate = ShiprateThai::query()->where(['id'=>ShiprateThai::max('id')])->value('price');
-        $nonFullBoxPriceIndex_th = ceil($nonFullCubicBoxCubic/5000);
+        $nonFullBoxPriceIndex_th = ceil($LastCubicBoxWeight/5000);
+
+        // dd($nonFullCubicBoxCubic,$nonFullBoxPriceIndex_th);
 
         if($nonFullCubicBoxCubic>0){
             $shipPricenonFullBox_th= ShiprateThai::query()->where(['id'=>$nonFullBoxPriceIndex_th])->value('price');
@@ -210,6 +216,8 @@ if($nonFullCubicBoxCubic<>0){
         }
 
         $shipCost_TH = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_th))*1.07;
+
+        // dd($shipPricenonFullBox_th);
 
         // insurance cost = totalcost[after discount] + shippingcost * 10%[on top] * 2%
         $TH_insurance= max(ceil((($totalPrice + $shipCost_TH)*1.1)*0.02),550);
@@ -276,7 +284,7 @@ if($nonFullCubicBoxCubic<>0){
             $Air_insurance = $Air_insurance*1.07;
         }; 
 
-        $shipCost_TH =0;
+        // $shipCost_TH =0;
     }
 
     $total_TH = $totalPrice+$shipCost_TH+$TH_insurance;
@@ -369,127 +377,6 @@ if($nonFullCubicBoxCubic<>0){
                 'Air_insurance'=>$Air_insurance
             ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
     }    
-//     public function chkout_step3(Request $request){
-
-//         $user = $request->user();
-
-//         $customer = $user->customer;
-//         $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
-//         $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
-
-//         $shipcountry = $customer->shippingAddress->country_code;
-//         $domestic= $shipcountry==='THA';       
-
-//         $countries = Country::query()->orderBy('name')->get();
-
-//         [$products, $cartItems] = Cart::getProductsAndCartItems();
-
-//         $orderItems = [];
-//         $lineItems = [];
-//         $totalPrice = 0;
-//         $totalWeight = 0;
-//         $shipCost = 0;
-
-//         foreach ($products as $product) {
-//             $quantity = $cartItems[$product->id]['quantity'];
-//             $totalPrice += $product->retail_price * $quantity;
-//             $totalWeight += $product->weight_g * $quantity;
-//             // $totalw = $totalWeight += $product->weight_g * $quantity;
-
-//             $lineItems[] = [
-//                 'price_data' => [
-//                     'currency' => 'thb',
-//                     'product_data' => [
-//                         'name' => $product->item_code,
-//                        'images' => [$product->image]
-//                     ],
-//                     'unit_amount' => $product->retail_price * 100,
-//                     'price' => $product->retail_price
-//                 ],
-//                 'quantity' => $quantity,
-//                 'itemtotal'=> $quantity * $product->retail_price
-//             ];
-
-//             $orderItems[] = [
-//                 'product_id' => $product->id,
-//                 'quantity' => $quantity,
-//                 'unit_price' => $product->retail_price
-//             ];
-//         }
-    
-//     $shipCost_TH=0;
-//     $shipCost_EMS =0;
-//     $shipCost_Air = 0;
-
-//     $shippingZone_ems=0; 
-//     $shippingZone_air= 0;
-
-// // universal cal : same for Domestic and Inter 
-//     $shippingBoxes = ceil($totalWeight/20000); // number of box needed 
-//     $fullBox=floor($totalWeight/20000);         // number of full box needed 
-//     $nonFullBoxWeight = $totalWeight % 20000;  // non-full box weight
-//     $nonFullBox=(int)($nonFullBoxWeight>0);
-
-//     if ($domestic){
-//         $maxrate = ShiprateThai::query()->where(['id'=>ShiprateThai::max('id')])->value('price');
-//         $nonFullBoxPriceIndex_th = ceil($nonFullBoxWeight/5000);
-
-//         if($nonFullBoxWeight>0){
-//             $shipPricenonFullBox_th= ShiprateThai::query()->where(['id'=>$nonFullBoxPriceIndex_th])->value('price');
-//         } else {
-//             $shipPricenonFullBox_th =0;
-//         }
-
-//         $shipCost_TH = ($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_th);
-
-        
-//     } else {
-//         // Ship by EMS
-//         $shippingZone_ems= Country::query()->where(['code'=>$shipcountry])->value('zone_ems');
-//         $maxrate = ShipEMS::query()->where(['id'=>ShipEMS::max('id')])->value($shippingZone_ems);
-
-//         $nonFullBoxPriceIndex_ems = ceil(($nonFullBoxWeight/500)+1);
-        
-//         if($nonFullBoxWeight > 0){
-//             $shipPricenonFullBox_ems= ShipEMS::query()->where(['id'=>$nonFullBoxPriceIndex_ems])->value($shippingZone_ems);
-//         } else {
-//             $shipPricenonFullBox_ems =0;
-//         }
-
-//         $shipCost_EMS = ($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_ems);
-
-// ///////////////////////////////////////////////////////////
-
-//         // Ship by Air
-//         $shippingZone_air= Country::query()->where(['code'=>$shipcountry])->value('zone_air');
-//         $maxrate = ShipAir::query()->where(['id'=>ShipAir::max('id')])->value($shippingZone_air);
-
-//         $nonFullBoxPriceIndex_air = ceil(($nonFullBoxWeight/1000));
-
-//         if($nonFullBoxWeight > 0){
-//             $shipPricenonFullBox_air= ShipAir::query()->where(['id'=>$nonFullBoxPriceIndex_air])->value($shippingZone_air);
-//         } else {
-//             $shipPricenonFullBox_air =0;
-//         }
-
-//         $shipCost_Air = ($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_air);
-
-//         $shipCost_TH =0;
-//     }
-
-//             return view('checkout.step2',[
-//                 'items'=>$lineItems,
-//                 'orderitems'=> $orderItems,
-//                 'totalprice'=> $totalPrice,
-//                 'totalpriceShow'=> number_format($totalPrice),
-//                 'totalweight'=> $totalWeight,
-//                 'shipcountry'=>$shipcountry,
-//                 'ship_th'=>$shipCost_TH,
-//                 'ship_ems'=>$shipCost_EMS,
-//                 'ship_air'=>$shipCost_Air,
-//                 'domescheck'=>$domestic
-//             ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
-//     }    
 
     public function createSC(){
 

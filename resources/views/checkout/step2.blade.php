@@ -187,12 +187,12 @@
                 <label for="NoBuy_insurance">No insurance</label>
 
     </div>
-</br>
-<p class='notice'>
-     * Shipping Insurance | 
-    Insurance issued by Bangkok Insurance Public Company Limited. Customer can claim the cost and shipping cost of damaged item via local affiliated insurance company appointed on the insurance policy.
-</p>
-</br>
+    </br>
+    <p class='notice'>
+        * Shipping Insurance | 
+        Insurance issued by Bangkok Insurance Public Company Limited. Customer can claim the cost and shipping cost of damaged item via local affiliated insurance company appointed on the insurance policy.
+    </p>
+    </br>
     {{-- <a class='md:col-span-2' href="{{ route('checkout.step3') }}">
         <x-button>Step 3 : Payment</x-button>
     </a> --}}
@@ -202,10 +202,10 @@
         <input type="hidden" name="checkouttype"  value="paynow">
 </form>
 
-<form action="{{route('test.sc')}}" method="post">
+{{-- <form action="{{route('test.sc')}}" method="post">
     <button type="submit" class="btn-primary w-full py-3 text-lg"  onclick="clicked(event)">
         CreateSC </button>
-</form>
+</form> --}}
     </div>
 </div>
 
