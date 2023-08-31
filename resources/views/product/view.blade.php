@@ -13,7 +13,7 @@
         'stock'=>$product->stock,
         'addToCartUrl' => route('cart.add', $product)])
         }})" class="">
-<h2>test</h2>
+<h2>test 1</h2>
 {{-- <img src="{{$product->image}}" alt=""/> --}}
 
         @include('product.gallery')
