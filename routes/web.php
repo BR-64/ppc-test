@@ -95,6 +95,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/chkstep2', [CheckoutSummaryController::class, 'chkout_step2'])->name('checkout.step2');
     Route::post('/chkstep3', [kCheckoutController::class, 'chkout_step3'])->name('checkout.step3');
 
+    // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
+    Route::post('/order-payment/{order}', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
+
     Route::get('/testCreateSC', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
 
 

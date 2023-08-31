@@ -42,7 +42,7 @@
                         <td class="py-1 px-2 whitespace-nowrap">{{$order->items()->count()}} </td>
                         <td class="py-1 px-2 flex gap-2 w-[100px]">
                             @if (!$order->isPaid())
-                                <form action="{{ route('order.payment', $order) }}"
+                                <form action="{{ route('cart.checkout-order', $order) }}"
                                       method="POST">
                                     @csrf
                                     <button

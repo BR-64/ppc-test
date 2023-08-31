@@ -935,4 +935,36 @@ class kCheckoutController extends Controller
        
     }
 
+    public function chkout_order(Request $request){
+
+        $OrderId = $request->order;
+        // $R_shipcost=$_POST["Shipcost"];
+        // $R_Insurance=$_POST["Insurance"];
+
+        // dd($request->query->all());
+        // dd($OrderId);
+
+        // get order data
+        $orders = Order::query()
+            ->where(['id' => $OrderId])
+            ->first();
+
+        // dd($orders['total_price']);
+        $totalPrice=$orders['total_price'];
+        $R_shipcost=$orders['shipping'];
+        $R_Insurance=$orders['insurance'];
+
+
+        $totalpayment = $totalPrice+$R_shipcost+$R_Insurance;
+
+        return view('checkout.step3',[
+                'itemsprice'=> $totalPrice,
+                'shipcost'=> $R_shipcost,
+                'insure'=> $R_Insurance,
+                'totalpayment'=> $totalpayment,
+                'ordertype'=> 'paynow',
+            ]);
+    }
+
+
 }

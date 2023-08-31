@@ -415,4 +415,29 @@ class CheckoutController extends Controller
 
         // return response()->json(['Message'=>'status code 200 ok'], 200);
     }
+
+    public function checkoutOrder_K(Order $order, Request $request)
+    {
+
+        $lineItems = [];
+        foreach ($order->items as $item) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'thb',
+                    'product_data' => [
+                        'name' => $item->product->item_code,
+                        'images' => [$item->product->image],
+                    //    'images' => [$product->image]
+                    ],
+                    'unit_amount' => $item->unit_price * 100,
+                ],
+                'quantity' => $item->quantity,
+            ];
+        }
+
+        $order->payment->save();
+
+
+        return redirect('/orders');
+    }
 }
