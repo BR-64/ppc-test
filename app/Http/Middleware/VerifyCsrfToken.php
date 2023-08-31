@@ -17,6 +17,7 @@ class VerifyCsrfToken extends Middleware
         '/qr',
         '/credit',
         '/walletali',
-        '/add'
+        '/add',
+        '/cart'
     ];
 }
