@@ -622,9 +622,13 @@ class kCheckoutController extends Controller
     }
     public function chkout_summary(Request $request){
         $user = $request->user();
+        $customer = $user->customer;
 
         $R_chkouttype=$_POST["checkouttype"];
 
+        $countries = Country::query()->orderBy('name')->get();
+        $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
+        $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
@@ -707,7 +711,7 @@ class kCheckoutController extends Controller
                 'totalpriceShow'=> number_format($totalPrice),
                 'ordertype'=> $R_chkouttype,
                 'paydata'=>$paymentData
-            ]);
+            ],compact('customer', 'user', 'shippingAddress', 'billingAddress','countries'));
     }
  
     public function chkout_step2(Request $request){

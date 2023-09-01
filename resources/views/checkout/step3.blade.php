@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="pccoll">
+    <div class="pccollc">
 
         <h1 class="pagehead2">Step 3 : Payment</h1>
 

@@ -1,6 +1,5 @@
 <x-app-layout>
-    <div class="pccoll">
-
+    <div class="pccollc">
         <h1 class="pagehead2">Checkout Summary</h1>
         {{-- <h2 class ="pprice">Order Type : [{{$ordertype}}]</h2> --}}
         {{-- <p>OrderNumber #{{$paydata['order_id']}}</p> --}}
@@ -244,8 +243,8 @@
                 </form>
             </div>
 
-    </div>
-</div>
+            </div>
+        </div>
 </br>
 
 {{-- /// order detail section --}}

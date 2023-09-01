@@ -18,7 +18,7 @@ width: 100% !important;
 
 @media only screen (min-width: 700px) { 
     .pccoll{
-        width: 800px;
+        width: 80%;
 
     }
 }

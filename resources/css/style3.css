@@ -338,6 +338,15 @@ header {
   margin-bottom: 80px;
 }
 
+.pccollc {
+  text-align: center;
+  color: white;
+  /* width: 600px; */
+  box-sizing: border-box;
+  margin: auto;
+  margin-bottom: 80px;
+}
+
 .premmaincoll {
   text-align: center;
   color: white;
@@ -497,7 +506,7 @@ header {
   color: black;
   background-color: #32322f;
 
-  width: 90%;
+  width: 100%;
   box-sizing: border-box;
   /* border: 1px solid yellow; */
   margin: auto;
@@ -1005,7 +1014,8 @@ tr {
 
 .notice {
   color: red;
-  font-size: 0.7em;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 .tthin {
@@ -1440,4 +1450,10 @@ swiper-slide img {
 
 .summarytable {
   text-align: left;
+}
+
+@media screen and (min-width: 700px) {
+  .pccollc {
+    width: 50%;
+  }
 }

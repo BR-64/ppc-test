@@ -13,7 +13,7 @@
                 }
             }
         }" class="">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start blacktext">
+        <div class=" grid grid-cols-1 md:grid-cols-3 gap-6 items-start blacktext">
             <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
                 <form x-data="{
                     countries: {{ json_encode($countries) }},

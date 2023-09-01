@@ -220,18 +220,15 @@ if($nonFullCubicBoxCubic<>0){
         // dd($shipPricenonFullBox_th);
 
         // insurance cost = totalcost[after discount] + shippingcost * 10%[on top] * 2%
-        $TH_insurance= max(ceil((($totalPrice + $shipCost_TH)*1.1)*0.02),550);
-            if($TH_insurance > 550){
-                $TH_insurance = $TH_insurance*1.07;
-            }; 
+        // $TH_insurance= max(ceil((($totalPrice + $shipCost_TH)*1.1)*0.02),550);
+        //     if($TH_insurance > 550){
+        //         $TH_insurance = $TH_insurance*1.07;
+        //     }; 
+        
+            
 
         $shipPricenonFullBox_ems=0;
         $shipPricenonFullBox_air=0;
-
-        // dd(
-        //     $totalPrice,
-        //     $shipCost_TH
-        // );
 
         
     } else {

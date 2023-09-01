@@ -1,6 +1,7 @@
 <x-app-layout>
     <form x-data="{
-        {{-- countries: {{ json_encode($countries) }} --}}
+        {{-- 'country_code' => $billingAddress->country_code, --}}
+        countries: {{ json_encode($countries) }}
     }"
         action="{{ route('register') }}"
         method="post"
@@ -37,9 +38,8 @@
                 <x-input placeholder="Repeat Password" type="password" name="password_confirmation"/>
             </div>
     </div>
-    <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
+    {{-- <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
         <h2 class="text-xl font-semibold mb-2">Customer details (optional)</h2>
-
             <div class="mb-4">
                 <div class="mb-3">
                     <x-input
@@ -108,9 +108,9 @@
                              name="billing[country_code]"
                              x-model="billingAddress.country_code"
                              class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
-                        <option value="">Select Country</option>
+                        <option value="" selected>Select Country</option>
                         <template x-for="country of countries" :key="country.code">
-                            <option :selected="country.code === billingAddress.country_code"
+                            <option :selected="select country"
                                     :value="country.code" x-text="country.name"></option>
                         </template>
                     </x-input>
@@ -180,13 +180,8 @@
                         </template>
                     </x-input>
                 </div>
-                <div>
-                </div>
-            </div>
-
-
-          
-    </div>
+            </div>    
+    </div> --}}
         <div style="text-align: center">
             <button class="addtocart">Signup</button>
         </div>

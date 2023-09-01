@@ -42,10 +42,17 @@
         }
 
         @media only screen (min-width: 700px) { 
-    .pccoll{
-        width: 800px;
+            .pccoll{
+                    width: 70%;
 
-    }
+                    }
+
+            .pccollc{
+                    width: 70%;
+
+                    }
+
+
 }
 
     </style>

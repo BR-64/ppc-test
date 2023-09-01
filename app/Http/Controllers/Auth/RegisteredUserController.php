@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\Cart;
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Customer;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -22,7 +23,11 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $countries = Country::query()->orderBy('name')->get();
+
+        return view('auth.register',[
+            'countries'=>$countries
+        ]);
     }
 
     /**

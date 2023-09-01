@@ -224,7 +224,7 @@
                                 <span class="">
                                     {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
                                 </span>
-                                    <p class='notice tthin'>* Distcount
+                                    <p class='notice '>* Distcount
                                     </br> 10% for 10,000
                                     </br> 15% for 20,000
                                     </br> 20% for 30,000
