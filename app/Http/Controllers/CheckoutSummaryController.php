@@ -376,6 +376,7 @@ if($nonFullCubicBoxCubic<>0){
     }    
 
     public function createSC(){
+        ///////// no Use
 
         $ch=curl_init();
         $url="http://1.1.220.113:7000/PrempApi.asmx/createSC";

@@ -28,8 +28,8 @@ class MailTestController extends Controller
 
     private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
-    // private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
-    private $sr_mail3=['mawkard.th@gmail.com'];
+    private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
+    // private $sr_mail3=['mawkard.th@gmail.com'];
 
 
     public function view()

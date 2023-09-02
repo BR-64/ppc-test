@@ -101,6 +101,54 @@ class PdfController extends Controller
         $qty = OrderItem::query()
             ->where(['order_id' => $OrderId])
             ->sum('quantity');
+        
+        $Items = OrderItem::query()
+            ->where(['order_id' => $OrderId])
+            ->get();
+
+        // dd($Items);
+        // dd($Items[1]->quantity);
+        // dd($Items[0]['quantity']);
+
+        foreach ($Items as $key=>$value){
+            echo("<br>\n".$key."   ".$value->product->item_code);
+        }
+        // dd(count($Items));
+
+        $item_sc=[];
+        foreach ($Items as $Item=>$value){
+            $item_sc[]=[
+                'item_code'=>$value->product->item_code,
+                'unit_code'=>'PCS',
+                'qty'=>$value->quantity,
+                'unit_price'=>$value->product->retail_price,
+                // 'discount_amt'=>$discount
+                'discount_amt'=>0
+            ];
+            // echo("<br>\n".$value->product->item_code);
+            // var_dump($item_sc[$key]);
+        }
+        // foreach ($Items as $Item){
+        //     echo("<br>\n".$Item->product->item_code);
+        //     $item_sc[$Item->id]=[
+        //         'item_code'=>$Item->product->item_code,
+        //         'unit_code'=>'PCS',
+        //         'qty'=>$Item->quantity,
+        //         'unit_price'=>$Item->product->retail_price,
+        //         // 'discount_amt'=>$discount
+        //         'discount_amt'=>0
+        //     ];
+        // }
+
+        // dd(count($item_sc));
+        // dd($item_sc[7]);
+        
+        for ($i=0; $i<count($item_sc); $i++){
+            var_dump($item_sc[$i]);
+        };
+
+            dd($item_sc[0]->product->item_code);
+            // dd($Items->product->item_code);
 
         // dd($order['id']);
 

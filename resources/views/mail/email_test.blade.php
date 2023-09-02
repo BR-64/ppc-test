@@ -107,6 +107,27 @@
                     </div>
                 </form>
             </div>
+            <hr>
+{{-- Create SC --}}
+        <div class="pccoll" style="width:400px;">
+            <h2>Create SC</h2>
+                <form method="POST" action="{{route('order.create_sc')}}">
+                    @csrf
+        
+                    <!-- Password -->
+                    <div >
+                        <label for="OrderID">OrderID</label>
+                        <input type="text" style="color:black;" id="OrderID" name="OrderID" value="" required>
+                    </br>
+                    </div>
+        
+                    <div class="flex justify-end mt-4">
+                        <x-button>
+                            {{ __('Confirm') }}
+                        </x-button>
+                    </div>
+                </form>
+            </div>
 {{-- PDF - Order info --}}
         {{-- <div class="pccoll" style="width:400px;">
             <h2>PDF : Order info</br></h2>
