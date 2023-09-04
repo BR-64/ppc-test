@@ -52,8 +52,32 @@
 
                     }
 
+            
+        
+        }
 
-}
+        @media only screen and (min-width: 376px){
+            .pccoll {
+                padding: 0 5%;
+
+           }
+            
+
+        }
+
+        @media only screen and (min-width: 900px){
+            .gridShopCat {
+                display:flex;
+                width:900px;
+
+           }
+            
+
+        }
+
+        
+
+
 
     </style>
 

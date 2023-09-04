@@ -1,5 +1,26 @@
 {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+<style>
+    @media only screen and (max-width: 900px){
+            .spacebox1{
+                    align-items: center;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    margin-left: 0;
+                    /* margin-right: 100px; */
+                    width: 200px;
+                    text-align: left;
 
+            }
+
+            .mainlogo{
+                margin:0;
+            }
+
+            
+
+        }
+</style>
 <header
     x-data="{
         mobileMenuOpen: false,
@@ -8,15 +29,21 @@
     @cart-change.window="cartItemsCount = $event.detail.count"
     class="flex justify-space-between justify-end prembg shadow-md "
 >
-<div class="spacebox1">
-    <div >
+<div class="spacebox1 ">
+    {{-- <div > --}}
         <a href="{{ route('test') }}" class="block p-2"> 
             <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/ppclogo.png" alt=""> 
         </a>
-    </div>
+    {{-- </div> --}}
 </div>
+{{-- <div>
+    <p>Contact Us</p>
+</div> --}}
 {{-- <div class="spacebox1"></div> --}}
 {{-- dropdown 2 //////////////////////////////////////////////////////// --}}
+    {{-- <div class="dropbtn">
+        <p>Contact Us</p>
+    </div> --}}
         <div class="dropdown ">
             <div class="dropbtn">Products</div>
 
@@ -26,7 +53,7 @@
                     <h3 class="drop1">{{$key}}</h3>
                         <div class="dropdown-two">
 
-                            <h1 class="">{{$key}}</h1>
+                            {{-- <h1 class="">{{$key}}</h1> --}}
             
                     @foreach($filter as $key=>$cat)
                         @if($cat->collection)

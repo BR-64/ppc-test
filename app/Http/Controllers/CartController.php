@@ -38,7 +38,7 @@ class CartController extends Controller
 
     public function add(Request $request, Product $product)
     {
-        $quantity = $request->post('quantity', 1);
+        $quantity = $request->post('quantity',1);
         $user = $request->user();
 
         $type = $product->pre_order;

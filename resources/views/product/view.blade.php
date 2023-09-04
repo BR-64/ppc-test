@@ -114,7 +114,7 @@
                         type="number"
                         name="quantity"
                         x-ref="quantityEl"
-                        value="1"
+                        {{-- value="1" --}}
                         min="1"
                     class="qtyinputbox focus:outline-none rounded"/>       
                         <div class="incre">
