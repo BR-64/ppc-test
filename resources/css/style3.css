@@ -1384,7 +1384,7 @@ swiper-slide img {
   z-index: 2;
   overflow-y: scroll;
   scrollbar-width: thin;
-  scrollbar-color: rebeccapurple green;
+  scrollbar-color: #e1dad1;
 }
 
 .dropdown:hover .dropdown-one,
