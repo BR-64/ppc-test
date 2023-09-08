@@ -1378,10 +1378,13 @@ swiper-slide img {
   left: 120px;
   top: 0px;
   min-width: 160px;
-  min-height: 300px;
+  max-height: 600px;
   background-color: #32322f;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 2;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rebeccapurple green;
 }
 
 .dropdown:hover .dropdown-one,
