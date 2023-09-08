@@ -105,6 +105,7 @@ class pProductController extends Controller
         ->latest()->get(); ;
 
         $stock = pProduct::realtimeStock($product['item_code']);
+        // $stock=$product->stock->stock;
 
         return view('product.view', [
             'product' => $product,
@@ -124,11 +125,6 @@ class pProductController extends Controller
         $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList='.$product['item_code'];
 
         $url2='http://1.1.220.113:7000/PrempApi.asmx/getItemData?strItemCodeList='.$product['item_code'];
-
-        // $url='http://1.1.220.113:7000/PrempApi.asmx/getAllStockBalance';
-        // $url='http://1.1.220.113:7000/PrempApi.asmx/getAllItemData';
-
-        // $url="https://dummyjson.com/products/1";
 
         $ch = curl_init();
         $fields=array(

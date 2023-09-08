@@ -26,43 +26,101 @@
             }},
             get cartto(){
                 {{-- return number_format('2000') --}}
+                return 2000
                 {{-- cartTotal() --}}
                 {{-- return Math.floor(Math.random() * number) --}}
-                return cartTotal()
+                {{-- return cartTotal() --}}
             },
             get cartTotal() {
                 cartto = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
 
                 return cartto
             },
-            get base_discount() {
-                if( 0< this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString() < 10000){
-                       return 'no discount'
-                }else if( 10000<= this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()<10000){
-                    return 500
+            get Total_afterdis(){
+                cart = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
 
-                }else if( this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString() <10000){
-                    return 500
+                return cart - 1000
 
-                }else {
-                    return 0
-                } 
             },
-            
-            {{-- stock:{{
-                json_encode(
+            get after_discount(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+                discount = 0
 
-                )
-            }} --}}
+                switch (true) {
+                    case x < 10000:
+                    break;
+                    case x < 20000:
+                        discount = 0.1;
+                        break;
+                    case x < 30000:
+                        discount = 0.15;
+                        break;
+                    case x >= 30000:
+                        discount = 0.2;
+                        break;
+                  }
+                
+                  afterdiscount = x-(x*discount)
+
+                  return afterdiscount.toLocaleString()
+                    },
+            get dis_percent(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+
+                discount = 0
+
+                    switch (true) {
+                        case x < 10000:
+                        return 'No Discount';
+                        break;
+                        case x < 20000:
+                        discount = 0.1;
+                        return '10%';
+                        break;
+                        case x < 30000:
+                        discount = 0.15;
+                        return '15%';
+                        break;
+                        case x >= 30000:
+                        discount = 0.2;
+                        return '20%';
+                        break;
+                }
+            },
+            get dis_amount(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+
+                discount = 0
+
+                    switch (true) {
+                        case x < 10000:
+                            discount = 0;
+                            break;
+                        case x < 20000:
+                            discount = 0.1;
+                            break;
+                        case x < 30000:
+                            discount = 0.15;
+                            break;
+                        case x >= 30000:
+                            discount = 0.2;
+                            break;
+                }
+
+                disAmount = x*discount
+                return disAmount.toLocaleString()
+
+            }
+            
         }" class="bg-white p-4 rounded-lg shadow">
             <!-- Product Items -->
             <template x-if="cartItems.length">
                 <div>
                     
 <!-- Product Item -->
-<h2>In Stock</h2>
+            <h2>In Stock</h2>
 {{-- <h2 >{{$rtStock}}</h2> --}}
-    <form action="{{route('checkout.step1')}}" method="get";>
+                <form action="{{route('checkout.step1')}}" method="get";>
                     <template x-for="product of cartItems" :key="product.id">
 {{-- Normal Items --}}
                         <template x-if="product.type == 0">  
@@ -144,8 +202,7 @@
                     {{-- Pre-order items  --}}
 <h2>Pre-Order</h2>
 <p class='notice'>* Pre-Order item will be ready to ship within XX Days after payment</p>
-<template x-for="product of cartItems" :key="product.id">
-
+                    <template x-for="product of cartItems" :key="product.id">
                         <template x-if="product.type == 1"> 
                             <div x-data="productItem(product)">
                                 <div
@@ -203,38 +260,41 @@
                     {{-- <div class="border-t border-gray-300 pt-4">
                         <p  x-text="`${baseDiscount}`"></p>
                         <p  x-text="`${cartTotal}`">yo</p>
-                        <div class="flex justify-between">
+                        <div class="flex justify-between"> --}}
 
-                            <p>Discount</p>
-                            <span id="cartTotal" class="text-m" x-text="`${cartTotal}`"></span>
-                        </div> --}}
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Subtotal 
-                                <span class="notice">(included tax)
-                                    {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
+                    <div class="flex justify-between">
+                                <span class="font-semibold">Subtotal 
+                                    <span class="notice">(included tax)
+                                        {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
+                                    </span>
+    
                                 </span>
-
-                            </span>
-                                
-                            <span id="cartTotal" class="text-xl" x-text="`THB ${cartTotal}`"></span>
-                            {{-- <span id="cartTotal" class="text-xl" x-text="`THB ${cartto}`"></span> --}}
-                        </div>
-                        <div class="flex justify-between">
+                                    
+                                <span id="cartTotal" class="text-xl" x-text="`${cartTotal}`"></span>
+                    </div>
+                    
+                    <div class="flex justify-between">
                             <span class="font-semibold">Discount
                                 <span class="">
                                     {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
                                 </span>
-                                    <p class='notice '>* Distcount
-                                    </br> 10% for 10,000
-                                    </br> 15% for 20,000
-                                    </br> 20% for 30,000
+                                    <p class='notice' style='padding-left: 2rem;'>* Discount
+                                        </br> 10% for 10,000
+                                        </br> 15% for 20,000
+                                        </br> 20% for 30,000
                                     </p>
                             </span>
                                 
-                            <span id="cartTotal" class=" tthin" x-text="` ${base_discount}`"></span>
-                            {{-- <span id="cartTotal" class="text-xl" x-text="`THB ${cartto}`"></span> --}}
-                        </div>
-                            <span id="totalprice"></span>
+                            {{-- <span id="cartTotal" class=" tthin" x-text="` ${base_discount}`"></span> --}}
+                            <span id="cartTotal" class="tthin" x-text="`${dis_percent}`"></span>
+                            <span id="cartTotal" class="notice text-xl" x-text="`-${dis_amount}`"></span>
+                            
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">After Discount</span>
+                        <span id="cartTotal" class="text-xl" x-text="`THB ${after_discount}`"></span>
+                        
+                </div>
                     </br>
                         <p class="text-gray-500 mb-6">Shipping calculated at checkout.</p>
 

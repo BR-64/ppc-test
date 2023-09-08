@@ -533,10 +533,10 @@ class kCheckoutController extends Controller
 
         $orderItems = [];
         $lineItems = [];
-        $totalPrice = 0;
+        $subtotalPrice = 0;
         foreach ($products as $product) {
             $quantity = $cartItems[$product->id]['quantity'];
-            $totalPrice += $product->retail_price * $quantity;
+            $subtotalPrice += $product->retail_price * $quantity;
             $lineItems[] = [
                 'price_data' => [
                     'currency' => 'thb',
@@ -558,11 +558,38 @@ class kCheckoutController extends Controller
             ];
         }
 
-        $totalpayment = $totalPrice+$R_shipcost+$R_Insurance;
+        /// base discount cal
+        $basediscount=0;
+        $x = $subtotalPrice;
+        switch(true){
+            case $x < 10000:
+                $basediscount=0; 
+                $dispercent = ' '; 
+                break;
+            case $x < 20000:
+                $basediscount=0.1; 
+                $dispercent = '10%'; 
+                break;
+            case $x < 30000:
+                $basediscount=0.15; 
+                $dispercent = '15%'; 
+
+                break;
+            case $x > 30000:
+                $basediscount=0.2; 
+                $dispercent = '20%'; 
+                break;
+        }
+
+        $baseDis_amt = $basediscount * $subtotalPrice;
+
+
+        $totalpayment = $subtotalPrice-$baseDis_amt+$R_shipcost+$R_Insurance;
 
         // Create Order
             $orderData = [
-                    'total_price' => $totalPrice,
+                    'total_price' => $subtotalPrice,
+                    'discount_base' => $baseDis_amt,
                     'status' => OrderStatus::Unpaid,
                     'created_by' => $user->id,
                     'updated_by' => $user->id,
@@ -611,7 +638,9 @@ class kCheckoutController extends Controller
         return view('checkout.step3',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
-                'itemsprice'=> $totalPrice,
+                'itemsprice'=> $subtotalPrice,
+                'dispercent' => $dispercent,
+                'discount_base' => $baseDis_amt,
                 'totalpayment'=> $totalpayment,
                 // 'totalpaymentShow'=> number_format($totalpayment),
                 'ordertype'=> $R_chkouttype,

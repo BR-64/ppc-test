@@ -136,8 +136,9 @@
             </div>
             <hr class="my-3"/>
             @endforeach
-    
-                <h3 class="chksumtotal">thb {{$totalpriceShow}}</h3>
+            <h3 class="subtotal">{{$subtotal}}</h3>
+            <h2 class="discount">[Discount {{$dis_percent}}] -  {{$baseDis_amt}}</h2>
+            <h3 class="chksumtotal">thb {{$totalpriceShow}}</h3>
 
         </div>
     </br>
@@ -172,7 +173,7 @@
                     </div> --}}
                     <div x-show="{{$ship_ems}} > 0">
                         <div x-show="ship == {{$ship_ems}}">
-                            <input type="radio" id="Buy_insurance_EMS" name="Insurance" value="{{$EMS_insurance}}" >
+                            <input type="radio" id="Buy_insurance_EMS" name="Insurance" value="{{$EMS_insurance}}" required >
                             <label for="EMS">Buy Insurance : THB {{number_format($EMS_insurance)}}</label>
                         </div>
                     </br>

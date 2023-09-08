@@ -1277,9 +1277,19 @@ swiper-slide img {
   width: 50px;
 }
 
+.subtotal {
+  text-align: right;
+  margin: 0;
+}
+.discount {
+  text-align: right;
+  color: red;
+  margin: 0;
+}
 .chksumtotal {
   text-align: right;
-  margin: 20px 0 0 0;
+  /* margin: 20px 0 0 0; */
+  margin: 0;
   text-decoration-line: underline;
   text-decoration-style: double;
 }

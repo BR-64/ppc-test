@@ -24,7 +24,6 @@ class CheckoutSummaryController extends Controller
 {
     public function chkout_step1(Request $request){
         // step 1 : add billing and shipping
-    
         $user = $request->user();
         $customer = $user->customer;
 
@@ -33,18 +32,15 @@ class CheckoutSummaryController extends Controller
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
         $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
-
         $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
-
         $countries = Country::query()->orderBy('name')->get();
-
 
         $orderItems = [];
         $lineItems = [];
-        $totalPrice = 0;
+        $subtotalPrice = 0;
         foreach ($products as $product) {
             $quantity = $cartItems[$product->id]['quantity'];
-            $totalPrice += $product->retail_price * $quantity;
+            $subtotalPrice += $product->retail_price * $quantity;
             $lineItems[] = [
                 'price_data' => [
                     'currency' => 'thb',
@@ -65,17 +61,42 @@ class CheckoutSummaryController extends Controller
                 'unit_price' => $product->retail_price
             ];
         }
+/// base discount cal
+        $basediscount=0;
+        $x = $subtotalPrice;
+        switch(true){
+            case $x < 10000:
+                $basediscount=0; 
+                $dispercent = ' '; 
+                break;
+            case $x < 20000:
+                $basediscount=0.1; 
+                $dispercent = '10%'; 
+                break;
+            case $x < 30000:
+                $basediscount=0.15; 
+                $dispercent = '15%'; 
 
+                break;
+            case $x > 30000:
+                $basediscount=0.2; 
+                $dispercent = '20%'; 
+                break;
+        }
 
+        $baseDis_amt = $basediscount * $subtotalPrice;
 
-
-        
+/// total price        
+        $totalPrice = $subtotalPrice-$baseDis_amt;
 
         return view('checkout.step1_test',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
-                'totalprice'=> $totalPrice,
+                'subtotal'=> number_format($subtotalPrice),
                 'totalpriceShow'=> number_format($totalPrice),
+                'dis_percent'=> $dispercent,
+                'baseDis_amt'=> number_format($baseDis_amt),
+                'totalprice'=> $totalPrice,
                 // 'ordertype'=> $R_chkouttype
             ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
     }
@@ -100,14 +121,14 @@ class CheckoutSummaryController extends Controller
 
         $orderItems = [];
         $lineItems = [];
-        $totalPrice = 0;
+        $subtotalPrice = 0;
         $totalCubic = 0;
         $totalWeight = 0;
         $shipCost = 0;
 
         foreach ($products as $product) {
             $quantity = $cartItems[$product->id]['quantity'];
-            $totalPrice += $product->retail_price * $quantity;
+            $subtotalPrice += $product->retail_price * $quantity;
             $totalWeight += $product->weight_g * $quantity;
             $totalCubic += $product->cubic_cm * $quantity;
             // $totalw = $totalWeight += $product->weight_g * $quantity;
@@ -132,11 +153,38 @@ class CheckoutSummaryController extends Controller
                 'unit_price' => $product->retail_price
             ];
         }
+
+        $basediscount=0;
+        $x = $subtotalPrice;
+        switch(true){
+            case $x < 10000:
+                $basediscount=0; 
+                $dispercent = ' '; 
+                break;
+            case $x < 20000:
+                $basediscount=0.1; 
+                $dispercent = '10%'; 
+                break;
+            case $x < 30000:
+                $basediscount=0.15; 
+                $dispercent = '15%'; 
+
+                break;
+            case $x > 30000:
+                $basediscount=0.2; 
+                $dispercent = '20%'; 
+                break;
+        }
+
+        $baseDis_amt = $basediscount * $subtotalPrice;
+
+/// total price        
+        $totalPrice = $subtotalPrice-$baseDis_amt;
     
 //////// total cubic test, comment out when production
     // $totalWeight = 2000;
     // $totalCubic = 540000;
-    // $totalPrice = 300000;
+    // $subtotalPrice = 300000;
     // // $domestic= true;       
     // $domestic= false;    
     // $ems_zone= 1;
@@ -250,7 +298,7 @@ if($nonFullCubicBoxCubic<>0){
 
         $shipCost_EMS = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_ems))*1.07;
 
-        $EMS_insurance= max(ceil((($totalPrice + $shipCost_EMS)*1.1)*0.02),550);
+        $EMS_insurance= max(ceil((($subtotalPrice + $shipCost_EMS)*1.1)*0.02),550);
 
         if($EMS_insurance > 550){
             $EMS_insurance = $EMS_insurance*1.07;
@@ -275,7 +323,7 @@ if($nonFullCubicBoxCubic<>0){
 
         $shipCost_Air = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_air))*1.07;
 
-        $Air_insurance= max(ceil((($totalPrice + $shipCost_Air)*1.1)*0.02),550);
+        $Air_insurance= max(ceil((($subtotalPrice + $shipCost_Air)*1.1)*0.02),550);
 
         if($Air_insurance > 550){
             $Air_insurance = $Air_insurance*1.07;
@@ -284,9 +332,9 @@ if($nonFullCubicBoxCubic<>0){
         // $shipCost_TH =0;
     }
 
-    $total_TH = $totalPrice+$shipCost_TH+$TH_insurance;
-    $total_EMS = $totalPrice+$shipCost_EMS+$EMS_insurance;
-    $total_Air = $totalPrice+$shipCost_Air+$Air_insurance;
+    $total_TH = $subtotalPrice+$shipCost_TH+$TH_insurance;
+    $total_EMS = $subtotalPrice+$shipCost_EMS+$EMS_insurance;
+    $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
     // var_dump(
     //     'Total Cubic (cm): '.number_format($totalCubic),
@@ -361,7 +409,9 @@ if($nonFullCubicBoxCubic<>0){
             return view('checkout.step2',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
-                'totalprice'=> $totalPrice,
+                'subtotal'=> $subtotalPrice,
+                'dis_percent'=> $dispercent,
+                'baseDis_amt'=> number_format($baseDis_amt),
                 'totalpriceShow'=> number_format($totalPrice),
             'totalweight'=> $totalWeight,
                 'shipcountry'=>$shipcountry,

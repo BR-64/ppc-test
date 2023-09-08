@@ -9,7 +9,7 @@ class Voucher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'discount_percent', 'product_id'];
+    protected $fillable = ['code', 'discount_percent', 'qty','valid_until'];
 
     
     public function getRouteKeyName()

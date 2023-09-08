@@ -66,10 +66,6 @@ class pProduct extends Model
 
         $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList='.$item_code;
 
-        // $url='http://1.1.220.113:8000/PrempApi.asmx/getStockBalance?strItemCodeList=C34ZFB19A09UW7';
-
-        // $url='http://1.1.220.113:8000/PrempApi.asmx/getStockBalance';
-
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -98,6 +94,30 @@ class pProduct extends Model
         return $realtimeStock;
 
         // return json_decode($response);
+
+    }
+    public static  function enproStock($item_code)
+    {
+
+        $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList='.$item_code;
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        preg_match('#\[([^]]+)\]#', $response, $match);
+        $data=json_decode($match[1],true);
+
+        $enprostock = $data['STK'];
+
+        dd($enprostock);
+
+        return $enprostock;
 
     }
 

@@ -30,7 +30,18 @@ class VoucherResource extends Resource
                     ->label('Discount (%)')
                     ->numeric()
                     ->default(10)
+                    ->required()
                     ->extraInputAttributes(['min' => 1, 'max' => 100, 'step' => 1]),
+                Forms\Components\TextInput::make('qty')
+                    ->label('Quantity')
+                    ->numeric()
+                    ->default(10)
+                    ->extraInputAttributes(['min' => 1, 'step' => 1])
+                    ->required(),
+                Forms\Components\DatePicker::make('valid_until')
+                    ->required()
+                    ->unique(),
+
                 //
             ]);
     }
@@ -41,6 +52,8 @@ class VoucherResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('code'),
                 Tables\Columns\TextColumn::make('discount_percent')->label('Discount (%)'),
+                Tables\Columns\TextColumn::make('qty'),
+                Tables\Columns\TextColumn::make('valid_until'),
                 //
             ])
             ->filters([

@@ -269,7 +269,9 @@
             <hr class="my-3"/>
             @endforeach
     
-                <h3 class="chksumtotal">{{$totalpriceShow}}</h3>
+            <h3 class="subtotal">{{$subtotal}}</h3>
+                <h2 class="discount">[Discount {{$dis_percent}}] -  {{$baseDis_amt}}</h2>
+                <h3 class="chksumtotal"> {{$totalpriceShow}}</h3>
                 
         </div>
     </br>
