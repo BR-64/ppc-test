@@ -199,6 +199,7 @@
                 <button type="submit" class="btn-primary w-full py-3 text-lg" onclick="clicked(event)">
                     Step 3 : Payment </button>
                     <input type="hidden" name="checkouttype"  value="paynow">
+                    <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}">                
                 </div>
         </form>
 

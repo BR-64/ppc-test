@@ -128,6 +128,26 @@
                     </div>
                 </form>
             </div>
+            <hr>
+{{-- Discount Voucher --}}
+        <div class="pccoll" style="width:400px;">
+            <h2>Apply Voucer</h2>
+                <form method="POST" action="{{route('cart-voucher')}}">
+                    @csrf
+                    <!-- Password -->
+                    <div >
+                        <label for="voucher">Voucher Code</label>
+                        <input type="text" style="color:black;" id="voucher" name="voucher" value="" required>
+                    </br>
+                    </div>
+        
+                    <div class="flex justify-end mt-4">
+                        <x-button>
+                            {{ __('Confirm') }}
+                        </x-button>
+                    </div>
+                </form>
+            </div>
 {{-- PDF - Order info --}}
         {{-- <div class="pccoll" style="width:400px;">
             <h2>PDF : Order info</br></h2>

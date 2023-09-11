@@ -10,12 +10,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Stock;
-
+use App\Models\Voucher;
 
 class CartController extends Controller
 {
     public function index()
     {
+        $apply_voucher=0;
+        $vcheck='* plese input voucher';
+
+        $vdis_percent=0;
+
         list($products, $cartItems) = Cart::getProductsAndCartItems();
         $total = 0;
         $rtStock=array();
@@ -33,7 +38,40 @@ class CartController extends Controller
         // print_r($rtStock);
         // dd($rtStock);
 
-        return view('cart.index', compact('cartItems', 'products', 'total','rtStock'));
+        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','vdis_percent','apply_voucher','vcheck'));
+    }
+
+    public function voucher(Request $request){
+        $voucher=0;
+        $apply_voucher=$request->voucher;
+        $voucher_discount = 0;
+        $vdis_percent=0;
+        $vcheck='* plese input voucher';
+
+        $voucher = Voucher::query()
+        ->where(['code'=>$apply_voucher])
+        ->first();
+
+        if(!empty($voucher)){
+            $vdis_percent=$voucher->discount_percent/100;
+            $vcheck='✔️ voucher is valid';
+        } else{
+            $vcheck='❌ voucher not valid';
+        }
+        
+        // dd($voucher->qty);
+
+        // $voucher=$voucher->discount_percent;
+
+        list($products, $cartItems) = Cart::getProductsAndCartItems();
+        $total = 0;
+        $rtStock=array();
+        foreach ($products as $product) {
+            $total += $product->price * $cartItems[$product->id]['quantity'];
+
+            $rtStock[$product['item_code']]=(int)Product::realtimeStock($product['item_code']);}
+
+        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','voucher','vdis_percent','vcheck','apply_voucher'));
     }
 
     public function add(Request $request, Product $product)

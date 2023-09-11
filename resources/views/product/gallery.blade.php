@@ -22,33 +22,28 @@
       object-fit: cover;
     }
 
-    swiper-container {
+    /* swiper-container {
       width: 100%;
       height: 300px;
       margin-left: auto;
       margin-right: auto;
-    }
+    } */
 
     swiper-slide {
       background-size: cover;
       background-position: center;
     }
 
-    .mySwiper {
-      height: 55px;
-      /* width: 80%; */
-      width: 363px;
-      margin-top: 5px;
-    }
 
-    .mySwiper2 {
+
+    /* .mySwiper2 {
       width: 363px;
 
       height: 250px;
       /* box-sizing: content-box; */
       /* padding: 10px 0; */
 
-    }
+    } */
 
     .mySwiper2 swiper-slide {
       width: 25%;
@@ -69,22 +64,23 @@
   </style>
 
 
-<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
-        </div>
-        @foreach($gallery as $gall)
-            <div class="swiper-slide">
-                <img class="pgallpic" src="{{$gall->portfolio_image}}" />
-            </div>
-        @endforeach
-    
-    </div>
-    {{-- <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div> --}}
+<div class='gallerycol'>
+  <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+      <div class="swiper-wrapper">
+          <div class="swiper-slide">
+              <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
+          </div>
+          @foreach($gallery as $gall)
+              <div class="swiper-slide">
+                  <img class="pgallpic" src="{{$gall->portfolio_image}}" />
+              </div>
+          @endforeach
+      
+      </div>
+      {{-- <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div> --}}
   </div>
-  <div thumbsSlider="" class="swiper mySwiper">
+  <div thumbsSlider="" class="swiper thumbSwiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <img class="pgallpicthumb" src="{{$product->image}}" />
@@ -97,12 +93,13 @@
 
     </div>
   </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
 
   <!-- Initialize Swiper -->
   <script>
-    var swiper = new Swiper(".mySwiper", {
+    var swiper = new Swiper(".thumbSwiper", {
       spaceBetween: 10,
       slidesPerView: 4,
       freeMode: true,

@@ -16,7 +16,7 @@ use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Stock;
-
+use App\Models\Voucher;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -581,9 +581,29 @@ class kCheckoutController extends Controller
                 break;
         }
 
-        $baseDis_amt = $basediscount * $subtotalPrice;
+/// voucher discount 
+        $apply_voucher=$request->apply_voucher;
+        $voucher = Voucher::query()
+            ->where(['code'=>$apply_voucher])
+            ->first();
+        if(!empty($voucher)){
+            $vdis_percent=$voucher->discount_percent/100;
 
+            if($basediscount > $vdis_percent){
+                $dispercent = $dispercent;
+            } else {
+                $dispercent = ($voucher->discount_percent).'%';
+            }
 
+        } else {
+            $vdis_percent=0;
+        }
+
+        $dis_percent= max($basediscount,$vdis_percent);
+
+        $baseDis_amt = $dis_percent * $subtotalPrice;
+
+//////
         $totalpayment = $subtotalPrice-$baseDis_amt+$R_shipcost+$R_Insurance;
 
         // Create Order

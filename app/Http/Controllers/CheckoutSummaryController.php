@@ -19,6 +19,9 @@ use App\Models\ShipAir;
 use App\Models\ShipEMS;
 use App\Models\ShiprateThai;
 use App\Models\Stock;
+use App\Models\Voucher;
+
+use function PHPUnit\Framework\isEmpty;
 
 class CheckoutSummaryController extends Controller
 {
@@ -84,7 +87,29 @@ class CheckoutSummaryController extends Controller
                 break;
         }
 
-        $baseDis_amt = $basediscount * $subtotalPrice;
+/// voucher discount 
+    $apply_voucher=$request->apply_voucher;
+    $voucher = Voucher::query()
+                ->where(['code'=>$apply_voucher])
+                ->first();
+    // dd($voucher);
+        if(!empty($voucher)){
+            $vdis_percent=$voucher->discount_percent/100;
+
+            if($basediscount > $vdis_percent){
+                $dispercent = $dispercent;
+            } else {
+                $dispercent = ($voucher->discount_percent).'%';
+            }
+
+        } else {
+            $vdis_percent=0;
+        }
+    
+    $dis_percent= max($basediscount,$vdis_percent);
+
+///
+    $baseDis_amt = $dis_percent * $subtotalPrice;
 
 /// total price        
         $totalPrice = $subtotalPrice-$baseDis_amt;
@@ -98,7 +123,7 @@ class CheckoutSummaryController extends Controller
                 'baseDis_amt'=> number_format($baseDis_amt),
                 'totalprice'=> $totalPrice,
                 // 'ordertype'=> $R_chkouttype
-            ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
+            ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher'));
     }
     public function chkout_step2(Request $request){
 
@@ -176,7 +201,28 @@ class CheckoutSummaryController extends Controller
                 break;
         }
 
-        $baseDis_amt = $basediscount * $subtotalPrice;
+/// voucher discount 
+        $apply_voucher=$request->apply_voucher;
+        $voucher = Voucher::query()
+            ->where(['code'=>$apply_voucher])
+            ->first();
+        if(!empty($voucher)){
+            $vdis_percent=$voucher->discount_percent/100;
+
+            if($basediscount > $vdis_percent){
+                $dispercent = $dispercent;
+            } else {
+                $dispercent = ($voucher->discount_percent).'%';
+            }
+
+        } else {
+            $vdis_percent=0;
+        }
+
+        $dis_percent= max($basediscount,$vdis_percent);
+
+        $baseDis_amt = $dis_percent * $subtotalPrice;
+        // dd($baseDis_amt,$basediscount,$vdis_percent);
 
 /// total price        
         $totalPrice = $subtotalPrice-$baseDis_amt;
@@ -422,7 +468,7 @@ if($nonFullCubicBoxCubic<>0){
                 'TH_insurance'=>$TH_insurance,
                 'EMS_insurance'=>$EMS_insurance,
                 'Air_insurance'=>$Air_insurance
-            ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
+            ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher'));
     }    
 
     public function createSC(){

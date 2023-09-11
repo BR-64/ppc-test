@@ -275,10 +275,13 @@
                 
         </div>
     </br>
-
-    <a href="{{ route('checkout.step2') }}">
+    {{-- <a href="{{ route('checkout.step2') }}">
         <x-button>Step 2 : Shipping Calculation</x-button>
-    </a>
+    </a> --}}
+    <form action="{{ route('checkout.step2') }}">
+        <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}">
+        <x-button>Step 2 : Shipping Calculation</x-button>
+    </form>
 </div>
 
 

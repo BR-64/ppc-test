@@ -20,13 +20,13 @@
     align-items: center;
   }
 
-  .swiper-slide img {
+  /* .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
     /* height: 80vh; */
     object-fit: cover;
-  }
+  } */
 
   .mySwiper_banner{
   height: 500px;
@@ -42,7 +42,7 @@
       <div class="swiper mySwiper_banner">
           <div class="swiper-wrapper">
               @foreach($mktSliders as $slide)
-              <div class="swiper-slide"><img src="{{$slide->portfolio_image}}" alt=""></div>
+              <div class="swiper-slide"><img class='slidemain' src="{{$slide->portfolio_image}}" alt=""></div>
               {{-- <div class="swiper-slide"><p>{{$slide->portfolio_title}}</p></div> --}}
               
               @endforeach

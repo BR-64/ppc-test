@@ -2,6 +2,7 @@
 
 
 <x-app-layout>
+    <h2>test 1</h2>
     <div  x-data="productItem({{ json_encode([
         'id' => $product->id,
         'slug' => $product->item_code,
@@ -12,17 +13,11 @@
         'cat'=>$product->pcategory_id,
         'stock'=>$product->stock,
         'addToCartUrl' => route('cart.add', $product)])
-        }})" class="">
-        <h2>test 1</h2>
-{{-- <img src="{{$product->image}}" alt=""/> --}}
+        }})" class="productview">
 
         @include('product.gallery')
 
-    <!-- <h2>product details</h2> -->
-        <div class="productgal">
-        {{-- </p>realstock {{$stock}} --}}
-        {{-- <a href="{{$product->image}}">Image Link</a> --}}
-            <p>
+        <div class="productinfo">
             <div class="lg:col-span-3">
                 <div >
                     <template x-for="image in images">

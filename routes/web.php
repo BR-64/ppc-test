@@ -188,4 +188,7 @@ Route::get('/genpdf-inv/{OrderID}',[PdfController::class, 'Pdf_invoice'])->name(
 
 Route::view('/pdf.invoice', 'pdf.invoice');
 
+////// voucher
+Route::post('/voucher',[CartController::class, 'voucher'])->name('cart-voucher');
+
 require __DIR__ . '/auth.php';

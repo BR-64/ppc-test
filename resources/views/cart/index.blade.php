@@ -44,22 +44,26 @@
             },
             get after_discount(){
                 const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
-                discount = 0
+
+                b_discount = 0
+                v_discount = {{$vdis_percent}}
 
                 switch (true) {
                     case x < 10000:
                     break;
                     case x < 20000:
-                        discount = 0.1;
+                        b_discount = 0.1;
                         break;
                     case x < 30000:
-                        discount = 0.15;
+                        b_discount = 0.15;
                         break;
                     case x >= 30000:
-                        discount = 0.2;
+                        b_discount = 0.2;
                         break;
                   }
                 
+                  discount=Math.max(b_discount,v_discount)
+
                   afterdiscount = x-(x*discount)
 
                   return afterdiscount.toLocaleString()
@@ -107,6 +111,14 @@
                             break;
                 }
 
+                disAmount = x*discount
+                return disAmount.toLocaleString()
+
+            },
+            get dis_v_amount(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+                
+                discount = {{$vdis_percent}}
                 disAmount = x*discount
                 return disAmount.toLocaleString()
 
@@ -291,10 +303,31 @@
                             
                     </div>
                     <div class="flex justify-between">
+                        <span class="font-semibold">Voucher </span>
+                        @if (isset($voucher))
+                            <span id="cartTotal" class="tthin">{{$voucher->code}} : {{$voucher->discount_percent}} %</span>
+                            <span id="cartTotal" class="notice text-xl" x-text="`-${dis_v_amount}`"></span>
+                        @else <span></span>
+                            <span></span>
+                            @endif
+                        </div>
+                    <div class="flex justify-between">
+                        {{-- <h2>Apply Voucer</h2> --}}
+                        <form method="POST" action="{{route('cart-voucher')}}">
+                            @csrf
+                            <div >
+                                <input type="text" style="color:black;" id="voucher" name="voucher" value="" required>
+                                <button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>{{ __('Confirm') }}</button>
+                            </div>
+                            <div>{{$vcheck}}</div>
+                        </form>
+                        
+                    </div>
+                    <div class="flex justify-between">
                         <span class="font-semibold">After Discount</span>
                         <span id="cartTotal" class="text-xl" x-text="`THB ${after_discount}`"></span>
                         
-                </div>
+                    </div>
                     </br>
                         <p class="text-gray-500 mb-6">Shipping calculated at checkout.</p>
 
@@ -305,8 +338,10 @@
                                 Proceed to Checkout
                             </button>
                             <input type="hidden" name="checkouttype"  value="paynow">
+                            <input type="hidden" name="apply_voucher"  value="{{$apply_voucher}}">
                             
                         </form>
+                        <h1>{{$apply_voucher}}</h1>
                         
                         <br>
                         <div>
