@@ -148,6 +148,24 @@
                     </div>
                 </form>
             </div>
+{{-- Discount Voucher --}}
+        <div class="pccoll" style="width:400px;">
+            <h2>Test base discount function</h2>
+                <form method="POST" action="{{route('test-discount')}}">
+                    @csrf
+                    <!-- Password -->
+                    <div >
+                        <input type="text" style="color:black;" id="" name="discount" value="" required>
+                    </br>
+                    </div>
+        
+                    <div class="flex justify-end mt-4">
+                        <x-button>
+                            {{ __('Confirm') }}
+                        </x-button>
+                    </div>
+                </form>
+            </div>
 {{-- PDF - Order info --}}
         {{-- <div class="pccoll" style="width:400px;">
             <h2>PDF : Order info</br></h2>

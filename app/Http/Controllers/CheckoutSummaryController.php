@@ -25,6 +25,84 @@ use function PHPUnit\Framework\isEmpty;
 
 class CheckoutSummaryController extends Controller
 {
+    private $b_discount;
+    private $v_discount;
+    public function test_Discount(Request $request){
+        $this->baseDiscount($request->discount);
+
+        // dd($request->discount);
+
+        dd($this->b_discount['cal'],
+        $this->b_discount['percent']
+    );
+    }
+
+    public function voucher_discount($apply_voucher){
+        $voucher = Voucher::query()
+                ->where(['code'=>$apply_voucher])
+                ->first();
+        $dispercent =0;        
+
+        if(!empty($voucher)){
+            $vdis_percent = $voucher->discount_percent/100;
+
+            if($this->b_discount['cal'] > $vdis_percent){
+                $dispercent = $this->b_discount['percent'];
+            } else {
+                $dispercent = ($voucher->discount_percent).'%';
+            }
+
+        } else {
+            $vdis_percent=0;
+        }
+
+        $v_discount=[
+            'cal'=>$vdis_percent,
+            'percent'=>$dispercent
+        ];
+    
+    $dis_percent= max($this->b_discount['cal'],$vdis_percent);
+
+        return $v_discount;
+    }
+    
+    public function baseDiscount($itemstotal){
+        $dispercent=0;
+        $basediscount=0;
+        $x = $itemstotal;
+
+        switch(true){
+            case $x < 10000:
+                $basediscount=0; 
+                $dispercent = ' '; 
+                break;
+            case $x < 30000:
+                $basediscount=0.1; 
+                $dispercent = '10%'; 
+                break;
+            case $x < 50000:
+                $basediscount=0.15; 
+                $dispercent = '15%'; 
+
+                break;
+            case $x < 70000:
+                $basediscount=0.2; 
+                $dispercent = '20%'; 
+                break;
+            case $x >= 70000:
+                $basediscount=0.25; 
+                $dispercent = '25%'; 
+                break;
+        }
+
+        $this->b_discount=[
+            'cal'=>$basediscount,
+            'percent'=>$dispercent
+        ];
+
+        return $this->b_discount;
+
+    }
     public function chkout_step1(Request $request){
         // step 1 : add billing and shipping
         $user = $request->user();
@@ -65,39 +143,19 @@ class CheckoutSummaryController extends Controller
             ];
         }
 /// base discount cal
-        $basediscount=0;
-        $x = $subtotalPrice;
-        switch(true){
-            case $x < 10000:
-                $basediscount=0; 
-                $dispercent = ' '; 
-                break;
-            case $x < 20000:
-                $basediscount=0.1; 
-                $dispercent = '10%'; 
-                break;
-            case $x < 30000:
-                $basediscount=0.15; 
-                $dispercent = '15%'; 
-
-                break;
-            case $x > 30000:
-                $basediscount=0.2; 
-                $dispercent = '20%'; 
-                break;
-        }
+    $this->baseDiscount($subtotalPrice);
+    $dispercent =0;
 
 /// voucher discount 
     $apply_voucher=$request->apply_voucher;
     $voucher = Voucher::query()
                 ->where(['code'=>$apply_voucher])
                 ->first();
-    // dd($voucher);
         if(!empty($voucher)){
             $vdis_percent=$voucher->discount_percent/100;
 
-            if($basediscount > $vdis_percent){
-                $dispercent = $dispercent;
+            if($this->b_discount['cal'] > $vdis_percent){
+                $dispercent = $this->b_discount['percent'];
             } else {
                 $dispercent = ($voucher->discount_percent).'%';
             }
@@ -106,10 +164,11 @@ class CheckoutSummaryController extends Controller
             $vdis_percent=0;
         }
     
-    $dis_percent= max($basediscount,$vdis_percent);
+    $dis_percent= max($this->b_discount['cal'],$vdis_percent);
 
 ///
     $baseDis_amt = $dis_percent * $subtotalPrice;
+    // $baseDis_amt = $this->voucher_discount($request->apply_voucher) * $subtotalPrice;
 
 /// total price        
         $totalPrice = $subtotalPrice-$baseDis_amt;
@@ -179,50 +238,31 @@ class CheckoutSummaryController extends Controller
             ];
         }
 
-        $basediscount=0;
-        $x = $subtotalPrice;
-        switch(true){
-            case $x < 10000:
-                $basediscount=0; 
-                $dispercent = ' '; 
-                break;
-            case $x < 20000:
-                $basediscount=0.1; 
-                $dispercent = '10%'; 
-                break;
-            case $x < 30000:
-                $basediscount=0.15; 
-                $dispercent = '15%'; 
-
-                break;
-            case $x > 30000:
-                $basediscount=0.2; 
-                $dispercent = '20%'; 
-                break;
-        }
+// base discount cal
+        $this->baseDiscount($subtotalPrice);
+        $dispercent =0;
 
 /// voucher discount 
         $apply_voucher=$request->apply_voucher;
         $voucher = Voucher::query()
             ->where(['code'=>$apply_voucher])
             ->first();
-        if(!empty($voucher)){
-            $vdis_percent=$voucher->discount_percent/100;
-
-            if($basediscount > $vdis_percent){
-                $dispercent = $dispercent;
+            if(!empty($voucher)){
+                $vdis_percent=$voucher->discount_percent/100;
+    
+                if($this->b_discount['cal'] > $vdis_percent){
+                    $dispercent = $this->b_discount['percent'];
+                } else {
+                    $dispercent = ($voucher->discount_percent).'%';
+                }
+    
             } else {
-                $dispercent = ($voucher->discount_percent).'%';
+                $vdis_percent=0;
             }
 
-        } else {
-            $vdis_percent=0;
-        }
-
-        $dis_percent= max($basediscount,$vdis_percent);
+        $dis_percent= max($this->b_discount['cal'],$vdis_percent);
 
         $baseDis_amt = $dis_percent * $subtotalPrice;
-        // dd($baseDis_amt,$basediscount,$vdis_percent);
 
 /// total price        
         $totalPrice = $subtotalPrice-$baseDis_amt;
@@ -470,6 +510,136 @@ if($nonFullCubicBoxCubic<>0){
                 'Air_insurance'=>$Air_insurance
             ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher'));
     }    
+
+    public function chkout_step3(Request $request){
+        $user = $request->user();
+
+        $R_chkouttype=$_POST["checkouttype"];
+        $R_shipcost=$_POST["Shipcost"];
+        $R_Insurance=$_POST["Insurance"];
+
+        // dd($R_shipcost);
+
+        [$products, $cartItems] = Cart::getProductsAndCartItems();
+
+        $orderItems = [];
+        $lineItems = [];
+        $subtotalPrice = 0;
+        foreach ($products as $product) {
+            $quantity = $cartItems[$product->id]['quantity'];
+            $subtotalPrice += $product->retail_price * $quantity;
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'thb',
+                    'product_data' => [
+                        'name' => $product->item_code,
+                       'images' => [$product->image]
+                    ],
+                    'unit_amount' => $product->retail_price * 100,
+                    'price' => $product->retail_price
+                ],
+                'quantity' => $quantity,
+                'itemtotal'=> $quantity * $product->retail_price
+            ];
+            $orderItems[] = [
+                'item_code'=>$product->item_code,
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'unit_price' => $product->retail_price
+            ];
+        }
+
+/// base discount cal
+        $this->baseDiscount($subtotalPrice);
+        $dispercent =0;
+
+/// voucher discount 
+        $apply_voucher=$request->apply_voucher;
+        $voucher = Voucher::query()
+                ->where(['code'=>$apply_voucher])
+                ->first();
+        if(!empty($voucher)){
+            $vdis_percent=$voucher->discount_percent/100;
+
+            if($this->b_discount['cal'] > $vdis_percent){
+                $dispercent = $this->b_discount['percent'];
+            } else {
+                $dispercent = ($voucher->discount_percent).'%';
+            }
+
+        } else {
+            $vdis_percent=0;
+        }
+
+        $dis_percent= max($this->b_discount['cal'],$vdis_percent);
+        $baseDis_amt = $dis_percent * $subtotalPrice;
+//////
+        $totalpayment = $subtotalPrice-$baseDis_amt+$R_shipcost+$R_Insurance;
+
+        // Create Order
+            $orderData = [
+                    'total_price' => $subtotalPrice,
+                    'discount_base' => $baseDis_amt,
+                    'status' => OrderStatus::Unpaid,
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
+                    'shipping' => $R_shipcost,
+                    'insurance'=>$R_Insurance,
+                    
+                ];
+
+            if ($R_chkouttype == "paynow" ){
+            // $orderData = ['status' => OrderStatus::Unpaid];
+            $orderData['status'] = OrderStatus::Unpaid;
+            } else {
+                $orderData['status'] = OrderStatus::Quotation;
+            }
+
+            $order = Order::create($orderData);
+
+        // Create Order Items
+        foreach ($orderItems as $orderItem) {
+            $orderItem['order_id'] = $order->id;
+            OrderItem::create($orderItem);
+        }
+
+        // Update stock
+        foreach ($orderItems as $orderItem) {
+            Stock::where('item_code',$orderItem['item_code'])
+            ->decrement('stock',(int) $orderItem['quantity']);
+        }
+
+        
+        // Create Payment
+        $paymentData = [
+            'order_id' => $order->id,
+            'amount' => $totalpayment,
+            'status' => PaymentStatus::Pending,
+            'type' => 'cc',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            // 'session_id' => $session->id
+        ];
+        Payment::create($paymentData);
+
+        CartItem::where(['user_id' => $user->id])->delete();
+        
+
+        return view('checkout.step3',[
+                'items'=>$lineItems,
+                'orderitems'=> $orderItems,
+                'itemsprice'=> $subtotalPrice,
+                'dispercent' => $dispercent,
+                'discount_base' => $baseDis_amt,
+                'totalpayment'=> $totalpayment,
+                // 'totalpaymentShow'=> number_format($totalpayment),
+                'ordertype'=> $R_chkouttype,
+                'shipcost'=> $R_shipcost,
+                'insure'=> $R_Insurance,
+                // 'paydata'=>$paymentData
+            ]);
+    }
+
 
     public function createSC(){
         ///////// no Use

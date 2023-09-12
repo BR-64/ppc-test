@@ -59,8 +59,6 @@ class CartController extends Controller
             $vcheck='❌ voucher not valid';
         }
         
-        // dd($voucher->qty);
-
         // $voucher=$voucher->discount_percent;
 
         list($products, $cartItems) = Cart::getProductsAndCartItems();

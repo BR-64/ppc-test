@@ -93,7 +93,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/chksum', [kCheckoutController::class, 'chkout_summary'])->name('checkout.summary');
     Route::get('/chkstep1', [CheckoutSummaryController::class, 'chkout_step1'])->name('checkout.step1');
     Route::get('/chkstep2', [CheckoutSummaryController::class, 'chkout_step2'])->name('checkout.step2');
-    Route::post('/chkstep3', [kCheckoutController::class, 'chkout_step3'])->name('checkout.step3');
+    Route::post('/chkstep3', [CheckoutSummaryController::class, 'chkout_step3'])->name('checkout.step3');
 
     // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
     Route::post('/order-payment/{order}', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
@@ -190,5 +190,6 @@ Route::view('/pdf.invoice', 'pdf.invoice');
 
 ////// voucher
 Route::post('/voucher',[CartController::class, 'voucher'])->name('cart-voucher');
+Route::post('/t_discount',[CheckoutSummaryController::class, 'test_Discount'])->name('test-discount');
 
 require __DIR__ . '/auth.php';

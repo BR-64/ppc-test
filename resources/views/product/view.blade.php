@@ -87,6 +87,9 @@
                         <td>
                             <p class="description">
                                 {{$product->product_description}}
+                                สินค้าทุกชิ้นเป็นสินค้าแฮนด์เมด สีและรูปทรงอาจไม่เหมือนในภาพ แต่ละชิ้นอาจจะมีความแตกต่างกันเล็กน้อย 
+
+<br>All of our products are handmade, therefore, colors and shapes may not be exactly the same as in the picture. Each piece will be slightly different.
                             </p>
                         </td>
                         </tr>

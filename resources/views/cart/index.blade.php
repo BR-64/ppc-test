@@ -50,16 +50,20 @@
 
                 switch (true) {
                     case x < 10000:
-                    break;
-                    case x < 20000:
-                        b_discount = 0.1;
-                        break;
-                    case x < 30000:
-                        b_discount = 0.15;
-                        break;
-                    case x >= 30000:
-                        b_discount = 0.2;
-                        break;
+                            b_discount =0;
+                            break;
+                        case x < 30000:
+                            b_discount = 0.1;
+                            break;
+                        case x < 50000:
+                            b_discount = 0.15;
+                            break;
+                        case x < 70000:
+                            b_discount = 0.2;
+                            break;
+                        case x >= 70000:
+                            b_discount = 0.25;
+                            break;
                   }
                 
                   discount=Math.max(b_discount,v_discount)
@@ -77,17 +81,21 @@
                         case x < 10000:
                         return 'No Discount';
                         break;
-                        case x < 20000:
+                        case x < 30000:
                         discount = 0.1;
                         return '10%';
                         break;
-                        case x < 30000:
+                        case x < 50000:
                         discount = 0.15;
                         return '15%';
                         break;
-                        case x >= 30000:
+                        case x < 70000:
                         discount = 0.2;
                         return '20%';
+                        break;
+                        case x >= 70000:
+                        discount = 0.25;
+                        return '25%';
                         break;
                 }
             },
@@ -98,16 +106,19 @@
 
                     switch (true) {
                         case x < 10000:
-                            discount = 0;
-                            break;
-                        case x < 20000:
-                            discount = 0.1;
+                            discount =0;
                             break;
                         case x < 30000:
+                            discount = 0.1;
+                            break;
+                        case x < 50000:
                             discount = 0.15;
                             break;
-                        case x >= 30000:
+                        case x < 70000:
                             discount = 0.2;
+                            break;
+                        case x >= 70000:
+                            discount = 0.25;
                             break;
                 }
 
@@ -276,7 +287,7 @@
 
                     <div class="flex justify-between">
                                 <span class="font-semibold">Subtotal 
-                                    <span class="notice">(included tax)
+                                    <span class="notice">(Tax included)
                                         {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
                                     </span>
     
@@ -290,10 +301,11 @@
                                 <span class="">
                                     {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
                                 </span>
-                                    <p class='notice' style='padding-left: 2rem;'>* Discount
-                                        </br> 10% for 10,000
-                                        </br> 15% for 20,000
-                                        </br> 20% for 30,000
+                                    <p class='notice' style='padding-left: 2rem;'>
+                                        </br> BAHT 10,000 UP DISC. 10%
+                                        </br> BAHT 30,000 UP DISC. 15%
+                                        </br> BAHT 50,000 UP DISC. 20%
+                                        </br> BAHT 70,000 UP DISC. 25%
                                     </p>
                             </span>
                                 
