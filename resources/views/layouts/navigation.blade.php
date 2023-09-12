@@ -48,6 +48,7 @@
             <div class="dropbtn">Products</div>
 
             <div class="dropdown-one">
+                <a href="/prem" class="dItem">PREM</a>
                 @foreach($sharedData['filterables'] as $key=>$filter)
                 <div id="link1" class="dItem" href="#">
                     <h3 class="drop1">{{$key}}</h3>
