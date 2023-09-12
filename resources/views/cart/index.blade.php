@@ -298,11 +298,8 @@
                     
                     <div class="flex justify-between">
                             <span class="font-semibold">Discount
-                                <span class="">
-                                    {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
-                                </span>
                                     <p class='notice' style='padding-left: 2rem;'>
-                                        </br> BAHT 10,000 UP DISC. 10%
+                                         BAHT 10,000 UP DISC. 10%
                                         </br> BAHT 30,000 UP DISC. 15%
                                         </br> BAHT 50,000 UP DISC. 20%
                                         </br> BAHT 70,000 UP DISC. 25%
@@ -336,7 +333,7 @@
                         
                     </div>
                     <div class="flex justify-between">
-                        <span class="font-semibold">After Discount</span>
+                        <span class="font-semibold">After Discount (Tax included)</span>
                         <span id="cartTotal" class="text-xl" x-text="`THB ${after_discount}`"></span>
                         
                     </div>
