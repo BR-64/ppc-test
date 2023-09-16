@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\kCheckoutController;
 use App\Http\Controllers\CheckoutSummaryController;
+use App\Http\Controllers\FileControllerDemo;
 use App\Http\Controllers\MailTestController;
 use App\Http\Controllers\PdfController;
 use App\Mail\testmarkdown;
@@ -191,5 +192,9 @@ Route::view('/pdf.invoice', 'pdf.invoice');
 ////// voucher
 Route::post('/voucher',[CartController::class, 'voucher'])->name('cart-voucher');
 Route::post('/t_discount',[CheckoutSummaryController::class, 'test_Discount'])->name('test-discount');
+
+//// fileupload
+Route::get('im-ex-excel',[FileControllerDemo::class,'importExport']);
+    Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
 
 require __DIR__ . '/auth.php';

@@ -13,6 +13,7 @@ use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 use App\Models\Portfolio;
 use App\Models\Product;
 use App\Models\Stock;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class pProductController extends Controller
@@ -514,34 +515,34 @@ class pProductController extends Controller
 
         $item_code =$product['item_code'];
 
-
-//// get data from enpro
+        
+        //// get data from enpro
         $url='http://1.1.220.113:7000/PrempApi.asmx/getItemData?strItemCodeList='.$item_code;
-
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
-
+        
         $response = curl_exec($ch);
         curl_close($ch);
-
-//// edit string -> convert to json
+        
+        //// edit string -> convert to json
         preg_match('#\[([^]]+)\]#', $response, $match);
-        $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
-        
-        $dataEnpro=json_decode($newstring."}",true);
-
-//// update data to database
-        pProduct::where('item_code','=',$dataEnpro['item_code'])
-            ->update([
-                'weight_g'=>$dataEnpro['weight_g'],
-                'width'=>$dataEnpro['width_cm'],
-                'length'=>$dataEnpro['length_cm'],
-                'height'=>$dataEnpro['height_cm'],
-                'retail_price'=>$dataEnpro['retail_price'],
-            ]);
-        
+                $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
+                
+                $dataEnpro=json_decode($newstring."}",true);
+                
+                //// update data to database
+                pProduct::where('item_code','=',$dataEnpro['item_code'])
+                ->update([
+                    'weight_g'=>$dataEnpro['weight_g'],
+                    'width'=>$dataEnpro['width_cm'],
+                    'length'=>$dataEnpro['length_cm'],
+                    'height'=>$dataEnpro['height_cm'],
+                    'retail_price'=>$dataEnpro['retail_price'],
+                ]);
+                
         }
 
 

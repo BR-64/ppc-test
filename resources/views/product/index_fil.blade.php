@@ -33,7 +33,7 @@
                             />
                         </a>
                         <div>
-                            {{-- <p class="text2 undertext">{{$product->item_code}}</p> --}}
+                            <p class="text2 undertext">{{$product->item_code}}</p>
                             <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
                         </div>
                     </div>

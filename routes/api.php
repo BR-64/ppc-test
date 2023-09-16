@@ -46,6 +46,10 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     // Report routes
     Route::get('/report/orders', [ReportController::class, 'orders']);
     Route::get('/report/customers', [ReportController::class, 'customers']);
+
+    //import data
+    Route::get('im-ex-excel',[FileControllerDemo::class,'importExport']);
+    Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
 });
 
 Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
