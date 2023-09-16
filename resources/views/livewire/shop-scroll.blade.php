@@ -19,6 +19,7 @@
                         />
                     </a>
                     <div>
+                        <p class="text2 undertext">{{$product->item_code}}</p>
                         <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
                     </div>
                     <div x-show="{{$product->stock->stock}} <= 0" class="oosbanner border border-t-0 border-red-400 rounded-b bg-red-100 text-red-700 opacity-75">

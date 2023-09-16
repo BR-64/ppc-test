@@ -501,7 +501,7 @@ class pProductController extends Controller
 
     public function getAllDataEnpro_v2()
     {
-        set_time_limit(300);
+        set_time_limit(3000);
 
         $start = microtime(true);
 
@@ -529,9 +529,20 @@ class pProductController extends Controller
         
         //// edit string -> convert to json
         preg_match('#\[([^]]+)\]#', $response, $match);
-                $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
-                
+
+        try{
+            $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
+            
                 $dataEnpro=json_decode($newstring."}",true);
+            // echo ($item_code.','."<br>\n");
+    
+            } catch (Exception $e){
+                echo ('Error: '.$item_code."<br>\n");
+            };
+
+                // $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
+                
+                // $dataEnpro=json_decode($newstring."}",true);
                 
                 //// update data to database
                 pProduct::where('item_code','=',$dataEnpro['item_code'])
