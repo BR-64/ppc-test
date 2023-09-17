@@ -433,7 +433,7 @@ header {
   grid-template-columns: repeat(auto-fill, 180px);
   gap: 10px;
   margin: auto;
-  /* padding: 5%; */
+  /* padding: auto; */
   margin-bottom: 30px;
 }
 
@@ -1493,6 +1493,12 @@ swiper-slide {
   width: 700px;
   height: 90vh;
   object-fit: cover;
+}
+@media only screen and (min-width: 376px) {
+  .pccoll {
+    /* margin: auto; */
+    /* padding: 0 5%; */
+  }
 }
 
 @media screen and (min-width: 700px) {
