@@ -75,6 +75,13 @@
   }
 }
 @media (min-width: 1200px) {
+  .desktopshow {
+    visibility: visible;
+  }
+  .mobileshow {
+    visibility: hidden;
+  }
+
   .banner {
     width: 700px;
   }

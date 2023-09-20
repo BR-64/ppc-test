@@ -33,7 +33,7 @@
 
 
             <div class="centercontainer">
-                <h3 class="pprice">THB {{number_format($product->retail_price)}}</h3>
+                <h3 class="pprice mobileshow">THB {{number_format($product->retail_price)}}</h3>
                 <div class="pdetails2" >
                     <table>
                         <tr>
@@ -94,6 +94,7 @@
                         </td>
                         </tr>
                     </table>
+                    <h3 class="pprice desktopshow">THB {{number_format($product->retail_price)}}</h3>
                     <div class="stock">
                     <p>In Stock : {{$stock}}</p>
                     </div>

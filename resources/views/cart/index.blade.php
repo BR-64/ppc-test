@@ -296,7 +296,7 @@
                                 <span id="cartTotal" class="text-xl" x-text="`${cartTotal}`"></span>
                     </div>
                     
-                    <div class="flex justify-between">
+                    <div x-show="isset($voucher)" class="flex justify-between">
                             <span class="font-semibold">Discount
                                     <p class='notice' style='padding-left: 2rem;'>
                                          BAHT 10,000 UP DISC. 10%
