@@ -195,6 +195,8 @@ Route::post('/t_discount',[CheckoutSummaryController::class, 'test_Discount'])->
 
 //// fileupload
 Route::get('im-ex-excel',[FileControllerDemo::class,'importExport']);
-    Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
+Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
+
+Route::get('join',[FileControllerDemo::class,'addUploadToMaster']);
 
 require __DIR__ . '/auth.php';

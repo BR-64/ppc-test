@@ -350,7 +350,7 @@
                             <input type="hidden" name="apply_voucher"  value="{{$apply_voucher}}">
                             
                         </form>
-                        <h1>{{$apply_voucher}}</h1>
+                        {{-- <h1>{{$apply_voucher}}</h1> --}}
                         
                         <br>
                         <div>

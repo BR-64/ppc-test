@@ -14,8 +14,13 @@
     "src": "resources/css/reset.css",
     "isEntry": true
   },
+  "resources/css/queries.css": {
+    "file": "assets/queries.15edc435.css",
+    "src": "resources/css/queries.css",
+    "isEntry": true
+  },
   "resources/css/style3.css": {
-    "file": "assets/style3.b566a0ac.css",
+    "file": "assets/style3.8fc99c2c.css",
     "src": "resources/css/style3.css",
     "isEntry": true
   },

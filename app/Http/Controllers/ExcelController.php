@@ -31,7 +31,7 @@ class ExcelController extends Controller
 
     public function getAllDataEnpro_v2()
     {
-        set_time_limit(3000);
+        set_time_limit(30000);
 
         $start = microtime(true);
 

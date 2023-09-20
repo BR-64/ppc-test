@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\att_category;
 
 
-class pProduct_up extends Model
+class pProduct_upload extends Model
 {
     use HasFactory;
 

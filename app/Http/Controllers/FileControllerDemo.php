@@ -1,10 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Imports\CSVImport;
 use App\Imports\TestImport;
+use App\Models\pProduct_up;
 use Illuminate\Http\Request;
 use App\Item;
 use App\Models\pProduct;
+use App\Models\pProduct_upload;
 use Excel;
 use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
@@ -47,29 +50,40 @@ class FileControllerDemo extends Controller
 		if($request->hasFile('import_file')){
 			$path = $request->file('import_file')->getRealPath();
 
-            pProduct::truncate();
+            pProduct_upload::truncate();
             FacadesExcel::import(new TestImport,$path);
-
-			// $data = Excel::load($path, function($reader) {})->get();
-
-			// if(!empty($data) && $data->count()){
-			// 	foreach ($data->toArray() as $key => $value) {
-			// 		if(!empty($value)){
-			// 			foreach ($value as $v) {		
-			// 				$insert[] = ['title' => $v['title'], 'description' => $v['description']];
-			// 			}
-			// 		}
-			// 	}
+        }
 
 
-			// 	if(!empty($insert)){
-			// 		Item::insert($insert);
-			// 		return back()->with('success','Insert Record successfully.');
-			// 	}
-			// }
-		}
-		// return back()->with('error','Please Check your file, Something is wrong there.');
+
 		return back()->withSuccess('Done !');
-
+        // return redirect();
 	}
+
+    public function addUploadToMaster(){
+        pProduct_upload::all()
+        ->leftJoin('p_products', 'pProduct_upload.item_code', '=', 'pProducts.item_code')
+        ->whereNull('p_products.item_code')->first(
+            [
+                'pProducts.item_code',
+                'pProducts.form',
+                'pProducts.glaze',
+                'pProducts.bz',
+                'pProducts.technique',
+                'pProducts.collection',
+                'pProducts.category',
+                'pProducts.type',
+                'pProducts.brand_name',
+                'pProducts.product_description',
+                'pProducts.color',
+                'pProducts.finish_2',
+                'pProducts.pre_order',
+                // 'pProducts.promotion',
+                // 'pProducts.discount',
+                
+            ]
+        );
+    }
+
+
 }

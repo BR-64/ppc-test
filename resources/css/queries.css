@@ -1,0 +1,113 @@
+@media only screen and (min-width: 630px) {
+  .pccoll {
+    width: 90%;
+    max-width: 570px;
+    /* margin: auto; */
+    /* padding: 0 5%; */
+  }
+
+  .gridHL {
+    /* padding: 1.5%; */
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  .banner {
+    width: 70vw;
+  }
+  .pccollc {
+    width: 50%;
+  }
+
+  .pccoll {
+    width: 90%;
+    /* max-width: 570px; */
+  }
+
+  .productview {
+    width: 80%;
+  }
+
+  .swiper-container {
+    /* margin-left: 0; */
+    margin-right: auto;
+  }
+
+  .myswiper2 {
+    width: 500px;
+    height: 350px;
+  }
+
+  .thumbSwiper {
+    width: 500px;
+    height: 80px;
+  }
+
+  .pgallpic {
+    height: 350px;
+    padding: 1% 0;
+    margin: auto;
+  }
+
+  .pgallpicthumb {
+    /* width: 363px; */
+    height: 80px;
+    margin: auto;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .gridShopCat {
+    display: flex;
+    width: 900px;
+  }
+
+  .pccoll {
+    max-width: 750px;
+  }
+
+  /* .gridHL {
+    grid-template-columns: repeat(auto-fill, 172px);
+  } */
+
+  .card2 img {
+    /* width: 100%; */
+  }
+}
+@media (min-width: 1200px) {
+  .banner {
+    width: 700px;
+  }
+  .swiper {
+    /* height: 29%; */
+    margin-left: 0;
+    margin-right: auto;
+  }
+  .myswiper2 {
+    width: 625px;
+    height: 500px;
+  }
+  .productview {
+    display: flex;
+    width: 1000px;
+    margin: auto;
+  }
+
+  .pccoll {
+    max-width: 940px;
+  }
+
+  .gallerycol {
+    width: 100%;
+  }
+
+  .pdetails2 {
+    padding: 30px;
+  }
+
+  .pgallpic {
+    height: 500px;
+    padding: 1% 0;
+    margin: auto;
+  }
+}

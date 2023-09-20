@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\pProduct;
+use App\Models\pProduct_upload;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -15,8 +16,8 @@ class TestImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        dd($row);
-        return new pProduct([
+        // dd($row);
+        return new pProduct_upload([
             'item_code'=>$row['item_code'],
             'form'=>$row['form'],
             'glaze'=>$row['glaze'],
@@ -30,8 +31,8 @@ class TestImport implements ToModel, WithHeadingRow
             'color'=>$row['color'],
             'finish'=>$row['finish_2'],
             'pre_order'=>$row['pre_order'],
-            'promotion'=>$row['promotion'],
-            'discount'=>$row['discount'],
+            // 'promotion'=>$row['promotion'],
+            // 'discount'=>$row['discount'],
         ]);
         //
     }

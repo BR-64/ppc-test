@@ -14,6 +14,7 @@
         'resources/css/reset.css',
         'resources/css/app.css',
         'resources/css/style3.css',
+        'resources/css/queries.css',
         'resources/js/app.js',
         'resources/js/nav.js',
         ])
@@ -41,36 +42,16 @@
         -moz-appearance: textfield;
         }
 
-        @media only screen (min-width: 700px) { 
+        /* @media only screen (min-width: 700px) { 
             .pccoll{
                     width: 70%;
-
                     }
 
             .pccollc{
                     width: 70%;
-
                     }
-
-            
         
-        }
-
-
-
-        @media only screen and (min-width: 900px){
-            .gridShopCat {
-                display:flex;
-                width:900px;
-
-           }
-            
-
-        }
-
-        
-
-
+        } */
 
     </style>
 

@@ -3,8 +3,9 @@
         <div wire:loading.delay.class="opacity-50" class="gridHL">
 
     @foreach($products as $product)
-            <div @if ($loop->last) id="last_record" @endif>
-                <div  x-data="productItem({{ json_encode([
+            
+                <div @if ($loop->last) id="last_record" @endif
+                class='card2' x-data="productItem({{ json_encode([
                     // 'stock'=>$product->stock->stock
                     ])
                     }})" >
@@ -30,7 +31,6 @@
                     </div>
                   </div>
                 </div>
-            </div>
     @endforeach
 
 
