@@ -60,6 +60,10 @@
       pagination: {
         el: ".swiper-pagination",
       },
+      autoplay: {
+        delay: 4000,
+      },
+
     });
   </script>
 

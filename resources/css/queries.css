@@ -74,7 +74,7 @@
     /* width: 100%; */
   }
 }
-@media (min-width: 1200px) {
+@media only screen and (min-width: 1200px) {
   .desktopshow {
     visibility: visible;
   }
@@ -102,6 +102,7 @@
 
   .pccoll {
     max-width: 940px;
+    /* max-width: 1510px; */
   }
 
   .gallerycol {
@@ -116,5 +117,10 @@
     height: 500px;
     padding: 1% 0;
     margin: auto;
+  }
+}
+@media (min-width: 1670px) {
+  .pccoll {
+    max-width: 1510px;
   }
 }

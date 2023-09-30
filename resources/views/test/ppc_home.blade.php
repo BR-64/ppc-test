@@ -22,11 +22,12 @@
       </div>
 
 {{-- Highlight slider --}}
+@include('components.shopcol')
+
   @include('components.hl_product')
 
   @include('components.new_product')
 
-  @include('components.shopcol')
   <!-- portfolio-area-end -->
 
       <div class="shopall">

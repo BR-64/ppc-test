@@ -11,6 +11,7 @@ class Stock extends Model
     // protected $table = 'test_stock';
     // protected $table = 'p_stocks_old';
     protected $table = 'p_stocks';
+    // protected $table = 'p_stocks_t1';
     protected $fillable = ['stock'];
 
     public function product():BelongsTo

@@ -296,7 +296,11 @@
                                 <span id="cartTotal" class="text-xl" x-text="`${cartTotal}`"></span>
                     </div>
                     
-                    <div x-show="isset($voucher)" class="flex justify-between">
+                    {{-- @if (isset($voucher))
+                    <h2>hello</h2>
+                    @endif --}}
+
+                    <div x-show="{{$apply_voucher}}=0" id="base_dis" class="flex justify-between">
                             <span class="font-semibold">Discount
                                     <p class='notice' style='padding-left: 2rem;'>
                                          BAHT 10,000 UP DISC. 10%
@@ -304,8 +308,7 @@
                                         </br> BAHT 50,000 UP DISC. 20%
                                         </br> BAHT 70,000 UP DISC. 25%
                                     </p>
-                            </span>
-                                
+                            </span>                                
                             {{-- <span id="cartTotal" class=" tthin" x-text="` ${base_discount}`"></span> --}}
                             <span id="cartTotal" class="tthin" x-text="`${dis_percent}`"></span>
                             <span id="cartTotal" class="notice text-xl" x-text="`-${dis_amount}`"></span>
@@ -314,10 +317,18 @@
                     <div class="flex justify-between">
                         <span class="font-semibold">Voucher </span>
                         @if (isset($voucher))
-                            <span id="cartTotal" class="tthin">{{$voucher->code}} : {{$voucher->discount_percent}} %</span>
+                        <form method="get" action="{{route('cart.index')}}">
+                            @csrf
+                            <div >
+                                <button class='bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-0 my-1 rounded'>{{ __('clear Voucher') }}</button>
+                            </div>
+                        </form>
+                        <span id="cartTotal" class="tthin">{{$voucher->code}} : {{$voucher->discount_percent}} %</span>
                             <span id="cartTotal" class="notice text-xl" x-text="`-${dis_v_amount}`"></span>
-                        @else <span></span>
-                            <span></span>
+                        @else 
+                        {{-- <span></span>
+                            <span></span> --}}
+
                             @endif
                         </div>
                     <div class="flex justify-between">
@@ -330,8 +341,10 @@
                             </div>
                             <div>{{$vcheck}}</div>
                         </form>
+                
                         
                     </div>
+                    
                     <div class="flex justify-between">
                         <span class="font-semibold">After Discount (Tax included)</span>
                         <span id="cartTotal" class="text-xl" x-text="`THB ${after_discount}`"></span>
@@ -388,6 +401,10 @@
         function decrenum() {
             document.getElementById('qty_sm').value = --i;
         }
+
+    // if (){
+    //     document.getElementById('base_dis').style.display = 'none'
+    // }
 
         
 
