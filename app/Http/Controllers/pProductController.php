@@ -563,9 +563,9 @@ class pProductController extends Controller
 
     }
 
-    public function unpdateStockEnpro(){
+    public function updateStockEnpro(){
 
-            set_time_limit(300);
+            set_time_limit(300000);
 
             $start = microtime(true);
     
@@ -589,6 +589,8 @@ class pProductController extends Controller
                 curl_close($ch);
         
                 preg_match('#\[([^]]+)\]#', $response, $match);
+
+
                 $dataEnpro=json_decode($match[1],true);
 
                 //// update data to database
@@ -618,4 +620,58 @@ class pProductController extends Controller
     
     }
 
+    public function updateStockEnpro_v2(){
+        set_time_limit(300000);
+
+        $start = microtime(true);
+
+        $webItem = pProduct::query()
+            ->where('id','>',0)
+            ->get();
+
+        foreach($webItem as $key=>$product){
+
+        $item_code =$product['item_code'];
+
+        //// get data from enpro
+        $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList='.$item_code;
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        //// edit string -> convert to json
+        preg_match('#\[([^]]+)\]#', $response, $match);
+
+        try{
+            $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
+
+            // dd($newstring);
+            
+                $dataEnpro=json_decode($newstring,true);
+            
+                // dd($dataEnpro);
+    
+            } catch (Exception $e){
+                echo ('Error: '.$item_code."<br>\n");
+            };
+                
+                //// update data to database
+                Stock::where('item_code','=',$dataEnpro['code'])
+                ->update([
+                    'stock'=>$dataEnpro['STK'],
+                ]);
+                
+        }
+
+
+        $time_elapsed_secs = microtime(true) - $start;
+
+        echo('/// update finished // Time used '.$time_elapsed_secs.' sec');
+
+    }
 }
