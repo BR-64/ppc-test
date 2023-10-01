@@ -48,11 +48,13 @@ class FileControllerDemo extends Controller
      */
 	public function importExcel(Request $request){
 		if($request->hasFile('import_file')){
-			$path = $request->file('import_file')->getRealPath();
+			// $path = $request->file('import_file')->getRealPath();
+			$path1 = $request->file('import_file')->store('temp');
+            $path=storage_path('app').'/'.$path1;
 
             pProduct_upload::truncate();
-            // FacadesExcel::import(new TestImport,$path);
-            FacadesExcel::import(new TestImport,$request->file);
+            FacadesExcel::import(new TestImport,$path);
+            // FacadesExcel::import(new TestImport,$request->file);
         }
 
 
