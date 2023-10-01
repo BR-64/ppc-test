@@ -51,7 +51,8 @@ class FileControllerDemo extends Controller
 			$path = $request->file('import_file')->getRealPath();
 
             pProduct_upload::truncate();
-            FacadesExcel::import(new TestImport,$path);
+            // FacadesExcel::import(new TestImport,$path);
+            FacadesExcel::import(new TestImport,$request->file);
         }
 
 
