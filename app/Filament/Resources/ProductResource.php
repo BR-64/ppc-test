@@ -48,6 +48,7 @@ class ProductResource extends Resource
                 // ViewField::make('enpro image')->view('filament.components.Image'),
                 // ViewField::make('image')->view('image'),
                 FileUpload::make('webimage')
+                ->preserveFilenames()
                 ->image()
                 ->multiple(),
                 Forms\Components\TextInput::make('item_code')->disabled(),
