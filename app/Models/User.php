@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -58,14 +58,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Customer::class);
     }
 
-    public function canAccessFilament(Request $request, Closure $next): bool
+    public function canAccessFilament(): bool
     {
-        if (Auth::user() && Auth::user()->is_admin == 1) {
-            return $next($request);
-        }
-        return response([
-            'message' => 'You don\'t have permission to perform this action'
-        ], 403);
+
+        return Auth::user() && Auth::user()->is_admin == 1;
 
         // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
     }
