@@ -25,7 +25,8 @@ class pProductController extends Controller
         $products = pProduct::query()
             ->where('published', '=', 2)
             // ->stock()->where('stock','>',100)
-            ->orderBy('updated_at', 'desc')
+            // ->orderBy('updated_at', 'desc')
+            ->orderBy('id', 'asc')
             ->paginate(30);
             
         $filter_collections = pProduct::distinct()->get('collection');

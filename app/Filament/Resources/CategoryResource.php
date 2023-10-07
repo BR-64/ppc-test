@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Filament\Resources\CategoryResource\RelationManagers\ProductsRelationManager;
 use App\Models\att_category;
 use App\Models\Category;
 use Filament\Forms;
@@ -47,6 +48,9 @@ class CategoryResource extends Resource
                 TextColumn::make('id'),
                 TextColumn::make('category_name'),
                 TextColumn::make('description'),
+                TextColumn::make('products_count')
+                    ->counts('products')
+                    ->label('no. of products'),
                 //
             ])
             ->filters([
@@ -63,7 +67,7 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ProductsRelationManager::class,
         ];
     }
     

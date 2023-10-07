@@ -9,6 +9,8 @@ use App\Models\pCollection;
 use App\Models\Collection;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
@@ -40,8 +42,11 @@ class CollectionResource extends Resource
                     TextInput::make('collection_name'),
                     TextInput::make('brand_name'),
                     Toggle::make('published')
-
-                ])->columns(3),
+                    ])->columns(3),
+                    FileUpload::make('image')
+                        ->image()
+                        ->multiple(),
+                    Textarea::make('description'),
                 
             ]);
     }

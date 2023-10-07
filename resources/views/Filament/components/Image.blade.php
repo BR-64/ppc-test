@@ -15,7 +15,6 @@
         hello
         <!-- Interact with the `state` property in Alpine.js -->
     </div> --}}
-    {{-- {{$image}} --}}
     Image here
     
 </x-dynamic-component>

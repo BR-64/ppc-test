@@ -29,10 +29,11 @@
     <div class="premcollhero">
         <div class="pcherotext">
           <p class="tleft">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur
-            magnam qui porro similique doloremque, quia illum harum id velit
-            totam? Tempora perferendis unde doloribus corporis itaque nemo sed,
-            dolorem aspernatur.
+            For more than 30 years, Prempracha's Collection has been the producer of finest handmade ceramics crafted by talented local artisans. Together with talented Thai designers, we would like to introduce our brand, PREM Ceramics. 
+          </br>
+          </br>
+
+PREM Ceramics represents the link between past, present and future. Personifying the balancing dynamics of the expertise and creativity between generations. All items are handmade 🩷
           </p>
         </div>
     </div>
@@ -52,10 +53,11 @@
           <div class="pchero">
                     <a href="{{ route('product.collection.view', $product->collection_name) }}">
                       <h5>{{ $product->collection_name }}</h5>
-                      
                       @include('prem.col_slide')
-
                     </a>
+                  </br>
+                    <p class='tleft'>
+                      {{-- {{$product->collection('description')}} --}}
           </div>
         @endforeach
       </div>

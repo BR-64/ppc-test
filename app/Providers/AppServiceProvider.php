@@ -27,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $filterables = [
-            'collection' => pProduct::distinct()->get('collection'),
+            'collection' => pProduct::distinct()->get(['collection']),
+            // 'collection' => pProduct::collection->get(),
             'category' => pProduct::distinct()->get('category'),
             'type' => pProduct::distinct()->get('type'),
             'brand' => pProduct::distinct()->get('brand_name'),

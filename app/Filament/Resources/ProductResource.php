@@ -26,29 +26,58 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ProductResource extends Resource
 {
     protected static ?string $model = pProduct::class;
-
     protected static ?string $navigationLabel = 'Products';
     protected static ?string $navigationGroup = 'Product Management';
     protected static ?int $navigationSort = 1;
-
-
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    // protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
     {
-        // $category = att_category::pluck('category_name','category');
+        // $category = att_category::pluck('category_name');
 
         // print_r($category);
 
-        return $form
+        // $enproImg= pProduct::query()->get('image');
+        // print($enproImg);
+        // $this->getRouteName();
+ 
+        return 
+        $form
             ->schema([
-                ViewField::make('')->view('filament.components.Image'),
-                FileUpload::make('image')
+                ViewField::make('enpro image')->view('filament.components.Image'),
+                // ViewField::make('image')->view('image'),
+                FileUpload::make('webimage')
                 ->image()
                 ->multiple(),
                 Forms\Components\TextInput::make('item_code')->disabled(),
-                Forms\Components\Fieldset::make('Info from Enpro')->schema([
 
+                Forms\Components\Fieldset::make('Website Info')->schema([
+                    Forms\Components\TextInput::make('form'),
+                    Forms\Components\TextInput::make('glaze'),
+                    Forms\Components\TextInput::make('BZ'),
+                    Forms\Components\TextInput::make('technique'),
+                    Forms\Components\TextInput::make('collection')->disabled(),
+                    // Select::make('collection')
+                    //     ->relationship('collection', 'collection_name')
+                    //     ->preload()
+                    //     ->searchable(),
+                    Forms\Components\TextInput::make('category')->disabled(),
+                    //  Select::make('category')
+                    //     ->relationship('category', 'category_name')
+                    //     ->preload()
+                    //     ->searchable(),
+                    Forms\Components\TextInput::make('type'),
+                    Forms\Components\TextInput::make('brand_name'),
+                    Forms\Components\TextInput::make('color'),
+                    Forms\Components\TextInput::make('finish'),     
+                    // Select::make('category')
+                    //     ->options(
+                    //         $category
+                    //     ),                  
+                    ])->columns(3),
+
+                Forms\Components\Fieldset::make('Info from Enpro')->schema([
                     Forms\Components\TextInput::make('width'),
                     Forms\Components\TextInput::make('length'),
                     Forms\Components\TextInput::make('height'),
@@ -56,8 +85,8 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('retail_price'),
 
                 ])->columns(4)->disabled(),
-                Forms\Components\Fieldset::make('Calculated')->schema([
 
+                Forms\Components\Fieldset::make('Calculated')->schema([
                     Forms\Components\TextInput::make('wlh'),
                     Forms\Components\TextInput::make('cubic_width'),
                     Forms\Components\TextInput::make('cubic_length'),
@@ -65,45 +94,16 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('cubic_cm'),
                 ])->columns(5)->disabled(),
 
-                Forms\Components\Fieldset::make('Website Info')->schema([
-                    Select::make('collection')
-                        ->relationship('collection', 'collection_name')
-                        ->preload()
-                        ->searchable(),
-                    Select::make('category')
-                        ->relationship('category', 'category_name')
-                        ->preload()
-                        ->searchable(),
-                    // Select::make('category')
-                    //     ->options(
-                    //         $category
-                    //     ),
-                    Select::make('type')
-                        ->options([
-
-                        ]),
-                    Select::make('color')
-                        ->options([
-
-                        ]),
-                    Select::make('finish')
-                        ->options([
-
-                        ]),
-                    // Forms\Components\TextInput::make('type'),
-                    // Forms\Components\TextInput::make('color'),
-                    // Forms\Components\TextInput::make('finish'),
-                    
-                    ])->columns(3),
+                
                     
                     Forms\Components\Fieldset::make('Setting')->schema([
                         Toggle::make('published'),
                         Toggle::make('newp'),
-                        Toggle::make('highlight'),
+                        Toggle::make('Highlight'),
                         Toggle::make('pre_order'),
                         ])->columns(4),
                         //
-                    TagsInput::make('tags')
+                    // TagsInput::make('tags')
                     ]);
     }
 
@@ -111,8 +111,9 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
+                // ImageColumn::make('webimage')->width(80)->height(40),
                 ImageColumn::make('image')->width(80)->height(40),
-                Tables\Columns\TextColumn::make('item_code')->sortable(),
+                Tables\Columns\TextColumn::make('item_code')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('stock.stock')->sortable(),
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('color')->sortable(),

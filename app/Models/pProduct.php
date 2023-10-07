@@ -21,7 +21,13 @@ class pProduct extends Model
     // protected $table = 'test_product';
     protected $table = 'p_products_t1';
     // protected $table = 'p_products';
-    protected $fillable = ['item_code','title', 'description', 'image', 'published', 'image_mime','collection','category', 'type', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by'];
+    protected $fillable = ['description', 
+    'form', 'glaze', 'ฺBZ','technique','collection','category','type','brand_name','product_description','color','finish',
+    'image', 'published', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by', 'webimage','Highlight','newp'];
+
+    protected $casts=[
+        'webimage'=>'array'
+    ];
 
     /**
      * Get the options for generating the slug.
@@ -56,11 +62,17 @@ class pProduct extends Model
     public function collection():BelongsTo
     {
         return $this->belongsTo(pCollection::class);
+        // return $this->belongsTo(pCollection::class, 'collection','collection_name');
     }
-    // public function category():BelongsTo
-    // {
-    //     return $this->belongsTo(att_category::class);
-    // }
+    public function category():BelongsTo
+    {
+        return $this->belongsTo(att_category::class);
+        // return $this->belongsTo(att_category::class,'category','category_name');
+    }
+
+    public function catEdit():BelongsTo{
+         return $this->belongsTo(att_category::class,'category','category_name');
+    }
 
     public static  function realtimeStock($item_code)
     {
