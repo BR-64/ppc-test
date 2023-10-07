@@ -16,7 +16,8 @@ class att_category extends Model
 
     public function products(): HasMany
     {
-        return $this->hasMany(pProduct::class, 'category','category_name');
+        // return $this->hasMany(pProduct::class, 'category','category_name');
+        return $this->hasMany(pProduct::class);
     }   
 
 
