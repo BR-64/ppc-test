@@ -45,7 +45,7 @@ class ProductResource extends Resource
         return 
         $form
             ->schema([
-                ViewField::make('enpro image')->view('filament.components.Image'),
+                // ViewField::make('enpro image')->view('filament.components.Image'),
                 // ViewField::make('image')->view('image'),
                 FileUpload::make('webimage')
                 ->image()
