@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 // use Spatie\Sluggable\HasSlug;
 // use Spatie\Sluggable\SlugOptions;
-use App\Models\att_category;
+// use App\Models\att_category;
 
 
 class pProduct extends Model
@@ -70,9 +70,9 @@ class pProduct extends Model
         // return $this->belongsTo(att_category::class,'category','category_name');
     }
 
-    public function catEdit():BelongsTo{
-         return $this->belongsTo(att_category::class,'category','category_name');
-    }
+    // public function catEdit():BelongsTo{
+    //      return $this->belongsTo(att_category::class,'category','category_name');
+    // }
 
     public static  function realtimeStock($item_code)
     {
