@@ -68,7 +68,7 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('created_at'),
-                Tables\Columns\TextColumn::make('id')->label('Doc Code'),
+                // Tables\Columns\TextColumn::make('id')->label('Doc Code'),
                TextColumn::make('customer.first_name'),
                TextColumn::make('items_sum_quantity')
                 ->label('Quantity')
