@@ -33,25 +33,31 @@ class OrderResource extends Resource
                 Forms\Components\Fieldset::make('Order Info')->schema([
                     TextInput::make('id')->label('Order Number')->disabled(),
                     TextInput::make('created_at')->disabled(),
-                    TextInput::make('total_price'),
-                    Select::make('shipping')
-                    ->options([
-
-                    ]),
+                    Select::make('pay_method'),
+                    TextInput::make('total_price')->label('item price (incl Vat)'),
+                    TextInput::make('discount_base')->label('discount'),
+                    // Select::make('shipping')
+                    // ->options([
+                    //     'preparing' => 'preparing',
+                    //     'shippped' => 'shippped',
+                    // ])
                 ])->columns(3),
+                Forms\Components\Fieldset::make('Shipping')->schema([
+                    TextInput::make('ship_method'),
+                    TextInput::make('shipping')->label('shipping cost'),
+                    TextInput::make('insurance'),
+                ]),
                 Forms\Components\Fieldset::make('Customer Info')->schema([
                     Select::make('name')
-                        ->relationship('customer','first_name')->disabled()
-                        ->label('Name'),
-                    Select::make('phone')
-                        ->relationship('customer','phone')->disabled()
-                        ->label('Phone'),
-                    Select::make('tax_id')
-                        ->relationship('customer','customer_taxid')
-                        ->label('Tax ID'),
+                        ->relationship('customer','first_name')
+                        ->label('Name')->disabled(),
+                    // Select::make('phone')
+                    //     ->relationship('customer','phone')
+                    //     ->label('Phone'),
+                    // Select::make('tax_id')
+                    //     ->relationship('customer','customer_taxid')
+                    //     ->label('Tax ID'),
                 ])->columns(3),
-                Forms\Components\TextInput::make('status'),
-                // TextInput::make('status')->required(),
         Select::make('status')
             ->options([
                 'unpaid' => 'unpaid',
@@ -59,7 +65,7 @@ class OrderResource extends Resource
                 'quotation' => 'quotation',
             ])
             ->required(),
-                //
+        //         //
             ]);
     }
 

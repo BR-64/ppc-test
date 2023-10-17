@@ -58,12 +58,14 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('glaze'),
                     Forms\Components\TextInput::make('BZ'),
                     Forms\Components\TextInput::make('technique'),
-                    Forms\Components\TextInput::make('collection')->disabled(),
+                    Forms\Components\TextInput::make('collection'),
+                    // Forms\Components\TextInput::make('collection')->disabled(),
                     // Select::make('collection')
                     //     ->relationship('collection', 'collection_name')
                     //     ->preload()
                     //     ->searchable(),
-                    Forms\Components\TextInput::make('category')->disabled(),
+                    Forms\Components\TextInput::make('category'),
+                    // Forms\Components\TextInput::make('category')->disabled(),
                     //  Select::make('category')
                     //     ->relationship('category', 'category_name')
                     //     ->preload()
