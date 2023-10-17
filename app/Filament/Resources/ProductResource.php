@@ -84,7 +84,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('width'),
                     Forms\Components\TextInput::make('length'),
                     Forms\Components\TextInput::make('height'),
-                    Forms\Components\TextInput::make('weight'),
+                    Forms\Components\TextInput::make('weight_g'),
                     Forms\Components\TextInput::make('retail_price'),
 
                 ])->columns(4)->disabled(),
