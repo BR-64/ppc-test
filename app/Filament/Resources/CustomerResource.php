@@ -12,6 +12,10 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class CustomerResource extends Resource
 {
@@ -31,14 +35,6 @@ class CustomerResource extends Resource
                 // Forms\Components\TextInput::make('customer_name')->label(__('Company')),
                 Forms\Components\TextInput::make('customer_taxid'),
 
-                Forms\Components\Fieldset::make('Address')->schema([
-                    Forms\Components\TextInput::make('address1'),
-                    Forms\Components\TextInput::make('address2'),
-                    Forms\Components\TextInput::make('city'),
-                    Forms\Components\TextInput::make('zipcode'),
-                    Forms\Components\TextInput::make('country_code'),
-
-                ])
                 //
             ]);
     }
@@ -50,6 +46,7 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('user_id')->label('id')->sortable(),
                 Tables\Columns\TextColumn::make('first_name')->searchable(),
                 Tables\Columns\TextColumn::make('phone'),
+                // Tables\Columns\TextColumn::make('Bill_Address.address1'),
                 //
             ])
             ->filters([
@@ -66,6 +63,9 @@ class CustomerResource extends Resource
     public static function getRelations(): array
     {
         return [
+            RelationManagers\OrderRelationManager::class,
+            RelationManagers\BillingAddressRelationManager::class,
+            RelationManagers\ShippingAddressRelationManager::class,
             //
         ];
     }

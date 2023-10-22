@@ -12,6 +12,7 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
@@ -65,9 +66,9 @@ class ProductResource extends Resource
                     //     ->preload()
                     //     ->searchable(),
                     Forms\Components\TextInput::make('category'),
-                    // Forms\Components\TextInput::make('category')->disabled(),
+                    Forms\Components\TextInput::make('category')->disabled(),
                     //  Select::make('category')
-                    //     ->relationship('category', 'category_name')
+                    //     ->relationship('category', 'category_name'),
                     //     ->preload()
                     //     ->searchable(),
                     Forms\Components\TextInput::make('type'),
@@ -85,7 +86,10 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('length'),
                     Forms\Components\TextInput::make('height'),
                     Forms\Components\TextInput::make('weight_g'),
-                    Forms\Components\TextInput::make('retail_price'),
+                    Forms\Components\TextInput::make('retail_price')
+                    ->mask(fn (TextInput\Mask $mask) => $mask
+                    ->thousandsSeparator(','),    
+                ),
 
                 ])->columns(4)->disabled(),
 
@@ -121,6 +125,8 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('color')->sortable(),
                 Tables\Columns\TextColumn::make('retail_price')->sortable(),
+                
+                    
                 ToggleColumn::make('published')->sortable(),
                 ToggleColumn::make('Highlight')->sortable()
                 // Tables\Columns\TextColumn::make('item_code'),

@@ -16,4 +16,11 @@ class ListProducts extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    protected function mutateTableDataBeforeFill(array $data): array
+    {
+        $data['retail_price'] = number_format($data['retail_price']);
+ 
+        return $data;
+    }
 }

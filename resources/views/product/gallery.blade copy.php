@@ -1,14 +1,5 @@
-@php
-$gallery = App\Models\pProduct::query()
-    ->where('item_code', '=', $product->item_code)
-    ->latest()->get();
-    
-$imgs = count($gallery[0]['webimage']);
-    // dd($gallery);
 
-@endphp
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
 <style>
     swiper-container {
@@ -81,42 +72,32 @@ $imgs = count($gallery[0]['webimage']);
           <div class="swiper-slide">
               <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
           </div>
-          @foreach($gallery as $gal)
-            @for ($i =0; $i < $imgs; $i++)
+          @foreach($gallery as $gall)
               <div class="swiper-slide">
-                <img class="pgallpic" 
-                src="{{asset ('/storage/'.$gal->webimage[$i])}}" />
+                  <img class="pgallpic" src="{{$gall->portfolio_image}}" />
               </div>
-            @endfor
-        @endforeach
-
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-
+          @endforeach
       
       </div>
+      {{-- <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div> --}}
   </div>
   <div thumbsSlider="" class="swiper thumbSwiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <img class="pgallpicthumb" src="{{$product->image}}" />
         </div>
-        @foreach($gallery as $gal)
-            @for ($i =0; $i < $imgs; $i++)
-              <div class="swiper-slide">
-                <img class="pgallpicthumb" 
-                src="{{asset ('/storage/'.$gal->webimage[$i])}}" />
-              </div>
-            @endfor
-        @endforeach
-
-  
+        @foreach($gallery as $gall)
+        <div class="swiper-slide">
+            <img class="pgallpicthumb" src="{{$gall->portfolio_image}}" />
+        </div>
+    @endforeach
 
     </div>
   </div>
 </div>
-{{-- 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
+
+  {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
 
   <!-- Initialize Swiper -->
   <script>

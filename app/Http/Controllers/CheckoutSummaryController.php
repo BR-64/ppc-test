@@ -11,12 +11,14 @@ use App\Enums\PaymentStatus;
 use App\Models\webhook;
 use App\Helpers\Cart;
 use App\Mail\WebhookMail;
+use App\Models\BillingAddress;
 use App\Models\CartItem;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ShipAir;
 use App\Models\ShipEMS;
+use App\Models\ShippingAddress;
 use App\Models\ShiprateThai;
 use App\Models\Stock;
 use App\Models\Voucher;
@@ -112,8 +114,16 @@ class CheckoutSummaryController extends Controller
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
-        $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
-        $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
+        // $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
+        // $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
+
+        $shippingAddress = $customer->Ship_Address ?: new ShippingAddress;
+        $billingAddress = $customer->Bill_Address ?: new BillingAddress;
+
+        
+        // dd($customer->Ship_address,$customer->billingAddress);
+        // dd($shippingAddress, $billingAddress);
+
         $countries = Country::query()->orderBy('name')->get();
 
         $orderItems = [];
@@ -193,10 +203,12 @@ class CheckoutSummaryController extends Controller
         /** @var \App\Models\Customer $customer */
 
         $customer = $user->customer;
-        $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
-        $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
+        // $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
+        // $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 
-        $shipcountry = $customer->shippingAddress->country_code;
+        $shippingAddress = $customer->Ship_Address;
+        $billingAddress = $customer->Bill_Address;
+        $shipcountry = $customer->Ship_Address->country_code;
         $domestic= $shipcountry==='THA'; 
         
         $countries = Country::query()->orderBy('name')->get();
@@ -514,11 +526,16 @@ if($nonFullCubicBoxCubic<>0){
     public function chkout_step3(Request $request){
         $user = $request->user();
 
-        $R_chkouttype=$_POST["checkouttype"];
-        $R_shipcost=$_POST["Shipcost"];
-        $R_Insurance=$_POST["Insurance"];
+        $shipcostArray=explode('|',$_POST["Shipcost"]);
 
-        // dd($R_shipcost);
+        $R_chkouttype=$_POST["checkouttype"];
+        $R_shipcost=$shipcostArray[0];
+        $R_Insurance=$_POST["Insurance"];
+        $R_ShipMethod=$shipcostArray[1];
+
+        // dd($R_ShipMethod);
+
+        // dd($user->id);
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
@@ -585,6 +602,9 @@ if($nonFullCubicBoxCubic<>0){
                     'updated_by' => $user->id,
                     'shipping' => $R_shipcost,
                     'insurance'=>$R_Insurance,
+                    'ship_method'=>$R_ShipMethod,
+                    'bill_id'=>$user->id,
+                    'ship_id'=>$user->id,
                     
                 ];
 

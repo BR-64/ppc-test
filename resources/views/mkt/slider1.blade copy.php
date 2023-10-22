@@ -1,15 +1,9 @@
 
     @php
-    $mktSliders = App\Models\Banner::query()
-        ->where('name', '=', 'main banner')
+    $mktSliders = App\Models\Portfolio::query()
+        ->where('type', '=', 'main banner')
+        // ->where('type', '=', 'prem_coll_cover')
         ->latest()->get();
-        
-    $imgs = count($mktSliders[0]['extra_image']);
-        // $ex_image=App\Models\Banner::imgs['main banner'];
-        // $ex_image = count($mktSliders->extra_image);
-        // dd($ex_image);
-    // $imgs = App\Models\Banner::imgs('main banner')
-
     @endphp
 
 <style>
@@ -41,28 +35,21 @@
   /* width: 363px; */
   margin-top: 5px;
   }
-  
 </style>
 
   <!-- Swiper -->
   <div class="banner">
       <div class="swiper mySwiper_banner">
           <div class="swiper-wrapper">
-            @foreach($mktSliders as $slide)
-            <div class="swiper-slide">
-              <img class='slidemain' src="{{asset ('/storage/'.$slide->image)}}" alt="">
-            </div>
-                @for ($i =0; $i < $imgs; $i++)
-                <div class="swiper-slide">
-                  <img src="
-                  {{asset ('/storage/'.$slide->extra_image[$i])}}
-                  " alt="" class="slidemain">
-                </div>
-                @endfor
-            </div>
+              @foreach($mktSliders as $slide)
+              <div class="swiper-slide">
+                <img class='slidemain' src="" alt="">
+                <img class='slidemain' src="{{$slide->portfolio_image}}" alt=""></div>
+              {{-- <div class="swiper-slide"><p>{{$slide->portfolio_title}}</p></div> --}}
+              
               @endforeach
+            </div>
             <div class="swiper-pagination"></div>
-
         </div>
     </div>
 

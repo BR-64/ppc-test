@@ -52,11 +52,12 @@ Route::get('/chksumt2', [CheckoutSummaryController::class, 'summary'])->name('ch
 Route::middleware(['guestOrVerified'])->group(function () {
     // Route::get('/ppt', [pProductController::class, 'test'])->name('test');
 
+    Route::get('/', [pProductController::class, 'home'])->name('test');
+
     Route::get('/shop', [pProductController::class, 'index'])->name('shop');
     Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf');
     Route::get('/shop/f2', [pProductController::class, 'qfilter2'])->name('shopf2');
     Route::get('/shop/{cat?}', [pProductController::class, 'catFilter'])->name('shop.cat');
-    Route::get('/', [pProductController::class, 'home'])->name('test');
     Route::get('/product/{product:item_code}', [pProductController::class, 'view'])->name('product.view');
     // Route::get('/product/{product:item_code}', [pProductController::class, 'view_test'])->name('product.view');
 
@@ -82,7 +83,8 @@ Route::middleware(['guestOrVerified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/profile', [ProfileController::class, 'view'])->name('profile');
-    Route::post('/profile', [ProfileController::class, 'store'])->name('profile.update');
+    // Route::post('/profile', [ProfileController::class, 'store'])->name('profile.update');  old address system
+    Route::post('/profile', [ProfileController::class, 'store_new'])->name('profile.update');
     Route::post('/profile/password-update', [ProfileController::class, 'passwordUpdate'])->name('profile_password.update');
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('cart.checkout');
     Route::post('/checkout/{order}', [CheckoutController::class, 'checkoutOrder'])->name('cart.checkout-order');

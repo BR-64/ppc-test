@@ -59,15 +59,15 @@
                                 <td class="underline">Customer Info </td>
                             </tr>
                             <tr>
-                                <td>Customer Name : </td>
+                                <td>Name : </td>
                                 <td>{{$customer->first_name}}  {{$customer->last_name}}</td>
                             </tr>
                             <tr>
-                                <td>Customer Phone : </td>
+                                <td>Phone : </td>
                                 <td>{{$customer->phone}}</td>
                             </tr>
                             <tr>
-                                <td>Customer Tax ID : </td>
+                                <td>Tax ID : </td>
                                 <td>{{$customer->customer_taxid}}</td>
                             </tr>
                         </table>
@@ -148,20 +148,21 @@
                 <p class="underline">Shipping Method</p>
                     {{-- <p>{{$ship_th}}</p> --}}
                 <div x-show="{{$ship_th}} > 0">
-                        <input type="radio" id="TH" name="Shipcost" value="{{$ship_th}}" x-model='ship' required>
+                        <input type="radio" id="TH" name="Shipcost" value="{{$ship_th}}|TH EMS" x-model='ship' required>
+                        {{-- <input type="radio" id="TH" name="Shipcost" value="100000,'EMS'" x-model='ship' required> --}}
                         <label for="EMS">Domestic : THB {{number_format($ship_th)}}</label>
                     </br>
                 </div>
                 <div x-show="{{$ship_ems}} > 0">
-                        <input type="radio" id="EMS" name="Shipcost" value="{{$ship_ems}}" x-model='ship'>
+                        <input type="radio" id="EMS" name="Shipcost" value="{{$ship_ems}}|EMS" x-model='ship'>
                         <label for="EMS">EMS : THB {{number_format($ship_ems)}}</label>
                     </br>
-                        <input type="radio" id="Air" name="Shipcost" value="{{$ship_air}}" x-model='ship'>
+                        <input type="radio" id="Air" name="Shipcost" value="{{$ship_air}}|AIR" x-model='ship'>
                         <label for="Air">Air : THB {{number_format($ship_air)}}</label>
                     </br>
                 </div>
-                        <input type="radio" id="Pickup" name="Shipcost" value="0" x-model='ship'>
-                        <label for="Air">Pickup at Store / Use customer's own shipping : free of charge</label>
+                        <input type="radio" id="Pickup" name="Shipcost" value="0|Pickup" x-model='ship'>
+                        <label for="Pickup">Pickup at Store / Use customer's own shipping : free of charge</label>
 
             </div>
             <div class="chksum summarytable">

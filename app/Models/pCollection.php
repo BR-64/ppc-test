@@ -14,7 +14,11 @@ class pCollection extends Model
     // use SoftDeletes;
 
     protected $table = 'p_collections';
-    protected $fillable = ['collection_name','image','brand_name','description'];
+    protected $fillable = ['collection_name','image','brand_name','description','coll_image'];
+
+    protected $casts=[
+        'coll_image'=>'array',
+    ];
 
     public function getRouteKeyName()
     {

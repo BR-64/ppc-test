@@ -2,7 +2,7 @@
 
 
 <x-app-layout>
-    <h2>test 1</h2>
+    {{-- <h2>test 1</h2> --}}
     <div  x-data="productItem({{ json_encode([
         'id' => $product->id,
         'slug' => $product->item_code,

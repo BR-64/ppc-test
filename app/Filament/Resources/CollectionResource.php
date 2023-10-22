@@ -44,8 +44,11 @@ class CollectionResource extends Resource
                     Toggle::make('published')
                     ])->columns(3),
                     FileUpload::make('image')
-                        ->image()
-                        ->multiple(),
+                    ->image(),
+                    FileUpload::make('coll_image')->label('collection images')
+                    ->preserveFilenames()
+                    ->image()
+                    ->multiple(),
                     Textarea::make('description'),
                 
             ]);

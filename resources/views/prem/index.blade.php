@@ -53,11 +53,13 @@ PREM Ceramics represents the link between past, present and future. Personifying
           <div class="pchero">
                     <a href="{{ route('product.collection.view', $product->collection_name) }}">
                       <h5>{{ $product->collection_name }}</h5>
-                      @include('prem.col_slide')
+                      {{-- @include('prem.col_slide') --}}
+                      @include('prem.col_slide2')
                     </a>
                   </br>
-                    <p class='tleft'>
+                    <p class='coll-des'>
                       {{-- {{$product->collection('description')}} --}}
+                      {{$product->description}}</p>
           </div>
         @endforeach
       </div>

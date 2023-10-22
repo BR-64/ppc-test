@@ -9,7 +9,7 @@
              class="">
              
               <img
-                  src="{{ $product->image }}"
+                  src="{{ asset ('/storage/'.$product->image) }}"
                   alt="{{ $product->collection_name }}"
                   class="SCpic"
               />

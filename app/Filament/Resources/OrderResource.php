@@ -9,7 +9,10 @@ use App\Filament\Resources\OrderResource\RelationManagers\UserRelationManager;
 use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -42,22 +45,53 @@ class OrderResource extends Resource
                     //     'shippped' => 'shippped',
                     // ])
                 ])->columns(3),
-                Forms\Components\Fieldset::make('Shipping')->schema([
-                    TextInput::make('ship_method'),
-                    TextInput::make('shipping')->label('shipping cost'),
-                    TextInput::make('insurance'),
-                ]),
-                Forms\Components\Fieldset::make('Customer Info')->schema([
-                    Select::make('name')
-                        ->relationship('customer','first_name')
-                        ->label('Name')->disabled(),
-                    // Select::make('phone')
-                    //     ->relationship('customer','phone')
-                    //     ->label('Phone'),
-                    // Select::make('tax_id')
-                    //     ->relationship('customer','customer_taxid')
-                    //     ->label('Tax ID'),
-                ])->columns(3),
+               
+
+                    Forms\Components\Fieldset::make('Shipping Info')->schema([
+                        TextInput::make('ship_method'),
+                        TextInput::make('shipping')->label('shipping cost'),
+                        TextInput::make('insurance'),
+                        TextInput::make('tracking'),
+                    ]),
+                    Fieldset::make('Customer Info')
+                    ->relationship('customer')
+                    ->schema([
+                        TextInput::make('first_name'),
+                        TextInput::make('last_name'),
+                        TextInput::make('customer_name'),
+                        TextInput::make('customer_taxid'),
+                        TextInput::make('phone'),
+                        Textarea::make('comment'),
+                    ]),
+                    Fieldset::make('Shipping Address')
+                    ->relationship('bill')
+                    ->schema([
+                        TextInput::make('address1'),
+                        TextInput::make('address2'),
+                        TextInput::make('city'),
+                        TextInput::make('state'),
+                        TextInput::make('zipcode'),
+                        TextInput::make('country_code'),
+                    ]),
+
+                
+
+                
+                Fieldset::make('Billing')
+                    ->relationship('bill')
+                    ->schema([
+                        TextInput::make('address1'),
+                        TextInput::make('address2'),
+                        TextInput::make('city'),
+                        TextInput::make('state'),
+                        TextInput::make('zipcode'),
+                        TextInput::make('country_code'),
+                        
+                    ]),
+
+                    TextInput::make('fullprice')->label('net'),
+
+
         Select::make('status')
             ->options([
                 'unpaid' => 'unpaid',
@@ -77,10 +111,15 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('created_at'),
                 // Tables\Columns\TextColumn::make('id')->label('Doc Code'),
                TextColumn::make('customer.first_name')->searchable(),
+               TextColumn::make('customer.phone')->searchable()->label('phone'),
+
+            //    TextColumn::make('bill.address1')->label('billing'),
                TextColumn::make('items_sum_quantity')
                 ->label('Quantity')
                 ->sum('items','quantity'),
-                Tables\Columns\TextColumn::make('total_price'),
+                Tables\Columns\TextColumn::make('total_price')->label('item price'),
+                Tables\Columns\TextColumn::make('discount_base')->label('discount'),
+                Tables\Columns\TextColumn::make('fullprice')->label('net'),
                 Tables\Columns\TextColumn::make('status')->sortable(),
                 //
             ])
