@@ -21,7 +21,7 @@ use Livewire\WithFileUploads;
 
 class BannerResource extends Resource
 {
-    use WithFileUploads;
+    // use WithFileUploads;
     protected static ?string $model = Banner::class;
 
     protected static ?string $navigationLabel = 'Banners';

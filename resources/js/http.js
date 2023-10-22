@@ -2,8 +2,8 @@ export function request(method, url, data = {}) {
   return fetch(url, {
     method,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      // 'Content-Type': 'application/json',
+      // "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
       Accept: "application/json",
       "X-CSRF-TOKEN": document.head.querySelector("meta[name=csrf-token]")
         .content,
