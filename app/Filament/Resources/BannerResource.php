@@ -32,9 +32,11 @@ class BannerResource extends Resource
             ->schema([
                 TextInput::make('name')->disabled(),
                 FileUpload::make('image')
+                ->directory('img')
                 ->image(),
                 FileUpload::make('extra_image')->label('slider images')
                 ->preserveFilenames()
+                ->directory('img')
                 ->image()
                 ->multiple(),
                 //
