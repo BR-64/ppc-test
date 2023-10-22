@@ -30,9 +30,9 @@ class AppServiceProvider extends ServiceProvider
         // if (str_contains(\Config::get('app.url'), 'https://')) {
         //     \URL::forceScheme('https');
 
-        if($this->app->environment('production')) {
-            \URL::forceScheme('https');
-        }
+        // if($this->app->environment('production')) {
+        //     \URL::forceScheme('https');
+        // }
 
         $filterables = [
             'collection' => pProduct::distinct()->get(['collection']),
