@@ -49,6 +49,7 @@ class ProductResource extends Resource
                 // ViewField::make('enpro image')->view('filament.components.Image'),
                 // ViewField::make('image')->view('image'),
                 FileUpload::make('webimage')
+                ->directory('img')
                 ->preserveFilenames()
                 ->image()
                 ->multiple(),
