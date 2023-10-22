@@ -17,8 +17,11 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Livewire\WithFileUploads;
+
 class BannerResource extends Resource
 {
+    use WithFileUploads;
     protected static ?string $model = Banner::class;
 
     protected static ?string $navigationLabel = 'Banners';
