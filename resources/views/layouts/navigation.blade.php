@@ -1,4 +1,4 @@
-{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+
 <style>
     @media only screen and (max-width: 900px){
             .spacebox1{

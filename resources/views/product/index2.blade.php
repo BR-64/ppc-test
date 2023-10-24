@@ -5,7 +5,6 @@
 ?>
  {{-- @livewireStyles --}}
 <x-shop>
-
 {{-- products --}}
     <?php if ($products->count() === 0): ?>
         <div class="text-center text-gray-600 py-16 text-xl">
@@ -16,7 +15,10 @@
     {{-- <h2 class="pagehead">Shop All</h2> --}}
     <br>
 
-        @livewire('shop-scroll')
+        {{-- @livewire('shopscroll') --}}
+        {{-- @include('livewire.shop-scroll') --}}
+       {{-- <livewire:livewire.shopscroll /> --}}
+        <livewire:shopscroll/>
 
     {{-- <div class="pccoll">
         <div class="gridHL">
@@ -46,6 +48,7 @@
 
     <?php endif; ?>
     <div class="footspace"></div>
+
 </x-shop>
 
 {{-- @livewireScripts --}}

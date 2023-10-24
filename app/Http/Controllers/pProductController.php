@@ -28,6 +28,8 @@ class pProductController extends Controller
             // ->orderBy('updated_at', 'desc')
             ->orderBy('id', 'asc')
             ->paginate(30);
+        
+        $totalRecords = pProduct::count();
             
         $filter_collections = pProduct::distinct()->get('collection');
         $filter_cats = pProduct::distinct()->get('category');
@@ -50,7 +52,8 @@ class pProductController extends Controller
             'filter_brands' => $filter_brands,
             'filter_colors' => $filter_colors,
             'filter_finishes' => $filter_finishes,
-            'filterables'=>$filterables
+            'filterables'=>$filterables,
+            'totalRecords'=>$totalRecords
 
         ]);
 
@@ -250,7 +253,7 @@ class pProductController extends Controller
     }
 
     public function qfilter(){
-        $allproducts = pProduct::query()
+        $totalRecords = pProduct::query()
             ->where('published', '=', 1)
             ->orderBy('updated_at', 'desc')
             ->paginate(30);
@@ -288,7 +291,7 @@ class pProductController extends Controller
         return view('product.index2', [
             'products' => $qproducts,
             'filterables'=>$filterables,
-            // 'products'=>$allproducts
+            // 'totalRecords'=>$totalRecords
         ]);
     }
     public function qfilter2(){

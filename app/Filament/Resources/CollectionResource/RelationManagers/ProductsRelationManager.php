@@ -5,9 +5,9 @@ namespace App\Filament\Resources\CollectionResource\RelationManagers;
 use App\Filament\Resources\ProductResource;
 use Filament\Forms;
 use Filament\Forms\Components\Toggle;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
@@ -22,7 +22,7 @@ class ProductsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'collection';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -32,7 +32,7 @@ class ProductsRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([

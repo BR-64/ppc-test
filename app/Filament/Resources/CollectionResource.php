@@ -13,9 +13,9 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -31,7 +31,7 @@ class CollectionResource extends Resource
     protected static ?int $navigationSort = 2;
 
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -43,7 +43,7 @@ class CollectionResource extends Resource
                     TextInput::make('brand_name'),
                     Toggle::make('published')
                     ])->columns(3),
-                    FileUpload::make('image')
+                    FileUpload::make('image')->label('main Image')
                     ->image(),
                     FileUpload::make('coll_image')->label('collection images')
                     ->preserveFilenames()
@@ -58,7 +58,7 @@ class CollectionResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')->width(60)->height(120),
+                ImageColumn::make('image')->width(60)->height(120)->label('main Image'),
                 TextColumn::make('collection_name'),
                 TextColumn::make('brand_name'),
                 TextColumn::make('products_count')
@@ -95,7 +95,7 @@ class CollectionResource extends Resource
         ];
     }    
 
-    protected static function getNavigationBadge(): ?string{
+    public static function getNavigationBadge(): ?string{
         return self::getModel()::count();
     }
 }

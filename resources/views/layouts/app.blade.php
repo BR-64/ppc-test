@@ -19,9 +19,6 @@
         'resources/js/nav.js',
         ])
 
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
-
-
     <!-- Scripts -->
     <style>
         [x-cloak] {
@@ -42,23 +39,12 @@
         -moz-appearance: textfield;
         }
 
-        /* @media only screen (min-width: 700px) { 
-            .pccoll{
-                    width: 70%;
-                    }
-
-            .pccollc{
-                    width: 70%;
-                    }
-        
-        } */
-
     </style>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://kit.fontawesome.com/071439a03d.js" crossorigin="anonymous"></script>
+    <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script  src="https://kit.fontawesome.com/071439a03d.js" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script  src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
@@ -72,7 +58,8 @@
     </script>
     
 
-    @livewireStyles
+    {{-- @livewireStyles
+    @filamentStyles --}}
 
 </head>
 
@@ -125,7 +112,8 @@
 @include('layouts.footer')
 
 <!--/ Toast -->
-@livewireScripts
+{{-- @livewireScripts
+@filamentScripts --}}
 
 
 </body>

@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         return $this->hasOne(Customer::class);
     }
 
-    public function canAccessFilament(): bool
+    public function canAccessPanel(\Filament\Panel $panel): bool
     {
 
         return Auth::user() && Auth::user()->is_admin == 1;

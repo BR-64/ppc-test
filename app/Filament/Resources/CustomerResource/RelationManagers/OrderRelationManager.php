@@ -5,9 +5,9 @@ namespace App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Filament\Resources\OrderResource;
 use Filament\Forms;
 use Filament\Tables\Actions\EditAction;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,7 +20,7 @@ class OrderRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'user_id';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -30,7 +30,7 @@ class OrderRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([

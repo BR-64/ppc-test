@@ -33,7 +33,7 @@ use App\Mail\testmarkdown;
 
 // Route::post('/json', [testapi::class, 'getJSON'])->name('getjson');
 
-Route::get('/lv', ShopScroll::class);
+// Route::get('/lv', ShopScroll::class);
 
 Route::get('/infi', [pProductController::class, 'infinit'])->name('product.infini');
 

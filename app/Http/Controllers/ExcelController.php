@@ -64,7 +64,7 @@ class ExcelController extends Controller
         // dd(preg_match('#\[([^]]+)\]#', $response, $match));
         try{
         $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
-        
+
             $dataEnpro=json_decode($newstring."}",true);
         // echo ($item_code.','."<br>\n");
 
@@ -82,7 +82,7 @@ class ExcelController extends Controller
                 'height'=>$dataEnpro['height_cm'],
                 'retail_price'=>$dataEnpro['retail_price'],
             ]);
-        
+
         }
 
 

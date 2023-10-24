@@ -10,7 +10,7 @@ class EditProduct extends EditRecord
 {
     protected static string $resource = ProductResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             // Actions\DeleteAction::make(),
@@ -22,7 +22,7 @@ class EditProduct extends EditRecord
         $data['retail_price'] = number_format($data['retail_price']);
         $data['weight_g'] = number_format($data['weight_g']);
         $data['cubic_cm'] = number_format($data['cubic_cm']);
- 
+
         return $data;
     }
 

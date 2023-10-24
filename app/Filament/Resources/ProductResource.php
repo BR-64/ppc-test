@@ -15,9 +15,9 @@ use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ViewField;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -30,7 +30,7 @@ class ProductResource extends Resource
     protected static ?string $navigationLabel = 'Products';
     protected static ?string $navigationGroup = 'Product Management';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     // protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
@@ -160,7 +160,7 @@ class ProductResource extends Resource
         ];
     }    
 
-    protected static function getNavigationBadge(): ?string{
+    public static function getNavigationBadge(): ?string{
         return self::getModel()::count();
     }
 }

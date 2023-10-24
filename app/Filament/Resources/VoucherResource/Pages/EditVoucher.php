@@ -10,7 +10,7 @@ class EditVoucher extends EditRecord
 {
     protected static string $resource = VoucherResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),

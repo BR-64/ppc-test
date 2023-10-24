@@ -10,7 +10,7 @@ class EditCollection extends EditRecord
 {
     protected static string $resource = CollectionResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),

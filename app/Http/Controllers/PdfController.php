@@ -80,7 +80,7 @@ class PdfController extends Controller
         $order = (Order::query()
                     ->where(['id' => $OrderId])
                     ->first());
-        
+
         $qty = OrderItem::query()
             ->where(['order_id' => $OrderId])
             ->sum('quantity');
@@ -97,11 +97,11 @@ class PdfController extends Controller
         $order = (Order::query()
                     ->where(['id' => $OrderId])
                     ->first());
-        
+
         $qty = OrderItem::query()
             ->where(['order_id' => $OrderId])
             ->sum('quantity');
-        
+
         $Items = OrderItem::query()
             ->where(['order_id' => $OrderId])
             ->get();
@@ -142,7 +142,7 @@ class PdfController extends Controller
 
         // dd(count($item_sc));
         // dd($item_sc[7]);
-        
+
         for ($i=0; $i<count($item_sc); $i++){
             var_dump($item_sc[$i]);
         };

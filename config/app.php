@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\Filament\AdminPanelProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -193,7 +194,14 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\Filament\AdminPanelProvider::class,
+        // App\Providers\Filament\*PanelProvider::class,
+        App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // app/Providers/Filament/*PanelProvider.php,
+
+        // AdminPanelProvider::class
 
     ],
 
