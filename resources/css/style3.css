@@ -313,7 +313,8 @@ header {
 }
 
 .pchero {
-  max-width: 275px;
+  width: 275px;
+  /* max-width: 275px; */
   min-height: 238px;
   object-fit: cover;
   margin: auto;
@@ -463,7 +464,7 @@ header {
 .newproducts {
   text-align: center;
   width: 370px;
-  height: 204px;
+  /* height: 204px; */
   box-sizing: border-box;
   margin: auto;
   margin-top: 60px;
@@ -473,6 +474,7 @@ header {
 .gridNewProduct {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
   gap: 10px;
   margin: auto;
 }
@@ -497,16 +499,19 @@ header {
 
 .shopcoll {
   text-align: center;
+  /* align-items: center; */
   width: 370px;
   box-sizing: border-box;
   /* border: 1px solid yellow; */
   margin: auto;
+  padding: auto;
   margin-bottom: 60px;
 }
 
 .gridShopcoll {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: repeat(auto-fill, 180px); */
   gap: 10px;
   margin: auto;
 }

@@ -9,8 +9,8 @@ export default defineConfig({
       input: [
         "resources/css/reset.css",
         "resources/css/app.css",
-        "resources/css/style3.css",
         "resources/css/queries.css",
+        "resources/css/style3.css",
         // "resources/assets/scss/main.scss",
         "resources/js/app.js",
         "resources/js/nav.js",

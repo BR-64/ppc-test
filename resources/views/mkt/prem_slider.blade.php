@@ -9,7 +9,13 @@
     @endphp
 
 <style>
-
+  .mySwiper_banner{
+  height: 500px;
+  width: 100%;
+  height: 80vh;
+  /* width: 363px; */
+  margin-top: 5px;
+  }
 </style>
 
   <!-- Swiper -->
@@ -39,6 +45,9 @@
     var swiper = new Swiper(".mySwiper_prem", {
       pagination: {
         el: ".swiper-pagination",
+      },
+      autoplay: {
+        delay: 4000,
       },
     });
   </script>

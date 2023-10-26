@@ -15,8 +15,26 @@
   .banner {
     width: 70vw;
   }
-  .pccollc {
+  .pccollc,
+  .premcollhero,
+  .pcherotext,
+  .premmaincoll,
+  .pchero {
     width: 50%;
+  }
+
+  .shopcoll,
+  .mainHL,
+  .newproducts {
+    width: 38%;
+  }
+
+  .gridShopcoll {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .gridNewProduct {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 
   .pccoll {
