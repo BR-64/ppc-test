@@ -19,7 +19,8 @@ class pProduct extends Model
     // use SoftDeletes;
 
     // protected $table = 'test_product';
-    protected $table = 'p_products_t1';
+    protected $table = 'p_products_t2';
+    // protected $table = 'p_products_t1';
     // protected $table = 'p_products';
     protected $fillable = ['description', 
     'form', 'glaze', 'ฺBZ','technique','collection','category','type','brand_name','product_description','color','finish',
