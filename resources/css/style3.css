@@ -336,6 +336,11 @@ header {
   margin-bottom: 30px;
 }
 
+.colname {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .pcherotext {
   box-sizing: border-box;
   margin: auto;
@@ -850,9 +855,9 @@ tr {
 
 /* ------------------------------------------------------ collection */
 
-.colname {
+/* .colname {
   color: #cda577;
-}
+} */
 
 .colincld {
   display: grid;

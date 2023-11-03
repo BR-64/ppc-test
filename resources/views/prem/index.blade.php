@@ -52,7 +52,7 @@ PREM Ceramics represents the link between past, present and future. Personifying
     @foreach($products as $product)
           <div class="pchero">
                     <a href="{{ route('product.collection.view', $product->collection_name) }}">
-                      <h5>{{ $product->collection_name }}</h5>
+                      <h5 class='colname'>{{ $product->collection_name }}</h5>
                       {{-- @include('prem.col_slide') --}}
                       @include('prem.col_slide2')
                     </a>
