@@ -675,4 +675,6 @@ class pProductController extends Controller
         echo('/// update finished // Time used '.$time_elapsed_secs.' sec');
 
     }
+
+    
 }

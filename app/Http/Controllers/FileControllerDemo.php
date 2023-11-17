@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Item;
 use App\Models\pProduct;
 use App\Models\pProduct_upload;
+use App\Models\ProductNew;
 use Excel;
 use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
@@ -52,9 +53,16 @@ class FileControllerDemo extends Controller
 			$path1 = $request->file('import_file')->store('temp');
             $path=storage_path('app').'/'.$path1;
 
+            // delete old data
             pProduct_upload::truncate();
+            ProductNew::truncate();
+
+            
+
             FacadesExcel::import(new TestImport,$path);
             // FacadesExcel::import(new TestImport,$request->file);
+
+
         }
 
 

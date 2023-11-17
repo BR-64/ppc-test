@@ -435,7 +435,8 @@ header {
   height: 280px;
   width: 370px;
   margin-bottom: 30px;
-  /* margin: 30px; */
+  /* margin: 0px 20px; */
+  /* margin-right: 30px; */
 }
 
 .gridHL {
@@ -485,7 +486,7 @@ header {
 }
 
 .NPpic {
-  max-width: 116px;
+  /* max-width: 116px; */
   min-height: 77px;
   margin: auto;
 }
@@ -534,7 +535,8 @@ header {
   color: black;
   background-color: #32322f;
 
-  width: 100%;
+  /* width: 100%; */
+  width: 375px;
   box-sizing: border-box;
   /* border: 1px solid yellow; */
   margin: auto;
@@ -1147,7 +1149,7 @@ swiper-container {
 swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
+  /* background: #fff; */
   /* display: flex; */
   justify-content: center;
   align-items: center;

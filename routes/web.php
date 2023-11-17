@@ -7,6 +7,7 @@ use App\Http\Controllers\pCollectionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\pProductController;
 use App\Http\Controllers\pProductController_test;
+use App\Http\Controllers\ProductUploadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\testapi;
 use App\Http\Livewire\ShopScroll;
@@ -100,14 +101,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
     Route::post('/order-payment/{order}', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
-
     Route::get('/testCreateSC/{OrderId}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
 
 
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
     //  Quotation 
     Route::post('/kpayment', [kCheckoutController::class, 'kpayment'])->name('kpayment');
-    
     Route::post('/quotation', [kCheckoutController::class, 'quotation'])->name('checkout.quotation');
 
 });
@@ -115,8 +114,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 // Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.credit');
 
 Route::post('/webhook/stripe', [CheckoutController::class, 'webhook']);
-
-
 
 Route::post('/payment', [kCheckoutController::class, 'paymentresult'])->name('paymentresult');
 
@@ -155,9 +152,9 @@ Route::get('/productstock/{product:item_code}', [pProductController::class, 'sto
 
 // Route::get('/allitemdata', [pProductController::class, 'getAllDataEnpro'])->name('product.data_test');
 
-Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.data_test2');
+Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.getalldata');
 
-Route::get('/getstocksdata', [pProductController::class, 'updateStockEnpro_v2']);
+Route::get('/getsstocksdata', [pProductController::class, 'updateStockEnpro_v2']);
 
 Route::post('/createsc', [CheckoutController::class, 'createSC'])->name('order.create_sc');
 
@@ -200,5 +197,9 @@ Route::get('im-ex-excel',[FileControllerDemo::class,'importExport']);
 Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
 
 Route::get('join',[FileControllerDemo::class,'addUploadToMaster']);
+
+Route::get('compare',[ProductUploadController::class,'compare']);
+Route::get('newstock',[ProductUploadController::class,'insertNewPtoStock']);
+
 
 require __DIR__ . '/auth.php';

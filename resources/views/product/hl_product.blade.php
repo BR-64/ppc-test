@@ -15,7 +15,7 @@
                 @foreach($hlproducts as $key => $hlproduct)
                     @if($key<4)
                     <div
-                    class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
+                    class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors"
                     >
                         <a href="{{ route('product.view', $hlproduct->item_code) }}"
                             class="aspect-w-3 aspect-h-2 block overflow-hidden">
@@ -53,7 +53,7 @@
             @foreach($hlproducts as $key => $hlproduct)
             @if($key>=8 && $key <12)
                 <div
-                class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
+                class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors "
                 >
                     <a href="{{ route('product.view', $hlproduct->item_code) }}"
                         class="aspect-w-3 aspect-h-2 block overflow-hidden">
@@ -71,7 +71,7 @@
             @foreach($hlproducts as $key => $hlproduct)
             @if($key>=12 && $key <16)
                 <div
-                class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
+                class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors "
                 >
                     <a href="{{ route('product.view', $hlproduct->item_code) }}"
                         class="aspect-w-3 aspect-h-2 block overflow-hidden">
