@@ -37,7 +37,7 @@
                     </a>
                     <div>
                         <h5 class="text2 undertext">THB {{$product->retail_price}}</h5>
-                        <h5 class="text2 udertext"> {{$product->stock->stock}} </h5>
+                        {{-- <h5 class="text2 udertext"> {{$product->stock->stock}} </h5> --}}
                     </div>
                 </div>
             </div>
