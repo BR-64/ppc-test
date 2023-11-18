@@ -9,6 +9,15 @@
   .gridHL {
     /* padding: 1.5%; */
   }
+
+  .payoption {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border: solid;
+    border-color: #e1dad1;
+    padding: 5%;
+  }
 }
 
 @media only screen and (min-width: 760px) {
@@ -20,7 +29,8 @@
   .pcherotext,
   .premmaincoll,
   .pchero {
-    width: 50%;
+    /* width: 50%; */
+    width: 65%;
   }
 
   /* .shopcoll,
@@ -134,11 +144,13 @@
   .banner {
     width: 700px;
   }
-  .swiper {
+  .swiper,
+  swiper-container {
     /* height: 29%; */
     margin-left: 0;
     margin-right: auto;
   }
+
   .myswiper2 {
     width: 625px;
     height: 500px;

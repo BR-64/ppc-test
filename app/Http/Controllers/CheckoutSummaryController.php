@@ -248,6 +248,8 @@ class CheckoutSummaryController extends Controller
                 'quantity' => $quantity,
                 'unit_price' => $product->retail_price
             ];
+
+            
         }
 
 // base discount cal

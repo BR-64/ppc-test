@@ -197,7 +197,9 @@
                     <x-button>Step 3 : Payment</x-button>
                 </a> --}}
                 @csrf
-                <button type="submit" class="btn-primary w-full py-3 text-lg" onclick="clicked(event)">
+
+                <button x-show="{{$totalpriceShow}} > 0"
+                    type="submit" class="btn-primary w-full py-3 text-lg" onclick="clicked(event)">
                     Step 3 : Payment </button>
                     <input type="hidden" name="checkouttype"  value="paynow">
                     <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}">                

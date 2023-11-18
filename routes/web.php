@@ -199,7 +199,8 @@ Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
 Route::get('join',[FileControllerDemo::class,'addUploadToMaster']);
 
 Route::get('compare',[ProductUploadController::class,'compare']);
-Route::get('newstock',[ProductUploadController::class,'insertNewPtoStock']);
+Route::get('addnewp',[ProductUploadController::class,'addNewPtoTables']);
+// Route::get('newstock',[ProductUploadController::class,'insertNewPtoStock']);
 
 
 require __DIR__ . '/auth.php';

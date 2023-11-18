@@ -24,14 +24,14 @@
           <div class="swiper-wrapper">
               @foreach($mktSliders as $slide)
                 <div class="swiper-slide">
-                  <img class='slidemain' src="{{asset ('/storage/'.$slide->image)}}" alt="">
+                  <img class='slidprem' src="{{asset ('/storage/'.$slide->image)}}" alt="">
                 </div>
 
                 @for ($i =0; $i < $imgs; $i++)
                 <div class="swiper-slide">
                   <img src="
                   {{asset ('/storage/'.$slide->extra_image[$i])}}
-                  " alt="" class="slidemain">
+                  " alt="" class="slideprem">
                 </div>
                 @endfor
               

@@ -224,7 +224,7 @@
                     
                     {{-- Pre-order items  --}}
 <h2>Pre-Order</h2>
-<p class='notice'>* Pre-Order item will be ready to ship within XX Days after payment</p>
+<p class='notice'>* Pre-Order item will be ready to ship within 30 Days after payment</p>
                     <template x-for="product of cartItems" :key="product.id">
                         <template x-if="product.type == 1"> 
                             <div x-data="productItem(product)">

@@ -125,9 +125,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('stock.stock')->sortable(),
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('color')->sortable(),
-                Tables\Columns\TextColumn::make('retail_price')->sortable(),
-                
-                    
+                Tables\Columns\TextColumn::make('retail_price')->sortable(),                    
                 ToggleColumn::make('published')->sortable(),
                 ToggleColumn::make('Highlight')->sortable()
                 // Tables\Columns\TextColumn::make('item_code'),

@@ -1,9 +1,7 @@
-{{-- @vite(['resources/css/style3.css', 'resources/js/app.js']) --}}
 
 <?php
 /** @var \Illuminate\Database\Eloquent\Collection $products */
 ?>
- {{-- @livewireStyles --}}
 <x-shop>
 
 {{-- products --}}

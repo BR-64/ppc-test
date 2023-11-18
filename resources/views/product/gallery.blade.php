@@ -33,28 +33,10 @@ $imgs = count($gallery[0]['webimage']);
       object-fit: cover;
     }
 
-    /* swiper-container {
-      width: 100%;
-      height: 300px;
-      margin-left: auto;
-      margin-right: auto;
-    } */
-
     swiper-slide {
       background-size: cover;
       background-position: center;
     }
-
-
-
-    /* .mySwiper2 {
-      width: 363px;
-
-      height: 250px;
-      /* box-sizing: content-box; */
-      /* padding: 10px 0; */
-
-    } */
 
     .mySwiper2 swiper-slide {
       width: 25%;
@@ -72,11 +54,21 @@ $imgs = count($gallery[0]['webimage']);
       height: 10%;
       object-fit: cover;
     }
+
+    @media only screen and (min-width: 1200px) {
+      .swiper,
+      swiper-container {
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+    }
+
   </style>
 
 
 <div class='gallerycol'>
-  <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+  <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2 ml-0">
       <div class="swiper-wrapper">
           <div class="swiper-slide">
               <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
@@ -87,16 +79,16 @@ $imgs = count($gallery[0]['webimage']);
                 <img class="pgallpic" 
                 src="{{asset ('/storage/'.$gal->webimage[$i])}}" />
               </div>
-            @endfor
-        @endforeach
-
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-
-      
-      </div>
+              
+              @endfor
+              
+              @endforeach
+              
+          </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
   </div>
-  <div thumbsSlider="" class="swiper thumbSwiper">
+  <div thumbsSlider="" class="swiper thumbSwiper"  >
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <img class="pgallpicthumb" src="{{$product->image}}" />
@@ -109,8 +101,6 @@ $imgs = count($gallery[0]['webimage']);
               </div>
             @endfor
         @endforeach
-
-  
 
     </div>
   </div>

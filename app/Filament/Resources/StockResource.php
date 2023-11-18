@@ -32,7 +32,7 @@ class StockResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('item_code')->sortable(),
+                TextColumn::make('item_code')->sortable()->searchable(),
                 TextColumn::make('stock')->sortable(),
                 TextColumn::make('updated_at')->sortable(),
                 //

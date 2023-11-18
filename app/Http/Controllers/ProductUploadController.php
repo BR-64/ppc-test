@@ -54,6 +54,7 @@ class ProductUploadController extends Controller
             ->where('id','>',0)
             ->get();
 
+        // get stock data
             foreach($webItem as $key=>$product){
 
             $item_code =$product['item_code'];
@@ -85,26 +86,83 @@ class ProductUploadController extends Controller
                     ]);
             }
 
+        // get products data
+            foreach($webItem as $key=>$product){
+
+                $item_code =$product['item_code'];
+                
+                //// get data from enpro
+                $url='http://1.1.220.113:7000/PrempApi.asmx/getItemData?strItemCodeList='.$item_code;
+                
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_URL,$url);
+                curl_setopt($ch, CURLOPT_HTTPGET, true);
+                
+                $response = curl_exec($ch);
+                curl_close($ch);
+                
+                //// edit string -> convert to json
+                preg_match('#\[([^]]+)\]#', $response, $match);
+        
+                try{
+                    $newstring = preg_replace("/(.*?)(,\"img)(.*)/", "$1", $match[1]);
+                    
+                        $dataEnpro=json_decode($newstring."}",true);
+                    // echo ($item_code.','."<br>\n");
+            
+                    } catch (Exception $e){
+                        echo ('Error: '.$item_code."<br>\n");
+                    };                       
+                        //// update data to database
+                        ProductNew::where('item_code','=',$dataEnpro['item_code'])
+                        ->update([
+                            'weight_g'=>$dataEnpro['weight_g'],
+                            'width'=>$dataEnpro['width_cm'],
+                            'length'=>$dataEnpro['length_cm'],
+                            'height'=>$dataEnpro['height_cm'],
+                            'retail_price'=>$dataEnpro['retail_price'],
+                        ]);
+                        
+                }
+
+        echo 'Compare Done';
+
+
+    }
+
+    public function addNewPtoTables () {
         // insert into stock table
-        $newP = ProductNew::query()
-            ->where('id','>',0)
-            ->get()
-            ->toArray();
-
-        foreach($newP as $p){
-            Stock::create($p);
-        }
-
-        dd($newP_from_upload);
-
+            $newP = ProductNew::query()
+                ->where('id','>',0)
+                ->get([
+                    'item_code',
+                    'form',
+                    'glaze',
+                    'BZ',
+                    'technique',
+                    'collection',
+                    'category',
+                    'type',
+                    'brand_name',
+                    'product_description',
+                    'color',
+                    'finish',
+                    'pre_order',
+                    'stock'
+                ])
+                ->toArray();
+    
+            foreach($newP as $p){
+                Stock::create($p);
+            }
+        
         // insert into product table
-        foreach($newP_from_upload as $p){
-            pProduct::create($p);
-        }
+            foreach($newP as $p){
+                pProduct::create($p);
+            }
 
-        echo 'Upload Done';
-        // get update data from enpro
-        return redirect()->route('product.getalldata');
+        echo 'New Products Added';
 
     }
 

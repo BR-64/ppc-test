@@ -345,7 +345,7 @@ header {
   box-sizing: border-box;
   margin: auto;
   width: 280px;
-  font-size: 14px;
+  /* font-size: 14px; */
 }
 
 .pccoll {
@@ -1340,7 +1340,7 @@ swiper-slide {
 }
 
 .payoption {
-  display: flex;
+  /* display: flex; */
   align-items: flex-start;
   justify-content: space-between;
   border: solid;
@@ -1510,6 +1510,18 @@ swiper-slide {
   width: 700px;
   height: 90vh;
   object-fit: cover;
+}
+
+.slideprem {
+  /* width: 700px;
+  height: 90vh; */
+  height: 500px;
+  object-fit: contain;
+  /* object-fit: cover; */
+}
+
+.slideprem2 {
+  object-fit: contain;
 }
 
 /* --------------------------------------------------  Product view*/

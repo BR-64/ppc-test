@@ -252,6 +252,7 @@ class pProductController extends Controller
     public function qfilter(){
         $allproducts = pProduct::query()
             ->where('published', '=', 1)
+            ->where('published', '>', 0)
             ->orderBy('updated_at', 'desc')
             ->paginate(30);
 
@@ -268,6 +269,11 @@ class pProductController extends Controller
             ->get();
             // ->paginate(20);
 
+            $showProducts = QueryBuilder::for (Stock::class)
+            ->where('stock', '>', 0)
+            ->get();
+
+            // dd($showProducts);
 
         $filterables = [
             'collection' => pProduct::distinct()->get('collection'),
@@ -287,6 +293,7 @@ class pProductController extends Controller
 
         return view('product.index2', [
             'products' => $qproducts,
+            'showproducts' => $showProducts,
             'filterables'=>$filterables,
             // 'products'=>$allproducts
         ]);

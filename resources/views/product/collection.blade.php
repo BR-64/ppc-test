@@ -151,7 +151,7 @@
     <div class="gridHL">
             @foreach($products as $product)
                 <!-- Product Item -->
-                    <div class="card2">
+                    <div   class="card2">
 
                 <div
                     x-data="productItem({{ json_encode([

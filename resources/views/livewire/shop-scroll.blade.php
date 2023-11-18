@@ -2,13 +2,17 @@
     <div class="pccoll">
         <div wire:loading.delay.class="opacity-50" class="gridHL">
 
+    {{-- @foreach($products as $product) --}}
     @foreach($products as $product)
-            
-                <div @if ($loop->last) id="last_record" @endif
-                class='card2' x-data="productItem({{ json_encode([
-                    // 'stock'=>$product->stock->stock
-                    ])
-                    }})" >
+        
+        <div @if ($loop->last) id="last_record" @endif
+            x-show="{{$product->stock->stock}} > 0"
+            class='card2' 
+            x-data="productItem({{ json_encode([
+                    'stock'=>$product->stock->stock])
+                    }})" 
+                    >
+            {{-- <div x-show="{{$product->stock->stock}} > 0" > --}}
                   <div class="card2 rel">
                       <a href="{{ route('product.view', $product->item_code) }}"
                         class="">
@@ -22,6 +26,7 @@
                     <div>
                         <p class="text2 undertext">{{$product->item_code}}</p>
                         <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
+                        {{-- <p class="text2 undertext">Stock {{$product->stock->stock}}</p> --}}
                     </div>
                     <div x-show="{{$product->stock}} <= 0" class="oosbanner border border-t-0 border-red-400 rounded-b bg-red-100 text-red-700 opacity-75">
                         out of stock
@@ -30,7 +35,8 @@
                         Pre-Order
                     </div>
                   </div>
-                </div>
+            {{-- </div> --}}
+        </div>
     @endforeach
 
 

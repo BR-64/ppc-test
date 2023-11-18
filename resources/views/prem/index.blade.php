@@ -28,12 +28,13 @@
 
     <div class="premcollhero">
         <div class="pcherotext">
-          <p class="tleft">
+          {{-- <p class="tleft"> --}}
+          <p>
             For more than 30 years, Prempracha's Collection has been the producer of finest handmade ceramics crafted by talented local artisans. Together with talented Thai designers, we would like to introduce our brand, PREM Ceramics. 
           </br>
           </br>
 
-PREM Ceramics represents the link between past, present and future. Personifying the balancing dynamics of the expertise and creativity between generations. All items are handmade 🩷
+PREM Ceramics represents the link between past, present and future. Personifying the balancing dynamics of the expertise and creativity between generations. All items are handmade.
           </p>
         </div>
     </div>
@@ -57,7 +58,8 @@ PREM Ceramics represents the link between past, present and future. Personifying
                       @include('prem.col_slide2')
                     </a>
                   </br>
-                    <p class='coll-des'>
+                    {{-- <p class='coll-des'> --}}
+                    <p>
                       {{-- {{$product->collection('description')}} --}}
                       {{$product->description}}</p>
           </div>
