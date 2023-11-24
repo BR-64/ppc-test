@@ -107,7 +107,7 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->label('Order ID')->sortable(),
+                Tables\Columns\TextColumn::make('id')->label('Order ID')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at'),
                 // Tables\Columns\TextColumn::make('id')->label('Doc Code'),
                TextColumn::make('customer.first_name')->searchable(),

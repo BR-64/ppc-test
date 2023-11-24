@@ -52,6 +52,18 @@ class MailTestController extends Controller
         // return view('mail.email_test');
         dd('mail sent');
     }
+    public function newOrder_created(Request $request)
+    {
+        $OrderId = $request->OrderID;
+        
+        $payment = Payment::query()
+                    ->where(['order_id' => $OrderId])
+                    ->first();
+
+        $this->OrderConfirmedMail($payment);
+
+        dd('mail sent');
+    }
 
     private function OrderConfirmedMail(Payment $payment)
     {

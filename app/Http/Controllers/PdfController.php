@@ -41,8 +41,8 @@ class PdfController extends Controller
 
         $pdf = Pdf::loadView('pdf.orderinfo', $order);
         return $pdf->download('orderinfo.pdf');
-
     }
+    
     public function Pdf_orderinfo_test(Request $request)
     {
         $OrderId = $request->OrderID;

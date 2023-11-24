@@ -11,30 +11,33 @@ Link to your order : #{{$order->id}}
 {{-- /// order details --}}
 |   |   |
 |---|---|
-|**Order # :** |6|  
-|**Order Status :**|unpaid|  
-|**Order Price (THB) :**|661.00|
-|**Order Date :**|2023-01-15 11:00:39|
+|**Order # :** |{{$order->id}}|  
+|**Order Status :**|{{$order->status}}|  
+|**Order Total (THB) :**|{{number_format($order['fullprice'],2)}}|
+|**Order Date :**|{{$order->created_at}}|
 <br>
 
 {{-- /// product details --}}
 |Image|Code| Price (THB) |Quantity|
 |---|:---:|:---:|:---:|
 @foreach($order->items as $item)
-|<img src="{{$item->product->image}}" style="width: 100px">|{{$item->product->item_code}}|{{$item->unit_price}}|{{$item->quantity}}|
+|<img src="{{$item->product->image}}" style="width: 100px">|{{$item->product->item_code}}|number_format({{$item->unit_price}})|{{$item->quantity}}|
 @endforeach
 <br>
 
 {{-- /// order summary --}}
 |  |  |
 |--|--|
-|**subtotal**| {{$order['total_price']}}|
-|**shipping fee**| {{$order['shipping']}} |
-|**insurance**| {{$order['insurance']}}|
-|**Total Payment (THB)**|{{$order['fullprice']}}|
+|**subtotal**| {{number_format($order['total_price'],2)}}|
+|**discount**| - {{number_format($order['discount_base'],2)}}|
+|**shipping fee**| {{number_format($order['shipping'],2)}} |
+|**insurance**| {{number_format($order['insurance'],2)}}|
+|**Total Payment (THB)**|{{number_format($order['fullprice'],2)}}|
+<br>
 <br>
 
 {{-- /// shipping --}}
+Shipping Details
 | | |
 |-|-|
 |**Shipping Address :**|{{$order->customer['first_name']}} {{$order->customer['last_name']}}, {{$order->customer->Ship_Address['address1']}},{{$order->customer->Ship_Address['address2']}},{{$order->customer->Ship_Address['city']}},{{$order->customer->Ship_Address['zipcode']}}|
@@ -55,7 +58,8 @@ Please unpack the box upon receiving the product immediately.
 <br>
 <br>
 กรุณาถ่ายภาพหรือวีดีโอ ขณะแกะกล่องสินค้า เพื่อเป็นหลักฐานหากพบว่าสินค้าเสียหายจากการแพคหรือขนส่ง และติดต่อเคลมสินค้าไปยัง <a href = "mailto: shoponline@prempracha.com">shoponline@prempracha.com</a> หรือแอดไลน์ showroomprem หรือโทร 053-338-540 ภายใน 7 วันหลังจากที่ได้รับสินค้าแล้วเท่านั้น
-</br>Please take photos or videos. while unpacking the product as evidence if it is found that the product is damaged from packing or transportation. Please report claim to us via e-mail within 7 days of receiving the package to <a href = "mailto: shoponline@prempracha.com">shoponline@prempracha.com</a> or add LINE ID showroomprem or call +66-53-338-540
+<br>
+Please take photos or videos. while unpacking the product as evidence if it is found that the product is damaged from packing or transportation. Please report claim to us via e-mail within 7 days of receiving the package to <a href = "mailto: shoponline@prempracha.com">shoponline@prempracha.com</a> or add LINE ID showroomprem or call +66-53-338-540
 </p>
 </x-mail::panel>
 <br>

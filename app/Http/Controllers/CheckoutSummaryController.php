@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\AddressType;
 use App\Enums\OrderStatus;
+use App\Mail\NewOrderEmail;
 use App\Models\CustomerAddress;
 use Illuminate\Http\Request;
 use App\Models\Payment;
@@ -21,7 +22,9 @@ use App\Models\ShipEMS;
 use App\Models\ShippingAddress;
 use App\Models\ShiprateThai;
 use App\Models\Stock;
+use App\Models\User;
 use App\Models\Voucher;
+use Illuminate\Support\Facades\Mail;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -645,7 +648,16 @@ if($nonFullCubicBoxCubic<>0){
         Payment::create($paymentData);
 
         CartItem::where(['user_id' => $user->id])->delete();
-        
+
+        // send email to user/admin
+        // $adminUsers = User::where('is_admin', 1)->get();
+        // foreach ([...$adminUsers, $order->user] as $user) {
+        //     Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
+        // }
+
+        foreach ([$order->user] as $user) {
+            Mail::to($user)->send(new NewOrderEmail($order));
+        }
 
         return view('checkout.step3',[
                 'items'=>$lineItems,

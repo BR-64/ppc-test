@@ -38,7 +38,8 @@ class NewOrderEmail extends Mailable
         return $this
             ->subject('Confirmation of your Order')
             // ->view('mail.TestMKdown');
-            ->markdown('mail.TestMKdown');
+            // ->markdown('mail.TestMKdown');
+            ->markdown('mail.NewOrder_MKdown');
             // ->with([
             //     'totalpayment'=>number_format(($this->order['total_price']+$this->order['insurance']+$this->order['shipping']),2)
             // ]);
