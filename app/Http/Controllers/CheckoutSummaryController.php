@@ -655,9 +655,9 @@ if($nonFullCubicBoxCubic<>0){
         //     Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
         // }
 
-        foreach ([$order->user] as $user) {
-            Mail::to($user)->send(new NewOrderEmail($order));
-        }
+        // foreach ([$order->user] as $user) {
+        //     Mail::to($user)->send(new NewOrderEmail($order));
+        // }
 
         return view('checkout.step3',[
                 'items'=>$lineItems,
