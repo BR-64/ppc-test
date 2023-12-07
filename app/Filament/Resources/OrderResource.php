@@ -8,12 +8,14 @@ use App\Filament\Resources\OrderResource\RelationManagers\OrderitemRelationManag
 use App\Filament\Resources\OrderResource\RelationManagers\UserRelationManager;
 use App\Models\Order;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextInput\Mask;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -37,8 +39,40 @@ class OrderResource extends Resource
                     TextInput::make('id')->label('Order Number')->disabled(),
                     TextInput::make('created_at')->disabled(),
                     Select::make('pay_method'),
-                    TextInput::make('total_price')->label('item price (incl Vat)'),
-                    TextInput::make('discount_base')->label('discount'),
+                    TextInput::make('total_price')->label('item price (incl Vat)')
+                    ->Mask(
+                        fn (TextInput\Mask $mask) => $mask
+                            ->patternBlocks([
+                                'money' => fn (Mask $mask) => $mask
+                                ->numeric()
+                                ->decimalPlaces(2)
+                                ->decimalSeparator('.')
+                                ->thousandsSeparator(',')
+                                ->mapToDecimalSeparator(['.'])
+                                ->padFractionalZeros()
+                                ->normalizeZeros(true)
+                        ])
+                        ->pattern('money')
+                    )
+                    // ->afterStateHydrated(function (TextInput $component, $state) {
+                    //     $component->state(str_replace(".",",",$state));
+                    // })
+                    ,
+                    TextInput::make('discount_base')->label('discount')
+                    ->Mask(
+                        fn (TextInput\Mask $mask) => $mask
+                            ->patternBlocks([
+                                'money' => fn (Mask $mask) => $mask
+                                ->numeric()
+                                ->decimalPlaces(2)
+                                ->decimalSeparator('.')
+                                ->thousandsSeparator(',')
+                                ->mapToDecimalSeparator(['.'])
+                                ->padFractionalZeros()
+                                ->normalizeZeros(true)
+                        ])
+                        ->pattern('money')
+                    ),
                     // Select::make('shipping')
                     // ->options([
                     //     'preparing' => 'preparing',
@@ -49,8 +83,23 @@ class OrderResource extends Resource
 
                     Forms\Components\Fieldset::make('Shipping Info')->schema([
                         TextInput::make('ship_method'),
-                        TextInput::make('shipping')->label('shipping cost'),
+                        TextInput::make('shipping')->label('shipping cost')
+                        ->Mask(
+                            fn (TextInput\Mask $mask) => $mask
+                                ->patternBlocks([
+                                    'money' => fn (Mask $mask) => $mask
+                                    ->numeric()
+                                    ->decimalPlaces(2)
+                                    ->decimalSeparator('.')
+                                    ->thousandsSeparator(',')
+                                    ->mapToDecimalSeparator(['.'])
+                                    ->padFractionalZeros()
+                                    ->normalizeZeros(true)
+                            ])
+                            ->pattern('money')
+                        ),
                         TextInput::make('insurance'),
+                        TextInput::make('boxcount'),
                         TextInput::make('tracking'),
                     ]),
                     Fieldset::make('Customer Info')
@@ -89,7 +138,21 @@ class OrderResource extends Resource
                         
                     ]),
 
-                    TextInput::make('fullprice')->label('net'),
+                    TextInput::make('fullprice')->label('net')
+                    ->Mask(
+                        fn (TextInput\Mask $mask) => $mask
+                            ->patternBlocks([
+                                'money' => fn (Mask $mask) => $mask
+                                ->numeric()
+                                ->decimalPlaces(2)
+                                ->decimalSeparator('.')
+                                ->thousandsSeparator(',')
+                                ->mapToDecimalSeparator(['.'])
+                                ->padFractionalZeros()
+                                ->normalizeZeros(true)
+                        ])
+                        ->pattern('money')
+                    ),
 
 
         Select::make('status')

@@ -214,6 +214,7 @@
     <a href="{{ route('checkout.step2') }}">
         <x-button>Step 2 : Shipping Calculation</x-button>
     </a>
+{{-- </form> --}}
 </div>
 
 

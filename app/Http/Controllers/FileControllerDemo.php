@@ -65,9 +65,7 @@ class FileControllerDemo extends Controller
 
         }
 
-
-
-		return back()->withSuccess('Done !');
+		return back()->withSuccess('UPload Done !');
         // return redirect();
 	}
 

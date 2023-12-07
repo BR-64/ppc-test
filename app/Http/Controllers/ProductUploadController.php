@@ -19,10 +19,10 @@ class ProductUploadController extends Controller
         ProductNew::truncate();
 
         $t1='p_products_upload';
-        $t2='p_products_t1';
+        $t2='p_products';
 
-        $newP_from_upload = pProduct_upload::leftJoin('p_products_t1',function($join){
-            $join->on('p_products_upload.item_code','=','p_products_t1.item_code');
+        $newP_from_upload = pProduct_upload::leftJoin('p_products',function($join){
+            $join->on('p_products_upload.item_code','=','p_products.item_code');
         })
         ->whereNull($t2.'.item_code')
         ->get([
@@ -127,6 +127,7 @@ class ProductUploadController extends Controller
                 }
 
         echo 'Compare Done';
+        return back()->withSuccess('Compare Done !');
 
 
     }

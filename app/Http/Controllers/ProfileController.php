@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
 //        dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
         $countries = Country::query()->orderBy('name')->get();
-        $test = Customer;
+        // $test = Customer;
 
 
         return view('profile.view2', compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));

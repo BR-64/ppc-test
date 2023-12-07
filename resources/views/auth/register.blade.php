@@ -1,7 +1,7 @@
 <x-app-layout>
     <form x-data="{
         {{-- 'country_code' => $billingAddress->country_code, --}}
-        countries: {{ json_encode($countries) }}
+        {{-- countries: {{ json_encode($countries) }} --}}
     }"
         action="{{ route('register') }}"
         method="post"
@@ -22,7 +22,7 @@
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')"/>
-    <div class="bg-white p-3 shadow rounded-lg md:col-span-2 mb-3">
+    <div class="bg-white p-3 shadow rounded-lg md:col-span-2 mb-3 text-black font-semibold">
         <h2 class="text-xl font-semibold mb-2">Account Info</h2>
 
             <div class="mb-4">

@@ -350,9 +350,39 @@ if($nonFullCubicBoxCubic<>0){
     // $LastBoxWeight = $LastCubicBoxWeight % 20000;  // non-full box weight
     
     $shippingBoxes = $totalCubicBox; // number of box needed 
-    $fullBox=$fullCubicBox;         // number of full box needed 
+    $fullBox=$fullCubicBox;         // number of full box needed (always biggest box)
     $LastBoxWeight = $LastCubicBoxWeight;  // Last box weight
     $nonFullBox=(int)($LastBoxWeight>0);
+
+    // shipping boxes data
+    $Sbox=0;
+    $Mbox=0;
+    $Lbox=0;
+    $Xlbox=0;
+
+    switch($CubicboxSize){
+        case $CubicboxSize = 'S':
+            $Sbox=1;
+            break;
+        case $CubicboxSize = 'M':
+            $Mbox=1;
+            break;
+        case $CubicboxSize = 'L':
+            $Lbox=1;
+            break;
+        case $CubicboxSize = 'XL':
+            $Xlbox=1;
+            break;
+                    }
+
+    $box_info=[
+    'box_count' => $shippingBoxes,
+    's' =>$Sbox,
+    'm' =>$Mbox,
+    'l' =>$Lbox,
+    'xl' =>$fullBox+$Xlbox,
+
+    ];
 
     if ($domestic){
         $maxrate = ShiprateThai::query()->where(['id'=>ShiprateThai::max('id')])->value('price');
@@ -524,7 +554,8 @@ if($nonFullCubicBoxCubic<>0){
                 'domescheck'=>$domestic,
                 'TH_insurance'=>$TH_insurance,
                 'EMS_insurance'=>$EMS_insurance,
-                'Air_insurance'=>$Air_insurance
+                'Air_insurance'=>$Air_insurance,
+                // 'Ship_boxes'=>$box_info,
             ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher'));
     }    
 
@@ -537,8 +568,10 @@ if($nonFullCubicBoxCubic<>0){
         $R_shipcost=$shipcostArray[0];
         $R_Insurance=$_POST["Insurance"];
         $R_ShipMethod=$shipcostArray[1];
+        // $R_ShipBoxes=$_POST["ship_boxes"];
 
-        // dd($R_ShipMethod);
+        // dd($_POST);
+        // dd($R_ShipBoxes);
 
         // dd($user->id);
 
@@ -547,9 +580,16 @@ if($nonFullCubicBoxCubic<>0){
         $orderItems = [];
         $lineItems = [];
         $subtotalPrice = 0;
+        $totalCubic = 0;
+        $totalWeight = 0;
+
         foreach ($products as $product) {
             $quantity = $cartItems[$product->id]['quantity'];
             $subtotalPrice += $product->retail_price * $quantity;
+
+            $totalWeight += $product->weight_g * $quantity;
+            $totalCubic += $product->cubic_cm * $quantity;
+
             $lineItems[] = [
                 'price_data' => [
                     'currency' => 'thb',
@@ -598,6 +638,74 @@ if($nonFullCubicBoxCubic<>0){
 //////
         $totalpayment = $subtotalPrice-$baseDis_amt+$R_shipcost+$R_Insurance;
 
+///// box calculation
+                $xlCubicBox=97336;
+            $LastCubicBoxWeight=0;
+
+            $totalCubicBox = ceil($totalCubic/$xlCubicBox);
+            $fullCubicBox=floor($totalCubic/$xlCubicBox);         // number of full box needed 
+
+            $nonFullCubicBoxCubic = $totalCubic-($fullCubicBox*$xlCubicBox);  // non-full box weight
+
+            $CubicboxSize ='none';
+
+        // LastCubicbox calculation weight in gram
+        if($nonFullCubicBoxCubic<>0){    
+            switch($nonFullCubicBoxCubic){
+                case $nonFullCubicBoxCubic < 11907:
+                    $LastCubicBoxWeight= 2500;
+                    $CubicboxSize='S';
+                    break;
+                    case $nonFullCubicBoxCubic < 46656:
+                        $LastCubicBoxWeight= 9500;
+                        $CubicboxSize='M';
+                        break;
+                        case $nonFullCubicBoxCubic < 73644:
+                            $LastCubicBoxWeight= 15000;
+                            $CubicboxSize='L';
+                            break;
+                            case $nonFullCubicBoxCubic <= $xlCubicBox:
+                                $LastCubicBoxWeight= 20000;
+                                $CubicboxSize='XL';
+                                break;       
+                            }
+            }
+
+            $shippingBoxes = (int)$totalCubicBox; // number of box needed 
+            $fullBox=$fullCubicBox;         // number of full box needed (always biggest box)
+
+            // shipping boxes data
+            $Sbox=0;
+            $Mbox=0;
+            $Lbox=0;
+            $Xlbox=0;
+
+            switch($CubicboxSize){
+                case $CubicboxSize = 'S':
+                    $Sbox=1;
+                    break;
+                case $CubicboxSize = 'M':
+                    $Mbox=1;
+                    break;
+                case $CubicboxSize = 'L':
+                    $Lbox=1;
+                    break;
+                case $CubicboxSize = 'XL':
+                    $Xlbox=1;
+                    break;
+                            }
+
+            $box_info=[
+            'box_count' => $shippingBoxes,
+            's' =>$Sbox,
+            'm' =>$Mbox,
+            'l' =>$Lbox,
+            'xl' =>(int)$fullBox+$Xlbox,
+            ];
+
+            // dd($box_info);
+
+
         // Create Order
             $orderData = [
                     'total_price' => $subtotalPrice,
@@ -610,6 +718,8 @@ if($nonFullCubicBoxCubic<>0){
                     'ship_method'=>$R_ShipMethod,
                     'bill_id'=>$user->id,
                     'ship_id'=>$user->id,
+                    'boxes'=>$box_info,
+                    'boxcount'=>$shippingBoxes,
                     
                 ];
 

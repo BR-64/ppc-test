@@ -146,17 +146,15 @@ Route::get('/webhookmail',[kCheckoutController::class,'webhook']);
 
 // Route::get('/productt/{product:item_code}', [pProductController::class, 'view_test'])->name('product.view_test');
 
-Route::get('/productstock/{product:item_code}', [pProductController::class, 'stockTest'])->name('product.view_test');
-
+// Route::get('/productstock/{product:item_code}', [pProductController::class, 'stockTest'])->name('product.view_test');
 // Route::get('/allstock', [pProductController::class, 'getAllStockEnpro'])->name('product.stock_test');
+// Route::get('/getsstocksdata', [pProductController::class, 'updateStockEnpro_v2']);
 
 // Route::get('/allitemdata', [pProductController::class, 'getAllDataEnpro'])->name('product.data_test');
+// Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.getalldata');
 
-Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.getalldata');
 
-Route::get('/getsstocksdata', [pProductController::class, 'updateStockEnpro_v2']);
-
-Route::post('/createsc', [CheckoutController::class, 'createSC'])->name('order.create_sc');
+// Route::post('/createsc', [CheckoutController::class, 'createSC'])->name('order.create_sc');
 
 
 
@@ -192,15 +190,30 @@ Route::view('/pdf.invoice', 'pdf.invoice');
 Route::post('/voucher',[CartController::class, 'voucher'])->name('cart-voucher');
 Route::post('/t_discount',[CheckoutSummaryController::class, 'test_Discount'])->name('test-discount');
 
-//// fileupload
-Route::get('im-ex-excel',[FileControllerDemo::class,'importExport']);
-Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
 
-Route::get('join',[FileControllerDemo::class,'addUploadToMaster']);
 
-Route::get('compare',[ProductUploadController::class,'compare']);
-Route::get('addnewp',[ProductUploadController::class,'addNewPtoTables']);
 // Route::get('newstock',[ProductUploadController::class,'insertNewPtoStock']);
+
+// Route::group(['middleware' => 'Admin'], function () {
+Route::middleware(['admin'])->group(function () {
+
+    Route::get('p_upload',[FileControllerDemo::class,'importExport']);
+    // Route::get('join',[FileControllerDemo::class,'addUploadToMaster']);
+    
+    //// fileupload
+    Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
+    Route::get('compare',[ProductUploadController::class,'compare']);
+    Route::get('addnewp',[ProductUploadController::class,'addNewPtoTables']);
+
+//// stock data
+    Route::get('/productstock/{product:item_code}', [pProductController::class, 'stockTest'])->name('product.view_test');
+    Route::get('/getsstocksdata', [pProductController::class, 'updateStockEnpro_v2']);
+
+    Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.getalldata');
+
+//// create sc
+    Route::post('/createsc', [CheckoutController::class, 'createSC'])->name('order.create_sc');
+});
 
 
 require __DIR__ . '/auth.php';

@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
         $countries = Country::query()->orderBy('name')->get();
 
         return view('auth.register',[
-            'countries'=>$countries
+            // 'countries'=>$countries
         ]);
     }
 

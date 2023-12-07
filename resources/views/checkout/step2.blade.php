@@ -203,7 +203,9 @@
                     Step 3 : Payment </button>
                     <input type="hidden" name="checkouttype"  value="paynow">
                     <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}">                
+                    {{-- <input type="hidden" name="ship_boxes" value="">                 --}}
                 </div>
+                {{-- <p>{{$Ship_boxes}}</p> --}}
         </form>
 
 {{-- <form action="{{route('test.sc')}}" method="post">

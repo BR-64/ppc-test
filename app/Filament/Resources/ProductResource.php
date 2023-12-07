@@ -123,7 +123,7 @@ class ProductResource extends Resource
                 ImageColumn::make('image')->width(80)->height(40),
                 Tables\Columns\TextColumn::make('item_code')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('stock.stock'),
-                Tables\Columns\TextColumn::make('webimage')->words(1)->sortable(),
+                // Tables\Columns\TextColumn::make('webimage')->words(1)->sortable(),
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('color')->sortable(),
                 Tables\Columns\TextColumn::make('retail_price')->sortable(),                    
