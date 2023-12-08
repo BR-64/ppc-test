@@ -68,9 +68,11 @@ $imgs = count($gallery[0]['webimage']);
 
 
 <div class='gallerycol'>
+  <h3 class="pprice mobileshow" style="color: #32322f">THB {{number_format($product->retail_price)}}</h3>
   <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2 ml-0">
       <div class="swiper-wrapper">
-          <div class="swiper-slide">
+        <div class="swiper-slide">
+          <img class=" pgallpic" style="background-image:url
               <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
           </div>
           @foreach($gallery as $gal)
@@ -105,6 +107,9 @@ $imgs = count($gallery[0]['webimage']);
     </div>
   </div>
 </div>
+
+
+
 {{-- 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
 

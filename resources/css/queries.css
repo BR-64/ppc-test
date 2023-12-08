@@ -152,12 +152,13 @@
   }
 
   .myswiper2 {
-    width: 625px;
+    /* width: 625px; */
+    width: 750px;
     height: 500px;
   }
   .productview {
     display: flex;
-    width: 1000px;
+    width: 1110px;
     margin: auto;
   }
 
@@ -171,11 +172,12 @@
   }
 
   .pdetails2 {
-    padding: 30px;
+    padding: 0px 30px;
   }
 
   .pgallpic {
     height: 500px;
+    width: 750px;
     padding: 1% 0;
     margin: auto;
   }

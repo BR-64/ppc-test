@@ -89,3 +89,80 @@ document.addEventListener("alpine:init", async () => {
 });
 
 Alpine.start();
+
+// j query magnify ---------------------------------
+var perc = 40;
+$("ul.thumb li").hover(
+  function () {
+    $("ul.thumb li").find(".thumbnail-wrap").css({
+      "z-index": "0",
+    });
+    $(this).find(".thumbnail-wrap").css({
+      "z-index": "10",
+    });
+    var imageval = $(this)
+      .find(".thumbnail-wrap")
+      .css("background-image")
+      .slice(5);
+    var img;
+    var thisImage = this;
+    img = new Image();
+    img.src = imageval.substring(0, imageval.length - 2);
+    img.onload = function () {
+      var imgh = this.height * (perc / 100);
+      var imgw = this.width * (perc / 100);
+      $(thisImage)
+        .find(".thumbnail-wrap")
+        .addClass("hover")
+        .stop()
+        .animate(
+          {
+            marginTop: "-" + imgh / 4 + "px",
+            marginLeft: "-" + imgw / 4 + "px",
+            width: imgw + "px",
+            height: imgh + "px",
+          },
+          200
+        );
+    };
+  },
+  function () {
+    var thisImage = this;
+    $(this)
+      .find(".thumbnail-wrap")
+      .removeClass("hover")
+      .stop()
+      .animate(
+        {
+          marginTop: "0",
+          marginLeft: "0",
+          top: "0",
+          left: "0",
+          width: "100px",
+          height: "100px",
+          padding: "5px",
+        },
+        400,
+        function () {}
+      );
+  }
+);
+
+//Show thumbnail in fullscreen
+$("ul.thumb li .thumbnail-wrap").click(function () {
+  var imageval = $(this).css("background-image").slice(5);
+  imageval = imageval.substring(0, imageval.length - 2);
+  $(".thumbnail-zoomed-image img").attr({
+    src: imageval,
+  });
+  $(".thumnail-zoomed-wrapper").fadeIn();
+  return false;
+});
+
+//Close fullscreen preview
+$(".thumnail-zoomed-wrapper .close-image-zoom").click(function () {
+  $(".thumnail-zoomed-wrapper").hide();
+  return false;
+});
+
+// end j query magnify ---------------------------------
