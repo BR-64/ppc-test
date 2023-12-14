@@ -331,7 +331,7 @@ class CheckoutController extends Controller
                 ];
         }
 
-        dd($sa_details);        
+        dd($sa_detail);        
         
         $shipping_sc=[
             'item_code'=>'002',
