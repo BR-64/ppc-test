@@ -308,7 +308,7 @@ class CheckoutController extends Controller
                     ->get();
         
     // $scdate=date('Ymd');
-        $scdate="20231220";
+        $scdate="20241220";
 
     ///// random no duplicate
         // $r=range(1,100);
@@ -331,7 +331,7 @@ class CheckoutController extends Controller
                 ];
         }
 
-        // dd($sa_details);        
+        dd($sa_details);        
         
         $shipping_sc=[
             'item_code'=>'002',
