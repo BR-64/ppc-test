@@ -94,7 +94,7 @@ $imgs = count($gallery[0]['webimage']);
             @for ($i =0; $i < $imgs; $i++)
               <div class="swiper-slide">
                 <div class="swiper-zoom-container">
-                <img class="pgallpic" src="{{$product->webimage}}" alt="{{$product->image}}" />
+                <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
                 </div>
               </div>
               
