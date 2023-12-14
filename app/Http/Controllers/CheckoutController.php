@@ -331,7 +331,7 @@ class CheckoutController extends Controller
                 ];
         }
 
-        dd($sa_detail);        
+        // dd($sa_detail);        
         
         $shipping_sc=[
             'item_code'=>'002',
@@ -358,13 +358,13 @@ class CheckoutController extends Controller
         //     'discount_amt'=>0
         // ];
         
-        // $item_sc_test=[
-        //     'item_code'=>"R34OBM859V89",
-        //     'unit_code'=>'PCS',
-        //     'qty'=>2,
-        //     'unit_price'=>340,
-        //     'discount_amt'=>0
-        // ];
+        $item_sc_test=[
+            'item_code'=>"R34OBM859V89",
+            'unit_code'=>'PCS',
+            'qty'=>2,
+            'unit_price'=>340,
+            'discount_amt'=>20
+        ];
 
         // {"item_code":"R34OBM897V89","unit_code":"PCS","qty":"1","unit_price":"500","discount_amt":""}
         // ,{"item_code":"R34OBM859V89","unit_code":"PCS","qty":"1","unit_price":"2000","discount_amt":""}
@@ -381,7 +381,8 @@ class CheckoutController extends Controller
                 "discount_amt"=>"0",
                 "ref1"=>$ref1,
             ]);
-        array_push($sa_detail,$shipping_sc,$insurance_sc);
+        // array_push($sa_detail,$shipping_sc,$insurance_sc);
+        array_push($item_sc_test,$shipping_sc,$insurance_sc);
 
         // var_dump($sa_details);        
         // dd($sa_details);        
