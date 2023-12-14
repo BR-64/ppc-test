@@ -109,9 +109,16 @@ class ProductResource extends Resource
                         Toggle::make('newp'),
                         Toggle::make('Highlight'),
                         Toggle::make('pre_order'),
-                        ])->columns(4),
+
+                        ])->columns(6),
                         //
                     // TagsInput::make('tags')
+   
+
+                    Forms\Components\Fieldset::make('Special price')->schema([
+                        Toggle::make('sp'),
+                        Forms\Components\TextInput::make('sp_price')->label('Special Price')
+                        ])->columns(6),
                     ]);
     }
 

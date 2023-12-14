@@ -68,7 +68,7 @@
       <div class="SCat">
           <img src="https://smoootstudio.com/pic/prempracha/pic/pchero.jpg" alt="" />
           <div class="centered" style="background-color: red">
-            <a href="{{ route('shop.cat', "vase") }}">
+            <a href="{{ route('shop.cat', "sp") }}">
                 Special Price
               </a>
             </div>

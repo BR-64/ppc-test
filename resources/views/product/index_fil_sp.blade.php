@@ -36,11 +36,20 @@
                                 class="pimage hover:scale-105 hover:rotate-1 transition-transform"
                             />
                         </a>
-                        <div>
-                            <p class="text2 undertext">{{$product->item_code}}</p>
-                            <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
-                            {{-- <p class="text2 undertext">Stock {{$product->stock->stock}}</p> --}}
-                        </div>
+                        <table class="p_utext">
+                            <tr>
+                                <td></td>
+                                <td><p class="text2 undertext ">{{$product->item_code}}</p></td>
+                            </tr>
+                            <tr>
+                                <td >
+                                        <h5 class="text2 undertext p-0 ut_price line-through ">THB {{number_format($product->retail_price)}}</h5>
+                                </td>
+                                <td>
+                                    <h5 x-show="{{$product->sp}} = 1" class="text2 undertext p-0 spprice">THB {{number_format($product->sp_price)}}</h5>
+                                </td>
+                            </tr>
+                        </table>
                         
 
 

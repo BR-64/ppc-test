@@ -210,11 +210,15 @@ class pProductController extends Controller
 
     public function catFilter($cat){
 
-        if($cat=="discount"){
+        if($cat=="sp"){
             $products = pProduct::query()
-            ->where('discount','!=',0)
+            ->where('sp','=',1)
             ->orderBy('updated_at', 'desc')
             ->paginate(300);
+
+            return view('product.index_fil_sp',[
+                    'products'=>$products,
+                ]);
         }
 
         else{   

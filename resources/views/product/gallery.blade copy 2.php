@@ -8,11 +8,7 @@ $imgs = count($gallery[0]['webimage']);
 
 @endphp
 
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-
-{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
 <style>
     swiper-container {
@@ -40,9 +36,6 @@ $imgs = count($gallery[0]['webimage']);
     swiper-slide {
       background-size: cover;
       background-position: center;
-
-      overflow: hidden;
-
     }
 
     .mySwiper2 swiper-slide {
@@ -62,12 +55,6 @@ $imgs = count($gallery[0]['webimage']);
       object-fit: cover;
     }
 
-    .swiper-zoom-container img{
-      object-fit: cover;
-    }
-
-    
-
     @media only screen and (min-width: 1200px) {
       .swiper,
       swiper-container {
@@ -78,6 +65,88 @@ $imgs = count($gallery[0]['webimage']);
     }
 
 </style>
+<style>
+    * {box-sizing: border-box;}
+    
+    .img-zoom-container {
+      position: relative;
+    }
+    
+    .img-zoom-lens {
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      /*set the size of the lens:*/
+      width: 80px;
+      height: 80px;
+    }
+    
+    .img-zoom-result {
+      border: 1px solid #d4d4d4;
+      /*set the size of the result div:*/
+      width: 300px;
+      height: 300px;
+    }
+</style>
+
+<script>
+  function imageZoom(imgID, resultID) {
+    var img, lens, result, cx, cy;
+    img = document.getElementById(imgID);
+    result = document.getElementById(resultID);
+    /*create lens:*/
+    lens = document.createElement("DIV");
+    lens.setAttribute("class", "img-zoom-lens");
+    /*insert lens:*/
+    img.parentElement.insertBefore(lens, img);
+    /*calculate the ratio between result DIV and lens:*/
+    cx = result.offsetWidth / lens.offsetWidth;
+    cy = result.offsetHeight / lens.offsetHeight;
+    /*set background properties for the result DIV:*/
+    result.style.backgroundImage = "url('" + img.src + "')";
+    result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+    /*execute a function when someone moves the cursor over the image, or the lens:*/
+    lens.addEventListener("mousemove", moveLens);
+    img.addEventListener("mousemove", moveLens);
+    /*and also for touch screens:*/
+    lens.addEventListener("touchmove", moveLens);
+    img.addEventListener("touchmove", moveLens);
+    function moveLens(e) {
+      var pos, x, y;
+      /*prevent any other actions that may occur when moving over the image:*/
+      e.preventDefault();
+      /*get the cursor's x and y positions:*/
+      pos = getCursorPos(e);
+      /*calculate the position of the lens:*/
+      x = pos.x - (lens.offsetWidth / 2);
+      y = pos.y - (lens.offsetHeight / 2);
+      /*prevent the lens from being positioned outside the image:*/
+      if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+      if (x < 0) {x = 0;}
+      if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+      if (y < 0) {y = 0;}
+      /*set the position of the lens:*/
+      lens.style.left = x + "px";
+      lens.style.top = y + "px";
+      /*display what the lens "sees":*/
+      result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+    }
+    function getCursorPos(e) {
+      var a, x = 0, y = 0;
+      e = e || window.event;
+      /*get the x and y positions of the image:*/
+      a = img.getBoundingClientRect();
+      /*calculate the cursor's x and y coordinates, relative to the image:*/
+      x = e.pageX - a.left;
+      y = e.pageY - a.top;
+      /*consider any page scrolling:*/
+      x = x - window.pageXOffset;
+      y = y - window.pageYOffset;
+      return {x : x, y : y};
+    }
+  }
+</script>
+
+
     
 <div class='gallerycol'>
   <h3 class="pprice mobileshow" style="color: #32322f">THB {{number_format($product->retail_price)}}</h3>
@@ -85,17 +154,13 @@ $imgs = count($gallery[0]['webimage']);
     {{-- <div class="img-zoom-container"> --}}
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <div class="swiper-zoom-container">
-            <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
-          </div>
+          <img id="myimage" class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
         </div>
-        
           @foreach($gallery as $gal)
             @for ($i =0; $i < $imgs; $i++)
               <div class="swiper-slide">
-                <div class="swiper-zoom-container">
+                {{-- <img id="myimage" class="pgallpic" src="{{asset ('/storage/'.$gal->webimage[$i])}}" /> --}}
                 <img class="pgallpic" src="{{$product->image}}" alt="{{$product->image}}" />
-                </div>
               </div>
               
             @endfor     
@@ -105,8 +170,6 @@ $imgs = count($gallery[0]['webimage']);
    
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-
     </div>
 
 <div id="myresult" class="img-zoom-result"></div>
@@ -139,7 +202,6 @@ $imgs = count($gallery[0]['webimage']);
 
 {{-- 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <!-- Initialize Swiper -->
   <script>
@@ -150,7 +212,6 @@ $imgs = count($gallery[0]['webimage']);
       watchSlidesProgress: true,
     });
     var swiper2 = new Swiper(".mySwiper2", {
-      zoom: true,
       spaceBetween: 10,
       navigation: {
         nextEl: ".swiper-button-next",
@@ -162,3 +223,8 @@ $imgs = count($gallery[0]['webimage']);
     });
   </script>
 
+
+<script>
+  // Initiate zoom effect:
+  imageZoom("myimage", "myresult");
+</script>
