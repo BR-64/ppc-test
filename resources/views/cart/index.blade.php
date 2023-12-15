@@ -323,7 +323,7 @@
                                 <button class='bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-0 my-1 rounded'>{{ __('clear Voucher') }}</button>
                             </div>
                         </form>
-                        <span id="cartTotal" class="tthin">{{$voucher->code}} : {{$voucher->discount_percent}} %</span>
+                        <span id="cartTotal" class="tthin">{{$voucher->code}} : {{$voucher_discount}} %</span>
                             <span id="cartTotal" class="notice text-xl" x-text="`-${dis_v_amount}`"></span>
                         @else 
                         {{-- <span></span>
@@ -361,6 +361,7 @@
                             </button>
                             <input type="hidden" name="checkouttype"  value="paynow">
                             <input type="hidden" name="apply_voucher"  value="{{$apply_voucher}}">
+                            <input type="hidden" name="vvalid"  value="{{$vvalid}}">
                             
                         </form>
                         {{-- <h1>{{$apply_voucher}}</h1> --}}
@@ -424,6 +425,16 @@ function format(n, sep, decimals) {
         if(!confirm('Do you want to create order?')) {
             e.preventDefault();
         }
+    }
+
+/// input must be greater than 0
+    function check(input) {
+    if (input.value == 0) {
+        input.setCustomValidity('The number must not be zero.');
+    } else {
+        // input is fine -- reset the error message
+        input.setCustomValidity('');
+    }
     }
 
     </script>

@@ -26,7 +26,6 @@ class CollectionResource extends Resource
 {
     protected static ?string $model = pCollection::class;
     protected static ?string $navigationLabel = 'Collections';
-
     protected static ?string $navigationGroup = 'Product Management';
     protected static ?int $navigationSort = 2;
 

@@ -113,10 +113,19 @@ class CheckoutSummaryController extends Controller
         $user = $request->user();
         $customer = $user->customer;
 
+        // $R_chkouttype=$_POST["checkouttype"];
+
         [$products, $cartItems] = Cart::getProductsAndCartItems();
+
+        // $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
+        // $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 
         $shippingAddress = $customer->Ship_Address ?: new ShippingAddress;
         $billingAddress = $customer->Bill_Address ?: new BillingAddress;
+
+        
+        // dd($customer->Ship_address,$customer->billingAddress);
+        // dd($shippingAddress, $billingAddress);
 
         $countries = Country::query()->orderBy('name')->get();
 
@@ -154,8 +163,6 @@ class CheckoutSummaryController extends Controller
     $apply_voucher=$request->apply_voucher;
     $vvalid=$request->vvalid;
 
-    // dd($vvalid);
-
     $voucher = Voucher::query()
                 ->where(['code'=>$apply_voucher])
                 ->first();
@@ -174,11 +181,12 @@ class CheckoutSummaryController extends Controller
 
 ///
     $baseDis_amt = $dis_percent * $subtotalPrice;
+    // $baseDis_amt = $this->voucher_discount($request->apply_voucher) * $subtotalPrice;
 
 /// total price        
         $totalPrice = $subtotalPrice-$baseDis_amt;
 
-        return view('checkout.step1',[
+        return view('checkout.step1_test',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
                 'subtotal'=> number_format($subtotalPrice),
@@ -189,7 +197,6 @@ class CheckoutSummaryController extends Controller
                 // 'ordertype'=> $R_chkouttype
             ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
     }
-
     public function chkout_step2(Request $request){
 
         /** @var \App\Models\User $user */
@@ -251,6 +258,24 @@ class CheckoutSummaryController extends Controller
 // base discount cal
         $this->baseDiscount($subtotalPrice);
         $dispercent =0;
+
+/// voucher discount 
+        // $apply_voucher=$request->apply_voucher;
+        // $voucher = Voucher::query()
+        //     ->where(['code'=>$apply_voucher])
+        //     ->first();
+        //     if(!empty($voucher)){
+        //         $vdis_percent=$voucher->discount_percent/100;
+    
+        //         if($this->b_discount['cal'] > $vdis_percent){
+        //             $dispercent = $this->b_discount['percent'];
+        //         } else {
+        //             $dispercent = ($voucher->discount_percent).'%';
+        //         }
+    
+        //     } else {
+        //         $vdis_percent=0;
+        //     }
 
 //// voucher dis new
         $apply_voucher=$request->apply_voucher;
@@ -338,6 +363,10 @@ if($nonFullCubicBoxCubic<>0){
 
 
 // universal cal : same for Domestic and Inter 
+    // $shippingBoxes = ceil($totalWeight/20000); // number of box needed 
+    // $fullBox=floor($totalWeight/20000);         // number of full box needed 
+    // $nonFullBoxWeight = $totalWeight % 20000;  // non-full box weight
+    // $LastBoxWeight = $LastCubicBoxWeight % 20000;  // non-full box weight
     
     $shippingBoxes = $totalCubicBox; // number of box needed 
     $fullBox=$fullCubicBox;         // number of full box needed (always biggest box)
@@ -387,6 +416,17 @@ if($nonFullCubicBoxCubic<>0){
         }
 
         $shipCost_TH = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_th))*1.07;
+
+        // dd($shipPricenonFullBox_th);
+
+        // insurance cost = totalcost[after discount] + shippingcost * 10%[on top] * 2%
+        // $TH_insurance= max(ceil((($totalPrice + $shipCost_TH)*1.1)*0.02),550);
+        //     if($TH_insurance > 550){
+        //         $TH_insurance = $TH_insurance*1.07;
+        //     }; 
+        
+            
+
         $shipPricenonFullBox_ems=0;
         $shipPricenonFullBox_air=0;
 
@@ -448,6 +488,76 @@ if($nonFullCubicBoxCubic<>0){
     $total_EMS = $subtotalPrice+$shipCost_EMS+$EMS_insurance;
     $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
+    // var_dump(
+    //     'Total Cubic (cm): '.number_format($totalCubic),
+    //     'Total Weight (g): '.number_format($totalWeight),
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     '',
+    //     'Total Cubic Box (box) : '.$totalCubicBox,
+    //     'Full(XL) Cubic Box (box) : '.$fullCubicBox,
+    //     'Non Full(XL) Cubic Box (box) : '.$nonFullCubicBox,
+    //     '',
+    //     'nonFullCubicBox Cubic (cm) : '.$nonFullCubicBoxCubic,
+    //     'LastCubicBox Weight (g): '.$LastCubicBoxWeight,
+    //     '',
+    //     'LastCubicBox Size : '.$CubicboxSize,
+    //     '',
+    //     'shipcountry:'.$shipcountry,
+    //     'ShippingZone EMS : '.$shippingZone_ems,
+    //     'ShippingZone Air : '.$shippingZone_air,
+    //     '',
+    //     '',
+    //     'Criteria : Shipping -> +7% vat',
+    //     'Criteria : Insurance -> +7% vat if more than 550 thb',
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_th :'.number_format($shipCost_TH),
+    //     'TH_insurance : '.number_format($TH_insurance),
+    //     'Total_TH: '.number_format($total_TH),
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_ems :'.number_format($shipCost_EMS),
+    //     'EMS_insurance: '.number_format($EMS_insurance),
+    //     'Total_EMS: '.number_format($total_EMS),
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_air :'.number_format($shipCost_Air),
+    //     'Air_insurance: '.number_format($Air_insurance),
+    //     'Total_Air: '.number_format($total_Air),
+    // );
+
+    //     $nonFullBox);
+  
+    // var_dump(
+    //     '',
+    //     '',
+    //     'ShippingZone EMS : '.$shippingZone_ems,
+    //     'Max Rate : '.$maxrate,
+    //     'Total Weight (g): '.$totalWeight,
+    //     'ShippingBox : '.$shippingBoxes,
+    //     'FullBox : '.$fullBox,
+    //     'nonFullBox : '.$nonFullBox,
+    //     // 'nonFullBox Weight (g) : '.$nonFullBoxWeight,
+    //     // 'nonFullBox PriceIndex : '.$nonFullBoxPriceIndex,
+    //     'Total Shipcost EMS : '.$shipCost_EMS
+    // );
+
+    // dd(
+    //     'ShippingZone EMS : '.$shippingZone_ems,
+    //     'ShippingZone Air : '.$shippingZone_air,
+    //     'Max Rate : '.$maxrate,
+    //     'Total Weight (g): '.$totalWeight,
+    //     'ShippingBox : '.$shippingBoxes,
+    //     'FullBox : '.$fullBox,
+    //     'nonFullBox : '.$nonFullBox,
+    //     'nonFullBox Weight (g) : '.$nonFullBoxWeight,
+    //     'nonFullBox PriceIndex : '.$nonFullBoxPriceIndex_air,
+    //     'nonFullBox Air : '.$shipPricenonFullBox_air,
+    //     'Total Shipcost EMS : '.$shipCost_EMS,
+    //     'Total Shipcost Air : '.$shipCost_Air
+    // );
+
+
             return view('checkout.step2',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
@@ -465,7 +575,7 @@ if($nonFullCubicBoxCubic<>0){
                 'EMS_insurance'=>$EMS_insurance,
                 'Air_insurance'=>$Air_insurance,
                 // 'Ship_boxes'=>$box_info,
-            ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
+            ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher'));
     }    
 
     public function chkout_step3(Request $request){
@@ -524,29 +634,23 @@ if($nonFullCubicBoxCubic<>0){
         $this->baseDiscount($subtotalPrice);
         $dispercent =0;
 
-//// voucher dis new
+/// voucher discount 
         $apply_voucher=$request->apply_voucher;
-        $vvalid=$request->vvalid;
-
         $voucher = Voucher::query()
                 ->where(['code'=>$apply_voucher])
                 ->first();
-
-        if($vvalid){
+        if(!empty($voucher)){
             $vdis_percent=$voucher->discount_percent/100;
-                if($this->b_discount['cal'] > $vdis_percent){
-                    $dispercent = $this->b_discount['percent'];
-                } else {
-                    $dispercent = ($voucher->discount_percent).'%';
-                }
+
+            if($this->b_discount['cal'] > $vdis_percent){
+                $dispercent = $this->b_discount['percent'];
+            } else {
+                $dispercent = ($voucher->discount_percent).'%';
+            }
+
         } else {
             $vdis_percent=0;
         }
-
-    ///// decrease voucher from dbs
-        Voucher::where(['code'=>$apply_voucher])
-        ->decrement('qty',1);    
-
 
         $dis_percent= max($this->b_discount['cal'],$vdis_percent);
         $baseDis_amt = $dis_percent * $subtotalPrice;
@@ -635,7 +739,7 @@ if($nonFullCubicBoxCubic<>0){
                     'ship_id'=>$user->id,
                     'boxes'=>$box_info,
                     'boxcount'=>$shippingBoxes,
-                    'vc'=>$voucher->code
+                    
                 ];
 
             if ($R_chkouttype == "paynow" ){

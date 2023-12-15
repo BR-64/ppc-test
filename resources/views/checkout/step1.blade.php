@@ -1,6 +1,5 @@
 <x-app-layout>
-    <div class="pccoll">
-
+    <div class="pccollc">
         <h1 class="pagehead2">Checkout Summary</h1>
         {{-- <h2 class ="pprice">Order Type : [{{$ordertype}}]</h2> --}}
         {{-- <p>OrderNumber #{{$paydata['order_id']}}</p> --}}
@@ -13,8 +12,8 @@
                 }
             }
         }" class="">
-        <div class=" grid grid-cols-1 md:grid-cols-3 gap-6 items-start blacktext">
-            <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start blacktext">
+            <div class="bg-white p-3 shadow rounded-lg md:col-span-3">
                 <form x-data="{
                     countries: {{ json_encode($countries) }},
                     billingAddress: {{ json_encode([
@@ -49,27 +48,62 @@
                     }
                 }" action="{{ route('profile.update') }}" method="post">
                     @csrf
+                    <h2 class="text-xl font-semibold mb-2">Customer Details</h2>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <x-input
+                            type="text"
+                            name="first_name"
+                            value="{{old('first_name', $customer->first_name)}}"
+                            placeholder="First Name"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                        <x-input
+                            type="text"
+                            name="last_name"
+                            value="{{old('last_name', $customer->last_name)}}"
+                            placeholder="Last Name"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <x-input
+                            type="text"
+                            name="email"
+                            value="{{old('email', $user->email)}}"
+                            placeholder="Your Email"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                    </div>
                     <div class="mb-3">
                         <x-input
                             type="text"
                             name="phone"
                             value="{{old('phone', $customer->phone)}}"
-                            placeholder="Your Phone Number"
+                            placeholder="Your Phone"
                             class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
-{{-- //// billing section --}}
-            <h3 style="text-align: start">Billing</h3>
-                <div class="chksum">
                     <div class="mb-3">
                         <x-input
                             type="text"
-                            name="company_name"
-                            value="{{old('company_name', $user->company_name)}}"
+                            name="customer_name"
+                            value="{{old('customer_name', $customer->customer_name)}}"
                             placeholder="customer / company name"
                             class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
+                    <div class="mb-3">
+                        <x-input
+                            type="text"
+                            name="customer_taxid"
+                            value="{{old('customer_taxid', $customer->customer_taxid)}}"
+                            placeholder="Tax id"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                    </div>
+
+                    <h2 class="text-xl mt-6 font-semibold mb-2">Billing Address</h2>
+                    {{-- <div> --}}
                         <x-input
                         type="text"
                         name="billing[address1]"
@@ -77,6 +111,8 @@
                         placeholder="Address row 1"
                         class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
+                    {{-- </div> --}}
+                    {{-- <div> --}}
                         <x-input
                         type="text"
                         name="billing[address2]"
@@ -84,8 +120,11 @@
                         placeholder="Address row 2"
                         class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
-                </br>
+                    {{-- </div> --}}
                     <div class="grid grid-cols-2 gap-3 mb-3">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        {{-- <div> --}}
                             <x-input
                                 type="text"
                                 name="billing[city]"
@@ -93,6 +132,8 @@
                                 placeholder="City"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
+                        {{-- </div> --}}
+                        {{-- <div> --}}
                             <x-input
                                 type="text"
                                 name="billing[zipcode]"
@@ -100,8 +141,10 @@
                                 placeholder="ZipCode"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
+                        {{-- </div> --}}
                     </div>
-
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div>
                             <x-input type="select"
                                      name="billing[country_code]"
                                      x-model="billingAddress.country_code"
@@ -112,75 +155,96 @@
                                             :value="country.code" x-text="country.name"></option>
                                 </template>
                             </x-input>
-                </div>
-            </br>
-{{-- //// shipping section --}}
-                <div class="chksum">
-                    <label for="sameAsBillingAddress" class="text-gray-700">
-                        <input @change="$event.target.checked ? shippingAddress = {...billingAddress} : ''"
-                               id="sameAsBillingAddress" type="checkbox"
-                               class="text-purple-600 focus:ring-purple-600 mr-2"> Same as Billing
-                    </label>
-                </div>
-                <div class="grid grid-cols-2 gap-3 mb-3">
-                    <div>
-                        <x-input
-                            type="text"
-                            name="shipping[address1]"
-                            x-model="shippingAddress.address1"
-                            placeholder="Address 1"
-                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                        />
+                        </div>
                     </div>
-                    <div>
-                        <x-input
-                            type="text"
-                            name="shipping[address2]"
-                            x-model="shippingAddress.address2"
-                            placeholder="Address 2"
-                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                        />
+
+                    <h2 class="text-xl font-semibold">Shipping Address</h2>
+                    <div class="flex justify-between mt-6 mb-2">
+                        <label for="sameAsBillingAddress" class="text-gray-700">
+                            <input @change="$event.target.checked ? shippingAddress = {...billingAddress} : ''"
+                                   id="sameAsBillingAddress" type="checkbox"
+                                   class="text-purple-600 focus:ring-purple-600 mr-2"> Same as Billing
+                        </label>
                     </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3 mb-3">
-                    <div>
-                        <x-input
-                            type="text"
-                            name="shipping[city]"
-                            x-model="shippingAddress.city"
-                            placeholder="City"
-                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                        />
+                            <x-input
+                                type="text"
+                                name="shipping[address1]"
+                                x-model="shippingAddress.address1"
+                                placeholder="Address 1"
+                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                            />
+                            <x-input
+                                type="text"
+                                name="shipping[address2]"
+                                x-model="shippingAddress.address2"
+                                placeholder="Address row 2"
+                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                            />
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <x-input
+                                type="text"
+                                name="shipping[city]"
+                                x-model="shippingAddress.city"
+                                placeholder="City"
+                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                            />
+                        </div>
+                        <div>
+                            <x-input
+                                name="shipping[zipcode]"
+                                x-model="shippingAddress.zipcode"
+                                type="text"
+                                placeholder="ZipCode"
+                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <x-input
-                            name="shipping[zipcode]"
-                            x-model="shippingAddress.zipcode"
-                            type="text"
-                            placeholder="ZipCode"
-                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                        />
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3 mb-3">
-                    <div>
-                        <x-input type="select"
-                                 name="shipping[country_code]"
-                                 x-model="shippingAddress.country_code"
-                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
-                            <option value="">Select Country</option>
-                            <template x-for="country of countries" :key="country.code">
-                                <option :selected="country.code === shippingAddress.country_code"
-                                        :value="country.code" x-text="country.name"></option>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <x-input type="select"
+                                     name="shipping[country_code]"
+                                     x-model="shippingAddress.country_code"
+                                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
+                                <option value="">Select Country</option>
+                                <template x-for="country of countries" :key="country.code">
+                                    <option :selected="country.code === shippingAddress.country_code"
+                                            :value="country.code" x-text="country.name"></option>
+                                </template>
+                            </x-input>
+                        </div>
+                        <div>
+                            {{-- <template x-if="shippingCountryStates">
+                                <x-input type="select"
+                                         name="shipping[state]"
+                                         x-model="shippingAddress.state"
+                                         class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
+                                    <option value="">Select State</option>
+                                    <template x-for="[code, state] of Object.entries(shippingCountryStates)"
+                                              :key="code">
+                                        <option :selected="code === shippingAddress.state"
+                                                :value="code" x-text="state"></option>
+                                    </template>
+                                </x-input>
                             </template>
-                        </x-input>
+                            <template x-if="!shippingCountryStates">
+                                <x-input
+                                    type="text"
+                                    name="shipping[state]"
+                                    x-model="shippingAddress.state"
+                                    placeholder="State"
+                                    class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                                />
+                            </template> --}}
+                        </div>
                     </div>
-                </div>
-            </br>
-            <x-button class="w-full">Update</x-button>
-        </form>
-    </div>
-</div>
+
+                    <x-button class="w-full">Update</x-button>
+                </form>
+            </div>
+
+            </div>
+        </div>
 </br>
 
 {{-- /// order detail section --}}
@@ -205,16 +269,20 @@
             <hr class="my-3"/>
             @endforeach
     
-                <h3 class="chksumtotal">{{$totalpriceShow}}</h3>
+            <h3 class="subtotal">{{$subtotal}}</h3>
+                <h2 class="discount">[Discount {{$dis_percent}}] -  {{$baseDis_amt}}</h2>
+                <h3 class="chksumtotal"> {{$totalpriceShow}}</h3>
                 
         </div>
     </br>
-
-    </div>
-    <a href="{{ route('checkout.step2') }}">
+    {{-- <a href="{{ route('checkout.step2') }}">
         <x-button>Step 2 : Shipping Calculation</x-button>
-    </a>
-{{-- </form> --}}
+    </a> --}}
+    <form action="{{ route('checkout.step2') }}">
+        <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}">
+        <input type="hidden" name="vvalid" value="{{$vvalid}}">
+        <x-button>Step 2 : Shipping Calculation</x-button>
+    </form>
 </div>
 
 

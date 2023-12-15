@@ -18,8 +18,8 @@ class CartController extends Controller
     {
         $apply_voucher=0;
         $vcheck='* plese input voucher';
-
         $vdis_percent=0;
+        $vvalid=0;
 
         list($products, $cartItems) = Cart::getProductsAndCartItems();
         $total = 0;
@@ -38,7 +38,7 @@ class CartController extends Controller
         // print_r($rtStock);
         // dd($rtStock);
 
-        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','vdis_percent','apply_voucher','vcheck'));
+        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','vdis_percent','apply_voucher','vcheck','vvalid'));
     }
 
     public function voucher(Request $request){
@@ -47,19 +47,32 @@ class CartController extends Controller
         $voucher_discount = 0;
         $vdis_percent=0;
         $vcheck='* plese input voucher';
+        $vvalid=0;
 
         $voucher = Voucher::query()
         ->where(['code'=>$apply_voucher])
         ->first();
 
-        if(!empty($voucher)){
-            $vdis_percent=$voucher->discount_percent/100;
-            $vcheck='✔️ voucher is valid';
-        } else{
-            $vcheck='❌ voucher not valid';
-        }
-        
-        // $voucher=$voucher->discount_percent;
+        $vvqty = $voucher->qty;
+        $vvdate = strtotime($voucher->valid_until);
+        $todaydate=date('ymd');
+        // dd(date('ymd'));
+        // dd($vvdate < $todaydate);
+
+        ///// check voucher input
+            if(!empty($voucher)){
+                if($vvqty > 0 and $vvdate < $todaydate){
+                    $voucher_discount=$voucher->discount_percent;
+                    $vdis_percent=$voucher->discount_percent/100;
+                    $vvalid =1 ;
+                    $vcheck='✔️ voucher is valid';
+                } else {
+                    $vvalid = 0;
+                    $vcheck='❌ voucher not valid';
+                }
+            } else{
+                $vcheck='❌ voucher not valid';
+            }
 
         list($products, $cartItems) = Cart::getProductsAndCartItems();
         $total = 0;
@@ -69,7 +82,7 @@ class CartController extends Controller
 
             $rtStock[$product['item_code']]=(int)Product::realtimeStock($product['item_code']);}
 
-        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','voucher','vdis_percent','vcheck','apply_voucher'));
+        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','voucher','voucher_discount','vdis_percent','vcheck','apply_voucher','vvalid'));
     }
 
     public function add(Request $request, Product $product)
