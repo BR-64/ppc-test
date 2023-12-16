@@ -643,6 +643,7 @@ header {
   height: 250px;
   padding: 1% 0;
   margin: auto;
+  cursor: zoom-in;
 }
 
 .pgallpicthumb {

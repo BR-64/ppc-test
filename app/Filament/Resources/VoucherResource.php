@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\CustomerResource\RelationManagers\OrderRelationManager;
 use App\Filament\Resources\VoucherResource\Pages;
 use App\Filament\Resources\VoucherResource\RelationManagers;
+use App\Filament\Resources\VoucherResource\RelationManagers\OrdersRelationManager;
 use App\Models\Voucher;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -70,6 +72,7 @@ class VoucherResource extends Resource
     public static function getRelations(): array
     {
         return [
+            OrdersRelationManager::class
             //
         ];
     }
@@ -77,10 +80,10 @@ class VoucherResource extends Resource
     public static function getPages(): array
     {
         return [
-            // 'index' => Pages\ListVouchers::route('/'),
+            'index' => Pages\ListVouchers::route('/'),
             // 'create' => Pages\CreateVoucher::route('/create'),
             // 'edit' => Pages\EditVoucher::route('/{record}/edit'),
-            'index' => Pages\ManageVouchers::route('/'),
+            // 'index' => Pages\ManageVouchers::route('/'),
 
         ];
     }    

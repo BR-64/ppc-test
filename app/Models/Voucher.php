@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
@@ -15,6 +16,11 @@ class Voucher extends Model
     public function getRouteKeyName()
     {
         return 'id';
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class,'vc','id');
     }
     
 }

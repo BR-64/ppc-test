@@ -51,4 +51,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function voucher(): BelongsTo
+    {
+        return $this->belongsTo(Voucher::class,'vc');
+    }
 }

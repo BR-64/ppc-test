@@ -308,8 +308,7 @@ class CheckoutController extends Controller
                     ->get();
         
     // $scdate=date('Ymd');
-    // $scdate="20241220";
-        $scdate=date('Y-m-d', strtotime('+1 year'));
+        $scdate="20241220";
 
     ///// random no duplicate
         // $r=range(1,100);
@@ -322,10 +321,9 @@ class CheckoutController extends Controller
        
     /////// order items data
         $sa_detail=[];
-            foreach ($Items as $Item => $value){
+            foreach ($Items as $Item=>$value){
                 $sa_detail[]=[
                     'item_code'=>$value->product->item_code,
-                    // 'item_code'=>$item->product->item_code,
                     'unit_code'=>'PCS',
                     'qty'=>$value->quantity,
                     'unit_price'=>$value->product->retail_price,
@@ -383,8 +381,8 @@ class CheckoutController extends Controller
                 "discount_amt"=>"0",
                 "ref1"=>$ref1,
             ]);
-        array_push($sa_detail,$shipping_sc,$insurance_sc);
-        // array_push($item_sc_test,$shipping_sc,$insurance_sc);
+        // array_push($sa_detail,$shipping_sc,$insurance_sc);
+        array_push($item_sc_test,$shipping_sc,$insurance_sc);
 
         // var_dump($sa_details);        
         // dd($sa_details);        

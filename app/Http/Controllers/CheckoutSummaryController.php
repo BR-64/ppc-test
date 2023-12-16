@@ -635,7 +635,7 @@ if($nonFullCubicBoxCubic<>0){
                     'ship_id'=>$user->id,
                     'boxes'=>$box_info,
                     'boxcount'=>$shippingBoxes,
-                    'vc'=>$voucher->code
+                    'vc'=>$voucher->id
                 ];
 
             if ($R_chkouttype == "paynow" ){
