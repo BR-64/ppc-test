@@ -42,7 +42,6 @@ class VoucherResource extends Resource
                     ->required(),
                 Forms\Components\DatePicker::make('valid_until')
                     ->required()
-                    ->unique(),
 
                 //
             ]);
