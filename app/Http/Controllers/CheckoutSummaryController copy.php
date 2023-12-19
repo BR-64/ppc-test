@@ -779,6 +779,7 @@ if($nonFullCubicBoxCubic<>0){
 
         CartItem::where(['user_id' => $user->id])->delete();
 
+
         // send email to user/admin
         // $adminUsers = User::where('is_admin', 1)->get();
         // foreach ([...$adminUsers, $order->user] as $user) {

@@ -331,7 +331,7 @@ class CheckoutController extends Controller
                     'qty'=>$value->quantity,
                     'unit_price'=>$value->product->retail_price,
                     // 'discount_amt'=>0
-                    'discount_amt'=>($Order->discount_percent/100)*($value->product->retail_price)
+                    'discount_amt'=>($Order->discount_percent/100)*($value->product->retail_price)*$value->quantity
 
                 ];
         }
