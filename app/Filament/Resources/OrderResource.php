@@ -12,6 +12,7 @@ use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -78,6 +79,7 @@ class OrderResource extends Resource
                     //     'preparing' => 'preparing',
                     //     'shippped' => 'shippped',
                     // ])
+                    TextInput::make('vc')->label('voucher')
                 ])->columns(3),
                
 
@@ -101,6 +103,9 @@ class OrderResource extends Resource
                         TextInput::make('insurance'),
                         TextInput::make('boxcount'),
                         TextInput::make('tracking'),
+                        KeyValue::make('boxes')
+                            // ->disabled(),
+                        
                     ]),
                     Fieldset::make('Customer Info')
                     ->relationship('customer')

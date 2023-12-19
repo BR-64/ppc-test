@@ -308,9 +308,9 @@ class CheckoutController extends Controller
                     ->get();
         
     // $scdate=date('Ymd'); /// for real use
-    $scdate=date('Y-m-d');  /// for error test
+    // $scdate=date('Y-m-d');  /// for error test
     // $scdate="20241220"; /// for test
-        // $scdate=date('Ymd', strtotime('+1 year'));  /// for test
+        $scdate=date('Ymd', strtotime('+1 year'));  /// for test
 
     ///// random no duplicate
         // $r=range(1,100);
@@ -404,7 +404,7 @@ class CheckoutController extends Controller
 
         /// check if sc sent completed
             if ($dataEnpro['str_return']=="success"){
-                Order::where('id',$OrderId)->updat(['enpro_doc'=>$enpro_doc]);    
+                Order::where('id',$OrderId)->update(['enpro_doc'=>$enpro_doc]);    
 
                 // return back()->withSuccess('SC created Done !');
                 echo nl2br ("\n \n SC created ! \n");
