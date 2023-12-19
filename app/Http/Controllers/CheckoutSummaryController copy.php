@@ -739,6 +739,7 @@ if($nonFullCubicBoxCubic<>0){
                     'ship_id'=>$user->id,
                     'boxes'=>$box_info,
                     'boxcount'=>$shippingBoxes,
+                    'vc'=>$apply_voucher,
                     
                 ];
 
