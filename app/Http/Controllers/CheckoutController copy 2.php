@@ -327,11 +327,10 @@ class CheckoutController extends Controller
                     'unit_code'=>'PCS',
                     'qty'=>$value->quantity,
                     'unit_price'=>$value->product->retail_price,
-                    'discount_amt'=>0
                 ];
         }
 
-        // dd($sa_detail);        
+        dd($sa_detail);        
         
         $shipping_sc=[
             'item_code'=>'002',

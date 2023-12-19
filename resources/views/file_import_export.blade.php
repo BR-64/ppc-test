@@ -65,7 +65,7 @@
 					</button>
 				</form>
 		    	
-
+				<button onclick="history.go(-1);">Back to Admin </button>
 		    	{{-- <h3>Import File From Database:</h3>
 
 		    	<div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;"> 		

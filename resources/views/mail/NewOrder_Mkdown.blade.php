@@ -29,7 +29,7 @@ Link to your order : #{{$order->id}}
 |  |  |
 |--|--|
 |**subtotal**| {{number_format($order['total_price'],2)}}|
-|**discount**| - {{number_format($order['discount_base'],2)}}|
+|**discount**| - {{number_format($order['discount_amount'],2)}}|
 |**shipping fee**| {{number_format($order['shipping'],2)}} |
 |**insurance**| {{number_format($order['insurance'],2)}}|
 |**Total Payment (THB)**|{{number_format($order['fullprice'],2)}}|

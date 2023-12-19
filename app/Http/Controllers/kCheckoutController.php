@@ -609,7 +609,7 @@ class kCheckoutController extends Controller
         // Create Order
             $orderData = [
                     'total_price' => $subtotalPrice,
-                    'discount_base' => $baseDis_amt,
+                    'discount_amount' => $baseDis_amt,
                     'status' => OrderStatus::Unpaid,
                     'created_by' => $user->id,
                     'updated_by' => $user->id,
@@ -660,7 +660,7 @@ class kCheckoutController extends Controller
                 'orderitems'=> $orderItems,
                 'itemsprice'=> $subtotalPrice,
                 'dispercent' => $dispercent,
-                'discount_base' => $baseDis_amt,
+                'discount_amount' => $baseDis_amt,
                 'totalpayment'=> $totalpayment,
                 // 'totalpaymentShow'=> number_format($totalpayment),
                 'ordertype'=> $R_chkouttype,

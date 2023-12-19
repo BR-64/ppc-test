@@ -102,7 +102,8 @@ class CheckoutSummaryController extends Controller
 
         $this->b_discount=[
             'cal'=>$basediscount,
-            'percent'=>$dispercent
+            'percent'=>$dispercent,
+            'percent_value'=>$basediscount*100
         ];
 
         return $this->b_discount;
@@ -210,6 +211,8 @@ class CheckoutSummaryController extends Controller
         $countries = Country::query()->orderBy('name')->get();
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
+
+        // dd($shipcountry);
 
         $orderItems = [];
         $lineItems = [];
@@ -448,6 +451,8 @@ if($nonFullCubicBoxCubic<>0){
     $total_EMS = $subtotalPrice+$shipCost_EMS+$EMS_insurance;
     $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
+    // dd($shipCost_EMS, $EMS_insurance, $shipCost_Air,$Air_insurance );
+
             return view('checkout.step2',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
@@ -521,12 +526,14 @@ if($nonFullCubicBoxCubic<>0){
         }
 
 /// base discount cal
-        $this->baseDiscount($subtotalPrice);
         $dispercent =0;
+        $this->baseDiscount($subtotalPrice);
+        $dispercent_v = $this->b_discount['percent_value'];
 
 //// voucher dis new
         $apply_voucher=$request->apply_voucher;
         $vvalid=$request->vvalid;
+        $vid =0;
 
         $voucher = Voucher::query()
                 ->where(['code'=>$apply_voucher])
@@ -536,8 +543,11 @@ if($nonFullCubicBoxCubic<>0){
             $vdis_percent=$voucher->discount_percent/100;
                 if($this->b_discount['cal'] > $vdis_percent){
                     $dispercent = $this->b_discount['percent'];
+                    
                 } else {
                     $dispercent = ($voucher->discount_percent).'%';
+                    $dispercent_v = ($voucher->discount_percent);
+                    $vid = $voucher->id;
                 }
         } else {
             $vdis_percent=0;
@@ -624,7 +634,7 @@ if($nonFullCubicBoxCubic<>0){
         // Create Order
             $orderData = [
                     'total_price' => $subtotalPrice,
-                    'discount_base' => $baseDis_amt,
+                    'discount_amount' => $baseDis_amt,
                     'status' => OrderStatus::Unpaid,
                     'created_by' => $user->id,
                     'updated_by' => $user->id,
@@ -635,8 +645,11 @@ if($nonFullCubicBoxCubic<>0){
                     'ship_id'=>$user->id,
                     'boxes'=>$box_info,
                     'boxcount'=>$shippingBoxes,
-                    'vc'=>$voucher->id
+                    'vc'=>$vid,
+                    'discount_percent'=>$dispercent_v
                 ];
+
+// dd($orderData);
 
             if ($R_chkouttype == "paynow" ){
             // $orderData = ['status' => OrderStatus::Unpaid];
@@ -689,7 +702,7 @@ if($nonFullCubicBoxCubic<>0){
                 'orderitems'=> $orderItems,
                 'itemsprice'=> $subtotalPrice,
                 'dispercent' => $dispercent,
-                'discount_base' => $baseDis_amt,
+                'discount_amount' => $baseDis_amt,
                 'totalpayment'=> $totalpayment,
                 // 'totalpaymentShow'=> number_format($totalpayment),
                 'ordertype'=> $R_chkouttype,

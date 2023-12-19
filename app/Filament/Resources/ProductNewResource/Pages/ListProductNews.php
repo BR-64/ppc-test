@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ProductNewResource\Pages;
 
 use App\Filament\Resources\ProductNewResource;
 use Filament\Pages\Actions;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 
 class ListProductNews extends ListRecords
@@ -13,7 +14,9 @@ class ListProductNews extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Action::make('upload products')
+            ->icon('heroicon-s-cog')
+            ->url(route('import.products'))
         ];
     }
 }

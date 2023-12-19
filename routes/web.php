@@ -101,7 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
     Route::post('/order-payment/{order}', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
-    Route::get('/testCreateSC/{OrderId}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
+    // Route::get('/testCreateSC/{OrderId}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
 
 
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
@@ -197,7 +197,7 @@ Route::post('/t_discount',[CheckoutSummaryController::class, 'test_Discount'])->
 // Route::group(['middleware' => 'Admin'], function () {
 Route::middleware(['admin'])->group(function () {
 
-    Route::get('p_upload',[FileControllerDemo::class,'importExport']);
+    Route::get('p_upload',[FileControllerDemo::class,'importExport'])->name('import.products');
     // Route::get('join',[FileControllerDemo::class,'addUploadToMaster']);
     
     //// fileupload
@@ -207,7 +207,7 @@ Route::middleware(['admin'])->group(function () {
 
 //// stock data
     Route::get('/productstock/{product:item_code}', [pProductController::class, 'stockTest'])->name('product.view_test');
-    Route::get('/getsstocksdata', [pProductController::class, 'updateStockEnpro_v2']);
+    Route::get('/getsstocksdata', [pProductController::class, 'updateStockEnpro_v2'])->name('product.updatestock_enpro');
 
     Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.getalldata');
 

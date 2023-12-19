@@ -25,7 +25,7 @@ header("Pragma: no-cache");
         </tr>
         <tr>
             <td>Discount {{$dispercent}} :  </td>
-            <td class='text-right'> - {{number_format($discount_base)}}</td>
+            <td class='text-right'> - {{number_format($discount_amount)}}</td>
         </tr>
         <tr class="underline">
             <td>Shipping Cost : </td>

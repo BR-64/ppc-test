@@ -58,7 +58,7 @@ class OrderResource extends Resource
                     //     $component->state(str_replace(".",",",$state));
                     // })
                     ,
-                    TextInput::make('discount_base')->label('discount')
+                    TextInput::make('discount_amount')->label('discount')
                     ->Mask(
                         fn (TextInput\Mask $mask) => $mask
                             ->patternBlocks([
@@ -181,7 +181,7 @@ class OrderResource extends Resource
                 ->label('Quantity')
                 ->sum('items','quantity'),
                 Tables\Columns\TextColumn::make('total_price')->label('item price'),
-                Tables\Columns\TextColumn::make('discount_base')->label('discount'),
+                Tables\Columns\TextColumn::make('discount_amount')->label('discount'),
                 Tables\Columns\TextColumn::make('fullprice')->label('net'),
                 Tables\Columns\TextColumn::make('status')->sortable(),
                 //

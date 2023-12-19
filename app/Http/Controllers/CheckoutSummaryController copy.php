@@ -728,7 +728,7 @@ if($nonFullCubicBoxCubic<>0){
         // Create Order
             $orderData = [
                     'total_price' => $subtotalPrice,
-                    'discount_base' => $baseDis_amt,
+                    'discount_amount' => $baseDis_amt,
                     'status' => OrderStatus::Unpaid,
                     'created_by' => $user->id,
                     'updated_by' => $user->id,
@@ -793,7 +793,7 @@ if($nonFullCubicBoxCubic<>0){
                 'orderitems'=> $orderItems,
                 'itemsprice'=> $subtotalPrice,
                 'dispercent' => $dispercent,
-                'discount_base' => $baseDis_amt,
+                'discount_amount' => $baseDis_amt,
                 'totalpayment'=> $totalpayment,
                 // 'totalpaymentShow'=> number_format($totalpayment),
                 'ordertype'=> $R_chkouttype,

@@ -146,10 +146,8 @@
         <form x-data="{ship:''}" action="{{route('checkout.step3')}}" method="post">
             <div class="chksum summarytable">
                 <p class="underline">Shipping Method</p>
-                    {{-- <p>{{$ship_th}}</p> --}}
                 <div x-show="{{$ship_th}} > 0">
                         <input type="radio" id="TH" name="Shipcost" value="{{$ship_th}}|TH EMS" x-model='ship' required>
-                        {{-- <input type="radio" id="TH" name="Shipcost" value="100000,'EMS'" x-model='ship' required> --}}
                         <label for="EMS">Domestic : THB {{number_format($ship_th)}}</label>
                     </br>
                 </div>
@@ -165,6 +163,10 @@
                         <label for="Pickup">Pickup at Store / Use customer's own shipping : free of charge</label>
 
             </div>
+            {{-- <p>{{$TH_insurance}}</p>
+            <p>{{$EMS_insurance}}</p>
+            <p>{{$Air_insurance}}</p>
+            <span x-text="ship"></span> --}}
             <div class="chksum summarytable">
                 <p class="underline">Shipping Insurance </p>
                     {{-- <div x-show="{{$ship_th}} > 0">
@@ -172,14 +174,15 @@
                         <label for="TH_insurance">Buy Insurance : thb {{number_format($TH_insurance)}}</label>
                     </br>
                     </div> --}}
-                    <div x-show="{{$ship_ems}} > 0">
-                        <div x-show="ship == {{$ship_ems}}">
+                    <div>
+                        {{-- <div x-show="ship == {{$ship_ems}}"> --}}
+                        <div x-show="ship == '{{$ship_ems}}|EMS'">
                             <input type="radio" id="Buy_insurance_EMS" name="Insurance" value="{{$EMS_insurance}}" required >
                             <label for="EMS">Buy Insurance : THB {{number_format($EMS_insurance)}}</label>
                         </div>
-                    </br>
-                        <div x-show="ship == {{$ship_air}}">
-                            <input x-show="ship == {{$ship_air}}" type="radio" id="Buy_insurance_Air" name="Insurance" value="{{$Air_insurance}}" >
+                    </br>                    
+                        <div x-show="ship == '{{$ship_air}}|AIR'">
+                            <input type="radio" id="Buy_insurance_Air" name="Insurance" value="{{$Air_insurance}}" >
                             <label for="Buy_insurance_Air">Buy Insurance : THB {{number_format($Air_insurance)}}</label>
                         </div>
                     </div>

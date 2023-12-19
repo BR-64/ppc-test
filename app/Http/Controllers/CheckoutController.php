@@ -307,14 +307,15 @@ class CheckoutController extends Controller
                     ->where(['order_id' => $OrderId])
                     ->get();
         
-    // $scdate=date('Ymd');
-    // $scdate="20241220";
-        $scdate=date('Y-m-d', strtotime('+1 year'));
+    // $scdate=date('Ymd'); /// for real use
+    $scdate=date('Y-m-d');  /// for error test
+    // $scdate="20241220"; /// for test
+        // $scdate=date('Ymd', strtotime('+1 year'));  /// for test
 
     ///// random no duplicate
         // $r=range(1,100);
         // shuffle($r);
-        $ref1='WB'.rand(1,100);
+        $enpro_doc='WB'.rand(1,100);
 
     ////////// order data
         $shipping_cost=$Order['shipping'];
@@ -329,7 +330,9 @@ class CheckoutController extends Controller
                     'unit_code'=>'PCS',
                     'qty'=>$value->quantity,
                     'unit_price'=>$value->product->retail_price,
-                    'discount_amt'=>0
+                    // 'discount_amt'=>0
+                    'discount_amt'=>($Order->discount_percent/100)*($value->product->retail_price)
+
                 ];
         }
 
@@ -350,15 +353,6 @@ class CheckoutController extends Controller
             'unit_price'=>$insure_cost,
             'discount_amt'=>0
         ];
-
-        // $item_sc=[
-        //     'item_code'=>$Item->product->item_code,
-        //     'unit_code'=>'PCS',
-        //     'qty'=>$qty,
-        //     'unit_price'=>$retail_price,
-        //     // 'discount_amt'=>$discount
-        //     'discount_amt'=>0
-        // ];
         
         $item_sc_test=[
             'item_code'=>"R34OBM859V89",
@@ -368,11 +362,6 @@ class CheckoutController extends Controller
             'discount_amt'=>20
         ];
 
-        // {"item_code":"R34OBM897V89","unit_code":"PCS","qty":"1","unit_price":"500","discount_amt":""}
-        // ,{"item_code":"R34OBM859V89","unit_code":"PCS","qty":"1","unit_price":"2000","discount_amt":""}
-        // ,{"item_code":"003","unit_code":"BAHT","qty":"1","unit_price":"550","discount_amt":"0"},{"item_code":"002","unit_code":"BAHT","qty":"1","unit_price":"1263","discount_amt":"0"}
-
-
         $ch = curl_init();                    // Initiate cURL
         $url = "http://1.1.220.113:7000/PrempApi.asmx/createSC"; // Where you want to post data
 
@@ -381,34 +370,11 @@ class CheckoutController extends Controller
                 "doc_date"=>$scdate,
                 "vat_rate"=>"7",
                 "discount_amt"=>"0",
-                "ref1"=>$ref1,
+                "ref1"=>$enpro_doc,
             ]);
         array_push($sa_detail,$shipping_sc,$insurance_sc);
         // array_push($item_sc_test,$shipping_sc,$insurance_sc);
 
-        // var_dump($sa_details);        
-        // dd($sa_details);        
-
-        // $sa_detail=array(
-        //     $item_sc_test,
-        //     $item_sc_test2,
-        //     $shipping_sc,
-        //     $insurance_sc,
-        // );
-
-
-        // $sc_payload=array(
-        //     "sa_header"=>[
-        //         $sa_header
-        //     ],
-        //     "sa_detail"=>[
-        //         // $items,$shipping_sc,$insurance_sc
-        //         $item_sc_test
-        //         ]
-        //     );
-
-        // $sc_json=json_encode($sc_payload);
-        // print_r($sc_json);
 
         $sah_json=json_encode($sa_header);
         $sad_json=json_encode($sa_detail);
@@ -429,10 +395,29 @@ class CheckoutController extends Controller
 
         $output = curl_exec ($ch); // Execute 
         curl_close ($ch); // Close cURL handle
-        
-        var_dump($output); // Show output
 
-        // return response()->json(['Message'=>'status code 200 ok'], 200);
+        //// update sc number in web order data
+        
+        preg_match('#(?<=\[{)(.*?)(?=\}])#', $output,$match);
+        $mjson = "{".$match[1]."}"; /// make output to json format
+        $dataEnpro=json_decode($mjson,true);
+
+        /// check if sc sent completed
+            if ($dataEnpro['str_return']=="success"){
+                Order::where('id',$OrderId)->updat(['enpro_doc'=>$enpro_doc]);    
+
+                // return back()->withSuccess('SC created Done !');
+                echo nl2br ("\n \n SC created ! \n");
+
+
+            } else {
+                echo nl2br ("\n \n Error in creating SC \n");
+            }
+
+        var_dump($output);
+
+
+		// return back()->withSuccess('UPload Done !');
     }
 
     public function checkoutOrder_K(Order $order, Request $request)

@@ -4,8 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StockResource\Pages;
 use App\Filament\Resources\StockResource\RelationManagers;
+use App\Models\Product;
 use App\Models\Stock;
 use Filament\Forms;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -35,12 +37,16 @@ class StockResource extends Resource
                 TextColumn::make('item_code')->sortable()->searchable(),
                 TextColumn::make('stock')->sortable(),
                 TextColumn::make('updated_at')->sortable(),
+    //             TextColumn::make('title')
+    // ->url(fn (Product $item_code): string => route('shopf', ['product' => $item_code]))
                 //
             ])
             ->filters([
                 //
             ])
             ->actions([
+                // Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -63,4 +69,5 @@ class StockResource extends Resource
             'edit' => Pages\EditStock::route('/{record}/edit'),
         ];
     }    
+
 }

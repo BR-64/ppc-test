@@ -55,13 +55,16 @@ class CartController extends Controller
 
         $vvqty = $voucher->qty;
         $vvdate = strtotime($voucher->valid_until);
-        $todaydate=date('ymd');
-        // dd(date('ymd'));
-        // dd($vvdate < $todaydate);
+        // $todaydate=date('ymd');
+        $todaydate=strtotime(date('ymd'));
+
+        // dd($todaydate,$vvdate);
+        // print_r($vvdate < $todaydate);
+        // echo($vvdate > $todaydate);
 
         ///// check voucher input
             if(!empty($voucher)){
-                if($vvqty > 0 and $vvdate < $todaydate){
+                if($vvqty > 0 and $vvdate > $todaydate){
                     $voucher_discount=$voucher->discount_percent;
                     $vdis_percent=$voucher->discount_percent/100;
                     $vvalid =1 ;

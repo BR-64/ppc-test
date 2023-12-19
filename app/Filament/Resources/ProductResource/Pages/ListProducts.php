@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ProductResource\Pages;
 
 use App\Filament\Resources\ProductResource;
 use Filament\Pages\Actions;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 
 class ListProducts extends ListRecords
@@ -13,7 +14,11 @@ class ListProducts extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
+            Action::make('get Data from Enpro')
+            ->icon('heroicon-s-cog')
+            ->action(fn()=>redirect()-> route('product.getalldata'))
+            ->requiresConfirmation()
         ];
     }
 

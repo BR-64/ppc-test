@@ -373,6 +373,8 @@ class pProductController extends Controller
         $response = curl_exec($ch);
         curl_close($ch);
 
+        dd($response);
+
         preg_match('#\[([^]]+)\]#', $response, $match);
         // $data=json_decode($match[1],true);
 
@@ -538,6 +540,9 @@ class pProductController extends Controller
         
         $response = curl_exec($ch);
         curl_close($ch);
+
+        // dd($response);
+
         
         //// edit string -> convert to json
         preg_match('#\[([^]]+)\]#', $response, $match);
