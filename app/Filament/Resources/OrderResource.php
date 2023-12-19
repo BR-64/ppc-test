@@ -80,6 +80,7 @@ class OrderResource extends Resource
                     //     'shippped' => 'shippped',
                     // ])
                     TextInput::make('vc')->label('voucher')
+                    TextInput::make('vc')->label('enpro_doc')
                 ])->columns(3),
                
 
