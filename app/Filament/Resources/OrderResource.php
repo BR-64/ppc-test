@@ -74,14 +74,8 @@ class OrderResource extends Resource
                         ])
                         ->pattern('money')
                     ),
-                    // Select::make('shipping')
-                    // ->options([
-                    //     'preparing' => 'preparing',
-                    //     'shippped' => 'shippped',
-                    // ])
-                    TextInput::make('vc')->label('voucher')
-                    TextInput::make('vc')->label('enpro_doc')
-                ])->columns(3),
+                    TextInput::make('vc')->disabled(),
+                    TextInput::make('enpro_doc')])->columns(3),
                
 
                     Forms\Components\Fieldset::make('Shipping Info')->schema([
