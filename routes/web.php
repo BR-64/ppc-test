@@ -101,7 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
     Route::post('/order-payment/{order}', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
-    // Route::get('/testCreateSC/{OrderId}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
+    Route::get('/testCreateSC/{OrderID}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
 
 
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
@@ -212,7 +212,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/getitemsdata', [pProductController::class, 'getAllDataEnpro_v2'])->name('product.getalldata');
 
 //// create sc
-    Route::post('/createsc', [CheckoutController::class, 'createSC'])->name('order.create_sc');
+    Route::post('/createsc', [CheckoutSummaryController::class, 'createSC'])->name('order.create_sc');
 });
 
 

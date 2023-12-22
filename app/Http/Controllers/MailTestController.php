@@ -106,11 +106,11 @@ class MailTestController extends Controller
             'totalpayment'=>number_format(($order['total_price']+$order['insurance']+$order['shipping']),2)
         ];
 
-        $pdf1 = Pdf::loadView('pdf.orderinfo_test',compact('order'));
+        $pdf1 = Pdf::loadView('pdf.orderinfo',compact('order'));
         // $pdf2 = Pdf::loadView('pdf.shippingLabel',compact('order'));
         // $pdf = Pdf::loadView('pdf.shippingLabel',compact('order'));
 
-        Mail::to($this->sr_mail3)->send(new ShowroomOrderEmail($order),['mdata'=>$maildata])->addStringAttachment($pdf1->output(),'orderinfo.pdf');
+        Mail::to($this->sr_mail3)->send(new ShowroomOrderEmail($order),['mdata'=>$maildata])->AddAttachment($pdf1->output(),'orderinfo.pdf');
 
         return view('mail.email_test');
     }

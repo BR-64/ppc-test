@@ -30,13 +30,18 @@ class Order extends Model
     }
     public function bill(): BelongsTo
     {
-        return $this->belongsTo(BillingAddress::class,'bill_id');
+        return $this->belongsTo(BillingAddress::class,'bill_id','customer_id');
         // return $this->hasOne(BillingAddress::class);
     }
-    public function ship(): HasOne
+    public function ship(): BelongsTo
     {
-        return $this->hasOne(Payment::class);
+        return $this->belongsTo(ShippingAddress::class,'ship_id','customer_id');
     }
+    // public function ship(): HasOne
+    // {
+    //     // return $this->hasOne(Payment::class);
+    //     return $this->hasOne(ShippingAddress::class,'customer_id');
+    // }
 
     public function user()
     {

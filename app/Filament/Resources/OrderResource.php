@@ -40,40 +40,14 @@ class OrderResource extends Resource
                     TextInput::make('id')->label('Order Number')->disabled(),
                     TextInput::make('created_at')->disabled(),
                     Select::make('pay_method'),
-                    TextInput::make('total_price')->label('item price (incl Vat)')
-                    ->Mask(
-                        fn (TextInput\Mask $mask) => $mask
-                            ->patternBlocks([
-                                'money' => fn (Mask $mask) => $mask
-                                ->numeric()
-                                ->decimalPlaces(2)
-                                ->decimalSeparator('.')
-                                ->thousandsSeparator(',')
-                                ->mapToDecimalSeparator(['.'])
-                                ->padFractionalZeros()
-                                ->normalizeZeros(true)
-                        ])
-                        ->pattern('money')
-                    )
+                    TextInput::make('total_price')->label('item price (incl Vat)')->mask(fn (TextInput\Mask $mask) => $mask->money(prefix: '', thousandsSeparator: ',', decimalPlaces: 2)),
+                    TextInput::make('discount_amount')->label('discount')
+                    ->mask(fn (TextInput\Mask $mask) => $mask->money(prefix: '', thousandsSeparator: ',', decimalPlaces: 2)),
+                    TextInput::make('fullprice')->label('net')->mask(fn (TextInput\Mask $mask) => $mask->money(prefix: '', thousandsSeparator: ',', decimalPlaces: 2))
                     // ->afterStateHydrated(function (TextInput $component, $state) {
                     //     $component->state(str_replace(".",",",$state));
                     // })
                     ,
-                    TextInput::make('discount_amount')->label('discount')
-                    ->Mask(
-                        fn (TextInput\Mask $mask) => $mask
-                            ->patternBlocks([
-                                'money' => fn (Mask $mask) => $mask
-                                ->numeric()
-                                ->decimalPlaces(2)
-                                ->decimalSeparator('.')
-                                ->thousandsSeparator(',')
-                                ->mapToDecimalSeparator(['.'])
-                                ->padFractionalZeros()
-                                ->normalizeZeros(true)
-                        ])
-                        ->pattern('money')
-                    ),
                     TextInput::make('vc')->disabled(),
                     TextInput::make('enpro_doc')])->columns(3),
                
@@ -113,7 +87,7 @@ class OrderResource extends Resource
                         Textarea::make('comment'),
                     ]),
                     Fieldset::make('Shipping Address')
-                    ->relationship('bill')
+                    ->relationship('ship')
                     ->schema([
                         TextInput::make('address1'),
                         TextInput::make('address2'),
@@ -171,6 +145,7 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('Order ID')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('enpro_doc')->label('enpro')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at'),
                 // Tables\Columns\TextColumn::make('id')->label('Doc Code'),
                TextColumn::make('customer.first_name')->searchable(),

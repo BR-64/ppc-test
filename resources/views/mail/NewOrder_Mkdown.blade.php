@@ -13,7 +13,7 @@ Link to your order : #{{$order->id}}
 |---|---|
 |**Order # :** |{{$order->id}}|  
 |**Order Status :**|{{$order->status}}|  
-|**Order Total (THB) :**|{{number_format($order['fullprice'],2)}}|
+|**Order Total (THB) :**|{{number_format($order->fullprice,2)}}|
 |**Order Date :**|{{$order->created_at}}|
 <br>
 
@@ -21,7 +21,7 @@ Link to your order : #{{$order->id}}
 |Image|Code| Price (THB) |Quantity|
 |---|:---:|:---:|:---:|
 @foreach($order->items as $item)
-|<img src="{{$item->product->image}}" style="width: 100px">|{{$item->product->item_code}}|number_format({{$item->unit_price}})|{{$item->quantity}}|
+|<img src="{{$item->product->image}}" style="width: 100px">|{{$item->product->item_code}}|{{number_format($item->unit_price)}}|{{$item->quantity}}|
 @endforeach
 <br>
 

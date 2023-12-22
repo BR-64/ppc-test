@@ -20,7 +20,7 @@ class ShippingAddress extends Model
     }
 
     public function order():HasMany{
-        return $this->hasMany(Order::class,'bill_id','id');
+        return $this->hasMany(Order::class,'ship_id','id');
     }
 
     public function country(): BelongsTo

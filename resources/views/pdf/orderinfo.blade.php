@@ -187,10 +187,10 @@
                 <td>
                     {{$order->customer['first_name']}}
                     {{$order->customer['last_name']}}
-                <br>{{$order->customer->shippingAddress['address1']}},
-                <br>{{$order->customer->shippingAddress['address2']}}
-                <br>{{$order->customer->shippingAddress['city']}}, {{$order->customer->shippingAddress['country_code']}}
-                <br>{{$order->customer->shippingAddress['zipcode']}}
+                <br>{{$order->customer->Ship_Address['address1']}},
+                <br>{{$order->customer->Ship_Address['address2']}}
+                <br>{{$order->customer->Ship_Address['city']}}, {{$order->customer->Ship_Address['country_code']}}
+                <br>{{$order->customer->Ship_Address['zipcode']}}
                 </td>
             </tr>
             <tr><td>Shipping Method:</td><td>{{$order['ship_method']}}</td></tr>

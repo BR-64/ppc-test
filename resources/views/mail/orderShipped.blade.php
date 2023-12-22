@@ -39,7 +39,7 @@ You order **#{{$order['id']}}**  has been shipped. Your tracking number is **{{$
 {{-- /// shipping --}}
 | | |
 |-|-|
-|**Shipping Address :**|{{$order->customer['first_name']}} {{$order->customer['last_name']}}, {{$order->customer->shippingAddress['address1']}},{{$order->customer->shippingAddress['address2']}},{{$order->customer->shippingAddress['city']}},{{$order->customer->shippingAddress['zipcode']}}|
+|**Shipping Address :**|{{$order->customer['first_name']}} {{$order->customer['last_name']}}, {{$order->customer->Ship_address['address1']}},{{$order->customer->Ship_address['address2']}},{{$order->customer->Ship_address['city']}},{{$order->customer->Ship_address['zipcode']}}|
 |**Shipping Method :**|{{$order['ship_method']}}|
 |**Payment Method :**|{{$order['pay_method']}}|
 <br>

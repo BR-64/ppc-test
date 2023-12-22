@@ -779,7 +779,8 @@ if($nonFullCubicBoxCubic<>0){
 
         CartItem::where(['user_id' => $user->id])->delete();
 
-
+        //// create SC
+        $this->createSC($order->id);
         // send email to user/admin
         // $adminUsers = User::where('is_admin', 1)->get();
         // foreach ([...$adminUsers, $order->user] as $user) {
@@ -806,42 +807,241 @@ if($nonFullCubicBoxCubic<>0){
     }
 
 
-    public function createSC(){
-        ///////// no Use
+    public function createSC(Request $request){
+        $OrderId = $request->OrderID;
+        $Order = (Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first());
+        $Items = OrderItem::query()
+                    ->where(['order_id' => $OrderId])
+                    ->get();
+        
+    $scdate=date('Ymd'); /// for real use
+    // $scdate=date('Y-m-d');  /// for error test
+    // $scdate="20241220"; /// for test
+        // $scdate=date('Ymd', strtotime('+1 year'));  /// for test
 
-        $ch=curl_init();
-        $url="http://1.1.220.113:7000/PrempApi.asmx/createSC";
-        $post=[
-            'sa_header' => '[{"doc_date":"20231210","vat_rate":"7","discount_amt":"3.1","ref1":"WBtest002"}]',
-            'sa_detail' => '[{"item_code":"R34OBM897V89","unit_code":"PCS","qty":"11","unit_price":"123","discount_amt":"2.7"}
-            ,{"item_code":"R34OBM859V89","unit_code":"PCS","qty":"22","unit_price":"189","discount_amt":"2.2"}]'
+    ///// random no duplicate
+        // $r=range(1,100);
+        // shuffle($r);
+        $enpro_doc='WB'.rand(1,100);
+
+    ////////// order data
+        $shipping_cost=$Order['shipping'];
+        $insure_cost=$Order['insurance'];
+       
+    /////// order items data
+        $sa_detail=[];
+            foreach ($Items as $Item => $value){
+                $sa_detail[]=[
+                    'item_code'=>$value->product->item_code,
+                    // 'item_code'=>$item->product->item_code,
+                    'unit_code'=>'PCS',
+                    'qty'=>$value->quantity,
+                    'unit_price'=>$value->product->retail_price,
+                    // 'discount_amt'=>0
+                    'discount_amt'=>($Order->discount_percent/100)*($value->product->retail_price)*$value->quantity
+
+                ];
+        }
+
+        // dd($sa_detail);        
+        
+        $shipping_sc=[
+            'item_code'=>'002',
+            'unit_code'=>'BAHT',
+            'qty'=>1,
+            'unit_price'=>$shipping_cost,
+            'discount_amt'=>0
+        ];
+        
+        $insurance_sc=[
+            'item_code'=>'003',
+            'unit_code'=>'BAHT',
+            'qty'=>1,
+            'unit_price'=>$insure_cost,
+            'discount_amt'=>0
+        ];
+        
+        $item_sc_test=[
+            'item_code'=>"R34OBM859V89",
+            'unit_code'=>'PCS',
+            'qty'=>2,
+            'unit_price'=>340,
+            'discount_amt'=>20
         ];
 
-        $post2=[
-            'sa_header'=>[
-                'doc_date'=>'20231210',
-                'vat_rate'=>7,
-                'discount_amt'=>3.1,
-                'ref1'=> 'WBtest002'
-            ],
-            'sa_detail'=>[
+        $ch = curl_init();                    // Initiate cURL
+        $url = "http://1.1.220.113:7000/PrempApi.asmx/createSC"; // Where you want to post data
 
-            ]
-        ];
+        // $sa_header=[{"doc_date":"20231220","vat_rate":"7","discount_amt":"0","ref1":"WBtest019"}];
+        $sa_header=array([
+                "doc_date"=>$scdate,
+                "vat_rate"=>"7",
+                "discount_amt"=>"0",
+                "ref1"=>$enpro_doc,
+            ]);
+        array_push($sa_detail,$shipping_sc,$insurance_sc);
+        // array_push($item_sc_test,$shipping_sc,$insurance_sc);
 
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
 
-        $response=curl_exec($ch);
+        $sah_json=json_encode($sa_header);
+        $sad_json=json_encode($sa_detail);
 
-        var_dump($response);
+        // dd($sah_json);
+        $key_val="sa_header=".$sah_json."&sa_detail=".$sad_json;
 
-        dd(
-            'test'
-        );
+        print_r($key_val);
+        // dd($key_val);
 
-        return view('checkout.step2');
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_POST, true);  // Tell cURL you want to post something
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $sc_json,); // Define what you want to post
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $key_val,); // Define what you want to post
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the output in string format
+
+        $output = curl_exec ($ch); // Execute 
+        curl_close ($ch); // Close cURL handle
+
+        //// update sc number in web order data
+        
+        preg_match('#(?<=\[{)(.*?)(?=\}])#', $output,$match);
+        $mjson = "{".$match[1]."}"; /// make output to json format
+        $dataEnpro=json_decode($mjson,true);
+
+        /// check if sc sent completed
+            if ($dataEnpro['str_return']=="success"){
+                Order::where('id',$OrderId)->update(['enpro_doc'=>$enpro_doc]);    
+
+                // return back()->withSuccess('SC created Done !');
+                echo nl2br ("\n \n SC created ! \n");
+
+
+            } else {
+                echo nl2br ("\n \n Error in creating SC \n");
+            }
+
+        var_dump($output);
+
+        // return view('checkout.step2');
     }
+
+    public function createSC(Request $request){
+        $OrderId = $request->OrderID;
+        $Order = (Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first());
+        $Items = OrderItem::query()
+                    ->where(['order_id' => $OrderId])
+                    ->get();
+        
+    $scdate=date('Ymd'); /// for real use
+    $docdate=date('YYmmdd'); /// for real use
+    // $scdate=date('Y-m-d');  /// for error test
+    // $scdate="20241220"; /// for test
+        $scdate=date('Ymd', strtotime('+1 year'));  /// for test
+
+        dd($docdate);
+
+    ///// random no duplicate
+        // $r=range(1,100);
+        // shuffle($r);
+        $enpro_doc='WB'.rand(1,100);
+
+    ////////// order data
+        $shipping_cost=$Order['shipping'];
+        $insure_cost=$Order['insurance'];
+       
+    /////// order items data
+        $sa_detail=[];
+            foreach ($Items as $Item => $value){
+                $sa_detail[]=[
+                    'item_code'=>$value->product->item_code,
+                    // 'item_code'=>$item->product->item_code,
+                    'unit_code'=>'PCS',
+                    'qty'=>$value->quantity,
+                    'unit_price'=>$value->product->retail_price,
+                    // 'discount_amt'=>0
+                    'discount_amt'=>($Order->discount_percent/100)*($value->product->retail_price)*$value->quantity
+
+                ];
+        }  
+        
+        $shipping_sc=[
+            'item_code'=>'002',
+            'unit_code'=>'BAHT',
+            'qty'=>1,
+            'unit_price'=>$shipping_cost,
+            'discount_amt'=>0
+        ];
+        
+        $insurance_sc=[
+            'item_code'=>'003',
+            'unit_code'=>'BAHT',
+            'qty'=>1,
+            'unit_price'=>$insure_cost,
+            'discount_amt'=>0
+        ];
+        
+
+        $ch = curl_init();                    // Initiate cURL
+        $url = "http://1.1.220.113:7000/PrempApi.asmx/createSC"; // Where you want to post data
+
+        // $sa_header=[{"doc_date":"20231220","vat_rate":"7","discount_amt":"0","ref1":"WBtest019"}];
+        $sa_header=array([
+                "doc_date"=>$scdate,
+                "vat_rate"=>"7",
+                "discount_amt"=>"0",
+                "ref1"=>$enpro_doc,
+            ]);
+        array_push($sa_detail,$shipping_sc,$insurance_sc);
+        // array_push($item_sc_test,$shipping_sc,$insurance_sc);
+
+
+        $sah_json=json_encode($sa_header);
+        $sad_json=json_encode($sa_detail);
+
+        // dd($sah_json);
+        $key_val="sa_header=".$sah_json."&sa_detail=".$sad_json;
+
+        print_r($key_val);
+        // dd($key_val);
+
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_POST, true);  // Tell cURL you want to post something
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $sc_json,); // Define what you want to post
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $key_val,); // Define what you want to post
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the output in string format
+
+        $output = curl_exec ($ch); // Execute 
+        curl_close ($ch); // Close cURL handle
+
+        //// update sc number in web order data
+        
+        preg_match('#(?<=\[{)(.*?)(?=\}])#', $output,$match);
+        $mjson = "{".$match[1]."}"; /// make output to json format
+        $dataEnpro=json_decode($mjson,true);
+
+        /// check if sc sent completed
+            if ($dataEnpro['str_return']=="success"){
+                Order::where('id',$OrderId)->update(['enpro_doc'=>$enpro_doc]);    
+
+                // return back()->withSuccess('SC created Done !');
+                echo nl2br ("\n \n SC created ! \n");
+
+
+            } else {
+                echo nl2br ("\n \n Error in creating SC \n");
+            }
+
+        var_dump($output);
+
+
+		// return back()->withSuccess('UPload Done !');
+    }
+
 }

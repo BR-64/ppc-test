@@ -19,7 +19,7 @@ class BillingAddress extends Model
     }
 
     public function order():HasMany{
-        return $this->hasMany(Order::class,'bill_id','id');
+        return $this->hasMany(Order::class,'bill_id','customer_id');
     }
 
     public function country(): BelongsTo

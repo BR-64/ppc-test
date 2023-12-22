@@ -10,11 +10,11 @@
                 <thead>
                 <tr class="border-b-2">
                     <th class="text-left p-2">Order #</th>
-                    <th class="text-left p-2">Date</th>
+                    <th class="text-left p-2">Date (DMY)</th>
                     <th class="text-left p-2">Status</th>
-                    <th class="text-left p-2">SubTotal (thb) </th>
+                    <th class="text-left p-2">Net (thb) </th>
                     <th class="text-left p-2">Items</th>
-                    <th class="text-left p-2">Actions</th>
+                    {{-- <th class="text-left p-2">Actions</th> --}}
                 </tr>
                 </thead>
                 <tbody>
@@ -38,9 +38,9 @@
                             </small
                             >
                         </td>
-                        <td class="py-1 px-2">{{number_format($order->total_price)}}</td>
+                        <td class="py-1 px-2">{{number_format($order->fullprice)}}</td>
                         <td class="py-1 px-2 whitespace-nowrap">{{$order->items()->count()}} </td>
-                        <td class="py-1 px-2 flex gap-2 w-[100px]">
+                        {{-- <td class="py-1 px-2 flex gap-2 w-[100px]">
                             @if (!$order->isPaid())
                                 <form action="{{ route('order.payment', $order) }}"
                                       method="POST">
@@ -66,7 +66,7 @@
                                     </button>
                                 </form>
                             @endif
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
                 </tbody>

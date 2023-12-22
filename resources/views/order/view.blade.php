@@ -23,10 +23,26 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="font-bold py-1 px-2">SubTotal</td>
-                    <td>Thb {{ number_format($order->total_price) }}</td>
-                    {{-- <td>Thb {{ $order->total_price }}</td> --}}
+                    <td class="font-bold py-1 px-2">Product price</td>
+                    <td>{{ number_format($order->total_price) }}</td>
                 </tr>
+                <tr>
+                    <td class="font-bold py-1 px-2 text-red-500">Discount</td>
+                    <td class="text-red-500">{{ number_format($order->discount_amount) }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold py-1 px-2">Shipping</td>
+                    <td>{{ number_format($order->shipping) }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold py-1 px-2">Insurance</td>
+                    <td>{{ number_format($order->insurance) }}</td>
+                </tr>
+                <tr class="border-solid border-2">
+                    <td class="font-bold py-1 px-2">Net</td>
+                    <td>Thb {{ number_format($order->fullprice) }}</td>
+                </tr>
+                
                 </tbody>
             </table>
 
