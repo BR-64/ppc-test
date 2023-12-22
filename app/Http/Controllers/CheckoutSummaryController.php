@@ -736,7 +736,7 @@ if($nonFullCubicBoxCubic<>0){
     // $latestdoc = Order::whereDate('created_at','=','2023-12-16')->get()->count();  /// count specific date doc
     $enproID = str_pad($latestdoc + 1, 4, '0', STR_PAD_LEFT);
 
-    dd($enproID);
+    // dd($enproID);
 
     ///// random no duplicate
         // $r=range(1,100);
