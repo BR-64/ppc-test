@@ -15,7 +15,7 @@ You order **#{{$order['id']}}**  has been shipped. Your tracking number is **{{$
 |---|---|
 |**Order # :** |{{$order->id}}|  
 |**Order Status :**|{{ $order->status }}|  
-|**Order Price (THB) :**|{{$order->total_price}}|
+|**Order Total (THB) :**|{{number_format($order->fullprice,2)}}|
 |**Order Date :**|{{$order->created_at}}|
 <br>
 
@@ -30,10 +30,11 @@ You order **#{{$order['id']}}**  has been shipped. Your tracking number is **{{$
 {{-- /// order summary --}}
 |  |  |
 |--|--|
-|**subtotal**| {{$order['total_price']}}|
-|**shipping fee**| {{$order['shipping']}} |
-|**insurance**| {{$order['insurance']}}|
-|**Total Payment (THB)**|{{$order['fullprice']}}|
+|**subtotal**| {{number_format($order['total_price'],2)}}|
+|**discount**| - {{number_format($order['discount_amount'],2)}}|
+|**shipping fee**| {{number_format($order['shipping'],2)}} |
+|**insurance**| {{number_format($order['insurance'],2)}}|
+|**Total Payment (THB)**|{{number_format($order['fullprice'],2)}}|
 <br>
 
 {{-- /// shipping --}}

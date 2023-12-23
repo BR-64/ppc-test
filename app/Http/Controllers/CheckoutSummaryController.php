@@ -691,12 +691,15 @@ if($nonFullCubicBoxCubic<>0){
 
         // send email to user/admin
         $adminUsers = User::where('is_admin', 1)->get();
-        foreach ([...$adminUsers, $order->user] as $user) {
-            Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
+        $ppc_team = User::where('is_admin', 2)->get();
+
+        foreach ([...$adminUsers, ...$ppc_team,  $user] as $user) {
+            // print_r($user->email);
+            Mail::to($user->email)->send(new NewOrderEmail($order));
         }
 
-        // foreach ([$order->user] as $user) {
-        //     Mail::to($user)->send(new NewOrderEmail($order));
+        // foreach ([...$adminUsers, $order->user] as $user) {
+        //     Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
         // }
 
         return view('checkout.step3',[

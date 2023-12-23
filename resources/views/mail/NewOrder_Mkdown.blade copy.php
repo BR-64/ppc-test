@@ -1,8 +1,8 @@
 <x-mail::message>
-# We have received your order! 
+# THANK YOU FOR SHOPPING WITH US! 
 
 Dear {{$order->customer['first_name']}},  
-You order {{$order['id']}} has been confirmed. Please make a payment.
+You order {{$order['id']}} has been confirmed. You will receive another e-mail once your order has been shipped.
 
 <a href="{{route('order.view', $order, true)}}">
 Link to your order : #{{$order->id}}

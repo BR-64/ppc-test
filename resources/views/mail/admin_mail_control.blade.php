@@ -1,11 +1,11 @@
 <x-app-layout>
     <div class="pccoll">
-        <h1> Email testing hub</h1>
+        <h1> Admin email control</h1>
 {{-- New order --}}
         <div>
             <div class="pccoll" style="width:400px;">
             <h2>New Order </br>(when customer created order)</h2>
-                <form method="POST" action="{{route('testmail_newOrder')}}">
+                <form onsubmit="return confirm('Are you sure you want to submit?');" method="POST" action="{{route('testmail_newOrder')}}">
                     @csrf
         
                     <!-- Password -->
@@ -26,7 +26,7 @@
             </div>
         </div>
 {{-- showroom order --}}
-        <div>
+        {{-- <div>
             <div class="pccoll" style="width:400px;">
             <h2>Order Received > [admin] </br></h2>
                 <form method="POST" action="{{route('testmail_showroomOrder')}}">
@@ -46,7 +46,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> --}}
 {{-- Payment Completed --}}
         <div>
             <div class="pccoll" style="width:400px;">
@@ -90,7 +90,7 @@
                 </form>
         </div>
 {{-- Quotation --}}
-        <div class="pccoll" style="width:400px;">
+        {{-- <div class="pccoll" style="width:400px;">
             <h2>Quatation > [customer] </br></h2>
                 <form method="POST" action="{{route('testmail_quotation')}}">
                     @csrf
@@ -108,9 +108,9 @@
                         </x-button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
 {{-- PDF --}}
-        <div class="pccoll" style="width:400px;">
+        {{-- <div class="pccoll" style="width:400px;">
             <h2>PDF attach test</h2>
                 <form method="POST" action="{{route('testmail_pdf')}}">
                     @csrf
@@ -129,7 +129,7 @@
                     </div>
                 </form>
             </div>
-            <hr>
+            <hr> --}}
 {{-- Create SC --}}
         <div class="pccoll" style="width:400px;">
             <h2>Create SC</h2>
@@ -151,43 +151,7 @@
                 </form>
             </div>
             <hr>
-{{-- Discount Voucher --}}
-        <div class="pccoll" style="width:400px;">
-            <h2>Apply Voucer</h2>
-                <form method="POST" action="{{route('cart-voucher')}}">
-                    @csrf
-                    <!-- Password -->
-                    <div >
-                        <label for="voucher">Voucher Code</label>
-                        <input type="text" style="color:black;" id="voucher" name="voucher" value="" required>
-                    </br>
-                    </div>
-        
-                    <div class="flex justify-end mt-4">
-                        <x-button>
-                            {{ __('Confirm') }}
-                        </x-button>
-                    </div>
-                </form>
-            </div>
-{{-- Discount Voucher --}}
-        <div class="pccoll" style="width:400px;">
-            <h2>Test base discount function</h2>
-                <form method="POST" action="{{route('test-discount')}}">
-                    @csrf
-                    <!-- Password -->
-                    <div >
-                        <input type="text" style="color:black;" id="" name="discount" value="" required>
-                    </br>
-                    </div>
-        
-                    <div class="flex justify-end mt-4">
-                        <x-button>
-                            {{ __('Confirm') }}
-                        </x-button>
-                    </div>
-                </form>
-            </div>
+
 {{-- PDF - Order info --}}
         {{-- <div class="pccoll" style="width:400px;">
             <h2>PDF : Order info</br></h2>

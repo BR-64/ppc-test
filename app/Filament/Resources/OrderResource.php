@@ -25,6 +25,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Layout;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Actions as act;
+use Filament\Forms\Components\Actions\Action;
 
 class OrderResource extends Resource
 {
@@ -111,6 +113,43 @@ class OrderResource extends Resource
                         TextInput::make('country_code'),
                         
                     ]),
+
+                
+                // act::make([
+                //     Action::make('button name')
+                //       ->action(fn()=>redirect()-> route('product.getalldata'))
+                // ]),
+
+                // Action::make('test'),
+
+                // act::make([
+                //     Action::make('custom')
+                //         ->action(function () {
+                //             //...
+                //         }),
+                //     ]),
+
+                    TextInput::make('Paymentconfirm')
+                        ->suffixAction(fn (?string $state): Action =>
+                            Action::make('visit')
+                                ->icon('heroicon-s-external-link')
+                                ->url(
+                                    filled($state) ? "https://{$state}" : null,
+                                    shouldOpenInNewTab: true,
+                                ),
+                            ),
+                    TextInput::make('Paymentconfirm')
+                        ->suffixAction(fn (): Action =>
+                            Action::make('visit')
+                                ->icon('heroicon-s-external-link')
+                                ->action(fn()=>redirect()-> route('admail_control'))
+
+                            ),
+
+
+                    // Action::make('visit')
+                    //     ->icon('heroicon-s-external-link')
+                    //     ->url(route('product.getalldata')),
 
                     TextInput::make('fullprice')->label('net')
                     ->Mask(

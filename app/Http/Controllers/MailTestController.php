@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Enums\PaymentStatus;
 use App\Mail\NewOrderEmail;
 use App\Mail\OrderShippedEmail;
+use App\Mail\PaymentCompleted;
 use App\Mail\ShowroomOrderEmail;
 use App\Mail\YourQuotation;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -29,12 +31,18 @@ class MailTestController extends Controller
     private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
     private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
+    // private $adminUsers = User::where('is_admin', 1)->get();
+    // private $ppc_team = User::where('is_admin', 2)->get();
     // private $sr_mail3=['mawkard.th@gmail.com'];
 
 
     public function view()
     {
         return view('mail.email_test');
+    }
+    public function admail()
+    {
+        return view('mail.admin_mail_control');
     }
 
     public function newOrder(Request $request)
@@ -55,14 +63,32 @@ class MailTestController extends Controller
     public function newOrder_created(Request $request)
     {
         $OrderId = $request->OrderID;
+
+        $order = (Order::query()
+                ->where(['id' => $OrderId])
+                ->first());
         
+        $buyer = $order->user;
+
         $payment = Payment::query()
                     ->where(['order_id' => $OrderId])
                     ->first();
 
-        $this->OrderConfirmedMail($payment);
+        // $this->OrderConfirmedMail($payment);
 
-        dd('mail sent');
+        
+        $adminUsers = User::where('is_admin', 1)->get();
+        $ppc_team = User::where('is_admin', 2)->get();
+        
+        // dd($adminUsers);
+        // dd($ppc_team);
+
+        foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
+            // print_r($user->email);
+            Mail::to($user->email)->send(new NewOrderEmail($order));
+        }
+
+        dd('neworder created mail sent');
     }
 
     private function OrderConfirmedMail(Payment $payment)
@@ -112,6 +138,28 @@ class MailTestController extends Controller
 
         Mail::to($this->sr_mail3)->send(new ShowroomOrderEmail($order),['mdata'=>$maildata])->AddAttachment($pdf1->output(),'orderinfo.pdf');
 
+
+        return view('mail.email_test');
+    }
+    public function PaymentCompleted(Request $request)
+    {
+        $OrderId = $request->OrderID;
+
+        $order = Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first();
+        $buyer = $order->user;
+
+        $adminUsers = User::where('is_admin', 1)->get();
+        $ppc_team = User::where('is_admin', 2)->get();
+
+        foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
+            // print_r($user->email);
+            Mail::to($user->email)->send(new PaymentCompleted($order));
+        }
+
+        dd('PaymentCompleted mail sent');
+
         return view('mail.email_test');
     }
     public function OrderShipped(Request $request)
@@ -121,8 +169,19 @@ class MailTestController extends Controller
         $order = Order::query()
                     ->where(['id' => $OrderId])
                     ->first();
+        $buyer = $order->user;
 
-        Mail::to($this->sr_mail3)->send(new OrderShippedEmail($order));
+        // Mail::to($this->sr_mail3)->send(new OrderShippedEmail($order));
+
+        $adminUsers = User::where('is_admin', 1)->get();
+        $ppc_team = User::where('is_admin', 2)->get();
+
+        foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
+            // print_r($user->email);
+            Mail::to($user->email)->send(new OrderShippedEmail($order));
+        }
+
+        dd('Order shipped mail sent');
 
         return view('mail.email_test');
     }
@@ -139,6 +198,7 @@ class MailTestController extends Controller
 
         return view('mail.email_test');
     }
+
     public function quotation(Request $request)
     {
         $OrderId = $request->OrderID;

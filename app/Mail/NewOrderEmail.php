@@ -36,7 +36,7 @@ class NewOrderEmail extends Mailable
     public function build()
     {
         return $this
-            ->subject('Confirmation of your Order')
+            ->subject('Prempracha Online Shop : Order has been created')
             // ->view('mail.TestMKdown');
             // ->markdown('mail.TestMKdown');
             ->markdown('mail.NewOrder_Mkdown');

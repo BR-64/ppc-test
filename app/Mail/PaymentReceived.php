@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderShippedEmail extends Mailable
+class PaymentReceived extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,29 +20,40 @@ class OrderShippedEmail extends Mailable
      */
     public function __construct(public Order $order)
     {
-        //
+        $this->order=$order;
     }
 
     /**
      * Get the message envelope.
      *
      * @return \Illuminate\Mail\Mailables\Envelope
-     * @return $this
      */
-    // public function envelope()
+    public function envelope()
+    {
+        return new Envelope(
+            subject: 'Payment Received',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     *
+     * @return 
+     */
+    // public function content()
     // {
-    //     return new Envelope(
-    //         subject: 'Order Shipped',
+    //     return new Content(
+    //         view: 'view.name',
     //     );
     // }
 
-
     public function build()
     {
-        return $this
-            ->subject('Prempracha Online Shop : Order Shipped')
-            ->markdown('mail.orderShipped');
+        return $this 
+            ->subject('Prempracha Online Shop : Payment Received')
+            ->markdown('mail.PaymentReceived_Mkdown');
     }
+
     /**
      * Get the attachments for the message.
      *

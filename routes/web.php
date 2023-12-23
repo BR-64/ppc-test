@@ -160,9 +160,11 @@ Route::get('/webhookmail',[kCheckoutController::class,'webhook']);
 
 //////////////// test mail
 Route::get('test/mailhub', [MailTestController::class, 'view']);
+Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
 
-Route::post('test/mail/neworder', [MailTestController::class, 'newOrder'])->name('testmail_newOrder');
+Route::post('test/mail/neworder', [MailTestController::class, 'newOrder_created'])->name('testmail_newOrder');
 Route::post('test/mail/showroomorder', [MailTestController::class, 'showroomOrder'])->name('testmail_showroomOrder');
+Route::post('test/mail/paycom', [MailTestController::class, 'PaymentCompleted'])->name('testmail_paycom');
 Route::post('test/mail/orderShipped', [MailTestController::class, 'orderShipped'])->name('testmail_orderShipped');
 Route::post('test/mail/quotation', [MailTestController::class, 'quotation'])->name('testmail_quotation');
 Route::post('test/mail/pdf', [MailTestController::class, 'mailpdf_test2'])->name('testmail_pdf');

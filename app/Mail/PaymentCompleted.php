@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderShippedEmail extends Mailable
+class PaymentCompleted extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,6 +21,7 @@ class OrderShippedEmail extends Mailable
      */
     public function __construct(public Order $order)
     {
+        $this->order=$order;
         //
     }
 
@@ -28,22 +29,26 @@ class OrderShippedEmail extends Mailable
      * Get the message envelope.
      *
      * @return \Illuminate\Mail\Mailables\Envelope
-     * @return $this
      */
-    // public function envelope()
-    // {
-    //     return new Envelope(
-    //         subject: 'Order Shipped',
-    //     );
-    // }
-
-
     public function build()
     {
         return $this
-            ->subject('Prempracha Online Shop : Order Shipped')
-            ->markdown('mail.orderShipped');
+            ->subject('Prempracha Online Shop : Payment Completed')
+            ->markdown('mail.payCompleted');
     }
+
+    /**
+     * Get the message content definition.
+     *
+     * @return \Illuminate\Mail\Mailables\Content
+     */
+    public function content()
+    {
+        return new Content(
+            view: 'view.name',
+        );
+    }
+
     /**
      * Get the attachments for the message.
      *
