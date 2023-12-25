@@ -30,7 +30,10 @@ class OrdersRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('voucher'),
+                Tables\Columns\TextColumn::make('id')->label('order ID'),
+                Tables\Columns\TextColumn::make('created_at'),
+                Tables\Columns\TextColumn::make('discount_amount'),
+
             ])
             ->filters([
                 //

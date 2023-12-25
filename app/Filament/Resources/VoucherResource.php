@@ -81,7 +81,7 @@ class VoucherResource extends Resource
         return [
             'index' => Pages\ListVouchers::route('/'),
             // 'create' => Pages\CreateVoucher::route('/create'),
-            // 'edit' => Pages\EditVoucher::route('/{record}/edit'),
+            'edit' => Pages\EditVoucher::route('/{record}/edit'),
             // 'index' => Pages\ManageVouchers::route('/'),
 
         ];
