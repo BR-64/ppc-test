@@ -719,10 +719,10 @@ if($nonFullCubicBoxCubic<>0){
             ]);
     }
 
-    // public function createSC(Request $request){
-    public function createSC($id){
-        // $OrderId = $request->OrderID;
-        $OrderId = $id;
+    public function createSC(Request $request){
+    // public function createSC($id){
+        $OrderId = $request->OrderID;
+        // $OrderId = $id;
         $Order = (Order::query()
                     ->where(['id' => $OrderId])
                     ->first());
