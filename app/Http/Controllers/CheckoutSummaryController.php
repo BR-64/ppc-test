@@ -689,6 +689,8 @@ if($nonFullCubicBoxCubic<>0){
 
         CartItem::where(['user_id' => $user->id])->delete();
 
+        $this->createSC($order->id);
+
         // send email to user/admin
         $adminUsers = User::where('is_admin', 1)->get();
         $ppc_team = User::where('is_admin', 2)->get();
@@ -717,8 +719,10 @@ if($nonFullCubicBoxCubic<>0){
             ]);
     }
 
-    public function createSC(Request $request){
-        $OrderId = $request->OrderID;
+    // public function createSC(Request $request){
+    public function createSC($id){
+        // $OrderId = $request->OrderID;
+        $OrderId = $id;
         $Order = (Order::query()
                     ->where(['id' => $OrderId])
                     ->first());
