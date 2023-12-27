@@ -50,6 +50,8 @@
 
         </style>
     </head>
+{{-- /// loop mail --}}
+@for ($i =0; $i < $boxcount; $i++)
     <div class="to">
         <table>
             <tr>
@@ -63,15 +65,15 @@
                     <br>{{$order->customer['customer_name']}}
 
                  </td>
-                 <td class='right'>Box No. x / x</td>
+                 <td class='right'>Box No. {{$i+1}} / {{$boxcount}}</td>
             </tr>
             <tr>
                 <td></td>
                 <td class="mid">
-                    <br>{{$order->customer->shippingAddress['address1']}},
-                    {{$order->customer->shippingAddress['address2']}}
-                    <br>{{$order->customer->shippingAddress['city']}}, {{$order->customer->shippingAddress['zipcode']}},
-                    {{$order->customer->shippingAddress['country_code']}}
+                    <br>{{$order->customer->Ship_address['address1']}},
+                    {{$order->customer->Ship_address['address2']}}
+                    <br>{{$order->customer->Ship_address['city']}}, {{$order->customer->Ship_address['zipcode']}},
+                    {{$order->customer->Ship_address['country_code']}}
                     <br>Tel : {{$order->customer['phone']}}
                 </td>
                 <td></td>
@@ -95,5 +97,11 @@
             </tr>
         </table>
     </div>
+    
+    @if ($i+1 < $boxcount)
+        <div style="page-break-before: always;"></div>      
+    @endif
+
+@endfor 
 
 </html>

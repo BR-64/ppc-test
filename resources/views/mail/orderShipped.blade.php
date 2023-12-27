@@ -3,11 +3,15 @@ Dear {{$order->customer['first_name']}},
 You order **#{{$order['id']}}**  has been shipped. Your tracking number is **{{$order['tracking']}}** you can easily track your delivery status by clicking on “Track You Order” below. 
 <br>
 
-<button>    
+{{-- <button>    
     <a href="https://track.thailandpost.co.th/">
-        Track your order:
+        Track your order
     </a>
-</button>
+</button> --}}
+
+<a href="https://track.thailandpost.co.th">
+    Track your order
+</a>
 <br>
 
 {{-- /// order details --}}

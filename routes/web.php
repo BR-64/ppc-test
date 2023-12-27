@@ -164,7 +164,9 @@ Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_
 
 Route::post('test/mail/neworder', [MailTestController::class, 'newOrder_created'])->name('testmail_newOrder');
 Route::post('test/mail/showroomorder', [MailTestController::class, 'showroomOrder'])->name('testmail_showroomOrder');
-Route::post('test/mail/paycom', [MailTestController::class, 'PaymentCompleted'])->name('testmail_paycom');
+Route::post('test/mail/showroomorder_fin', [MailTestController::class, 'showroomOrder_final'])->name('showroomOrder_fin');
+
+Route::post('test/mail/paycom', [MailTestController::class, 'PaymentCompleted'])->name('mail.paycom');
 Route::post('test/mail/orderShipped', [MailTestController::class, 'orderShipped'])->name('testmail_orderShipped');
 Route::post('test/mail/quotation', [MailTestController::class, 'quotation'])->name('testmail_quotation');
 Route::post('test/mail/pdf', [MailTestController::class, 'mailpdf_test2'])->name('testmail_pdf');

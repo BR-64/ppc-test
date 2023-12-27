@@ -28,8 +28,8 @@
 {{-- showroom order --}}
         <div>
             <div class="pccoll" style="width:400px;">
-            <h2>Order Received > [admin] </br></h2>
-                <form method="POST" action="{{route('testmail_showroomOrder')}}">
+            <h2>Showroom Order Received > [admin] </br></h2>
+                <form method="POST" action="{{route('showroomOrder_fin')}}">
                     @csrf
         
                     <!-- Password -->

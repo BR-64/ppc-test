@@ -29,6 +29,8 @@ class MailTestController extends Controller
     private $mail_3='showroom@prempracha.com';
 
     private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
+
+    // private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
     private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
     // private $adminUsers = User::where('is_admin', 1)->get();
@@ -38,7 +40,7 @@ class MailTestController extends Controller
 
     public function view()
     {
-        return view('mail.email_test');
+        return view('mail.email_hub');
     }
     public function admail()
     {
@@ -141,6 +143,19 @@ class MailTestController extends Controller
 
         return view('mail.email_test');
     }
+    public function showroomOrder_final(Request $request)
+    {
+        $OrderId = $request->OrderID;
+
+        $order = Order::query()
+                    ->where(['id' => $OrderId])
+                    ->first();
+
+        Mail::to($this->sr_mail)->send(new ShowroomOrderEmail($order));
+
+        dd('showroom mail sent');
+    }
+
     public function PaymentCompleted(Request $request)
     {
         $OrderId = $request->OrderID;
@@ -157,6 +172,8 @@ class MailTestController extends Controller
             // print_r($user->email);
             Mail::to($user->email)->send(new PaymentCompleted($order));
         }
+        
+        Mail::to($this->sr_mail)->send(new ShowroomOrderEmail($order));
 
         dd('PaymentCompleted mail sent');
 

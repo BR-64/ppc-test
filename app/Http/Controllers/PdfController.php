@@ -68,7 +68,10 @@ class PdfController extends Controller
                     ->first());
                     // ->toArray();
 
-        $pdf = Pdf::loadView('pdf.shippingLabel',compact('order'));
+        $boxcount = $order->boxcount;
+
+
+        $pdf = Pdf::loadView('pdf.shippingLabel',compact('order','boxcount'));
 
         return $pdf->stream('boxlabel.pdf');
         // return $pdf->download('boxlabel_'.$order['id'].'.pdf');
@@ -147,7 +150,7 @@ class PdfController extends Controller
             var_dump($item_sc[$i]);
         };
 
-            dd($item_sc[0]->product->item_code);
+            // dd($item_sc[0]->product->item_code);
             // dd($Items->product->item_code);
 
         // dd($order['id']);

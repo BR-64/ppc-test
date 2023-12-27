@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Actions as act;
 use Filament\Forms\Components\Actions\Action;
+use Illuminate\Routing\Route;
 
 class OrderResource extends Resource
 {
@@ -174,7 +175,14 @@ class OrderResource extends Resource
                 'paid' => 'paid',
                 'quotation' => 'quotation',
             ])
-            ->required(),
+            ->required()
+            ->suffixAction(fn (): Action =>
+            Action::make('visit')
+                ->icon('heroicon-s-external-link')
+                // ->action(fn()=>redirect()-> route('admail_control'))
+                ->action(fn()=>Route::post('showroomOrder_fin'))
+                // ->url(fn (Order $record): string => route('showroomOrder_fin', $record))
+            ),
         //         //
             ]);
     }

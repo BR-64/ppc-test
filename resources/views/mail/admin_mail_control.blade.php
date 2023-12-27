@@ -51,7 +51,7 @@
         <div>
             <div class="pccoll" style="width:400px;">
             <h2>Payment Completed > [admin] </br></h2>
-                <form method="POST" action="{{route('testmail_paycom')}}">
+                <form method="POST" action="{{route('mail.paycom')}}">
                     @csrf
         
                     <!-- Password -->

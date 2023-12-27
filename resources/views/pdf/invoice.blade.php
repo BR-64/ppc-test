@@ -199,7 +199,7 @@
         <table class="invoiceinfo">
             <tr>
                 <td >INVOICE NO. :</td>
-                <td class='col2'>Invoice Number</td>
+                <td class='col2'>{{$order->enpro_doc}}</td>
                 <td >Date:</td>
                 <td>{{ date_format($order->updated_at,"M d, Y") }}</td>
             </tr>
@@ -274,14 +274,14 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td class='total'>- {{number_format($order['discount_amount'],2)}}</td>
                 </tr>
                 <tr>
                     <td colspan="4">total</td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class='total'>{{number_format($order['total_price'],2)}}</td>
+                    <td class='total'>{{number_format($order['total_price']-$order['discount_amount'],2)}}</td>
                 </tr>
             </tfoot>
             <tr >
