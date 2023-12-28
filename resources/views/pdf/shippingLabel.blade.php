@@ -1,21 +1,40 @@
 <html>
     <head>
-        <meta charset="UTF-8">
+        {{-- <meta http-equiv="Content-Language" content="th" /> --}}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        {{-- <meta http-equiv="Content-Type" content="text/html; charset=windows-874"> --}}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+        
+        
         <title>Shipping Label</title>
     
         <style type="text/css">
-        @page {
-    size: a4 landscape;
-  }
+            @page {
+                size: a4 landscape;
+            }
+            /* @font-face {
+                font-family: 'NotoSansThai';
+                src: url('{{public_path()}}/font/NotoSansThai.ttf') format('truetype') 
+                src: url('http://localhost:8000/storage/font/NotoSansThai.ttf') format('truetype') 
+                src: url('{{asset ('/storage/font/NotoSansThai.ttf')}}') format('truetype') 
+                    } */
+
             /* @page {
                 margin: 0px;
             } */
             body {
                 margin: 0px;
                 font-size:22pt;
+                /* font-family: 'NotoSansThai', sans-serif;  */
+                font-family: DejaVu Sans;
+
+
             }
             * {
-                font-family: Verdana, Arial, sans-serif;
+                /* font-family: Verdana, Arial, sans-serif; */
+                /* font-family: garuda; */
             }
             a {
                 color: #fff;
@@ -49,6 +68,7 @@
 
 
         </style>
+        {{-- <style>body { font-family: DejaVu Sans, sans-serif; }</style> --}}
     </head>
 {{-- /// loop mail --}}
 @for ($i =0; $i < $boxcount; $i++)
@@ -70,6 +90,7 @@
             <tr>
                 <td></td>
                 <td class="mid">
+                    <p>ทดสอบไทย</p>
                     <br>{{$order->customer->Ship_address['address1']}},
                     {{$order->customer->Ship_address['address2']}}
                     <br>{{$order->customer->Ship_address['city']}}, {{$order->customer->Ship_address['zipcode']}},

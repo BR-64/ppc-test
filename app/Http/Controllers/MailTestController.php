@@ -28,7 +28,7 @@ class MailTestController extends Controller
     private $mail_2='kraikan@prempracha.com';
     private $mail_3='showroom@prempracha.com';
 
-    private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com','smooot.stu@gmail.com'];
+    private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com','shoponline@gmail.com','smooot.stu@gmail.com'];
 
     // private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];

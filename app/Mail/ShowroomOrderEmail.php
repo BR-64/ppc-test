@@ -35,7 +35,8 @@ class ShowroomOrderEmail extends Mailable
     public function build()
     {
         return $this
-            ->subject('Prempracha Online Shop : You have received an order! #'.$this->order['id'])
+            ->subject('#'.$this->order['id'].' Prempracha Online Shop : You have received an order!')
+            // ->subject('Prempracha Online Shop : You have received an order! #'.$this->order['id'])
             ->view('mail.showroomOrder');
     }
 
