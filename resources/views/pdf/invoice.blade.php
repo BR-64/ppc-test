@@ -262,7 +262,7 @@
             @endforeach
             <tfoot class='right'>
                 <tr>
-                    <td colspan="4">total</td>
+                    <td colspan="4">sub total</td>
                     <td></td>
                     <td class='qty total'>{{$qty}}</td>
                     <td></td>
@@ -275,6 +275,22 @@
                     <td></td>
                     <td></td>
                     <td class='total'>- {{number_format($order['discount_amount'],2)}}</td>
+                </tr>
+                <tr>
+
+                    <td colspan="4">shipping</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class='total'>- {{number_format($order['shipping'],2)}}</td>
+                </tr>
+                <tr>
+
+                    <td colspan="4">insurance</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class='total'>- {{number_format($order['insurance'],2)}}</td>
                 </tr>
                 <tr>
                     <td colspan="4">total</td>
