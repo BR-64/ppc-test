@@ -274,7 +274,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class='total'>- {{number_format($order['discount_amount'],2)}}</td>
+                    <td class='price'>- {{number_format($order['discount_amount'],2)}}</td>
                 </tr>
                 <tr>
 
@@ -282,7 +282,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class='total'>- {{number_format($order['shipping'],2)}}</td>
+                    <td class='price'>{{number_format($order['shipping'],2)}}</td>
                 </tr>
                 <tr>
 
@@ -290,7 +290,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class='total'>- {{number_format($order['insurance'],2)}}</td>
+                    <td class='total'>{{number_format($order['insurance'],2)}}</td>
                 </tr>
                 <tr>
                     <td colspan="4">total</td>
