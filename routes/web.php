@@ -56,7 +56,8 @@ Route::middleware(['guestOrVerified'])->group(function () {
     Route::get('/', [pProductController::class, 'home'])->name('test');
 
     Route::get('/shop', [pProductController::class, 'index'])->name('shop');
-    Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf');
+    // Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf'); error shopscroll to check
+    Route::get('/shop/f', [pProductController::class, 'qfilter2'])->name('shopf');
     Route::get('/shop/f2', [pProductController::class, 'qfilter2'])->name('shopf2');
     Route::get('/shop/{cat?}', [pProductController::class, 'catFilter'])->name('shop.cat');
     Route::get('/product/{product:item_code}', [pProductController::class, 'view'])->name('product.view');
