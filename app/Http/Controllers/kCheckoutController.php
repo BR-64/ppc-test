@@ -90,8 +90,9 @@ class kCheckoutController extends Controller
     $R_paytype=$_POST["paytype"];
     // $R_product=$_POST["product"];
 
-    $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC";
-    $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M";
+    // $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"; // test
+    $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3f";
+    $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
 
     
 

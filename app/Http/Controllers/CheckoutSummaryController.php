@@ -660,7 +660,12 @@ if($nonFullCubicBoxCubic<>0){
                 $orderData['status'] = OrderStatus::Quotation;
             }
 
-            $order = Order::create($orderData);
+            if($subtotalPrice>0){
+                $order = Order::create($orderData);
+            } else {
+                echo "error";
+                exit();
+            }
 
         // Create Order Items
         foreach ($orderItems as $orderItem) {
@@ -689,7 +694,8 @@ if($nonFullCubicBoxCubic<>0){
 
         CartItem::where(['user_id' => $user->id])->delete();
 
-        $this->createSCauto($order->id);
+
+            $this->createSCauto($order->id);
 
         // send email to user/admin
         $adminUsers = User::where('is_admin', 1)->get();
@@ -940,7 +946,7 @@ if($nonFullCubicBoxCubic<>0){
         // dd($sah_json);
         $key_val="sa_header=".$sah_json."&sa_detail=".$sad_json;
 
-        print_r($key_val);
+        // print_r($key_val);
         // dd($key_val);
 
         curl_setopt($ch, CURLOPT_URL,$url);
@@ -965,14 +971,14 @@ if($nonFullCubicBoxCubic<>0){
                 Order::where('id',$OrderId)->update(['enpro_doc'=>$enpro_doc]);    
 
                 // return back()->withSuccess('SC created Done !');
-                echo nl2br ("\n \n SC created ! \n");
+                // echo nl2br ("\n \n SC created ! \n");
 
 
             } else {
                 echo nl2br ("\n \n Error in creating SC \n");
             }
 
-        var_dump($output);
+        // var_dump($output);
 
 
 		// return back()->withSuccess('UPload Done !');

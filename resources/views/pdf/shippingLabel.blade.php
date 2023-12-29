@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         {{-- <meta http-equiv="Content-Type" content="text/html; charset=windows-874"> --}}
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
         
         
         <title>Shipping Label</title>
@@ -27,8 +27,8 @@
             body {
                 margin: 0px;
                 font-size:22pt;
-                /* font-family: 'NotoSansThai', sans-serif;  */
-                font-family: DejaVu Sans;
+                font-family: 'NotoSansThai', sans-serif; 
+                /* font-family: DejaVu Sans; */
 
 
             }
