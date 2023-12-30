@@ -1,0 +1,25 @@
+{
+    "noto sans thai": {
+        "normal": "noto_sans_thai_normal_be0dac6beb348956ae77235fa2f48dd1"
+    },
+    "nunito": {
+        "200_italic": "C:\\Users\\user\\Desktop\\ppc_final\\ppc-test\\storage\\fonts\/nunito_200_italic_95f76d9b0b415eb418591c89bdce7255",
+        "200": "nunito_200_9b4e5bdfa34481384d3cd9085ed8a88d"
+    },
+    "open sans": {
+        "300": "open_sans_300_8513b9024ad211a10e857eba11f0f357"
+    },
+    "noto serif thai": {
+        "300": "C:\\Users\\user\\Desktop\\ppc_final\\ppc-test\\storage\\fonts\/noto_serif_thai_300_dc5b769031b47d3c4c29ec31a4f1f370",
+        "normal": "noto_serif_thai_normal_bb8c22cec9582616c37ef131007fd9c8"
+    },
+    "tangerine": {
+        "normal": "tangerine_normal_19ce16c8d386f49ccf94be2beb5587b6"
+    },
+    "tinos": {
+        "italic": "tinos_italic_c423514f447d7ef04b0e95ecaebb0a33"
+    },
+    "rubik doodle triangles": {
+        "normal": "rubik_doodle_triangles_normal_244395b898cd1d1e6a2def5c2f4469aa"
+    }
+}

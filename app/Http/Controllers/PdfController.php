@@ -70,10 +70,13 @@ class PdfController extends Controller
 
         $boxcount = $order->boxcount;
 
+        // $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+
 
         $pdf = Pdf::loadView('pdf.shippingLabel',compact('order','boxcount'));
 
         return $pdf->stream('boxlabel.pdf');
+        // return view('pdf.shippingLabel',compact('order','boxcount'));
         // return $pdf->download('boxlabel_'.$order['id'].'.pdf');
     }
     public function Pdf_quotation_test(Request $request)

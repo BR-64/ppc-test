@@ -1,19 +1,28 @@
 <html>
     <head>
         {{-- <meta http-equiv="Content-Language" content="th" /> --}}
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         {{-- <meta http-equiv="Content-Type" content="text/html; charset=windows-874"> --}}
-        {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-         --}}
-        
+        {{-- <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet" />
+        {{-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300&display=swap" rel="stylesheet"> --}}
+        {{-- <link href="https://fonts.googleapis.com/css2?family=Tinos:ital@1&display=swap" rel="stylesheet">  --}}
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai&display=swap" rel="stylesheet"> 
+
         <title>Shipping Label</title>
-    
+
         <style type="text/css">
             @page {
                 size: a4 landscape;
             }
+            @font-face {
+                font-family: "noto sans thai";
+                font-style: normal;
+                font-weight: normal;
+                src: url('storage/fonts/noto_sans_thai_normal_be0dac6beb348956ae77235fa2f48dd1.ttf') format('truetype');
+                }
             /* @font-face {
                 font-family: 'NotoSansThai';
                 src: url('{{public_path()}}/font/NotoSansThai.ttf') format('truetype') 
@@ -21,19 +30,24 @@
                 src: url('{{asset ('/storage/font/NotoSansThai.ttf')}}') format('truetype') 
                     } */
 
-            /* @page {
-                margin: 0px;
-            } */
             body {
                 margin: 0px;
                 font-size:22pt;
+                /* font-family: 'Noto Serif Thai'; */
+
                 /* font-family: 'NotoSansThai', sans-serif;  */
-                /* font-family: DejaVu Sans; */
-                font-family: sans-serif;
+                /* font-family: 'noto sans thai'; */
+                /* font-family: 'DejaVuSans'; */
+                /* font-family: 'Tangerine'; */
+                /* font-family: Impact; */
+                /* font-family: sans-serif; */
+                /* src: url({{ storage_path('fonts\NotoSansThai-VariableFont_wdth,wght.ttf') }}) format("truetype"); */
 
 
             }
             * {
+                /* font-family: 'noto sans thai'; */
+
                 /* font-family: Verdana, Arial, sans-serif; */
                 /* font-family: garuda; */
             }
@@ -48,7 +62,25 @@
             }
 
             .to{
-                font-weight: bold;
+                /* font-weight: bold; */
+                /* font-family: 'noto serif thai'; */
+                font-family: 'noto sans thai';
+                max-height: 50%;
+
+                /* font-family: 'DejaVu Sans'; */
+                /* font-family: 'Tinos', serif; */
+
+
+            }
+            .from{
+                /* font-family: 'noto sans thai'; */
+                font-family: sans-serif;
+                /* font-weight: bold; */
+                /* font-family: 'Tangerine'; */
+                /* font-family: 'Tinos', serif;
+                font-family: 'rubik doodle triangles', serif; */
+
+
             }
 
             .left{
@@ -57,6 +89,7 @@
 
             .mid{
                 width:470pt;
+
             }
 
             .right{
@@ -69,9 +102,10 @@
 
 
         </style>
-        {{-- <style>body { font-family: DejaVu Sans, sans-serif; }</style> --}}
     </head>
 {{-- /// loop mail --}}
+<body>
+    
 @for ($i =0; $i < $boxcount; $i++)
     <div class="to">
         <table>
@@ -84,18 +118,14 @@
                 <td class='left'>To :</td>
                 <td class='mid caps'>{{$order->customer['first_name']}}  {{$order->customer['last_name']}}
                     <br>{{$order->customer['customer_name']}}
-
                  </td>
                  <td class='right'>Box No. {{$i+1}} / {{$boxcount}}</td>
             </tr>
             <tr>
                 <td></td>
                 <td class="mid">
-                    <p>ทดสอบไทย</p>
-                    <br>{{$order->customer->Ship_address['address1']}},
-                    {{$order->customer->Ship_address['address2']}}
-                    <br>{{$order->customer->Ship_address['city']}}, {{$order->customer->Ship_address['zipcode']}},
-                    {{$order->customer->Ship_address['country_code']}}
+                    {{$order->customer->Ship_address['address1']}},{{$order->customer->Ship_address['address2']}}
+                    <br>{{$order->customer->Ship_address['city']}}, {{$order->customer->Ship_address['zipcode']}}, {{$order->customer->Ship_address['country_code']}}
                     <br>Tel : {{$order->customer['phone']}}
                 </td>
                 <td></td>
@@ -125,5 +155,7 @@
     @endif
 
 @endfor 
+</body>
+
 
 </html>
