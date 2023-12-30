@@ -28,7 +28,8 @@ class MailTestController extends Controller
     private $mail_2='kraikan@prempracha.com';
     private $mail_3='showroom@prempracha.com';
 
-    private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com','shoponline@prempracha.com','smooot.stu@gmail.com'];
+    // private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com','shoponline@prempracha.com','smooot.stu@gmail.com']; // real use
+    private $sr_mail=['smooot.stu@gmail.com']; // test
 
     // private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
@@ -81,9 +82,7 @@ class MailTestController extends Controller
         
         $adminUsers = User::where('is_admin', 1)->get();
         $ppc_team = User::where('is_admin', 2)->get();
-        
-        // dd($adminUsers);
-        // dd($ppc_team);
+
 
         foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
             // print_r($user->email);

@@ -695,7 +695,7 @@ if($nonFullCubicBoxCubic<>0){
         CartItem::where(['user_id' => $user->id])->delete();
 
 
-            $this->createSCauto($order->id);
+        // $this->createSCauto($order->id);
 
         // send email to user/admin
         $adminUsers = User::where('is_admin', 1)->get();
@@ -703,14 +703,11 @@ if($nonFullCubicBoxCubic<>0){
 
         foreach ([...$adminUsers, ...$ppc_team,  $user] as $user) {
             // print_r($user->email);
-            Mail::to($user->email)->send(new NewOrderEmail($order));
+            // Mail::to($user->email)->send(new NewOrderEmail($order));
         }
 
-        // foreach ([...$adminUsers, $order->user] as $user) {
-        //     Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
-        // }
-
-        return view('checkout.step3',[
+        // return view('checkout.step3_test',[
+        return view('checkout.step3_prod',[
                 'items'=>$lineItems,
                 'orderitems'=> $orderItems,
                 'itemsprice'=> $subtotalPrice,
@@ -721,6 +718,7 @@ if($nonFullCubicBoxCubic<>0){
                 'ordertype'=> $R_chkouttype,
                 'shipcost'=> $R_shipcost,
                 'insure'=> $R_Insurance,
+                'orderid'=> $order->id,
                 // 'paydata'=>$paymentData
             ]);
     }

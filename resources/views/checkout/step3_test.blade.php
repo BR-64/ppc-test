@@ -47,7 +47,7 @@ header("Pragma: no-cache");
     </br>
 
     <div x-show="ordertype == 'paynow'">
-        <h2>Payment option</h2>
+        <h2>Payment option p30</h2>
         <div class="payoption ">
             <div class="border-4 border-white">
                 <h3>Credit Card DCC</h3>
@@ -61,12 +61,13 @@ header("Pragma: no-cache");
                     data-payment-methods="card"
                     data-name="Test shop Prempracha"
                     description="product21"
-                    reference_order="test124"
+                    reference_order="{{$orderid}}"
                     data-mid="451320492949001"
             >
         </script>
         <input type="hidden" name="paytype"  value="card_DCC">
         <input type="hidden" name="amount" value="{{$totalpayment}}">          
+        <input type="hidden" name="reforder" value="{{$orderid}}">          
         
                 </form>
             </div>
@@ -77,7 +78,8 @@ header("Pragma: no-cache");
             <form class="qrform" method="POST" action="{{route('kpayment')}}">
                 @csrf
             <input type="hidden" name="paytype"  value="qr">
-            <input type="hidden" name="amount" value="{{$totalpayment}}">          
+            <input type="hidden" name="amount" value="{{$totalpayment}}"> 
+            <input type="hidden" name="reforder" value="{{$orderid}}">                   
             <input class="subbut" type="submit"value="Pay with QR">
             </form>
         </div>
@@ -88,7 +90,8 @@ header("Pragma: no-cache");
             <form class="qrform" method="POST" action="{{route('kpayment')}}">
                 @csrf
                 <input type="hidden" name="paytype"  value="alipay">
-                <input type="hidden" name="amount" value="{{$totalpayment}}">          
+                <input type="hidden" name="amount" value="{{$totalpayment}}">   
+                <input type="hidden" name="reforder" value="{{$orderid}}">                 
                 <button class="subbut" type="submit"value="Pay with Ali"  onclick="clicked(Alipay)"> Pay with Ali
                 </button>
             </form>

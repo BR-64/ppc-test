@@ -2,8 +2,12 @@
 
 <form method="POST" action="{{route('paymentresult')}}">
     <script type="text/javascript"
-        src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
-        data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"
+        {{-- src="https://dev-kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+        data-apikey="pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC" --}}
+
+        src="https://kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js"
+        data-apikey="pkey_prod_6726PnCZRdCaBpn57LasRFYTFPev99mGQyjY"
+
         data-amount={{$qrinfo['amount']}}
         data-payment-methods="qr"
         data-name="prempracha online shop"

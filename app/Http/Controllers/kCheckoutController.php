@@ -22,6 +22,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class kCheckoutController extends Controller
 {
+    private $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3f";
+    private $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
+
     public function paymentresult(Request $request){
 
         // $body=$request->json()->all()
@@ -91,9 +94,17 @@ class kCheckoutController extends Controller
     // $R_product=$_POST["product"];
 
     // $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"; // test
-    $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3f";
-    $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
+    // $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
 
+    // Test url
+    // $cardApi_url = 'https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge';
+    // $qrApi_url ='https://dev-kpaymentgateway-services.kasikornbank.com/qr/v2/order';
+    // $aliApi_url ='https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge';
+
+    // production url
+    $cardApi_url = 'https://kpaymentgateway-services.kasikornbank.com/card/v2/charge';
+    $qrApi_url ='https://kpaymentgateway-services.kasikornbank.com/qr/v2/order';
+    $aliApi_url ='https://kpaymentgateway-services.kasikornbank.com/card/v2/charge';
     
 
     $payload = @file_get_contents('php://input');
@@ -102,6 +113,9 @@ class kCheckoutController extends Controller
     var_dump ($body);
         function callAPI($method, $url, $data){
             $curl = curl_init();
+
+            // $skey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test
+            $skey = "skey_prod_6726vx4ZPinx0ZawffVaVtJXid8rN4duJK55"; // real
          
             switch ($method){
                case "POST":
@@ -122,7 +136,7 @@ class kCheckoutController extends Controller
             // OPTIONS:
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-               'x-api-key: skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M',
+               'x-api-key:'.$skey,
                'Content-Type: application/json',
             ));
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -139,7 +153,8 @@ class kCheckoutController extends Controller
              $R_TOKEN=$_POST["token"];
              $R_dcc_cur=$_POST["dcc_currency"];
              $R_amount2=$_POST["amount"];
-             $reforder = rand();
+             $reforder = $_POST["reforder"];
+            //  $reforder = rand();
              
          $data_array =  array(
                 "amount"=> $R_amount,
@@ -158,7 +173,9 @@ class kCheckoutController extends Controller
          
          );
             //call charge API with Token
-            $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
+            // $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
+            $make_call = callAPI('POST',$cardApi_url,json_encode($data_array));
+
              
              echo ($make_call);
              $response = json_decode($make_call, true);
@@ -172,37 +189,35 @@ class kCheckoutController extends Controller
              $rediurl=$response["redirect_url"];
              return redirect($rediurl);
              
-        } elseif ($R_paytype == "card_MCC" ){
-             $R_TOKEN=$_POST["token"];
-             $reforder = rand();
+        // } elseif ($R_paytype == "card_MCC" ){
+        //      $R_TOKEN=$_POST["token"];
+        //      $reforder = rand();
              
-         $data_array =  array(
-                "amount"=> $R_amount,
-                "currency" => "THB",
-                "description" => "test product",
-                "source_type" => "card",
-                "mode" => "token",
-                "token" => $R_TOKEN,
-                "reference_order" => $reforder,
-                "additional_data" => [
-                  "mid"=> "401232949944001"
-           ]
-         );
-            //call charge API with Token
-            $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
+        //  $data_array =  array(
+        //         "amount"=> $R_amount,
+        //         "currency" => "THB",
+        //         "description" => "test product",
+        //         "source_type" => "card",
+        //         "mode" => "token",
+        //         "token" => $R_TOKEN,
+        //         "reference_order" => $reforder,
+        //         "additional_data" => [
+        //           "mid"=> "401232949944001"
+        //    ]
+        //  );
+        //     //call charge API with Token
+        //     $make_call = callAPI('POST',$cardApi_url,json_encode($data_array));
              
-             echo ($make_call);
-             $response = json_decode($make_call, true);
+        //      echo ($make_call);
+        //      $response = json_decode($make_call, true);
     
-             $rediurl=$response["redirect_url"];
-             return redirect($rediurl);
-
-            // var_dump($response);
+        //      $rediurl=$response["redirect_url"];
+        //      return redirect($rediurl);
 
              
         } elseif ($R_paytype == "qr" ){
             // $R_OrderID=$_POST["id"];
-            $reforder = rand();
+            $reforder = $_POST["reforder"];
 
             $data_array =  array(
             "amount"=> $R_amount,
@@ -212,9 +227,8 @@ class kCheckoutController extends Controller
             "reference_order" => $reforder
             );
 
-            $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/qr/v2/order',json_encode($data_array));
+            $make_call = callAPI('POST',$qrApi_url,json_encode($data_array));
              
-            // echo ($make_call);
             $response = json_decode($make_call, true);
    
             // $rediurl=$response["redirect_url"];
@@ -223,7 +237,7 @@ class kCheckoutController extends Controller
             ]);
 
         } elseif ($R_paytype == "alipay" ){
-            $reforder = rand();
+            $reforder = $_POST["reforder"];
 
             $data_array =  array(
             "amount"=> $R_amount,
@@ -237,10 +251,9 @@ class kCheckoutController extends Controller
             );
 
             //call charge API with Token
-            $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
+            $make_call = callAPI('POST',$aliApi_url,json_encode($data_array));
 
             // echo $make_call;
-             
              $response = json_decode($make_call, true);
 
             //  var_dump($response);
@@ -249,6 +262,8 @@ class kCheckoutController extends Controller
              return redirect($rediurl);
         }    
     }
+
+
     public function kpayment_step(Request $request){
     $R_amount=$_POST["amount"];
     // $R_paymentmethod=$_POST["paymentMethods"];
@@ -370,7 +385,7 @@ class kCheckoutController extends Controller
             $data_array =  array(
             "amount"=> $R_amount,
             "currency"=> "THB",
-            "description"=> "TESTPRODUCT",
+            "description"=> "TEST QR",
             "source_type"=> "qr",
             "reference_order" => $reforder
             );
@@ -391,7 +406,7 @@ class kCheckoutController extends Controller
             $data_array =  array(
             "amount"=> 1777,
             "currency"=> "THB",
-            "description"=> "TESTPRODUCT alipay",
+            "description"=> "TEST alipay",
             "source_type"=> "alipay",
             "reference_order" => $reforder,
             "additional_data" => [
