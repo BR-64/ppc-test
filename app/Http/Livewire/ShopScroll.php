@@ -8,7 +8,7 @@ use Livewire\Component;
 class ShopScroll extends Component
 {
     public $totalRecords;
-    public $loadAmount =10;
+    public $loadAmount =5;
 
     public function loadMore(){
         $this->loadAmount += 10;
