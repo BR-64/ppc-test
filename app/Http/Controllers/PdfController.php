@@ -52,7 +52,7 @@ class PdfController extends Controller
                     ->first());
                     // ->toArray();
 
-        $pdf = Pdf::loadView('pdf.orderinfo',compact('order'));
+        $pdf = Pdf::loadView('pdf.orderinfo_fin',compact('order'));
         // $pdf = Pdf::loadView('pdf.orderinfo_test',$order);
 
         return $pdf->stream('orderinfo.pdf');

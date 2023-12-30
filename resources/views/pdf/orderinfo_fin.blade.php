@@ -7,9 +7,11 @@
 
             body {
                 margin: 0px;
+                font-family: sans-serif;
+
             }
             * {
-                font-family: Verdana, Arial, sans-serif;
+                /* font-family: Verdana, Arial, sans-serif; */
             }
             a {
                 color: #fff;
@@ -92,6 +94,15 @@
             .summary >tr {
                 text-align:right;
                 /* color:aqua; */
+            }
+
+            .sh{
+                font-family: sans-serif;
+                /* line-height: 90%; */
+            }
+            .shipping{
+                font-family: 'noto sans thai';
+                /* line-height: 90%; */
             }
 
             .shipping > :first-child{
@@ -188,34 +199,20 @@
             </tfoot>
         </table>
     <br>
-    {{-- <div class="summarysec">
-        <table class='summary'>
-            <tr>
-                <td>subtotal :</td><td>{{$order['total_price']}}</td>
-            </tr>
-            <tr><td>shipping fee :</td><td>{{$order['shipping']}}</td></tr>
-            <tr><td>insurance :</td><td>{{$order['insurance']}}</td></tr>
-            <tr>
-                <td>Total Payment (THB) :</td>
-                <td>{{number_format(($order['total_price']+$order['insurance']+$order['shipping']),2)}}</td>
-            </tr>            
-        </table>
-    </div> --}}
+
         </br>
         <table class='shipping'>
             <tr>
-                <td>Shipping Address:</td>
-                <td>
-                    {{$order->customer['first_name']}}
-                    {{$order->customer['last_name']}}
+                <td class='sh'><p>Shipping Address:</p></td>
+                <td>{{$order->customer['first_name']}} {{$order->customer['last_name']}}
                 <br>{{$order->customer->Ship_Address['address1']}},
                 <br>{{$order->customer->Ship_Address['address2']}}
                 <br>{{$order->customer->Ship_Address['city']}}, {{$order->customer->Ship_Address['country_code']}}
                 <br>{{$order->customer->Ship_Address['zipcode']}}
                 </td>
             </tr>
-            <tr><td>Shipping Method:</td><td>{{$order['ship_method']}}</td></tr>
-            <tr><td>Payment Method:</td><td>{{$order['pay_method']}}</td></tr>
+            <tr><td class='sh'><p>Shipping Method:</p></td><td>{{$order['ship_method']}}</td></tr>
+            <tr><td class='sh'>Payment Method:</td><td>{{$order['pay_method']}}</td></tr>
         </table>
     </body>
 </html>
