@@ -3,13 +3,13 @@
         {{-- <meta http-equiv="Content-Language" content="th" /> --}}
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         {{-- <meta http-equiv="Content-Type" content="text/html; charset=windows-874"> --}}
-        <link rel="preconnect" href="https://fonts.googleapis.com">
+        {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&family=Nunito:ital,wght@0,200;1,200&family=Open+Sans:wght@300&display=swap" rel="stylesheet"> --}}
         {{-- <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet" />
         {{-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300&display=swap" rel="stylesheet"> --}}
         {{-- <link href="https://fonts.googleapis.com/css2?family=Tinos:ital@1&display=swap" rel="stylesheet">  --}}
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai&display=swap" rel="stylesheet"> 
+        {{-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai&display=swap" rel="stylesheet">  --}}
 
         <title>Shipping Label</title>
 
@@ -17,12 +17,12 @@
             @page {
                 size: a4 landscape;
             }
-            @font-face {
+            /* @font-face {
                 font-family: "noto sans thai";
                 font-style: normal;
                 font-weight: normal;
                 src: url('storage/fonts/noto_sans_thai_normal_be0dac6beb348956ae77235fa2f48dd1.ttf') format('truetype');
-                }
+                } */
             /* @font-face {
                 font-family: 'NotoSansThai';
                 src: url('{{public_path()}}/font/NotoSansThai.ttf') format('truetype') 
