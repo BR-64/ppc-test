@@ -695,7 +695,7 @@ if($nonFullCubicBoxCubic<>0){
         CartItem::where(['user_id' => $user->id])->delete();
 
 
-        // $this->createSCauto($order->id);
+        $this->createSCauto($order->id);
 
         // send email to user/admin
         $adminUsers = User::where('is_admin', 1)->get();
@@ -703,7 +703,7 @@ if($nonFullCubicBoxCubic<>0){
 
         foreach ([...$adminUsers, ...$ppc_team,  $user] as $user) {
             // print_r($user->email);
-            // Mail::to($user->email)->send(new NewOrderEmail($order));
+            Mail::to($user->email)->send(new NewOrderEmail($order));
         }
 
         // return view('checkout.step3_test',[

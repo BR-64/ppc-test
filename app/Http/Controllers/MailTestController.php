@@ -28,8 +28,8 @@ class MailTestController extends Controller
     private $mail_2='kraikan@prempracha.com';
     private $mail_3='showroom@prempracha.com';
 
-    // private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com','shoponline@prempracha.com','smooot.stu@gmail.com']; // real use
-    private $sr_mail=['smooot.stu@gmail.com']; // test
+    private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com','shoponline@prempracha.com','smooot.stu@gmail.com']; // real use
+    // private $sr_mail=['smooot.stu@gmail.com']; // test
 
     // private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
@@ -142,6 +142,7 @@ class MailTestController extends Controller
 
         return view('mail.email_test');
     }
+
     public function showroomOrder_final(Request $request)
     {
         $OrderId = $request->OrderID;
