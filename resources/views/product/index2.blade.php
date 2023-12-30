@@ -46,4 +46,4 @@
     <div class="footspace"></div>
 </x-shop>
 
-{{-- @livewireScripts --}}
+@livewireScripts

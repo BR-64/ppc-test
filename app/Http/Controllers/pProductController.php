@@ -256,7 +256,7 @@ class pProductController extends Controller
     public function qfilter(){
         $allproducts = pProduct::query()
             ->where('published', '=', 1)
-            ->where('published', '>', 0)
+            // ->where('published', '>', 0)
             ->orderBy('updated_at', 'desc')
             ->paginate(30);
 

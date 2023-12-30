@@ -45,8 +45,8 @@
           <p class="">- No Remaining Products -</p>
     @endif
 
-    <script>
 
+    <script>
         const lastRecord = document.getElementById('last_record');
         const options = {
             root: null,
@@ -61,8 +61,9 @@
             });
         });
         observer.observe(lastRecord);
-
     </script>
 </div>
+
+
 
 
