@@ -71,19 +71,9 @@
             @endforeach
 
             @if (!$order->isPaid())
-                <form action="{{ route('order.pay', $order) }}"
+                <form action="{{ route('cart.checkout-order', $order) }}"
                       method="POST">
                     @csrf
-                    <input type="hidden" name="orderid" value="{{$order->id}}" >
-                    <input type="hidden" name="subtotal_price" value="{{$order->total_price}}" >
-                    <input type="hidden" name="dispercent" value="{{$order->discount_percent}}" >
-                    <input type="hidden" name="Discount" value="{{$order->discount_amount}}" >
-                    <input type="hidden" name="Shipcost" value="{{$order->shipping}}" >
-                    <input type="hidden"  name="Insurance" value="{{$order->insurance}}">
-                    <input type="hidden" name="amount" value="{{$order->fullprice}}" >
-                    <input type="hidden" name="checkouttype"  value="paynow">
-
-
                     <button class="btn-primary flex items-center justify-center w-full mt-3">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

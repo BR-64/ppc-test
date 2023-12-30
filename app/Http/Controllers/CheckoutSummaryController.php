@@ -476,7 +476,6 @@ if($nonFullCubicBoxCubic<>0){
 
     public function chkout_step3(Request $request){
         $user = $request->user();
-
         $shipcostArray=explode('|',$_POST["Shipcost"]);
 
         $R_chkouttype=$_POST["checkouttype"];

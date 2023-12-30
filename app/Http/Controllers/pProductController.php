@@ -258,10 +258,13 @@ class pProductController extends Controller
             ->where('published', '=', 1)
             // ->where('published', '>', 0)
             ->orderBy('updated_at', 'desc')
+            
             ->paginate(30);
 
         $qproducts = QueryBuilder::for (pProduct::class)
             ->where('published', '=', 1)
+            ->inRandomOrder()
+            // ->where('stock', '>', 0)
             ->allowedFilters([
                 AllowedFilter::exact('collection'),
                 AllowedFilter::exact('category'),

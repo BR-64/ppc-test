@@ -54,4 +54,30 @@ class OrderController extends Controller
 
         return response()->json(['Message'=>'status code 200 ok'],200);
     }
+
+    public function payOrder(Request $request){
+        $user = $request->user();
+
+        $R_id=$_POST["orderid"];
+        $R_STprice=$_POST["subtotal_price"];
+        $R_dispercent=$_POST["dispercent"];
+        $R_Discount=$_POST["Discount"];
+        $R_shipcost=$_POST["Shipcost"];
+        $R_Netprice=$_POST["amount"];
+        $R_Insurance=$_POST["Insurance"];
+        $R_ckouttype=$_POST["checkouttype"];
+
+        // <input type="hidden" name="amount" value="{{$totalpayment}}">
+        // <input type="hidden" name="reforder" value="{{$orderid}}">  
+        return view('checkout.step3_prod',[
+            'itemsprice'=> $R_STprice,
+            'dispercent' => $R_dispercent,
+            'discount_amount' => $R_Discount,
+            'totalpayment'=> $R_Netprice,
+            'ordertype'=>  $R_ckouttype,
+            'shipcost'=> $R_shipcost,
+            'insure'=> $R_Insurance,
+            'orderid'=> $R_id,
+        ]);
+        }
 }
