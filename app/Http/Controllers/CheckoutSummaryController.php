@@ -117,8 +117,11 @@ class CheckoutSummaryController extends Controller
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
-        $shippingAddress = $customer->Ship_Address ?: new ShippingAddress;
+        // $Address = $customer->Bill_Address;
+        $hasAddress =!is_null($customer->Bill_Address);
+
         $billingAddress = $customer->Bill_Address ?: new BillingAddress;
+        $shippingAddress = $customer->Ship_Address ?: new ShippingAddress;
 
         $countries = Country::query()->orderBy('name')->get();
 
@@ -188,8 +191,9 @@ class CheckoutSummaryController extends Controller
                 'dis_percent'=> $dispercent,
                 'baseDis_amt'=> number_format($baseDis_amt),
                 'totalprice'=> $totalPrice,
+                
                 // 'ordertype'=> $R_chkouttype
-            ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
+            ],compact('hasAddress','customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
     }
 
     public function chkout_step2(Request $request){
@@ -204,12 +208,22 @@ class CheckoutSummaryController extends Controller
         // $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
         // $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 
+    //    if ($customer->Ship_Address->country_code === Null){
+    //     echo('null');
+    //    };
+
         $shippingAddress = $customer->Ship_Address;
         $billingAddress = $customer->Bill_Address;
         $shipcountry = $customer->Ship_Address->country_code;
         $domestic= $shipcountry==='THA'; 
         
         $countries = Country::query()->orderBy('name')->get();
+
+        // dd($shipcountry);
+
+        // if ($countries = Country::query()->orderBy('name')->get()){
+        //     return redirect()->back()->with('error', 'please update your info and address'); 
+        // }
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 

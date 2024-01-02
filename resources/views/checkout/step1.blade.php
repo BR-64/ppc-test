@@ -1,6 +1,10 @@
+
 <x-app-layout>
+
+
     <div class="pccollc">
-        <h1 class="pagehead2">Checkout Summary</h1>
+        <h1 class="pagehead2">Checkout Summary </h1>
+        <h1>{{$hasAddress}}</h1>
         {{-- <h2 class ="pprice">Order Type : [{{$ordertype}}]</h2> --}}
         {{-- <p>OrderNumber #{{$paydata['order_id']}}</p> --}}
 
@@ -248,6 +252,8 @@
 </br>
 
 {{-- /// order detail section --}}
+<div x-data="{show :{{$hasAddress}}}">
+    <div x-show="show">
         <div class="chksum">
             @foreach($items as $product)
             <div class="ordersummary">
@@ -275,15 +281,20 @@
                 
         </div>
     </br>
+
     {{-- <a href="{{ route('checkout.step2') }}">
         <x-button>Step 2 : Shipping Calculation</x-button>
     </a> --}}
-    <form action="{{ route('checkout.step2') }}">
-        <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}">
-        <input type="hidden" name="vvalid" value="{{$vvalid}}">
-        <x-button>Step 2 : Shipping Calculation</x-button>
-    </form>
+        <form action="{{ route('checkout.step2') }}">
+            {{-- <input type="hidden" name="country_check" value="{{$billingAddress->country_code}}"required> --}}
+            <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}">
+            <input type="hidden" name="vvalid" value="{{$vvalid}}">
+            <x-button>Step 2 : Shipping Calculation</x-button>
+        </form>
+    </div>
+    </div>
 </div>
+
 
 
 
