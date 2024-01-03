@@ -62,7 +62,8 @@ header("Pragma: no-cache");
                     data-name="Test shop Prempracha"
                     description="product21"
                     reference_order="{{$orderid}}"
-                    data-mid="451320492949001"
+                    {{-- data-mid="451320492949001" --}}
+                    data-mid="{{$mid}}"
             >
         </script>
         <input type="hidden" name="paytype"  value="card_DCC">

@@ -22,8 +22,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class kCheckoutController extends Controller
 {
-    private $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3f";
+    private $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3f"; //test
     private $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
+    private $MID= "401012148319001";
 
     public function paymentresult(Request $request){
 
@@ -136,7 +137,8 @@ class kCheckoutController extends Controller
             // OPTIONS:
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-               'x-api-key:'.$skey,
+            //    'x-api-key:'.$skey,
+               'x-api-key:skey_prod_6726vx4ZPinx0ZawffVaVtJXid8rN4duJK55',
                'Content-Type: application/json',
             ));
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -152,7 +154,7 @@ class kCheckoutController extends Controller
          if ($R_paytype == "card_DCC" ){
              $R_TOKEN=$_POST["token"];
              $R_dcc_cur=$_POST["dcc_currency"];
-             $R_amount2=$_POST["amount"];
+             $R_amount=$_POST["amount"];
              $reforder = $_POST["reforder"];
             //  $reforder = rand();
              
@@ -165,7 +167,7 @@ class kCheckoutController extends Controller
                 "token" => $R_TOKEN,
                 "reference_order" => $reforder,
                 "additional_data" => [
-                  "mid"=> "451320492949001",
+                  "mid"=> $this->MID,
                   "tid"=> "88292023"],
                 "dcc_data"=> [
                     "dcc_currency"=>$R_dcc_cur
@@ -246,7 +248,7 @@ class kCheckoutController extends Controller
             "source_type"=> "alipay",
             "reference_order" => $reforder,
             "additional_data" => [
-                "mid"=> "501932408444001"
+                "mid"=> $this->MID
          ]
             );
 
@@ -300,6 +302,7 @@ class kCheckoutController extends Controller
             // OPTIONS:
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            //    'x-api-key: skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M',
                'x-api-key: skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M',
                'Content-Type: application/json',
             ));
@@ -328,7 +331,7 @@ class kCheckoutController extends Controller
                 "token" => $R_TOKEN,
                 "reference_order" => $reforder,
                 "additional_data" => [
-                  "mid"=> "451320492949001",
+                  "mid"=> $this->MID,
                   "tid"=> "88292023"],
                 "dcc_data"=> [
                     "dcc_currency"=>$R_dcc_cur

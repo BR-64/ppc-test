@@ -32,6 +32,11 @@ use function PHPUnit\Framework\isEmpty;
 class CheckoutSummaryController extends Controller
 {
     private $b_discount;
+    private $MID= "451005592743001"; // real
+    // private $MID= "401232949944001"; // test MMC
+    // private $MID= "451320492949001"; // test DCC
+    private $Pkey= "pkey_prod_6726PnCZRdCaBpn57LasRFYTFPev99mGQyjY";
+
     private $v_discount;
     public function test_Discount(Request $request){
         $this->baseDiscount($request->discount);
@@ -117,7 +122,6 @@ class CheckoutSummaryController extends Controller
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
 
-        // $Address = $customer->Bill_Address;
         $hasAddress =!is_null($customer->Bill_Address);
 
         $billingAddress = $customer->Bill_Address ?: new BillingAddress;
@@ -708,7 +712,7 @@ if($nonFullCubicBoxCubic<>0){
         CartItem::where(['user_id' => $user->id])->delete();
 
 
-        $this->createSCauto($order->id);
+        // $this->createSCauto($order->id);
 
         // send email to user/admin
         $adminUsers = User::where('is_admin', 1)->get();
@@ -732,6 +736,8 @@ if($nonFullCubicBoxCubic<>0){
                 'shipcost'=> $R_shipcost,
                 'insure'=> $R_Insurance,
                 'orderid'=> $order->id,
+                'mid'=>$this->MID,
+                'apikey'=>$this->Pkey
                 // 'paydata'=>$paymentData
             ]);
     }
