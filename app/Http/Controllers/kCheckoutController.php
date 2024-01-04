@@ -24,8 +24,8 @@ class kCheckoutController extends Controller
 {
     private $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3f"; //test
     private $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
-    // private $MID= "401012148319001";
-    private $MID="451005592743001";
+    // private $MID= "401012148319001" //MCC ;
+    private $MID="451005592743001"; //DCC;
 
 
     public function paymentresult(Request $request){
@@ -154,8 +154,10 @@ class kCheckoutController extends Controller
          }
     
          if ($R_paytype == "card_DCC" ){
+            // dd($_POST);
+
              $R_TOKEN=$_POST["token"];
-             $R_dcc_cur=$_POST["dcc_currency"];
+            //  $R_dcc_cur=$_POST["currency"];
              $R_amount=$_POST["amount"];
              $reforder = $_POST["reforder"];
             //  $reforder = rand();
@@ -170,10 +172,11 @@ class kCheckoutController extends Controller
                 "reference_order" => $reforder,
                 "additional_data" => [
                   "mid"=> $this->MID,
-                  "tid"=> "88292023"],
-                "dcc_data"=> [
-                    "dcc_currency"=>$R_dcc_cur
-                ]
+                //   "tid"=> "88292023"
+                ],
+                // "dcc_data"=> [
+                //     "dcc_currency"=>$R_dcc_cur
+                // ]
          
          );
             //call charge API with Token
