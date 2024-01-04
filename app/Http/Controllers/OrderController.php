@@ -58,6 +58,8 @@ class OrderController extends Controller
     public function payOrder(Request $request){
         $user = $request->user();
 
+        $mid="451005592743001";
+
         $R_id=$_POST["orderid"];
         $R_STprice=$_POST["subtotal_price"];
         $R_dispercent=$_POST["dispercent"];
@@ -78,6 +80,7 @@ class OrderController extends Controller
             'shipcost'=> $R_shipcost,
             'insure'=> $R_Insurance,
             'orderid'=> $R_id,
+            'mid'=> $mid,
         ]);
         }
 }

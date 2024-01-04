@@ -24,7 +24,9 @@ class kCheckoutController extends Controller
 {
     private $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3f"; //test
     private $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
-    private $MID= "401012148319001";
+    // private $MID= "401012148319001";
+    private $MID="451005592743001";
+
 
     public function paymentresult(Request $request){
 
@@ -137,8 +139,8 @@ class kCheckoutController extends Controller
             // OPTIONS:
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            //    'x-api-key:'.$skey,
-               'x-api-key:skey_prod_6726vx4ZPinx0ZawffVaVtJXid8rN4duJK55',
+               'x-api-key:'.$skey,
+            //    'x-api-key:skey_prod_6726vx4ZPinx0ZawffVaVtJXid8rN4duJK55',
                'Content-Type: application/json',
             ));
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
