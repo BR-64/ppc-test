@@ -222,4 +222,8 @@
         </div>
     </div>
 
+    <div id='loader'>
+        <div class="loader"></div>
+    </div>
+
 </x-app-layout>

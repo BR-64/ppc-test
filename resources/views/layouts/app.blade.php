@@ -16,6 +16,7 @@
         'resources/css/app.css',
         'resources/css/style3.css',
         'resources/css/queries.css',
+        'resources/css/loader.css',
         'resources/js/app.js',
         'resources/js/nav.js',
         ])
@@ -128,6 +129,14 @@
 <!--/ Toast -->
 @livewireScripts
 
+<script>
+    // $('#loader').show()
+    $(function() {
+        $( "form" ).submit(function() {
+            $('#loader').show();
+        });
+    });
+</script>
 
 </body>
 
