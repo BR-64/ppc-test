@@ -26,6 +26,8 @@ class kCheckoutController extends Controller
     private $secretkey = "skey_test_216332Jyp8b6aUYfYJKgBqEJpdtMDWlcgCg3M"; // test key
     // private $MID= "401012148319001" //MCC ;
     private $MID="451005592743001"; //DCC;
+    private $prod_key="pkey_prod_6726PnCZRdCaBpn57LasRFYTFPev99mGQyjY";
+    private $prod_url="https://kpaymentgateway.kasikornbank.com/ui/v2/kpayment.min.js";
 
 
     public function paymentresult(Request $request){
@@ -148,8 +150,10 @@ class kCheckoutController extends Controller
          
             // EXECUTE:
             $result = curl_exec($curl);
+            
             if(!$result){die("Connection Failure");}
             curl_close($curl);
+
             return $result;
          }
     
@@ -229,7 +233,7 @@ class kCheckoutController extends Controller
             $data_array =  array(
             "amount"=> $R_amount,
             "currency"=> "THB",
-            "description"=> "TESTPRODUCT",
+            "description"=> "QR payment - prempracha online shop ",
             "source_type"=> "qr",
             "reference_order" => $reforder
             );
@@ -240,6 +244,8 @@ class kCheckoutController extends Controller
    
             // $rediurl=$response["redirect_url"];
             return view('checkout.payQR',[
+                'src'=>$this->prod_url,
+                'apikey'=>$this->prod_key,
                 'qrinfo'=>$response
             ]);
 

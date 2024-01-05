@@ -160,22 +160,34 @@ class MailTestController extends Controller
     {
         $OrderId = $request->OrderID;
 
+        // dd( $request);
+        // dd( $OrderId);
+
         $order = Order::query()
                     ->where(['id' => $OrderId])
                     ->first();
-        $buyer = $order->user;
 
-        $adminUsers = User::where('is_admin', 1)->get();
-        $ppc_team = User::where('is_admin', 2)->get();
+        // dd($order->status);
 
-        foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
-            // print_r($user->email);
-            Mail::to($user->email)->send(new PaymentCompleted($order));
+        if ($order->status == 'paid') {      
+            $buyer = $order->user;
+
+            $adminUsers = User::where('is_admin', 1)->get();
+            $ppc_team = User::where('is_admin', 2)->get();
+
+            foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
+                // print_r($user->email);
+                Mail::to($user->email)->send(new PaymentCompleted($order));
+            }
+            
+            Mail::to($this->sr_mail)->send(new ShowroomOrderEmail($order));
+
+            dd('PaymentCompleted mail sent');
+        } else {
+
+            dd('Order Status is "Unpaid"');
+
         }
-        
-        Mail::to($this->sr_mail)->send(new ShowroomOrderEmail($order));
-
-        dd('PaymentCompleted mail sent');
 
         return view('mail.email_test');
     }

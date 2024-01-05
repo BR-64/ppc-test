@@ -35,8 +35,12 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
+
+
     public static function form(Form $form): Form
     {
+        // $orderId = TextInput::make('id');
+
         return $form
             ->schema([
                 Forms\Components\Fieldset::make('Order Info')->schema([
@@ -130,23 +134,6 @@ class OrderResource extends Resource
                 //         }),
                 //     ]),
 
-                    TextInput::make('Paymentconfirm')
-                        ->suffixAction(fn (?string $state): Action =>
-                            Action::make('visit')
-                                ->icon('heroicon-s-external-link')
-                                ->url(
-                                    filled($state) ? "https://{$state}" : null,
-                                    shouldOpenInNewTab: true,
-                                ),
-                            ),
-                    TextInput::make('Paymentconfirm')
-                        ->suffixAction(fn (): Action =>
-                            Action::make('visit')
-                                ->icon('heroicon-s-external-link')
-                                ->action(fn()=>redirect()-> route('admail_control'))
-
-                            ),
-
 
                     // Action::make('visit')
                     //     ->icon('heroicon-s-external-link')
@@ -176,12 +163,22 @@ class OrderResource extends Resource
                 'quotation' => 'quotation',
             ])
             ->required()
-            ->suffixAction(fn (): Action =>
+            ,
+
+        TextInput::make('id')->label('send payment confirmation email')->disabled()
+        ->suffixAction(fn (?string $state): Action =>
             Action::make('visit')
+                ->requiresConfirmation()
                 ->icon('heroicon-s-external-link')
+                ->url(
+                    route('mail.paycom',['OrderID' =>$state]),
+                    // route('mail.paycom',['OrderID' =>$this->model->id]),
+                shouldOpenInNewTab: true,)
                 // ->action(fn()=>redirect()-> route('admail_control'))
-                ->action(fn()=>Route::post('showroomOrder_fin'))
-                // ->url(fn (Order $record): string => route('showroomOrder_fin', $record))
+                // ->action(fn()=>Route::post('showroomOrder_fin'))
+                // ->action(fn () => redirect()->route('mail.paycom', ['OrderID' => $orderId]))
+                // ->url(route('mail.paycom', ['OrderID' => $orderId]))
+                // ->url(fn (Order $record): string => route('mail.paycom', ['OrderID' =>$record->getkey()]))
             ),
         //         //
             ]);
