@@ -66,6 +66,7 @@
                 /* font-family: 'noto serif thai'; */
                 font-family: 'noto sans thai';
                 max-height: 50%;
+                font-size:22pt;
 
                 /* font-family: 'DejaVu Sans'; */
                 /* font-family: 'Tinos', serif; */
@@ -75,6 +76,7 @@
             .from{
                 /* font-family: 'noto sans thai'; */
                 font-family: sans-serif;
+                font-size:16pt;
                 /* font-weight: bold; */
                 /* font-family: 'Tangerine'; */
                 /* font-family: 'Tinos', serif;
@@ -100,6 +102,10 @@
                 text-transform: uppercase;
             }
 
+            .box{
+                font-size: 24pt;
+            }
+
 
         </style>
     </head>
@@ -107,6 +113,23 @@
 <body>
     
 @for ($i =0; $i < $boxcount; $i++)
+    <div class="from">
+        <table>
+            <tr>
+                <td class='left'>From :</td>
+                <td class='mid'>PREMPRACHA’S COLLECTION CO., LTD.
+                    <br>224 M.3 CHIANGMAI-San Kamphaeng RD.,
+                    <br>T.TONPAO A.San Kamphaeng
+                    <br>CHIANGMAI THAILAND 50130 
+                    <br>TEL: 053-338540, 053-338857 
+                    <br>E-mail: showroom@prempracha.com
+                </td>
+                <td class='right box'>Box No. {{$i+1}} / {{$boxcount}}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
     <div class="to">
         <table>
             <tr>
@@ -119,7 +142,6 @@
                 <td class='mid caps'>{{$order->customer['first_name']}}  {{$order->customer['last_name']}}
                     <br>{{$order->customer['customer_name']}}
                  </td>
-                 <td class='right'>Box No. {{$i+1}} / {{$boxcount}}</td>
             </tr>
             <tr>
                 <td></td>
@@ -133,22 +155,8 @@
         </table>
         
     </div>
-    <br>
-    <br>
-    <div class="from">
-        <table>
-            <tr>
-                <td class='left'>From :</td>
-                <td class='mid'>PREMPRACHA’S COLLECTION CO., LTD.
-                    <br>224 M.3 CHIANGMAI-San Kamphaeng RD.,
-                    <br>T.TONPAO A.San Kamphaeng
-                    <br>CHIANGMAI THAILAND 50130 
-                    <br>TEL: 053-338540, 053-338857 
-                    <br>E-mail: showroom@prempracha.com
-                 </td>
-            </tr>
-        </table>
-    </div>
+
+
     
     @if ($i+1 < $boxcount)
         <div style="page-break-before: always;"></div>      
