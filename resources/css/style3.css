@@ -1656,3 +1656,8 @@ ul.thumb li .thumbnail-wrap.hover {
   font-weight: bold;
 }
 /* ////////// test */
+
+.qrdiv {
+  margin-top: 10%;
+  text-align: center;
+}
