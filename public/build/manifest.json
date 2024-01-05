@@ -15,8 +15,13 @@
     "isEntry": true
   },
   "resources/css/queries.css": {
-    "file": "assets/queries.80c64469.css",
+    "file": "assets/queries.c8f8454c.css",
     "src": "resources/css/queries.css",
+    "isEntry": true
+  },
+  "resources/css/loader.css": {
+    "file": "assets/loader.3737d124.css",
+    "src": "resources/css/loader.css",
     "isEntry": true
   },
   "resources/css/style3.css": {
@@ -25,7 +30,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app.035a476f.css",
+    "file": "assets/app.6044abed.css",
     "src": "resources/css/app.css",
     "isEntry": true
   }
