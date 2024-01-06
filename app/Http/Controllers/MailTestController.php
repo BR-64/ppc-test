@@ -158,6 +158,8 @@ class MailTestController extends Controller
 
     public function PaymentCompleted(Request $request)
     {
+
+        
         $OrderId = $request->OrderID;
 
         // dd( $request);

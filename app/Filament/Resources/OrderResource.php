@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Actions as act;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Checkbox;
 use Illuminate\Routing\Route;
 
 class OrderResource extends Resource
@@ -162,26 +163,27 @@ class OrderResource extends Resource
                 'paid' => 'paid',
                 'quotation' => 'quotation',
             ])
-            ->required()
-            ,
+            ->required(),
+
+        // Checkbox::make('id')->label('send payment confirmation email')->inline()
 
         TextInput::make('id')->label('send payment confirmation email')->disabled()
         ->suffixAction(fn (?string $state): Action =>
             Action::make('visit')
-                ->requiresConfirmation()
                 ->icon('heroicon-s-external-link')
                 ->url(
                     route('mail.paycom',['OrderID' =>$state]),
                     // route('mail.paycom',['OrderID' =>$this->model->id]),
-                shouldOpenInNewTab: true,)
+                shouldOpenInNewTab: true)->requiresConfirmation()
                 // ->action(fn()=>redirect()-> route('admail_control'))
                 // ->action(fn()=>Route::post('showroomOrder_fin'))
                 // ->action(fn () => redirect()->route('mail.paycom', ['OrderID' => $orderId]))
                 // ->url(route('mail.paycom', ['OrderID' => $orderId]))
                 // ->url(fn (Order $record): string => route('mail.paycom', ['OrderID' =>$record->getkey()]))
-            ),
-        //         //
-            ]);
+            )
+
+
+         ]);
     }
 
     public static function table(Table $table): Table
