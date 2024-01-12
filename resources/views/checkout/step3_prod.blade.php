@@ -65,7 +65,7 @@ header("Pragma: no-cache");
                     data-mid={{$mid}}
             >
         </script>
-        <input type="hidden" name="paytype"  value="card_DCC">
+        <input type="hidden" name="paytype"  value="Credit Card">
         <input type="hidden" name="amount" value="{{$totalpayment}}">
         <input type="hidden" name="reforder" value="{{$orderid}}">          
           
@@ -78,7 +78,7 @@ header("Pragma: no-cache");
         {{-- </br> --}}
             <form class="qrform" method="POST" action="{{route('kpayment')}}">
                 @csrf
-            <input type="hidden" name="paytype"  value="qr">
+            <input type="hidden" name="paytype"  value="QR">
             <input type="hidden" name="amount" value="{{$totalpayment}}">     
             <input type="hidden" name="reforder" value="{{$orderid}}">               
             <input class="subbut" type="submit"value="Pay with QR">
