@@ -96,6 +96,7 @@ class kCheckoutController extends Controller
     $R_amount=$_POST["amount"];
     // $R_paymentmethod=$_POST["paymentMethods"];
     $R_paytype=$_POST["paytype"];
+    $R_OrderId=$_POST["reforder"];
     // $R_product=$_POST["product"];
 
     // $publickey = "pkey_test_21633PhMyUk08kpleKc3LN6EsuSc4vV9KY3fC"; // test
@@ -114,6 +115,11 @@ class kCheckoutController extends Controller
 
     $payload = @file_get_contents('php://input');
     $body = json_decode($payload,true);
+
+    // update payment type
+    Order::where('id',$R_OrderId)->update(['pay_method'=>$R_paytype]);
+
+
 
     var_dump ($body);
         function callAPI($method, $url, $data){
