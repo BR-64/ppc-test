@@ -116,6 +116,7 @@ class kCheckoutController extends Controller
     $payload = @file_get_contents('php://input');
     $body = json_decode($payload,true);
 
+
     // update payment type
     Order::where('id',$R_OrderId)->update(['pay_method'=>$R_paytype]);
 
@@ -244,6 +245,7 @@ class kCheckoutController extends Controller
             "reference_order" => $reforder
             );
 
+            // dd($data_array);
             $make_call = callAPI('POST',$qrApi_url,json_encode($data_array));
              
             $response = json_decode($make_call, true);
@@ -412,7 +414,7 @@ class kCheckoutController extends Controller
 
             $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/qr/v2/order',json_encode($data_array));
              
-            // echo ($make_call);
+            dd ($make_call);
             $response = json_decode($make_call, true);
    
             // $rediurl=$response["redirect_url"];
