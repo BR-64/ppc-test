@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Session;
 
@@ -171,7 +172,10 @@ class MailTestController extends Controller
 
         // dd($order->status);
 
-        if ($order->status == 'paid') {      
+        if ($order->status == 'paid') {  
+    //// create SC
+            $this->createSCauto($order->id);
+    
             $buyer = $order->user;
 
             $adminUsers = User::where('is_admin', 1)->get();
@@ -331,4 +335,105 @@ class MailTestController extends Controller
     return redirect()->back();
     }
 
+
+    public function createSCauto($orderid){
+            $OrderId = $orderid;
+            $Order = (Order::query()
+                        ->where(['id' => $OrderId])
+                        ->first());
+            $Items = OrderItem::query()
+                        ->where(['order_id' => $OrderId])
+                        ->get();
+            
+        $scdate=date('Ymd'); /// for real use
+        $docdate=date('ymd'); /// for enpro ID
+
+        $latestdoc = Order::whereDate('created_at', Carbon::today())->get()->count();  /// count today doc
+        $enproID = str_pad($latestdoc + 1, 4, '0', STR_PAD_LEFT);
+    
+        ///// random no duplicate
+            $enpro_doc='WB'.$docdate.'_'.$enproID;
+    
+    
+    
+        ////////// order data
+            $shipping_cost=$Order['shipping'];
+            $insure_cost=$Order['insurance'];
+    
+           
+        /////// order items data
+            $sa_detail=[];
+                foreach ($Items as $Item => $value){
+                    $sa_detail[]=[
+                        'item_code'=>$value->product->item_code,
+                        // 'item_code'=>$item->product->item_code,
+                        'unit_code'=>'PCS',
+                        'qty'=>$value->quantity,
+                        'unit_price'=>$value->product->retail_price,
+                        // 'discount_amt'=>0
+                        'discount_amt'=>($Order->discount_percent/100)*($value->product->retail_price)*$value->quantity
+    
+                    ];
+            }  
+            
+            $shipping_sc=[
+                'item_code'=>'002',
+                'unit_code'=>'BAHT',
+                'qty'=>1,
+                'unit_price'=>$shipping_cost,
+                'discount_amt'=>0
+            ];
+            
+            $insurance_sc=[
+                'item_code'=>'003',
+                'unit_code'=>'BAHT',
+                'qty'=>1,
+                'unit_price'=>$insure_cost,
+                'discount_amt'=>0
+            ];
+            
+    
+            $ch = curl_init();                    // Initiate cURL
+            $url = "http://1.1.220.113:7000/PrempApi.asmx/createSC"; // Where you want to post data
+
+            $sa_header=array([
+                    "doc_date"=>$scdate,
+                    "vat_rate"=>"7",
+                    "discount_amt"=>"0",
+                    "ref1"=>$enpro_doc,
+                ]);
+            array_push($sa_detail,$shipping_sc,$insurance_sc);
+    
+            $sah_json=json_encode($sa_header);
+            $sad_json=json_encode($sa_detail);
+    
+            $key_val="sa_header=".$sah_json."&sa_detail=".$sad_json;
+
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_POST, true);  // Tell cURL you want to post something
+
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $key_val,); // Define what you want to post
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+    
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the output in string format
+    
+            $output = curl_exec ($ch); // Execute 
+            curl_close ($ch); // Close cURL handle
+    
+            //// update sc number in web order data
+            
+            preg_match('#(?<=\[{)(.*?)(?=\}])#', $output,$match);
+            $mjson = "{".$match[1]."}"; /// make output to json format
+            $dataEnpro=json_decode($mjson,true);
+    
+            /// check if sc sent completed
+                if ($dataEnpro['str_return']=="success"){
+                    Order::where('id',$OrderId)->update(['enpro_doc'=>$enpro_doc]);    
+    
+                } else {
+                    echo nl2br ("\n \n Error in creating SC \n");
+                }
+    
+        }
+    
 }

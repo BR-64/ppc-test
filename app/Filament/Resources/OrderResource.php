@@ -56,7 +56,7 @@ class OrderResource extends Resource
                     //     $component->state(str_replace(".",",",$state));
                     // })
                     ,
-                    TextInput::make('vc')->disabled(),
+                    TextInput::make('vc')->label('Voucher')->disabled(),
                     TextInput::make('enpro_doc')])->columns(3),
                
 
