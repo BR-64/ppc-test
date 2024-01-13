@@ -175,6 +175,9 @@
                                                     </span>
                                                     <p></p>
                                                 </div>
+                                                <div x-show="!product.stock" class="oos items-end">
+                                                    <p >out of stock</p>
+                                                </div>
                                                 <div class="flex items-center">
                                                     <p class="text-sm nomar">Qty:</p>
                                                     <input

@@ -210,7 +210,7 @@
             
             <tr>
                 <td>PAYMENT :</td>
-                <td>BY. cash, BY.credit</td>
+                <td>{{$order->pay_method}}</td>
             </tr>
             <tr>
                 <td>ISSUE BY :</td>
