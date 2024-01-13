@@ -159,7 +159,7 @@ class MailTestController extends Controller
 
     public function PaymentCompleted(Request $request)
     {
-
+        set_time_limit(30000);
         
         $OrderId = $request->OrderID;
 
@@ -174,7 +174,12 @@ class MailTestController extends Controller
 
         if ($order->status == 'paid') {  
     //// create SC
-            $this->createSCauto($order->id);
+            // dd(is_null($order->enpro_doc));
+            if (is_null($order->enpro_doc) ){
+                $this->createSCauto($order->id);
+            }; 
+
+            // $this->createSCauto($order->id);
     
             $buyer = $order->user;
 
@@ -349,17 +354,21 @@ class MailTestController extends Controller
         $docdate=date('ymd'); /// for enpro ID
 
         $latestdoc = Order::whereDate('created_at', Carbon::today())->get()->count();  /// count today doc
-        $enproID = str_pad($latestdoc + 1, 4, '0', STR_PAD_LEFT);
+        
+        if ($latestdoc == 1) {
+            $enproID = '0001';
+        } else {
+            $enproID = str_pad($latestdoc + 1, 4, '0', STR_PAD_LEFT);
+        };
     
+        // $enproID = str_pad($latestdoc + 1, 4, '0', STR_PAD_LEFT);
+
         ///// random no duplicate
             $enpro_doc='WB'.$docdate.'_'.$enproID;
-    
-    
-    
+
         ////////// order data
             $shipping_cost=$Order['shipping'];
             $insure_cost=$Order['insurance'];
-    
            
         /////// order items data
             $sa_detail=[];
@@ -372,7 +381,6 @@ class MailTestController extends Controller
                         'unit_price'=>$value->product->retail_price,
                         // 'discount_amt'=>0
                         'discount_amt'=>($Order->discount_percent/100)*($value->product->retail_price)*$value->quantity
-    
                     ];
             }  
             
