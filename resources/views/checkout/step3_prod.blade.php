@@ -29,15 +29,15 @@ header("Pragma: no-cache");
         </tr>
         <tr class="underline">
             <td>Shipping Cost : </td>
-            <td class='text-right'>{{number_format($shipcost)}}</td>
+            <td class='text-right'>{{number_format($shipcost,2)}}</td>
         </tr>
         <tr class="">
             <td>Insurance : </td>
-            <td class='text-right'>{{number_format($insure)}}</td>
+            <td class='text-right'>{{number_format($insure,2)}}</td>
         </tr>
         <tr>
             <td>Total Payment : </td>
-            <td class="bold text-right">(thb) {{number_format($totalpayment)}} </td>
+            <td class="bold text-right">(thb) {{number_format($totalpayment,2)}} </td>
         </tr>
 
     </table>
