@@ -1446,6 +1446,13 @@ swiper-slide {
   margin: 10px auto 0 auto;
 }
 
+.container_profile {
+  max-width: 800px;
+  height: 100%;
+  background-color: white;
+  margin: 10px auto 0 auto;
+}
+
 .drop1 {
   margin: 0;
 }
