@@ -150,7 +150,12 @@ class ProductUploadController extends Controller
                     'color',
                     'finish',
                     'pre_order',
-                    'stock'
+                    'stock',
+                    'weight_g',
+                    'width',
+                    'length',
+                    'height',
+                    'retail_price',
                 ])
                 ->toArray();
     
