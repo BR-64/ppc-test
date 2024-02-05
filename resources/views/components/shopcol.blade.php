@@ -2,7 +2,6 @@
 
 <style>
   .swiper {
-    width: 100%;
     height: 100%;
   }
 
@@ -54,4 +53,33 @@
       },
     });
   </script>
+
+<script>
+  $(document).ready(function(){
+    if(window.innerWidth > 768) {
+        var swiper = new Swiper(".mySwiper_col", {
+      slidesPerView: 4,
+      spaceBetween: 30,
+      freeMode: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+      }
+      if(window.innerWidth < 768) {
+        var swiper = new Swiper(".mySwiper_col", {
+      slidesPerView: 2,
+      spaceBetween: 5,
+      freeMode: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+
+      }
+  });
+</script>
+
 

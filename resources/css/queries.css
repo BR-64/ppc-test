@@ -154,6 +154,7 @@
     /* height: 29%; */
     margin-left: 0;
     margin-right: auto;
+    max-width: 900px;
   }
 
   .myswiper2 {
