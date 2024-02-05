@@ -75,7 +75,7 @@ class pProductController extends Controller
         $collections=pCollection::query()
                 ->where('published', '=', 1)
                 ->orderBy('id', 'desc')
-                ->paginate(4);
+                ->paginate(20);
 
         // $filterables = pProduct::select('collection')->distinct()->get();
         $filterables = [

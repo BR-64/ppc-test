@@ -515,6 +515,15 @@ header {
   margin-bottom: 60px;
 }
 
+.shopcoll_main {
+  text-align: center;
+  box-sizing: border-box;
+  margin: auto;
+  padding: auto;
+  margin-bottom: 60px;
+  height: 200px;
+}
+
 .gridShopcoll {
   display: grid;
   grid-template-columns: 1fr 1fr;
