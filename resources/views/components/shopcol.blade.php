@@ -3,6 +3,8 @@
 <style>
   .swiper {
     height: 100%;
+    max-width: 900px;
+
   }
 
   .swiper-slide {
