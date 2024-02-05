@@ -163,8 +163,8 @@
                     <a href="{{ route('product.collection.view', $product->collection_name) }}"
                        class="">
                         <img
-                        src="{{ asset ('/storage/'.$product->image) }}"
-                        alt="{{ $product->collection_name }}"
+                            src="{{ $product->image }}"
+                            alt=""
                             class="pimage hover:scale-105 hover:rotate-1 transition-transform"
                         />
                     </a>

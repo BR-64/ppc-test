@@ -19,8 +19,10 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class CollectionResource extends Resource
 {
@@ -64,6 +66,7 @@ class CollectionResource extends Resource
                 // pCollection::withCount('products')
                     ->counts('products')
                     ->label('no. of products'),
+                ToggleColumn::make('published')
                 //
             ])
             ->filters([
@@ -89,7 +92,7 @@ class CollectionResource extends Resource
     {
         return [
             'index' => Pages\ListCollections::route('/'),
-            'create' => Pages\CreateCollection::route('/create'),
+            // 'create' => Pages\CreateCollection::route('/create'),
             'edit' => Pages\EditCollection::route('/{record}/edit'),
         ];
     }    
