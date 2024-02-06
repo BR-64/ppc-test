@@ -19,6 +19,11 @@
   .swiper-slide img {
     display: block;
   }
+
+  /* .swiper-pagination{
+    margin-top:20px;
+  } */
+
 </style>
 
 <div class="shopcoll_main">
@@ -38,10 +43,9 @@
           </div>
       @endforeach
       </div>
-    </br>
       <div class="swiper-pagination"></div>
     </div>
-  </div>
+</div>
 
 <script>
   $(document).ready(function(){

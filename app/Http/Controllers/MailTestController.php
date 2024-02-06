@@ -34,7 +34,7 @@ class MailTestController extends Controller
 
     // private $sr_mail=['kraikan@prempracha.com','showroom@prempracha.com'];
     private $sr_mail2=['smooot.stu@gmail.com','mawkard.th@gmail.com'];
-    private $sr_mail3=['aviroot@prempracha.com','info@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
+    private $sr_mail3=['aviroot@prempracha.com','kraikan@prempracha.com','shoponline@prempracha.com','mawkard.th@gmail.com'];
     // private $adminUsers = User::where('is_admin', 1)->get();
     // private $ppc_team = User::where('is_admin', 2)->get();
     // private $sr_mail3=['mawkard.th@gmail.com'];
