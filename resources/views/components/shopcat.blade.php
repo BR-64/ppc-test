@@ -21,7 +21,7 @@
           <img src="https://smoootstudio.com/pic/prempracha/pic/cat3.jpg" alt="" />
           <div class="centered">
               {{-- <a href="{{ route('shop.cat', "Cup & Mug") }}"> --}}
-              <a href="{{ route('shop.cat', "cup and mugs") }}">
+              <a href="{{ route('shop.cat', "cups and mugs") }}">
               Cup & Mug
             </a>
             </div>
