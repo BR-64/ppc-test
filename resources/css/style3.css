@@ -48,6 +48,10 @@ h5 {
   margin: 0 5px; */
 }
 
+.deco_col {
+  margin: -20px;
+}
+
 .front {
   z-index: 100;
 }
@@ -520,7 +524,7 @@ header {
   box-sizing: border-box;
   margin: auto;
   padding: auto;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   height: 250px;
 }
 

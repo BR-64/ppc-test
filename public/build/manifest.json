@@ -14,18 +14,18 @@
     "src": "resources/css/reset.css",
     "isEntry": true
   },
-  "resources/css/queries.css": {
-    "file": "assets/queries.53d58dc3.css",
-    "src": "resources/css/queries.css",
-    "isEntry": true
-  },
   "resources/css/loader.css": {
     "file": "assets/loader.3737d124.css",
     "src": "resources/css/loader.css",
     "isEntry": true
   },
+  "resources/css/queries.css": {
+    "file": "assets/queries.53d58dc3.css",
+    "src": "resources/css/queries.css",
+    "isEntry": true
+  },
   "resources/css/style3.css": {
-    "file": "assets/style3.91a485b6.css",
+    "file": "assets/style3.a52fc7b7.css",
     "src": "resources/css/style3.css",
     "isEntry": true
   },

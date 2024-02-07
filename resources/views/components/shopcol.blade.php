@@ -7,6 +7,10 @@
 
   }
 
+  mySwiper_col{
+    height:200px;
+  }
+
   .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -27,7 +31,7 @@
 </style>
 
 <div class="shopcoll_main">
-    <a href="{{ route('product.collection') }}"><h4 class="deco">Shop by Collection</h4></a>
+    <a href="{{ route('product.collection') }}"><h4 class="deco_col">Shop by Collection</h4></a>
 
     <div class="swiper mySwiper_col">
       <div class="swiper-wrapper" style='margin-bottom:10px;'>
