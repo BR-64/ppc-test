@@ -9,7 +9,7 @@
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>test 10 Prempracha Online Store </title>
+    <title>Prempracha Online Store </title>
 
     @vite([
         'resources/css/reset.css',

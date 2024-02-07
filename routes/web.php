@@ -104,7 +104,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
     Route::post('/order-payment/{order}', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
-    Route::get('/testCreateSC/{OrderID}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
+    // Route::get('/testCreateSC/{OrderID}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
 
 
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');

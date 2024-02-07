@@ -64,8 +64,10 @@ class MailTestController extends Controller
         // return view('mail.email_test');
         dd('mail sent');
     }
-    public function newOrder_created(Request $request)
+
+    public function newOrder_created(Request $request) //current use
     {
+
         $OrderId = $request->OrderID;
 
         $order = (Order::query()
@@ -157,7 +159,7 @@ class MailTestController extends Controller
         dd('showroom mail sent');
     }
 
-    public function PaymentCompleted(Request $request)
+    public function PaymentCompleted(Request $request) //current use
     {
         set_time_limit(30000);
         
@@ -202,8 +204,9 @@ class MailTestController extends Controller
 
         return view('mail.email_test');
     }
-    public function OrderShipped(Request $request)
+    public function OrderShipped(Request $request) //current use
     {
+        
         $OrderId = $request->OrderID;
 
         $order = Order::query()
