@@ -369,7 +369,7 @@
                         {{-- <h1>{{$apply_voucher}}</h1> --}}
                         
                         <br>
-                        <div>
+                        {{-- <div>
                         <form action="{{route('checkout.summary')}}" method="post">
                                 @csrf
                             <button type="submit" class="btn-secondary w-full py-3 text-lg" onclick="clicked(event)">
@@ -377,7 +377,7 @@
                             </button>
                             <input type="hidden" name="checkouttype"  value="quotation">
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
