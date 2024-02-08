@@ -44,14 +44,16 @@ class CollectionResource extends Resource
                     TextInput::make('brand_name'),
                     Toggle::make('published')
                     ])->columns(3),
-                    FileUpload::make('image')
-                    ->image(),
-                    FileUpload::make('coll_image')->label('collection images')
-                    ->preserveFilenames()
-                    ->image()
-                    ->multiple(),
+                    // FileUpload::make('image')
+                    //     ->image()
+                    //     ->preserveFilenames(),
+                    // FileUpload::make('coll_image')->label('collection images')
+                    //     ->directory('img')
+                    //     ->preserveFilenames()
+                    //     ->image()
+                    //     ->multiple(),
                     Textarea::make('description'),
-                
+            
             ]);
     }
 
