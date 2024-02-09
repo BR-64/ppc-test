@@ -45,6 +45,7 @@ class CollectionResource extends Resource
                     Toggle::make('published')
                     ])->columns(3),
                     FileUpload::make('image')
+                        ->directory('img')
                         ->image()
                         ->preserveFilenames(),
                     FileUpload::make('coll_image')->label('collection images')

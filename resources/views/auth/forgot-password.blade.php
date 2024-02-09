@@ -19,7 +19,7 @@
             </a>
         </p>
 
-        <div class="mb-3">
+        <div class="mb-3 text-black">
             <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
                      autofocus placeholder="Enter your Email Address"/>
         </div>
