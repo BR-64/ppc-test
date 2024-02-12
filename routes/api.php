@@ -5,8 +5,8 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\MailTestController;
 use App\Http\Controllers\ReportController;
-use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\pProductController;
 /*
@@ -50,6 +50,10 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     //import data
     Route::get('im-ex-excel',[FileControllerDemo::class,'importExport']);
     Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
+
+    //mailhub
+    Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
+
 });
 
 Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
