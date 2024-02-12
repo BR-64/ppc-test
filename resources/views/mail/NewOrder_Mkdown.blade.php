@@ -3,6 +3,7 @@
 
 Dear {{$order->customer['first_name']}},  
 You order {{$order['id']}} has been confirmed. Please make a payment.
+You will receive a payment confirmation e-mail within 24 hours after the payment is made.
 
 <a href="{{route('order.view', $order, true)}}">
 Link to your order : #{{$order->id}}

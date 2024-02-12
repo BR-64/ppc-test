@@ -15,6 +15,7 @@ export default defineConfig({
         // "resources/assets/scss/main.scss",
         "resources/js/app.js",
         "resources/js/nav.js",
+        "resources/js/cookieconsent-config.js",
       ],
       refresh: true,
     }),

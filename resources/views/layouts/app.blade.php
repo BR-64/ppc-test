@@ -9,7 +9,7 @@
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>Prempracha Online Store </title>
+    <title>Prempracha Online Store</title>
 
     @vite([
         'resources/css/reset.css',
@@ -19,6 +19,7 @@
         'resources/css/loader.css',
         'resources/js/app.js',
         'resources/js/nav.js',
+        // 'resources/js/cookieconsent-config.js',
         ])
 
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
@@ -64,6 +65,7 @@
 
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<script  src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.umd.js"></script>
 
 <script type="text/javascript">
     $.ajaxSetup({
@@ -76,12 +78,15 @@
 
     @livewireStyles
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css">
+
 </head>
 
 <body>
 @include('layouts.navigation')
 
-    <main >
+    <main>
+
         {{ $slot }}
     </main>
 
@@ -136,7 +141,9 @@
             $('#loader').show();
         });
     });
+
 </script>
+<script type="module" src="cookieconsent-config.js"></script>
 
 </body>
 
