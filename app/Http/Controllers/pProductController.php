@@ -316,7 +316,9 @@ class pProductController extends Controller
                 AllowedFilter::exact('color'),
                 AllowedFilter::exact('finish'),
                 ])
+            ->where('published', '=', 1)
             ->get();
+
             // ->paginate(20);
 
 
