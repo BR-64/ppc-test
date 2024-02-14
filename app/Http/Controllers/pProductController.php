@@ -277,7 +277,7 @@ class pProductController extends Controller
 
             $showProducts = QueryBuilder::for (Stock::class)
             ->where('stock', '>', 0)
-            ->where('published', '=', 1)
+            // ->where('published', '=', 1)
             ->get();
 
             // dd($showProducts);
