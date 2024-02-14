@@ -258,7 +258,6 @@ class pProductController extends Controller
             ->where('published', '=', 1)
             // ->where('published', '>', 0)
             ->orderBy('updated_at', 'desc')
-            
             ->paginate(30);
 
         $qproducts = QueryBuilder::for (pProduct::class)
@@ -278,6 +277,7 @@ class pProductController extends Controller
 
             $showProducts = QueryBuilder::for (Stock::class)
             ->where('stock', '>', 0)
+            ->where('published', '=', 1)
             ->get();
 
             // dd($showProducts);
