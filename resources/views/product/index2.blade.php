@@ -1,6 +1,6 @@
 
 <?php
-/** @var \Illuminate\Database\Eloquent\Collection $products */
+// /** @var \Illuminate\Database\Eloquent\Collection $products */
 ?>
 <x-shop>
 
@@ -16,34 +16,8 @@
 
         @livewire('shop-scroll')
 
-    {{-- <div class="pccoll">
-        <div class="gridHL">
-    <!-- Product Item -->
-          @foreach($products as $product)
-  
-                <div>
-                    <div class="card2">
-  
-                        <a href="{{ route('product.view', $product->item_code) }}"
-                          class="">
-                            <img
-                                src="{{ $product->image }}"
-                                alt=""
-                                class="pimage hover:scale-105 hover:rotate-1 transition-transform"
-                            />
-                        </a>
-                        <div>
-                            <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div> --}}
-
-
     <?php endif; ?>
     <div class="footspace"></div>
 </x-shop>
 
-@livewireScripts
+{{-- @livewireScripts --}}

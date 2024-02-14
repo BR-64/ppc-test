@@ -23,6 +23,7 @@ class ShopScroll extends Component
         return view('livewire.shop-scroll')
         ->with(
             'products',pProduct::orderBy('id','desc')
+            ->where('published', '=', 1)
             ->limit($this->loadAmount)->get()
         );
     }

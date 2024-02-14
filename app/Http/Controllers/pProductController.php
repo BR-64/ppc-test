@@ -224,6 +224,7 @@ class pProductController extends Controller
         else{   
             $products = pProduct::query()
                 ->where('category','=',$cat)
+                ->where('published', '=', 1)
                 ->orderBy('updated_at', 'desc')
                 ->paginate(300);
         }
@@ -259,10 +260,10 @@ class pProductController extends Controller
             // ->where('published', '>', 0)
             ->orderBy('updated_at', 'desc')
             ->paginate(30);
+        
+            // print ($allproducts);
 
         $qproducts = QueryBuilder::for (pProduct::class)
-            ->where('published', '=', 1)
-            ->inRandomOrder()
             // ->where('stock', '>', 0)
             ->allowedFilters([
                 AllowedFilter::exact('collection'),
@@ -272,8 +273,12 @@ class pProductController extends Controller
                 AllowedFilter::exact('color'),
                 AllowedFilter::exact('finish'),
                 ])
+            ->where('published', '=', 1)
+            ->inRandomOrder()
             ->get();
             // ->paginate(20);
+
+            // dd($qproducts);
 
             $showProducts = QueryBuilder::for (Stock::class)
             ->where('stock', '>', 0)
@@ -293,15 +298,15 @@ class pProductController extends Controller
                 // dd($qproducts);
 
         View::share('sharedData', [
-            'products' => $qproducts,
+            // 'products' => $qproducts,
             'filterables'=>$filterables,
             // 'products'=>$allproducts
         ]);
 
         return view('product.index2', [
             'products' => $qproducts,
-            'showproducts' => $showProducts,
-            'filterables'=>$filterables,
+            // 'showproducts' => $showProducts,
+            // 'filterables'=>$filterables,
             // 'products'=>$allproducts
         ]);
     }
@@ -333,13 +338,13 @@ class pProductController extends Controller
                 // dd($qproducts);
 
         View::share('sharedData', [
-            'products' => $qproducts,
+            // 'products' => $qproducts,
             'filterables'=>$filterables
         ]);
 
         return view('product.index_fil', [
             'products' => $qproducts,
-            'filterables'=>$filterables
+            // 'filterables'=>$filterables
         ]);
     }
 

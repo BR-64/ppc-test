@@ -1,10 +1,7 @@
-
     <div class="pccoll">
         <div wire:loading.delay.class="opacity-50" class="gridHL">
 
-    {{-- @foreach($products as $product) --}}
-        @foreach($products as $product)
-            
+        @foreach($products as $product)            
             <div @if ($loop->last) id="last_record" @endif
                 x-show="{{$product->stock->stock}} > 0"
                 class='card2' 
@@ -12,12 +9,10 @@
                         'stock'=>$product->stock->stock])
                         }})" 
                         >
-                {{-- <div x-show="{{$product->stock->stock}} > 0" > --}}
                     <div class="card2 rel">
                         <a href="{{ route('product.view', $product->item_code) }}"
                             class="">
                             <img
-                            {{-- src="{{ $product->image }}" --}}
                             src="{{ $product->image }}"
                             alt=""
                             class="pimage hover:scale-105 hover:rotate-1 transition-transform"
@@ -34,10 +29,13 @@
                             Pre-Order
                         </div>
                     </div>
-                {{-- </div> --}}
             </div>
+
+            {{-- <p class="text2 undertext">{{$product->item_code}}</p> --}}
+
         @endforeach
-        {{-- </div> --}}
+
+
 
 
 
