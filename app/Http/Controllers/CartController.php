@@ -17,7 +17,7 @@ class CartController extends Controller
     public function index()
     {
         $apply_voucher=0;
-        $vcheck='* plese input voucher';
+        $vcheck='* please input voucher';
         $vdis_percent=0;
         $vvalid=0;
 
@@ -46,7 +46,7 @@ class CartController extends Controller
         $apply_voucher=$request->voucher;
         $voucher_discount = 0;
         $vdis_percent=0;
-        $vcheck='* plese input voucher';
+        $vcheck='* please input voucher';
         $vvalid=0;
 
         $voucher = Voucher::query()
