@@ -317,7 +317,7 @@
                 </form>
             </div>
 
-            <div>
+            {{-- <div>
                 <h3>Alipay</h3>
             </br>
                 <form class="qrform" method="POST" action="{{route('kpayment')}}">
@@ -327,7 +327,7 @@
                     <button class="subbut" type="submit"value="Pay with Ali"  onclick="clicked(Alipay)"> Pay with Ali
                     </button>
                 </form>
-            </div>
+            </div> --}}
             </div>
         </div>
 

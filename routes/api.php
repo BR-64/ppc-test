@@ -54,6 +54,5 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     //mailhub
     
 });
-Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
 
 Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);

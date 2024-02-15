@@ -168,7 +168,7 @@
             <p>{{$Air_insurance}}</p>
             <span x-text="ship"></span> --}}
             <div class="chksum summarytable">
-                <p class="underline">Shipping Insurance </p>
+                <p class="underline">Shipping Insurance (International shipping only)  </p>
                     {{-- <div x-show="{{$ship_th}} > 0">
                         <input type="radio" id="TH_insurance" name="Insurance" value="{{$TH_insurance}}" required>
                         <label for="TH_insurance">Buy Insurance : thb {{number_format($TH_insurance)}}</label>

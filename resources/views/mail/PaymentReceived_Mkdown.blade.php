@@ -3,7 +3,7 @@
 - your payment has been received. -
 
 Dear {{$order->customer['first_name']}},  
-You order {{$order['id']}} has been confirmed. You will receive another e-mail once your order has been shipped.
+You order number {{$order['id']}} has been confirmed. You will receive another e-mail once your order has been shipped.
 
 <a href="{{route('order.view', $order, true)}}">
 Link to your order : #{{$order->id}}

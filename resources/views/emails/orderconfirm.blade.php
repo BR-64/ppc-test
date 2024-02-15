@@ -5,7 +5,7 @@ Dear {{$customer['first_name']}},
 
 THANKYOU FOR SHOPPING WITH US! 
 
-You order {{$order['id']}} has been confirmed. You will receive another e-mail once your order has been shipped.
+You order number {{$order['id']}} has been confirmed. You will receive another e-mail once your order has been shipped.
 
 <x-mail::button :url="''">
 View Order

@@ -112,6 +112,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/kpayment', [kCheckoutController::class, 'kpayment'])->name('kpayment');
     Route::post('/quotation', [kCheckoutController::class, 'quotation'])->name('checkout.quotation');
 
+
+
 });
 
 // Route::post('/credit', [CheckoutController::class, 'credit'])->name('checkout.credit');
@@ -223,6 +225,10 @@ Route::middleware(['admin'])->group(function () {
 
 //// create sc
     Route::post('/createsc', [CheckoutSummaryController::class, 'createSC'])->name('order.create_sc');
+
+//// mailhubg
+    Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
+
 });
 
 
