@@ -52,8 +52,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('importExcel', [FileControllerDemo::class,'importExcel']);
 
     //mailhub
-    Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
-
+    
 });
+Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
 
 Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
