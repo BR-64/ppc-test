@@ -245,7 +245,7 @@ class CheckoutSummaryController extends Controller
             $subtotalPrice += $product->retail_price * $quantity;
             $totalWeight += $product->weight_g * $quantity;
             $totalCubic += $product->cubic_cm * $quantity;
-            // $totalw = $totalWeight += $product->weight_g * $quantity;
+            $totalw = $totalWeight += $product->weight_g * $quantity;
 
             $lineItems[] = [
                 'price_data' => [
@@ -330,7 +330,7 @@ class CheckoutSummaryController extends Controller
     $fullCubicBox=floor($totalCubic/$xlCubicBox);         // number of full box needed 
 
     // $nonFullCubicBoxCubic = $totalCubic % 97336;  // non-full box weight
-    $nonFullCubicBoxCubic = $totalCubic-($fullCubicBox*$xlCubicBox);  // non-full box weight
+    $nonFullCubicBoxCubic = $totalCubic-($fullCubicBox * $xlCubicBox);  // non-full box weight
 
     $nonFullCubicBox = $totalCubicBox-$fullCubicBox;
 
@@ -358,6 +358,8 @@ if($nonFullCubicBoxCubic<>0){
                     }
     }
 
+    // var_dump($nonFullCubicBoxCubic,$CubicboxSize);
+
 
 // universal cal : same for Domestic and Inter 
     
@@ -373,16 +375,16 @@ if($nonFullCubicBoxCubic<>0){
     $Xlbox=0;
 
     switch($CubicboxSize){
-        case $CubicboxSize = 'S':
+        case $CubicboxSize == 'S':
             $Sbox=1;
             break;
-        case $CubicboxSize = 'M':
+        case $CubicboxSize == 'M':
             $Mbox=1;
             break;
-        case $CubicboxSize = 'L':
+        case $CubicboxSize == 'L':
             $Lbox=1;
             break;
-        case $CubicboxSize = 'XL':
+        case $CubicboxSize == 'XL':
             $Xlbox=1;
             break;
                     }
@@ -412,6 +414,17 @@ if($nonFullCubicBoxCubic<>0){
         $shipPricenonFullBox_ems=0;
         $shipPricenonFullBox_air=0;
 
+        // var_dump(
+        //     $fullBox,
+        //     $maxrate,
+        //     $nonFullBox,
+        //     $shipPricenonFullBox_th,
+        //     $nonFullBoxPriceIndex_th,
+        //     $LastCubicBoxWeight,
+        //     $CubicboxSize,
+        //     $box_info
+
+        // );
         
     } else {
         // Ship by EMS
@@ -471,6 +484,47 @@ if($nonFullCubicBoxCubic<>0){
     $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
     // dd($shipCost_EMS, $EMS_insurance, $shipCost_Air,$Air_insurance );
+
+    //     var_dump(
+    //     'Total Cubic (cm): '.number_format($totalCubic),
+    //     'Total Weight (g): '.number_format($totalWeight),
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     '',
+    //     'Total Cubic Box (box) : '.$totalCubicBox,
+    //     'Full(XL) Cubic Box (box) : '.$fullCubicBox,
+    //     'Non Full(XL) Cubic Box (box) : '.$nonFullCubicBox,
+    //     '',
+    //     'fullbox (box) : '.$fullBox,
+    //     'Nonfullbox (box) : '.$nonFullBox,
+    //     '',
+    //     'nonFullCubicBox Cubic (cm) : '.$nonFullCubicBoxCubic,
+    //     'LastCubicBox Weight (g): '.$LastCubicBoxWeight,
+    //     '',
+    //     'LastCubicBox Size : '.$CubicboxSize,
+    //     '',
+    //     'shipcountry:'.$shipcountry,
+    //     'ShippingZone EMS : '.$shippingZone_ems,
+    //     'ShippingZone Air : '.$shippingZone_air,
+    //     '',
+    //     '',
+    //     'Criteria : Shipping -> +7% vat',
+    //     'Criteria : Insurance -> +7% vat if more than 550 thb',
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_th :'.number_format($shipCost_TH),
+    //     'TH_insurance : '.number_format($TH_insurance),
+    //     'Total_TH: '.number_format($total_TH),
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_ems :'.number_format($shipCost_EMS),
+    //     'EMS_insurance: '.number_format($EMS_insurance),
+    //     'Total_EMS: '.number_format($total_EMS),
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_air :'.number_format($shipCost_Air),
+    //     'Air_insurance: '.number_format($Air_insurance),
+    //     'Total_Air: '.number_format($total_Air),
+    // );
 
             return view('checkout.step2',[
                 'items'=>$lineItems,
@@ -624,16 +678,16 @@ if($nonFullCubicBoxCubic<>0){
             $Xlbox=0;
 
             switch($CubicboxSize){
-                case $CubicboxSize = 'S':
+                case $CubicboxSize == 'S':
                     $Sbox=1;
                     break;
-                case $CubicboxSize = 'M':
+                case $CubicboxSize == 'M':
                     $Mbox=1;
                     break;
-                case $CubicboxSize = 'L':
+                case $CubicboxSize == 'L':
                     $Lbox=1;
                     break;
-                case $CubicboxSize = 'XL':
+                case $CubicboxSize == 'XL':
                     $Xlbox=1;
                     break;
                             }
