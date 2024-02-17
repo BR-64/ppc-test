@@ -34,11 +34,17 @@ class CheckoutSummaryController extends Controller
 {
     private $b_discount;
     private  $ppcBoxInfo = [
-        'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
         's' =>['weight'=>2500, 'cubic'=>11907, 'shipcost'=>80],
         'm' =>['weight'=>9500, 'cubic'=>46656, 'shipcost'=>180],
         'l' =>['weight'=>15000, 'cubic'=>73644, 'shipcost'=>270],
         'xl' =>['weight'=>20000, 'cubic'=>97336, 'shipcost'=>320],
+
+        /// dummy for box shipping cost calculation
+        'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+        'full_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+        'nonfull_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+        'lastbox_weight' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+
     ];
     private $shipbox_info;
 
@@ -60,8 +66,7 @@ class CheckoutSummaryController extends Controller
 
     private function ShippingBoxCal($totalCubic){
         /////////////////////// shipping cal
-
-            $xlCubicBox=$this->this->ppcBoxInfo['xl']['cubic'];
+            $xlCubicBox=$this->ppcBoxInfo['xl']['cubic'];
             $LastCubicBoxWeight=0;
 
         // Total cubic box calculation
@@ -117,6 +122,9 @@ class CheckoutSummaryController extends Controller
 
             $this->shipbox_info=[
             'box_count' => $shippingBoxes,
+            'full_box' => $fullBox,
+            'nonfull_box' => $nonFullBox,
+            'lastbox_weight' => $LastBoxWeight,
             's' =>$Sbox,
             'm' =>$Mbox,
             'l' =>$Lbox,
@@ -302,15 +310,11 @@ class CheckoutSummaryController extends Controller
         
         $countries = Country::query()->orderBy('name')->get();
 
-        // dd($shipcountry);
-
         // if ($countries = Country::query()->orderBy('name')->get()){
         //     return redirect()->back()->with('error', 'please update your info and address'); 
         // }
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
-
-        // dd($shipcountry);
 
         $orderItems = [];
         $lineItems = [];
@@ -1176,8 +1180,6 @@ if($nonFullCubicBoxCubic<>0){
         $totalWeight = 0;
         $shipCost = 0;
 
-        $TH_insurance=0;
-
         foreach ($products as $product) {
             $quantity = $cartItems[$product->id]['quantity'];
             $subtotalPrice += $product->retail_price * $quantity;
@@ -1235,9 +1237,28 @@ if($nonFullCubicBoxCubic<>0){
 /// total price        
         $totalPrice = $subtotalPrice-$baseDis_amt;
 
+        $shipPricenonFullBox_ems=0;
+        $shipPricenonFullBox_air=0;
+
+        $shippingZone_ems=0; 
+        $shippingZone_air= 0;
+
+        $shipCost_TH=0;
+        $shipCost_EMS =0;
+        $shipCost_Air = 0;
+
+        $TH_insurance = 0;
+        $EMS_insurance = 0;
+        $Air_insurance = 0;
+
+
     // shipping box cal
-        $this->ShippingBoxCal($totalCubic);
-        dd($this->shipbox_info);
+    $this->ShippingBoxCal($totalCubic);
+        // dd($this->shipbox_info);
+
+        $fullBox = $this->shipbox_info['full_box'];
+        $nonFullBox = $this->shipbox_info['nonfull_box'];
+        $LastBoxWeight = $this->shipbox_info['lastbox_weight'];
 
     // shipping domestic cal    
 
@@ -1250,8 +1271,6 @@ if($nonFullCubicBoxCubic<>0){
             }
 
             $shipCost_TH = $boxShipCost_TH*1.07;
-            $shipPricenonFullBox_ems=0;
-            $shipPricenonFullBox_air=0;
             
         } else {
             // Ship by EMS
@@ -1260,6 +1279,7 @@ if($nonFullCubicBoxCubic<>0){
     /////////////
             $maxrate = ShipEMS::query()->where(['id'=>ShipEMS::max('id')])->value($shippingZone_ems);
 
+            // $nonFullBoxPriceIndex_ems = ceil(($LastBoxWeight/500)+1);
             $nonFullBoxPriceIndex_ems = ceil(($LastBoxWeight/500)+1);
             
             if($LastBoxWeight > 0){
@@ -1268,7 +1288,7 @@ if($nonFullCubicBoxCubic<>0){
                 $shipPricenonFullBox_ems =0;
             }
 
-            $shipCost_EMS = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_ems))*1.07;
+            $shipCost_EMS = (($fullBox * $maxrate) + ($nonfullBox* $shipPricenonFullBox_ems))*1.07;
 
             $EMS_insurance= max(ceil((($subtotalPrice + $shipCost_EMS)*1.1)*0.02),550);
 
@@ -1276,11 +1296,8 @@ if($nonFullCubicBoxCubic<>0){
                 $EMS_insurance = $EMS_insurance*1.07;
             }; 
 
-
             // Ship by Air
             $shippingZone_air= Country::query()->where(['code'=>$shipcountry])->value('zone_air');
-    ////////////////////  for test only, comment out when in production     
-    //  $shippingZone_air=$air_zone;
 
     ////////////////////
             $maxrate = ShipAir::query()->where(['id'=>ShipAir::max('id')])->value($shippingZone_air);
@@ -1301,14 +1318,12 @@ if($nonFullCubicBoxCubic<>0){
                 $Air_insurance = $Air_insurance*1.07;
             }; 
 
-            // $shipCost_TH =0;
         }
 
         $total_TH = $subtotalPrice+$shipCost_TH+$TH_insurance;
         $total_EMS = $subtotalPrice+$shipCost_EMS+$EMS_insurance;
         $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
-        // dd($shipCost_EMS, $EMS_insurance, $shipCost_Air,$Air_insurance );
 
             var_dump(
             'Total Cubic (cm): '.number_format($totalCubic),
