@@ -81,7 +81,7 @@ class OrderResource extends Resource
                         TextInput::make('boxcount'),
                         TextInput::make('tracking'),
                         KeyValue::make('boxes')
-                            // ->disabled(),
+                            ->disabled(),
                         
                     ]),
                     Fieldset::make('Customer Info')
