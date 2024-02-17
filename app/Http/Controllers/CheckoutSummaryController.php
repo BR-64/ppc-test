@@ -34,10 +34,10 @@ class CheckoutSummaryController extends Controller
 {
     private $b_discount;
     private  $ppcBoxInfo = [
-        's' =>['weight'=>2500, 'cubic'=>11907, 'shipcost'=>80],
-        'm' =>['weight'=>9500, 'cubic'=>46656, 'shipcost'=>180],
-        'l' =>['weight'=>15000, 'cubic'=>73644, 'shipcost'=>270],
-        'xl' =>['weight'=>20000, 'cubic'=>97336, 'shipcost'=>320],
+        'S' =>['weight'=>2500, 'cubic'=>11907, 'shipcost'=>80],
+        'M' =>['weight'=>9500, 'cubic'=>46656, 'shipcost'=>180],
+        'L' =>['weight'=>15000, 'cubic'=>73644, 'shipcost'=>270],
+        'XL' =>['weight'=>20000, 'cubic'=>97336, 'shipcost'=>320],
 
         /// dummy for box shipping cost calculation
         'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
@@ -66,7 +66,7 @@ class CheckoutSummaryController extends Controller
 
     private function ShippingBoxCal($totalCubic){
         /////////////////////// shipping cal
-            $xlCubicBox=$this->ppcBoxInfo['xl']['cubic'];
+            $xlCubicBox=$this->ppcBoxInfo['XL']['cubic'];
             $LastCubicBoxWeight=0;
 
         // Total cubic box calculation
@@ -79,16 +79,16 @@ class CheckoutSummaryController extends Controller
         // LastCubicbox calculation weight in gram
         if($nonFullCubicBoxCubic<>0){    
             switch($nonFullCubicBoxCubic){
-                case $nonFullCubicBoxCubic < $this->ppcBoxInfo['s']['cubic']:
+                case $nonFullCubicBoxCubic < $this->ppcBoxInfo['S']['cubic']:
                     $LastCubicboxSize='S';
                     break;
-                    case $nonFullCubicBoxCubic < $this->ppcBoxInfo['m']['cubic']:
+                    case $nonFullCubicBoxCubic < $this->ppcBoxInfo['M']['cubic']:
                         $LastCubicboxSize='M';
                         break;
-                        case $nonFullCubicBoxCubic < $this->ppcBoxInfo['l']['cubic']:
+                        case $nonFullCubicBoxCubic < $this->ppcBoxInfo['L']['cubic']:
                             $LastCubicboxSize='L';
                             break;
-                            case $nonFullCubicBoxCubic < $this->ppcBoxInfo['xl']['cubic']:
+                            case $nonFullCubicBoxCubic < $this->ppcBoxInfo['XL']['cubic']:
                                 $LastCubicboxSize='XL';
                                 break;       
                             }
@@ -125,10 +125,10 @@ class CheckoutSummaryController extends Controller
             'full_box' => $fullBox,
             'nonfull_box' => $nonFullBox,
             'lastbox_weight' => $LastBoxWeight,
-            's' =>$Sbox,
-            'm' =>$Mbox,
-            'l' =>$Lbox,
-            'xl' =>$fullBox+$Xlbox,
+            'S' =>$Sbox,
+            'M' =>$Mbox,
+            'L' =>$Lbox,
+            'XL' =>$fullBox+$Xlbox,
             ];
 
             return $this->shipbox_info;
@@ -287,6 +287,7 @@ class CheckoutSummaryController extends Controller
             ],compact('hasAddress','customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
     }
 
+///////////////////////////////////////////////////////////////////////////////////
     public function chkout_step2(Request $request){
 
         /** @var \App\Models\User $user */
@@ -585,48 +586,47 @@ if($nonFullCubicBoxCubic<>0){
     $total_EMS = $subtotalPrice+$shipCost_EMS+$EMS_insurance;
     $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
-    // dd($shipCost_EMS, $EMS_insurance, $shipCost_Air,$Air_insurance );
-
-        var_dump(
-        'Total Cubic (cm): '.number_format($totalCubic),
-        'Total Weight (g): '.number_format($totalWeight),
-        'Total_product_price: '.number_format($totalPrice),
-        '',
-        'Total Cubic Box (box) : '.$totalCubicBox,
-        'Full(XL) Cubic Box (box) : '.$fullCubicBox,
-        // 'Non Full(XL) Cubic Box (box) : '.$nonFullCubicBox,
-        '',
-        'fullbox (box) : '.$fullBox,
-        'Nonfullbox (box) : '.$nonFullBox,
-        '',
-        'nonFullCubicBox Cubic (cm) : '.$nonFullCubicBoxCubic,
-        'LastCubicBox Weight (g): '.$LastCubicBoxWeight,
-        '',
-        'LastCubicBox Size : '.$LastCubicboxSize,
-        '',
-        'shipcountry:'.$shipcountry,
-        'ShippingZone EMS : '.$shippingZone_ems,
-        'ShippingZone Air : '.$shippingZone_air,
-        '',
-        '',
-        'Criteria : Shipping -> +7% vat',
-        'Criteria : Insurance -> +7% vat if more than 550 thb',
-        '',
-        'Total_product_price: '.number_format($totalPrice),
-        'ship_th :'.number_format($shipCost_TH),
-        'TH_insurance : '.number_format($TH_insurance),
-        'Total_TH: '.number_format($total_TH),
-        '',
-        'Total_product_price: '.number_format($totalPrice),
-        'ship_ems :'.number_format($shipCost_EMS),
-        'EMS_insurance: '.number_format($EMS_insurance),
-        'Total_EMS: '.number_format($total_EMS),
-        '',
-        'Total_product_price: '.number_format($totalPrice),
-        'ship_air :'.number_format($shipCost_Air),
-        'Air_insurance: '.number_format($Air_insurance),
-        'Total_Air: '.number_format($total_Air),
-    );
+    /// var check
+    //     var_dump(
+    //     'Total Cubic (cm): '.number_format($totalCubic),
+    //     'Total Weight (g): '.number_format($totalWeight),
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     '',
+    //     'Total Cubic Box (box) : '.$totalCubicBox,
+    //     'Full(XL) Cubic Box (box) : '.$fullCubicBox,
+    //     // 'Non Full(XL) Cubic Box (box) : '.$nonFullCubicBox,
+    //     '',
+    //     'fullbox (box) : '.$fullBox,
+    //     'Nonfullbox (box) : '.$nonFullBox,
+    //     '',
+    //     'nonFullCubicBox Cubic (cm) : '.$nonFullCubicBoxCubic,
+    //     'LastCubicBox Weight (g): '.$LastCubicBoxWeight,
+    //     '',
+    //     'LastCubicBox Size : '.$LastCubicboxSize,
+    //     '',
+    //     'shipcountry:'.$shipcountry,
+    //     'ShippingZone EMS : '.$shippingZone_ems,
+    //     'ShippingZone Air : '.$shippingZone_air,
+    //     '',
+    //     '',
+    //     'Criteria : Shipping -> +7% vat',
+    //     'Criteria : Insurance -> +7% vat if more than 550 thb',
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_th :'.number_format($shipCost_TH),
+    //     'TH_insurance : '.number_format($TH_insurance),
+    //     'Total_TH: '.number_format($total_TH),
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_ems :'.number_format($shipCost_EMS),
+    //     'EMS_insurance: '.number_format($EMS_insurance),
+    //     'Total_EMS: '.number_format($total_EMS),
+    //     '',
+    //     'Total_product_price: '.number_format($totalPrice),
+    //     'ship_air :'.number_format($shipCost_Air),
+    //     'Air_insurance: '.number_format($Air_insurance),
+    //     'Total_Air: '.number_format($total_Air),
+    // );
 
             return view('checkout.step2',[
                 'items'=>$lineItems,
@@ -1288,7 +1288,7 @@ if($nonFullCubicBoxCubic<>0){
                 $shipPricenonFullBox_ems =0;
             }
 
-            $shipCost_EMS = (($fullBox * $maxrate) + ($nonfullBox* $shipPricenonFullBox_ems))*1.07;
+            $shipCost_EMS = (($fullBox * $maxrate) + ($nonFullBox* $shipPricenonFullBox_ems))*1.07;
 
             $EMS_insurance= max(ceil((($subtotalPrice + $shipCost_EMS)*1.1)*0.02),550);
 
@@ -1325,46 +1325,47 @@ if($nonFullCubicBoxCubic<>0){
         $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
 
-            var_dump(
-            'Total Cubic (cm): '.number_format($totalCubic),
-            'Total Weight (g): '.number_format($totalWeight),
-            'Total_product_price: '.number_format($totalPrice),
-            '',
-            // 'Total Cubic Box (box) : '.$totalCubicBox,
-            // 'Full(XL) Cubic Box (box) : '.$fullCubicBox,
-            // 'Non Full(XL) Cubic Box (box) : '.$nonFullCubicBox,
-            // '',
-            // 'fullbox (box) : '.$fullBox,
-            // 'Nonfullbox (box) : '.$nonFullBox,
-            // '',
-            // 'nonFullCubicBox Cubic (cm) : '.$nonFullCubicBoxCubic,
-            // 'LastCubicBox Weight (g): '.$LastCubicBoxWeight,
-            // '',
-            // 'LastCubicBox Size : '.$LastCubicboxSize,
-            '',
-            'shipcountry:'.$shipcountry,
-            'ShippingZone EMS : '.$shippingZone_ems,
-            'ShippingZone Air : '.$shippingZone_air,
-            '',
-            '',
-            'Criteria : Shipping -> +7% vat',
-            'Criteria : Insurance -> +7% vat if more than 550 thb',
-            '',
-            'Total_product_price: '.number_format($totalPrice),
-            'ship_th :'.number_format($shipCost_TH),
-            'TH_insurance : '.number_format($TH_insurance),
-            'Total_TH: '.number_format($total_TH),
-            '',
-            'Total_product_price: '.number_format($totalPrice),
-            'ship_ems :'.number_format($shipCost_EMS),
-            'EMS_insurance: '.number_format($EMS_insurance),
-            'Total_EMS: '.number_format($total_EMS),
-            '',
-            'Total_product_price: '.number_format($totalPrice),
-            'ship_air :'.number_format($shipCost_Air),
-            'Air_insurance: '.number_format($Air_insurance),
-            'Total_Air: '.number_format($total_Air),
-        );
+        //     var_dump(
+        //     'Total Cubic (cm): '.number_format($totalCubic),
+        //     'Total Weight (g): '.number_format($totalWeight),
+        //     'Total_product_price: '.number_format($totalPrice),
+        //     '',
+        //     $this->shipbox_info,
+        //     // 'Total Cubic Box (box) : '.$totalCubicBox,
+        //     // 'Full(XL) Cubic Box (box) : '.$fullCubicBox,
+        //     // 'Non Full(XL) Cubic Box (box) : '.$nonFullCubicBox,
+        //     // '',
+        //     // 'fullbox (box) : '.$fullBox,
+        //     // 'Nonfullbox (box) : '.$nonFullBox,
+        //     // '',
+        //     // 'nonFullCubicBox Cubic (cm) : '.$nonFullCubicBoxCubic,
+        //     // 'LastCubicBox Weight (g): '.$LastCubicBoxWeight,
+        //     // '',
+        //     // 'LastCubicBox Size : '.$LastCubicboxSize,
+        //     '',
+        //     'shipcountry:'.$shipcountry,
+        //     'ShippingZone EMS : '.$shippingZone_ems,
+        //     'ShippingZone Air : '.$shippingZone_air,
+        //     '',
+        //     '',
+        //     'Criteria : Shipping -> +7% vat',
+        //     'Criteria : Insurance -> +7% vat if more than 550 thb',
+        //     '',
+        //     'Total_product_price: '.number_format($totalPrice),
+        //     'ship_th :'.number_format($shipCost_TH),
+        //     'TH_insurance : '.number_format($TH_insurance),
+        //     'Total_TH: '.number_format($total_TH),
+        //     '',
+        //     'Total_product_price: '.number_format($totalPrice),
+        //     'ship_ems :'.number_format($shipCost_EMS),
+        //     'EMS_insurance: '.number_format($EMS_insurance),
+        //     'Total_EMS: '.number_format($total_EMS),
+        //     '',
+        //     'Total_product_price: '.number_format($totalPrice),
+        //     'ship_air :'.number_format($shipCost_Air),
+        //     'Air_insurance: '.number_format($Air_insurance),
+        //     'Total_Air: '.number_format($total_Air),
+        // );
 
                 return view('checkout.step2',[
                     'items'=>$lineItems,
@@ -1385,6 +1386,195 @@ if($nonFullCubicBoxCubic<>0){
                     // 'Ship_boxes'=>$box_info,
                 ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
     }    
+
+    public function chkout_step3_v2(Request $request){
+        $user = $request->user();
+        $shipcostArray=explode('|',$_POST["Shipcost"]);
+
+        $R_chkouttype=$_POST["checkouttype"];
+        $R_shipcost=$shipcostArray[0];
+        $R_Insurance=$_POST["Insurance"];
+        $R_ShipMethod=$shipcostArray[1];
+        // $R_ShipBoxes=$_POST["ship_boxes"];
+
+        // dd($_POST);
+        // dd($R_ShipBoxes);
+
+        // dd($user->id);
+
+        [$products, $cartItems] = Cart::getProductsAndCartItems();
+
+        $orderItems = [];
+        $lineItems = [];
+        $subtotalPrice = 0;
+        $totalCubic = 0;
+        $totalWeight = 0;
+
+        foreach ($products as $product) {
+            $quantity = $cartItems[$product->id]['quantity'];
+            $subtotalPrice += $product->retail_price * $quantity;
+
+            $totalWeight += $product->weight_g * $quantity;
+            $totalCubic += $product->cubic_cm * $quantity;
+
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'thb',
+                    'product_data' => [
+                        'name' => $product->item_code,
+                       'images' => [$product->image]
+                    ],
+                    'unit_amount' => $product->retail_price * 100,
+                    'price' => $product->retail_price
+                ],
+                'quantity' => $quantity,
+                'itemtotal'=> $quantity * $product->retail_price
+            ];
+            $orderItems[] = [
+                'item_code'=>$product->item_code,
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'unit_price' => $product->retail_price
+            ];
+        }
+
+/// base discount cal
+        $dispercent =0;
+        $this->baseDiscount($subtotalPrice);
+        $dispercent_v = $this->b_discount['percent_value'];
+
+//// voucher dis new
+        $apply_voucher=$request->apply_voucher;
+        $vvalid=$request->vvalid;
+        $vid =0;
+
+        $voucher = Voucher::query()
+                ->where(['code'=>$apply_voucher])
+                ->first();
+
+        if($vvalid){
+            $vdis_percent=$voucher->discount_percent/100;
+                if($this->b_discount['cal'] > $vdis_percent){
+                    $dispercent = $this->b_discount['percent'];
+                    
+                } else {
+                    $dispercent = ($voucher->discount_percent).'%';
+                    $dispercent_v = ($voucher->discount_percent);
+                    $vid = $voucher->id;
+                }
+        } else {
+            $vdis_percent=0;
+        }
+
+    ///// decrease voucher from dbs
+        Voucher::where(['code'=>$apply_voucher])
+        ->decrement('qty',1);    
+
+
+        $dis_percent= max($this->b_discount['cal'],$vdis_percent);
+        $baseDis_amt = $dis_percent * $subtotalPrice;
+//////
+        $totalpayment = $subtotalPrice-$baseDis_amt+$R_shipcost+$R_Insurance;
+
+     // shipping box cal
+    $this->ShippingBoxCal($totalCubic);
+
+///// box calculation
+        $box_info= $this->shipbox_info;
+        // dd($box_info);
+
+        // Create Order
+            $orderData = [
+                    'total_price' => $subtotalPrice,
+                    'discount_amount' => $baseDis_amt,
+                    'status' => OrderStatus::Unpaid,
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
+                    'shipping' => $R_shipcost,
+                    'insurance'=>$R_Insurance,
+                    'ship_method'=>$R_ShipMethod,
+                    'bill_id'=>$user->id,
+                    'ship_id'=>$user->id,
+                    'boxes'=>$box_info,
+                    'boxcount'=>$box_info['box_count'],
+                    'vc'=>$vid,
+                    'discount_percent'=>$dispercent_v,
+                    'fullprice'=>$totalpayment
+                ];
+
+// dd($orderData);
+
+            if ($R_chkouttype == "paynow" ){
+            // $orderData = ['status' => OrderStatus::Unpaid];
+            $orderData['status'] = OrderStatus::Unpaid;
+            } else {
+                $orderData['status'] = OrderStatus::Quotation;
+            }
+
+            if($subtotalPrice>0){
+                $order = Order::create($orderData);
+            } else {
+                echo "error";
+                exit();
+            }
+
+        // Create Order Items
+        foreach ($orderItems as $orderItem) {
+            $orderItem['order_id'] = $order->id;
+            OrderItem::create($orderItem);
+        }
+
+        // Update stock
+        foreach ($orderItems as $orderItem) {
+            Stock::where('item_code',$orderItem['item_code'])
+            ->decrement('stock',(int) $orderItem['quantity']);
+        }
+
+        
+        // Create Payment
+        $paymentData = [
+            'order_id' => $order->id,
+            'amount' => $totalpayment,
+            'status' => PaymentStatus::Pending,
+            'type' => 'cc',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            // 'session_id' => $session->id
+        ];
+        Payment::create($paymentData);
+
+        CartItem::where(['user_id' => $user->id])->delete();
+
+
+        // $this->createSCauto($order->id);
+
+        // send email to user/admin
+        $adminUsers = User::where('is_admin', 1)->get();
+        $ppc_team = User::where('is_admin', 2)->get();
+
+        foreach ([...$adminUsers, ...$ppc_team,  $user] as $user) {
+            // print_r($user->email);
+            Mail::to($user->email)->send(new NewOrderEmail($order));
+        }
+
+        // return view('checkout.step3_test',[
+        return view('checkout.step3_prod',[
+                'items'=>$lineItems,
+                'orderitems'=> $orderItems,
+                'itemsprice'=> $subtotalPrice,
+                'dispercent' => $dispercent,
+                'discount_amount' => $baseDis_amt,
+                'totalpayment'=> $totalpayment,
+                // 'totalpaymentShow'=> number_format($totalpayment),
+                'ordertype'=> $R_chkouttype,
+                'shipcost'=> $R_shipcost,
+                'insure'=> $R_Insurance,
+                'orderid'=> $order->id,
+                'mid'=>$this->MID,
+                'apikey'=>$this->Pkey
+                // 'paydata'=>$paymentData
+            ]);
+    }
 
 
 

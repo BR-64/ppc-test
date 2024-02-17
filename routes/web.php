@@ -99,7 +99,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/chkstep1', [CheckoutSummaryController::class, 'chkout_step1'])->name('checkout.step1');
     // Route::get('/chkstep2', [CheckoutSummaryController::class, 'chkout_step2'])->name('checkout.step2');
     Route::get('/chkstep2', [CheckoutSummaryController::class, 'chkout_step2_v2'])->name('checkout.step2');
-    Route::post('/chkstep3', [CheckoutSummaryController::class, 'chkout_step3'])->name('checkout.step3');
+    Route::post('/chkstep3', [CheckoutSummaryController::class, 'chkout_step3_v2'])->name('checkout.step3');
+    // Route::post('/chkstep3', [CheckoutSummaryController::class, 'chkout_step3'])->name('checkout.step3');
     Route::post('/payorder', [OrderController::class, 'payOrder'])->name('order.pay');
 
     // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
