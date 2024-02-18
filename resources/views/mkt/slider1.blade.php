@@ -1,9 +1,15 @@
 
     @php
-    $mktSliders = App\Models\Portfolio::query()
-        ->where('type', '=', 'main_banner')
-        // ->where('type', '=', 'prem_coll_cover')
+    $mktSliders = App\Models\Banner::query()
+        ->where('name', '=', 'main banner')
         ->latest()->get();
+        
+    $imgs = count($mktSliders[0]['extra_image']);
+        // $ex_image=App\Models\Banner::imgs['main banner'];
+        // $ex_image = count($mktSliders->extra_image);
+        // dd($ex_image);
+    // $imgs = App\Models\Banner::imgs('main banner')
+
     @endphp
 
 <style>
@@ -14,19 +20,19 @@
   .swiper-slide {
     text-align: center;
     font-size: 18px;
-    background: #fff;
+    /* background: #fff; */
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .swiper-slide img {
+  /* .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
     /* height: 80vh; */
     object-fit: cover;
-  }
+  } */
 
   .mySwiper_banner{
   height: 500px;
@@ -35,19 +41,28 @@
   /* width: 363px; */
   margin-top: 5px;
   }
+
 </style>
 
   <!-- Swiper -->
   <div class="banner">
       <div class="swiper mySwiper_banner">
           <div class="swiper-wrapper">
-              @foreach($mktSliders as $slide)
-              <div class="swiper-slide"><img src="{{$slide->portfolio_image}}" alt=""></div>
-              {{-- <div class="swiper-slide"><p>{{$slide->portfolio_title}}</p></div> --}}
-              
-              @endforeach
+            @foreach($mktSliders as $slide)
+            <div class="swiper-slide">
+              <img class='slidemain' src="{{asset ('/storage/'.$slide->image)}}" alt="">
             </div>
+                @for ($i =0; $i < $imgs; $i++)
+                <div class="swiper-slide">
+                  <img src="
+                  {{asset ('/storage/'.$slide->extra_image[$i])}}
+                  " alt="" class="slidemain">
+                </div>
+                @endfor
+            </div>
+              @endforeach
             <div class="swiper-pagination"></div>
+
         </div>
     </div>
 
@@ -60,6 +75,10 @@
       pagination: {
         el: ".swiper-pagination",
       },
+      autoplay: {
+        delay: 4000,
+      },
+
     });
   </script>
 

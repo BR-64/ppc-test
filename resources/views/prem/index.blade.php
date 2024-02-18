@@ -1,7 +1,10 @@
-@vite(['resources/css/style3.css', 'resources/js/app.js'])
+{{-- @vite(['resources/css/style3.css', 'resources/js/app.js']) --}}
 
     <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+      {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
+      
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
   
     <!-- Initialize Swiper -->
     <script>
@@ -25,11 +28,13 @@
 
     <div class="premcollhero">
         <div class="pcherotext">
-          <p class="tleft">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur
-            magnam qui porro similique doloremque, quia illum harum id velit
-            totam? Tempora perferendis unde doloribus corporis itaque nemo sed,
-            dolorem aspernatur.
+          {{-- <p class="tleft"> --}}
+          <p>
+            For more than 30 years, Prempracha's Collection has been the producer of finest handmade ceramics crafted by talented local artisans. Together with talented Thai designers, we would like to introduce our brand, PREM Ceramics. 
+          </br>
+          </br>
+
+PREM Ceramics represents the link between past, present and future. Personifying the balancing dynamics of the expertise and creativity between generations. All items are handmade.
           </p>
         </div>
     </div>
@@ -44,21 +49,22 @@
     <br>
 
 
+    <div class="premmaincoll">
     @foreach($products as $product)
-    <div class="pccoll">
-            <!-- Product Item -->
-
-                <a href="{{ route('product.collection.view', $product->collection_name) }}">
-                    <h5>{{ $product->collection_name }}</h5>
-                    <div class="pchero">
-{{-- collection cover --}}
-                      @include('prem.col_slide')
-
-                    </div>
-                </a>
-        <!--/ Product Item -->
-    </div>
+          <div class="pchero">
+                    <a href="{{ route('product.collection.view', $product->collection_name) }}">
+                      <h5 class='colname'>{{ $product->collection_name }}</h5>
+                      {{-- @include('prem.col_slide') --}}
+                      @include('prem.col_slide2')
+                    </a>
+                  </br>
+                    {{-- <p class='coll-des'> --}}
+                    <p>
+                      {{-- {{$product->collection('description')}} --}}
+                      {{$product->description}}</p>
+          </div>
         @endforeach
+      </div>
 
 
 <?php endif; ?>

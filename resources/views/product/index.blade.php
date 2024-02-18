@@ -153,25 +153,22 @@
             There are no products published
         </div>
     <?php else: ?>
-    
-    {{-- <h2 class="pagehead">Shop All</h2> --}}
     <br>
 
     <div class="pccoll">
-    <div class="gridHL">
+      <div class="gridHL">
 {{-- <!-- Product Item --> --}}
-  @foreach($products as $product)
-    <div x-data="product({{ json_encode([
-            'id' => $product->id,
-            'slug' => $product->item_code,
-            'image' => $product->image,
-            'title' => $product->title,
-            'price' => $product->retail_price,
-            'cat'=>$product->pcategory_id,
-            'addToCartUrl' => route('cart.add', $product)
-        ]) }})">
-                    <div class="card2">
-
+        @foreach($products as $product)
+          <div x-data="product({{ json_encode([
+                  'id' => $product->id,
+                  'slug' => $product->item_code,
+                  'image' => $product->image,
+                  'title' => $product->title,
+                  'price' => $product->retail_price,
+                  'cat'=>$product->pcategory_id,
+                  'addToCartUrl' => route('cart.add', $product)
+              ]) }})">
+            <div class="card2">
                     <a href="{{ route('product.view', $product->item_code) }}"
                        class="">
                         <img
@@ -180,10 +177,10 @@
                             class="pimage hover:scale-105 hover:rotate-1 transition-transform"
                         />
                     </a>
-                    <div>
-                        <h5 class="text2 undertext">THB {{$product->retail_price}}</h5>
-                    </div>
+                <div>
+                  <h5 class="text2 undertext">THB {{$product->retail_price}}</h5>
                 </div>
+            </div>
       </div>
   @endforeach
 

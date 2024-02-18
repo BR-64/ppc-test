@@ -9,23 +9,91 @@ use App\Models\pProduct as Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cookie;
+use App\Models\Stock;
+use App\Models\Voucher;
 
 class CartController extends Controller
 {
     public function index()
     {
+        $apply_voucher=0;
+        $vcheck='* please input voucher';
+        $vdis_percent=0;
+        $vvalid=0;
+
         list($products, $cartItems) = Cart::getProductsAndCartItems();
         $total = 0;
+        $rtStock=array();
         foreach ($products as $product) {
             $total += $product->price * $cartItems[$product->id]['quantity'];
+
+            $rtStock[$product['item_code']]=(int)Product::realtimeStock($product['item_code']);
+
+            // $rtStock[]= Stock::query()
+            //     ->where('item_code', '=',$product->item_code)
+            //     ->first(); ;
+            // $stocky=$product->stock->stock;
         }
 
-        return view('cart.index', compact('cartItems', 'products', 'total'));
+        // print_r($rtStock);
+        // dd($rtStock);
+
+        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','vdis_percent','apply_voucher','vcheck','vvalid'));
+    }
+
+    public function voucher(Request $request){
+        $voucher=0;
+        $apply_voucher=$request->voucher;
+        $voucher_discount = 0;
+        $vdis_percent=0;
+        $vcheck='* please input voucher';
+        $vvalid=0;
+
+        $voucher = Voucher::query()
+        ->where(['code'=>$apply_voucher])
+        ->first();
+
+        $vvqty = $voucher->qty;
+        $vvdate = strtotime($voucher->valid_until);
+        // $todaydate=date('ymd');
+        $todaydate=strtotime(date('ymd'));
+
+        // dd($todaydate,$vvdate);
+        // print_r($vvdate < $todaydate);
+        // echo($vvdate > $todaydate);
+
+        ///// check voucher input
+            if(!empty($voucher)){
+                if($vvqty > 0 and $vvdate > $todaydate){
+                    $voucher_discount=$voucher->discount_percent;
+                    $vdis_percent=$voucher->discount_percent/100;
+                    $vvalid =1 ;
+                    $vcheck='✔️ voucher is valid';
+                } else {
+                    $vvalid = 0;
+                    $vcheck='❌ voucher not valid';
+                }
+            } else{
+                $vcheck='❌ voucher not valid';
+            }
+
+        list($products, $cartItems) = Cart::getProductsAndCartItems();
+        $total = 0;
+        $rtStock=array();
+        foreach ($products as $product) {
+            $total += $product->price * $cartItems[$product->id]['quantity'];
+
+            $rtStock[$product['item_code']]=(int)Product::realtimeStock($product['item_code']);}
+
+        return view('cart.index', compact('cartItems', 'products', 'total','rtStock','voucher','voucher_discount','vdis_percent','vcheck','apply_voucher','vvalid'));
     }
 
     public function add(Request $request, Product $product)
     {
-        $quantity = $request->post('quantity', 1);
+        // $quantity=$_POST['quantity'];
+        // dd($qty);
+        $quantity = $request->post('quantity',10);
+        // dd($quantity);
         $user = $request->user();
 
         $type = $product->pre_order;

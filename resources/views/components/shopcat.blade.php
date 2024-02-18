@@ -20,7 +20,8 @@
       <div class="SCat">
           <img src="https://smoootstudio.com/pic/prempracha/pic/cat3.jpg" alt="" />
           <div class="centered">
-              <a href="{{ route('shop.cat', "Cup & Mug") }}">
+              {{-- <a href="{{ route('shop.cat', "Cup & Mug") }}"> --}}
+              <a href="{{ route('shop.cat', "cups and mugs") }}">
               Cup & Mug
             </a>
             </div>
@@ -36,7 +37,8 @@
       <div class="SCat">
           <img src="https://smoootstudio.com/pic/prempracha/pic/cat5.jpg" alt="" />
           <div class="centered">
-              <a href="{{ route('shop.cat', "bathroom") }}">
+              {{-- <a href="{{ route('shop.cat', "bathroom") }}"> --}}
+              <a href="{{ route('shop.cat', "Bathroom Accessories") }}">
                 Bathroom
               </a>
           </div>
@@ -68,7 +70,7 @@
       <div class="SCat">
           <img src="https://smoootstudio.com/pic/prempracha/pic/pchero.jpg" alt="" />
           <div class="centered" style="background-color: red">
-            <a href="{{ route('shop.cat', "vase") }}">
+            <a href="{{ route('shop.cat', "sp") }}">
                 Special Price
               </a>
             </div>

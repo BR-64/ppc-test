@@ -19,6 +19,7 @@
         "vite": "^2.9.11"
     },
     "dependencies": {
-        "@alpinejs/mask": "^3.11.1"
+        "@alpinejs/mask": "^3.11.1",
+        "sweetalert2": "^11.7.5"
     }
 }

@@ -1,21 +1,82 @@
-<div class="shopcoll">
-    <a href="{{ route('product.collection') }}"><h4 class="deco">Shop by Collection</h4></a>
-    <div class="gridShopcoll">
-      @foreach($collections as $product)
-      <!-- Product Item -->
-      <div
-        class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
-        >
-          <a href="{{ route('product.collection.view', $product->collection_name) }}"
-             class="aspect-w-3 aspect-h-2 block overflow-hidden">
-              <img
-                  src="{{ $product->image }}"
-                  alt="{{ $product->collection_name }}"
-                  class="SCpic"
-              />
-          </a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+  .swiper {
+    height: 100%;
+    max-width: 900px;
+
+  }
+
+  mySwiper_col{
+    height:200px;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 180px; */
+  }
+
+  .swiper-slide img {
+    display: block;
+  }
+
+  /* .swiper-pagination{
+    margin-top:20px;
+  } */
+
+</style>
+
+<div class="shopcoll_main">
+    <a href="{{ route('product.collection') }}"><h4 class="deco_col">Shop by Collection</h4></a>
+
+    <div class="swiper mySwiper_col">
+      <div class="swiper-wrapper" style='margin-bottom:10px;'>
+        @foreach($collections as $product)
+          <div class="swiper-slide">
+              <a href="{{ route('product.collection.view', $product->collection_name) }}" class="">
+                  <img
+                      src="{{ asset ('/storage/'.$product->image) }}"
+                      alt="{{ $product->collection_name }}"
+                      class="SCpic"
+                  />
+              </a>
+          </div>
+      @endforeach
       </div>
-      <!--/ Product Item -->
-  @endforeach
+      <div class="swiper-pagination"></div>
     </div>
-  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    if(window.innerWidth > 768) {
+        var swiper = new Swiper(".mySwiper_col", {
+      slidesPerView: 4,
+      spaceBetween: 30,
+      freeMode: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+      }
+      if(window.innerWidth < 768) {
+        var swiper = new Swiper(".mySwiper_col", {
+      slidesPerView: 2,
+      spaceBetween: 5,
+      freeMode: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+
+      }
+  });
+</script>
+
+

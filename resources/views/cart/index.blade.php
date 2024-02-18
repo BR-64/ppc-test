@@ -18,23 +18,132 @@
                         'removeUrl' => route('cart.remove', $product),
                         'updateQuantityUrl' => route('cart.update-quantity', $product),
                         'type'=>$product->pre_order,
+                        'stock'=>$rtStock[($product->item_code)]
+                        // 'stock'=>$product->$realtimeStock
+                        // 'stock'=>(int)$product->stock->stock
                     ])
                 )
             }},
-            get cartTotal() {
-                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
-            },
             get cartto(){
-                return number_format('2000')
+                {{-- return number_format('2000') --}}
+                return 2000
+                {{-- cartTotal() --}}
+                {{-- return Math.floor(Math.random() * number) --}}
+                {{-- return cartTotal() --}}
+            },
+            get cartTotal() {
+                cartto = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
+
+                return cartto
+            },
+            get Total_afterdis(){
+                cart = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+
+                return cart - 1000
+
+            },
+            get after_discount(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+
+                b_discount = 0
+                v_discount = {{$vdis_percent}}
+
+                switch (true) {
+                    case x < 10000:
+                            b_discount =0;
+                            break;
+                        case x < 30000:
+                            b_discount = 0.1;
+                            break;
+                        case x < 50000:
+                            b_discount = 0.15;
+                            break;
+                        case x < 70000:
+                            b_discount = 0.2;
+                            break;
+                        case x >= 70000:
+                            b_discount = 0.25;
+                            break;
+                  }
+                
+                  discount=Math.max(b_discount,v_discount)
+
+                  afterdiscount = x-(x*discount)
+
+                  return afterdiscount.toLocaleString()
+                    },
+            get dis_percent(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+
+                discount = 0
+
+                    switch (true) {
+                        case x < 10000:
+                        return 'No Discount';
+                        break;
+                        case x < 30000:
+                        discount = 0.1;
+                        return '10%';
+                        break;
+                        case x < 50000:
+                        discount = 0.15;
+                        return '15%';
+                        break;
+                        case x < 70000:
+                        discount = 0.2;
+                        return '20%';
+                        break;
+                        case x >= 70000:
+                        discount = 0.25;
+                        return '25%';
+                        break;
+                }
+            },
+            get dis_amount(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+
+                discount = 0
+
+                    switch (true) {
+                        case x < 10000:
+                            discount =0;
+                            break;
+                        case x < 30000:
+                            discount = 0.1;
+                            break;
+                        case x < 50000:
+                            discount = 0.15;
+                            break;
+                        case x < 70000:
+                            discount = 0.2;
+                            break;
+                        case x >= 70000:
+                            discount = 0.25;
+                            break;
+                }
+
+                disAmount = x*discount
+                return disAmount.toLocaleString()
+
+            },
+            get dis_v_amount(){
+                const x = this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0)
+                
+                discount = {{$vdis_percent}}
+                disAmount = x*discount
+                return disAmount.toLocaleString()
+
             }
-            {{-- cartto: cartTotal() --}}
+            
         }" class="bg-white p-4 rounded-lg shadow">
             <!-- Product Items -->
             <template x-if="cartItems.length">
                 <div>
+                    
 <!-- Product Item -->
-<h2>In Stock</h2>
-<h2 x-text="cartto">In Stock</h2>
+            <h2>In Stock</h2>
+{{-- <h2 >{{$rtStock}}</h2> --}}
+                <form action="{{route('checkout.step1')}}" method="get";>
                     <template x-for="product of cartItems" :key="product.id">
 {{-- Normal Items --}}
                         <template x-if="product.type == 0">  
@@ -50,26 +159,35 @@
                                     <div class="flex flex-col justify-between flex-1">
                                         <div class="flex justify-between mb-3">
                                             <div class="prodcol">
-
                                                 <div class="text-sm">
                                                     <h3 class="nomar" x-text="product.title"></h3>
                                                     <p class="nomar"x-text="product.dimension"></p>
+                                                </br>
+                                                <div class="opacity-25">
+                                                    stock : <span x-text="product.stock">
+                                                </div>
                                                 </div>
                                             </div>
                                             <div class="calcol flex flex-col justify-between items-end">
                                                 <div class="text-sm font-semibold items-end">
-                                                    THB 
+                                                    THB
                                                     <span x-text="product.price_re">
                                                     </span>
-                                                    </div>
+                                                    <p></p>
+                                                </div>
+                                                <div x-show="!product.stock" class="oos items-end">
+                                                    <p >out of stock</p>
+                                                </div>
                                                 <div class="flex items-center">
                                                     <p class="text-sm nomar">Qty:</p>
                                                     <input
                                                         type="number"
                                                         min="1"
-                                                        x-model="product.quantity"
+                                                        :max="product.stock"
+                                                        {{-- value="product.quantity" --}}
+                                                        x-model.number="product.quantity"             
                                                         @change="changeQuantity()"
-                                                        class="qtycart  border-gray-200" 
+                                                        class="qtycart  border-gray-200"
                                                     />
                                                 </div>
                                                     <i class="fa-solid fa-trash binicon" 
@@ -105,13 +223,12 @@
                             </div>
                         </template>
                     </template>
+
                     
                     {{-- Pre-order items  --}}
-                    <hr class="my-5"/>
 <h2>Pre-Order</h2>
-<p class='notice'>* Pre-Order item will be ready to ship within XX Days after payment</p>
-<template x-for="product of cartItems" :key="product.id">
-
+<p class='notice'>* Pre-Order item will be ready to ship within 30 Days after payment</p>
+                    <template x-for="product of cartItems" :key="product.id">
                         <template x-if="product.type == 1"> 
                             <div x-data="productItem(product)">
                                 <div
@@ -130,6 +247,11 @@
                                                     <h3 class="nomar" x-text="product.title"></h3>
                                                     <p class="nomar"x-text="product.dimension"></p>
                                                 </div>
+                                            </br>
+                                                <div class="opacity-25">
+                                                stock : <span x-text="product.stock">
+                                                </div>
+
                                             </div>
                                             <div class="calcol flex flex-col justify-between items-end">
                                                 <div class="text-sm font-semibold items-end">
@@ -142,6 +264,7 @@
                                                     <input
                                                         type="number"
                                                         min="1"
+                                                        :max="product.stock"
                                                         x-model="product.quantity"
                                                         @change="changeQuantity()"
                                                         class="qtycart  border-gray-200" 
@@ -153,49 +276,108 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="my-5"/>
                             </div>
                         </template>
                     </template>
+                    <hr class="my-5"/>
+
 <!-- subtotal -->
 
-                    <div class="border-t border-gray-300 pt-4">
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Subtotal 
-                            <span class="notice">(included tax)
-                            {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
-                            </span>
-                        </span>
-                                
-                            <span id="cartTotal" class="text-xl" x-text="`THB ${cartTotal}`"></span>
-                            {{-- <span id="cartTotal" class="text-xl" x-text="`THB ${cartto}`"></span> --}}
-                        </div>
-                        <span id="totalprice"></span>
-                        <p class="text-gray-500 mb-6">
-                            Shipping calculated at checkout.
-                        </p>
+                    {{-- <div class="border-t border-gray-300 pt-4">
+                        <p  x-text="`${baseDiscount}`"></p>
+                        <p  x-text="`${cartTotal}`">yo</p>
+                        <div class="flex justify-between"> --}}
 
-                        {{-- <form action="{{route('cart.checkout')}}" method="post"> --}}
+                    <div class="flex justify-between">
+                                <span class="font-semibold">Subtotal 
+                                    <span class="notice">(Tax included)
+                                        {{-- <?php echo number_format(200000, 0, ",", "&#8239;")?>; --}}
+                                    </span>
+    
+                                </span>
+                                    
+                                <span id="cartTotal" class="text-xl" x-text="`${cartTotal}`"></span>
+                    </div>
+                    
+                    {{-- @if (isset($voucher))
+                    <h2>hello</h2>
+                    @endif --}}
 
-                        <form action="{{route('checkout.summary')}}" method="post">
+                    <div x-show="{{$apply_voucher}}=0" id="base_dis" class="flex justify-between">
+                            <span class="font-semibold">Discount
+                                    <p class='notice' style='padding-left: 2rem;'>
+                                         BAHT 10,000 UP DISC. 10%
+                                        </br> BAHT 30,000 UP DISC. 15%
+                                        </br> BAHT 50,000 UP DISC. 20%
+                                        </br> BAHT 70,000 UP DISC. 25%
+                                    </p>
+                            </span>                                
+                            {{-- <span id="cartTotal" class=" tthin" x-text="` ${base_discount}`"></span> --}}
+                            <span id="cartTotal" class="tthin" x-text="`${dis_percent}`"></span>
+                            <span id="cartTotal" class="notice text-xl" x-text="`-${dis_amount}`"></span>
+                            
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Voucher </span>
+                        @if (isset($voucher))
+                        <form method="get" action="{{route('cart.index')}}">
                             @csrf
-                            <button type="submit" class="btn-primary w-full py-3 text-lg">
+                            <div >
+                                <button class='bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-0 my-1 rounded'>{{ __('clear Voucher') }}</button>
+                            </div>
+                        </form>
+                        <span id="cartTotal" class="tthin">{{$voucher->code}} : {{$voucher_discount}} %</span>
+                            <span id="cartTotal" class="notice text-xl" x-text="`-${dis_v_amount}`"></span>
+                        @else 
+                        {{-- <span></span>
+                            <span></span> --}}
+
+                            @endif
+                        </div>
+                    <div class="flex justify-between">
+                        {{-- <h2>Apply Voucer</h2> --}}
+                        <form method="POST" action="{{route('cart-voucher')}}">
+                            @csrf
+                            <div >
+                                <input type="text" style="color:black;" id="voucher" name="voucher" value="" required>
+                                <button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>{{ __('Confirm') }}</button>
+                            </div>
+                            <div>{{$vcheck}}</div>
+                        </form>
+                
+                        
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <span class="font-semibold">After Discount (Tax included)</span>
+                        <span id="cartTotal" class="text-xl" x-text="`THB ${after_discount}`"></span>
+                        
+                    </div>
+                    </br>
+                        <p class="text-gray-500 mb-6">Shipping calculated at checkout.</p>
+
+
+                            @csrf
+                            <button type="submit" class="btn-primary w-full py-3 text-lg"  onclick="clicked(event)">
                                 Proceed to Checkout
                             </button>
                             <input type="hidden" name="checkouttype"  value="paynow">
+                            <input type="hidden" name="apply_voucher"  value="{{$apply_voucher}}">
+                            <input type="hidden" name="vvalid"  value="{{$vvalid}}">
                             
                         </form>
+                        {{-- <h1>{{$apply_voucher}}</h1> --}}
                         
                         <br>
-                        <div>
+                        {{-- <div>
                         <form action="{{route('checkout.summary')}}" method="post">
                                 @csrf
-                            <button type="submit" class="btn-secondary w-full py-3 text-lg">
+                            <button type="submit" class="btn-secondary w-full py-3 text-lg" onclick="clicked(event)">
                                     Ask for Quotation
                             </button>
                             <input type="hidden" name="checkouttype"  value="quotation">
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -223,6 +405,10 @@
             document.getElementById('qty_sm').value = --i;
         }
 
+    // if (){
+    //     document.getElementById('base_dis').style.display = 'none'
+    // }
+
         
 
 function format(n, sep, decimals) {
@@ -234,7 +420,24 @@ function format(n, sep, decimals) {
         + n.toFixed(decimals).split(sep)[1];
 }
 
-document.getElementById("totalprice").innterHTML=cartto()
+// document.getElementById("totalprice").innterHTML=cartto()
+
+    function clicked(e)
+    {
+        if(!confirm('Do you want to create order?')) {
+            e.preventDefault();
+        }
+    }
+
+/// input must be greater than 0
+    function check(input) {
+    if (input.value == 0) {
+        input.setCustomValidity('The number must not be zero.');
+    } else {
+        // input is fine -- reset the error message
+        input.setCustomValidity('');
+    }
+    }
 
     </script>
 

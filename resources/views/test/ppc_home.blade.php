@@ -2,7 +2,8 @@
   <head>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+      
   </head>
 
   <x-app-layout>
@@ -21,11 +22,12 @@
       </div>
 
 {{-- Highlight slider --}}
+@include('components.shopcol')
+
   @include('components.hl_product')
 
   @include('components.new_product')
 
-  @include('components.shopcol')
   <!-- portfolio-area-end -->
 
       <div class="shopall">
@@ -36,14 +38,16 @@
       <div class="footspace"></div>
       
       <footer>
+        <div class="footcol">
         <table class="footercontent"  border="0" cellspacing="0" cellpadding="0">
           <tbody>
             <tr>
               <td height="140" align="center" bgcolor="#b2b2b2" class="linkGray">
                 <br>
                 <h2 style="font-size: 17px;">Prempracha’s Collection</h2>
-                224 M.3, Chiang mai-Sankampang Rd., T.Tonpao, A.Sankampang Chiang mai, 
-                50130 Thailand<br />
+                224 M.3, Chiang mai-San Kamphaeng Rd., <br />
+                T.Tonpao, A.San Kamphaeng Chiang mai, 50130 Thailand
+              </br>
               </br>
               Tel.: 66 5333 8540, 66 5333 8857
             </br> Email: <a href="mailto:info@prempracha.com">info@prempracha.com</a>
@@ -58,6 +62,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
   </footer>
 
 

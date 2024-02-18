@@ -2,15 +2,20 @@ import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 
 export default defineConfig({
+  base: "",
   plugins: [
     laravel({
+      buildDirectory: "build/",
       input: [
         "resources/css/reset.css",
         "resources/css/app.css",
+        "resources/css/queries.css",
         "resources/css/style3.css",
+        "resources/css/loader.css",
         // "resources/assets/scss/main.scss",
         "resources/js/app.js",
         "resources/js/nav.js",
+        "resources/js/cookieconsent-config.js",
       ],
       refresh: true,
     }),

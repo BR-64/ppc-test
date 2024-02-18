@@ -6,7 +6,7 @@
                     setTimeout(() => this.$dispatch('notify', {message: this.flashMessage}), 200)
                 }
             }
-        }" class="container mx-auto lg:w-2/3 p-5">
+        }" class="container_profile mx-auto lg:w-2/3 p-5">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start blacktext">
             <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
                 <form x-data="{
@@ -78,30 +78,48 @@
                             class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
+                    <div class="mb-3">
+                        <x-input
+                            type="text"
+                            name="customer_name"
+                            value="{{old('customer_name', $customer->customer_name)}}"
+                            placeholder="customer / company name"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <x-input
+                            type="text"
+                            name="customer_taxid"
+                            value="{{old('customer_taxid', $customer->customer_taxid)}}"
+                            placeholder="Tax id"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                    </div>
 
                     <h2 class="text-xl mt-6 font-semibold mb-2">Billing Address</h2>
+                    {{-- <div> --}}
+                        <x-input
+                        type="text"
+                        name="billing[address1]"
+                        x-model="billingAddress.address1"
+                        placeholder="Address row 1"
+                        class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                    {{-- </div> --}}
+                    {{-- <div> --}}
+                        <x-input
+                        type="text"
+                        name="billing[address2]"
+                        x-model="billingAddress.address2"
+                        placeholder="Address row 2"
+                        class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                    {{-- </div> --}}
                     <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <x-input
-                                type="text"
-                                name="billing[address1]"
-                                x-model="billingAddress.address1"
-                                placeholder="Address 1"
-                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                            />
-                        </div>
-                        <div>
-                            <x-input
-                                type="text"
-                                name="billing[address2]"
-                                x-model="billingAddress.address2"
-                                placeholder="Address 2"
-                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                            />
-                        </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
+                        {{-- <div> --}}
                             <x-input
                                 type="text"
                                 name="billing[city]"
@@ -109,8 +127,8 @@
                                 placeholder="City"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
-                        </div>
-                        <div>
+                        {{-- </div> --}}
+                        {{-- <div> --}}
                             <x-input
                                 type="text"
                                 name="billing[zipcode]"
@@ -118,7 +136,7 @@
                                 placeholder="ZipCode"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
-                        </div>
+                        {{-- </div> --}}
                     </div>
                     <div class="grid grid-cols-2 gap-3 mb-3">
                         <div>
@@ -133,30 +151,6 @@
                                 </template>
                             </x-input>
                         </div>
-                        <div>
-                            <template x-if="billingCountryStates">
-                                <x-input type="select"
-                                         name="billing[state]"
-                                         x-model="billingAddress.state"
-                                         class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
-                                    <option value="">Select State</option>
-                                    <template x-for="[code, state] of Object.entries(billingCountryStates)"
-                                              :key="code">
-                                        <option :selected="code === billingAddress.state"
-                                                :value="code" x-text="state"></option>
-                                    </template>
-                                </x-input>
-                            </template>
-                            <template x-if="!billingCountryStates">
-                                <x-input
-                                    type="text"
-                                    name="billing[state]"
-                                    x-model="billingAddress.state"
-                                    placeholder="State"
-                                    class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                                />
-                            </template>
-                        </div>
                     </div>
 
                     <div class="flex justify-between mt-6 mb-2">
@@ -167,8 +161,6 @@
                                    class="text-purple-600 focus:ring-purple-600 mr-2"> Same as Billing
                         </label>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
                             <x-input
                                 type="text"
                                 name="shipping[address1]"
@@ -176,17 +168,13 @@
                                 placeholder="Address 1"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
-                        </div>
-                        <div>
                             <x-input
                                 type="text"
                                 name="shipping[address2]"
                                 x-model="shippingAddress.address2"
-                                placeholder="Address 2"
+                                placeholder="Address row 2"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
-                        </div>
-                    </div>
                     <div class="grid grid-cols-2 gap-3 mb-3">
                         <div>
                             <x-input
@@ -221,7 +209,7 @@
                             </x-input>
                         </div>
                         <div>
-                            <template x-if="shippingCountryStates">
+                            {{-- <template x-if="shippingCountryStates">
                                 <x-input type="select"
                                          name="shipping[state]"
                                          x-model="shippingAddress.state"
@@ -242,7 +230,7 @@
                                     placeholder="State"
                                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                                 />
-                            </template>
+                            </template> --}}
                         </div>
                     </div>
 

@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Symfony\Component\Mailer\Envelope;
 
 class NewOrderEmail extends Mailable
 {
@@ -17,9 +18,14 @@ class NewOrderEmail extends Mailable
      *
      * @return void
      */
-    public function __construct(public Order $order, public $forAdmin = true)
+    public function __construct(public Order $order)
     {
+        $this->order=$order;
 
+
+        // $maildata=[
+        //     'totalpayment'=>number_format(($order['total_price']+$order['insurance']+$order['shipping']),2)
+        // ];
     }
 
     /**
@@ -30,7 +36,12 @@ class NewOrderEmail extends Mailable
     public function build()
     {
         return $this
-            ->subject('New Order')
-            ->view('mail.new-order');
+            ->subject('Prempracha Online Shop : Order has been created')
+            // ->view('mail.TestMKdown');
+            // ->markdown('mail.TestMKdown');
+            ->markdown('mail.NewOrder_Mkdown');
+            // ->with([
+            //     'totalpayment'=>number_format(($this->order['total_price']+$this->order['insurance']+$this->order['shipping']),2)
+            // ]);
     }
 }

@@ -1,5 +1,6 @@
 <x-app-layout>
     <form x-data="{
+        {{-- 'country_code' => $billingAddress->country_code, --}}
         {{-- countries: {{ json_encode($countries) }} --}}
     }"
         action="{{ route('register') }}"
@@ -21,7 +22,7 @@
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')"/>
-    <div class="bg-white p-3 shadow rounded-lg md:col-span-2 mb-3">
+    <div class="bg-white p-3 shadow rounded-lg md:col-span-2 mb-3 text-black font-semibold">
         <h2 class="text-xl font-semibold mb-2">Account Info</h2>
 
             <div class="mb-4">
@@ -37,25 +38,22 @@
                 <x-input placeholder="Repeat Password" type="password" name="password_confirmation"/>
             </div>
     </div>
-    <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
-        <h2 class="text-xl font-semibold mb-2">Personal details (optional)</h2>
-
+    {{-- <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
+        <h2 class="text-xl font-semibold mb-2">Customer details (optional)</h2>
             <div class="mb-4">
                 <div class="mb-3">
                     <x-input
                     type="text"
                     name="first_name"
-                    {{-- value="{{old('first_name', $customer->first_name)}}" --}}
-                    placeholder="First Name"
+                    placeholder="Customer / Company name"
                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                     />
                 </div>
                 <div class="mb-3">
                     <x-input
                     type="text"
-                    name="last_name"
-                    {{-- value="{{old('first_name', $customer->first_name)}}" --}}
-                    placeholder="Last Name"
+                    name="TaxID"
+                    placeholder="Tax ID (For invoice)"
                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                     />
                 </div>
@@ -110,9 +108,9 @@
                              name="billing[country_code]"
                              x-model="billingAddress.country_code"
                              class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
-                        <option value="">Select Country</option>
+                        <option value="" selected>Select Country</option>
                         <template x-for="country of countries" :key="country.code">
-                            <option :selected="country.code === billingAddress.country_code"
+                            <option :selected="select country"
                                     :value="country.code" x-text="country.name"></option>
                         </template>
                     </x-input>
@@ -182,21 +180,13 @@
                         </template>
                     </x-input>
                 </div>
-                <div>
-                </div>
-            </div>
-
-
-          
-    </div>
+            </div>    
+    </div> --}}
         <div style="text-align: center">
-
-        <button
-            class="addtocart"
-        >
-            Signup
-        </button>
+            <button class="addtocart">Signup</button>
         </div>
     </form>
+
     <div class="footspace"></div>
+
 </x-app-layout>

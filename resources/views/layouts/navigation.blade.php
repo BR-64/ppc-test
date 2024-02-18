@@ -1,33 +1,60 @@
 {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+<style>
+    @media only screen and (max-width: 900px){
+            .spacebox1{
+                    align-items: center;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    margin-left: 0;
+                    /* margin-right: 100px; */
+                    width: 200px;
+                    text-align: left;
 
+            }
+
+            .mainlogo{
+                margin:0;
+            }
+
+            
+
+        }
+</style>
 <header
     x-data="{
         mobileMenuOpen: false,
         cartItemsCount: {{ \App\Helpers\Cart::getCartItemsCount() }},
     }"
     @cart-change.window="cartItemsCount = $event.detail.count"
-    class="flex justify-space-between prembg shadow-md "
+    class="flex justify-space-between justify-end prembg shadow-md "
 >
-<div class="spacebox1">
-    <div >
+<div class="spacebox1 ">
+    {{-- <div > --}}
         <a href="{{ route('test') }}" class="block p-2"> 
             <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/ppclogo.png" alt=""> 
         </a>
-    </div>
-
+    {{-- </div> --}}
 </div>
-
+{{-- <div>
+    <p>Contact Us</p>
+</div> --}}
+{{-- <div class="spacebox1"></div> --}}
 {{-- dropdown 2 //////////////////////////////////////////////////////// --}}
+    {{-- <div class="dropbtn">
+        <p>Contact Us</p>
+    </div> --}}
         <div class="dropdown ">
             <div class="dropbtn">Products</div>
 
             <div class="dropdown-one">
+                <a href="/prem" class="dItem">PREM</a>
                 @foreach($sharedData['filterables'] as $key=>$filter)
                 <div id="link1" class="dItem" href="#">
                     <h3 class="drop1">{{$key}}</h3>
                         <div class="dropdown-two">
 
-                            <h1 class="">{{$key}}</h1>
+                            {{-- <h1 class="">{{$key}}</h1> --}}
             
                     @foreach($filter as $key=>$cat)
                         @if($cat->collection)
@@ -105,37 +132,6 @@
     >
         <ul>
             <li>
-                {{-- <a
-                    href="{{ route('cart.index') }}"
-                    class="relative flex items-center justify-between py-2 px-3 transition-colors hover:bg-slate-800"
-                >
-                    <div class="flex items-center">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 mr-2 -mt-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                            />
-                        </svg>
-                        Cart
-                    </div>
-                    <!-- Cart Items Counter -->
-                    <small
-                        x-show="cartItemsCount"
-                        x-transition
-                        x-text="cartItemsCount"
-                        x-cloak
-                        class="py-[2px] px-[8px] rounded-full bg-red-500"
-                    ></small>
-                    <!--/ Cart Items Counter -->
-                </a> --}}
             </li>
             @if (!Auth::guest())
                 <li x-data="{open: false}" class="relative">
@@ -250,26 +246,29 @@
                 </li>
             @else
                 <li>
-                    <a
+                        <a
                         href="{{ route('login') }}"
-                        class="flex items-center py-2 px-3 link"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 mr-2"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
+                        class="flex items-center py-2 px-3 transition-colors hover:bg-slate-800"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                            />
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        >
+                        <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                        />
                         </svg>
+                        <p>
                         Login
-                    </a>
+
+                        </p>
+                </a>
                 </li>
                 <li class="px-3 py-3">
                     <a
@@ -283,36 +282,11 @@
         </ul>
     </div>
     <!--/ Responsive Menu -->
+    <div>
+
     <nav class="hidden md:block">
         <ul class="grid grid-flow-col items-center">
             <li>
-                {{-- <a
-                    href="{{ route('cart.index') }}"
-                    class="relative inline-flex items-center py-navbar-item px-navbar-item hover:bg-slate-900"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                        />
-                    </svg>
-                    Cart
-                    <small
-                        x-show="cartItemsCount"
-                        x-transition
-                        x-cloak
-                        x-text="cartItemsCount"
-                        class="absolute z-[100] top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-500"
-                    ></small>
-                </a> --}}
             </li>
             @if (!Auth::guest())
                 <li x-data="{open: false}" class="relative">
@@ -431,26 +405,30 @@
                 </li>
             @else
                 <li>
-                    <a
-                        href="{{ route('login') }}"
-                        class="flex items-center py-navbar-item px-navbar-item link"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 mr-2"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
+                    <div class="dropdown2">
+
+                        <div class="navitem">
+                            <a
+                            href="{{ route('login') }}"
+                            >
+                            {{-- <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                >
+                                <path
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                            />
-                        </svg>
-                        Login
-                    </a>
+                                />
+                            </svg> --}}
+                            Login
+                            </a>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <a
@@ -463,6 +441,8 @@
             @endif
         </ul>
     </nav>
+</div>
+
     <button
         @click="mobileMenuOpen = !mobileMenuOpen"
         class="p-4 block md:hidden"

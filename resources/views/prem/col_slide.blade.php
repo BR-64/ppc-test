@@ -1,5 +1,7 @@
 
 <body>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
   
       @php
           $mktSliders = App\Models\Portfolio::query()

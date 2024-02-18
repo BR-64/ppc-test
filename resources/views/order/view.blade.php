@@ -23,10 +23,26 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="font-bold py-1 px-2">SubTotal</td>
-                    <td>Thb {{ number_format($order->total_price) }}</td>
-                    {{-- <td>Thb {{ $order->total_price }}</td> --}}
+                    <td class="font-bold py-1 px-2">Product price</td>
+                    <td>{{ number_format($order->total_price,2) }}</td>
                 </tr>
+                <tr>
+                    <td class="font-bold py-1 px-2 text-red-500">Discount</td>
+                    <td class="text-red-500">{{ number_format($order->discount_amount,2) }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold py-1 px-2">Shipping</td>
+                    <td>{{ number_format($order->shipping,2) }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold py-1 px-2">Insurance</td>
+                    <td>{{ number_format($order->insurance,2) }}</td>
+                </tr>
+                <tr class="border-solid border-2">
+                    <td class="font-bold py-1 px-2">Net</td>
+                    <td>Thb {{ number_format($order->fullprice,2) }}</td>
+                </tr>
+                
                 </tbody>
             </table>
 
@@ -55,9 +71,19 @@
             @endforeach
 
             @if (!$order->isPaid())
-                <form action="{{ route('cart.checkout-order', $order) }}"
+                <form action="{{ route('order.pay', $order) }}"
                       method="POST">
                     @csrf
+                    <input type="hidden" name="orderid" value="{{$order->id}}" >
+                    <input type="hidden" name="subtotal_price" value="{{$order->total_price}}" >
+                    <input type="hidden" name="dispercent" value="{{$order->discount_percent}}" >
+                    <input type="hidden" name="Discount" value="{{$order->discount_amount}}" >
+                    <input type="hidden" name="Shipcost" value="{{$order->shipping}}" >
+                    <input type="hidden"  name="Insurance" value="{{$order->insurance}}">
+                    <input type="hidden" name="amount" value="{{$order->fullprice}}" >
+                    <input type="hidden" name="checkouttype"  value="paynow">
+
+
                     <button class="btn-primary flex items-center justify-center w-full mt-3">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

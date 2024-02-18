@@ -1,4 +1,4 @@
-@vite(['resources/css/style3.css', 'resources/js/app.js'])
+{{-- @vite(['resources/css/style3.css', 'resources/js/app.js']) --}}
 
 <?php
 /** @var \Illuminate\Database\Eloquent\Collection $products */
@@ -20,7 +20,11 @@
     <div class="gridHL">
             @foreach($products as $product)
                 <!-- Product Item -->
-            <div class="card2">
+            <div x-data="productItem({{ json_encode([
+                'stock'=>$product->stock->stock])
+                }})" 
+                
+                x-show="{{$product->stock->stock}} > 0" class="card2">
 
                 <div>
                     <a href="{{ route('product.view', $product->item_code) }}"
@@ -33,6 +37,7 @@
                     </a>
                     <div>
                         <h5 class="text2 undertext">THB {{$product->retail_price}}</h5>
+                        {{-- <h5 class="text2 udertext"> {{$product->stock->stock}} </h5> --}}
                     </div>
                 </div>
             </div>

@@ -27,7 +27,7 @@
 <table>
     <tr>
         <th>Image</th>
-        <th>Title</th>
+        <th>Code</th>
         <th>Price</th>
         <th>Quantity</th>
     </tr>

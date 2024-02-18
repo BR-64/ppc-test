@@ -140,7 +140,7 @@
 <h1 class="pagehead">Collections</h1>
     <?php if ($products->count() === 0): ?>
         <div class="text-center text-gray-600 py-16 text-xl">
-            There are no products published
+            There are no collection
         </div>
     <?php else: ?>
     
@@ -151,7 +151,7 @@
     <div class="gridHL">
             @foreach($products as $product)
                 <!-- Product Item -->
-                    <div class="card2">
+                    <div   class="card2">
 
                 <div
                     x-data="productItem({{ json_encode([
@@ -163,8 +163,8 @@
                     <a href="{{ route('product.collection.view', $product->collection_name) }}"
                        class="">
                         <img
-                            src="{{ $product->image }}"
-                            alt=""
+                        src="{{ asset ('/storage/'.$product->image) }}"
+                        alt="{{ $product->collection_name }}"
                             class="pimage hover:scale-105 hover:rotate-1 transition-transform"
                         />
                     </a>

@@ -26,8 +26,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // \URL::forceRootUrl(\Config::get('app.url'));    
+        // if (str_contains(\Config::get('app.url'), 'https://')) {
+        //     \URL::forceScheme('https');
+
+        if($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
+
         $filterables = [
-            'collection' => pProduct::distinct()->get('collection'),
+            'collection' => pProduct::distinct()->get(['collection']),
+            // 'collection' => pProduct::collection->get(),
             'category' => pProduct::distinct()->get('category'),
             'type' => pProduct::distinct()->get('type'),
             'brand' => pProduct::distinct()->get('brand_name'),

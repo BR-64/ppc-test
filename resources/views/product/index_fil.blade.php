@@ -1,9 +1,8 @@
-{{-- @vite(['resources/css/style3.css', 'resources/js/app.js']) --}}
 
 <?php
 /** @var \Illuminate\Database\Eloquent\Collection $products */
 ?>
- {{-- @livewireStyles --}}
+
 <x-shop>
 
 {{-- products --}}
@@ -13,7 +12,6 @@
         </div>
     <?php else: ?>
     
-    {{-- <h2 class="pagehead">Shop All</h2> --}}
     <br>
 
     {{-- @livewire('shop-scroll') --}}
@@ -22,10 +20,14 @@
         <div class="gridHL">
     <!-- Product Item -->
           @foreach($products as $product)
-  
-                <div>
-                    <div class="card2">
-  
+                {{-- <div> --}}
+                    <div x-show="{{$product->stock->stock}} > 0"
+                        class='card2' 
+                        x-data="productItem({{ json_encode([
+                                'stock'=>$product->stock->stock,
+                                'sp'=>$product->sp])
+                                }})" 
+                        >
                         <a href="{{ route('product.view', $product->item_code) }}"
                           class="">
                             <img
@@ -35,13 +37,21 @@
                             />
                         </a>
                         <div>
+                            <p class="text2 undertext">{{$product->item_code}}</p>
                             <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
+                            {{-- <p class="text2 undertext">Stock {{$product->stock->stock}}</p> --}}
                         </div>
+                        
+
+
+  
+  
                     </div>
-                </div>
+                {{-- </div> --}}
             @endforeach
         </div>
     </div>
+
 
 
     <?php endif; ?>

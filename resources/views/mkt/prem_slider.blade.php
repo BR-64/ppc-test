@@ -1,20 +1,21 @@
-<head>
-  <!-- Link Swiper's CSS -->
-  {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
-
-  <!-- Demo styles -->
-</head>
-
 
     @php
-    $mktSliders = App\Models\Portfolio::query()
-        // ->where('type', '=', 'main_banner')
-        ->where('type', '=', 'prem_coll_cover')
+    $mktSliders = App\Models\Banner::query()
+        ->where('name', '=', 'prem banner')
         ->latest()->get();
+
+        $imgs = count($mktSliders[0]['extra_image']);
+
     @endphp
 
 <style>
-
+  .mySwiper_banner{
+  height: 500px;
+  width: 100%;
+  height: 80vh;
+  /* width: 363px; */
+  margin-top: 5px;
+  }
 </style>
 
   <!-- Swiper -->
@@ -22,7 +23,17 @@
       <div class="swiper mySwiper_prem">
           <div class="swiper-wrapper">
               @foreach($mktSliders as $slide)
-              <div class="swiper-slide"><img src="{{$slide->portfolio_image}}" alt=""></div>
+                <div class="swiper-slide">
+                  <img class='slidprem' src="{{asset ('/storage/'.$slide->image)}}" alt="">
+                </div>
+
+                @for ($i =0; $i < $imgs; $i++)
+                <div class="swiper-slide">
+                  <img src="
+                  {{asset ('/storage/'.$slide->extra_image[$i])}}
+                  " alt="" class="slideprem">
+                </div>
+                @endfor
               
               @endforeach
             </div>
@@ -34,6 +45,9 @@
     var swiper = new Swiper(".mySwiper_prem", {
       pagination: {
         el: ".swiper-pagination",
+      },
+      autoplay: {
+        delay: 4000,
       },
     });
   </script>

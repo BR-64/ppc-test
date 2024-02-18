@@ -3,22 +3,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    {{-- <meta name="viewport" content="width=device-width, initial-scale=.5, maximum-scale=12.0, minimum-scale=.25, user-scalable=yes"/> --}}
 
     {{-- <title>{{ config('app.name', 'Prempracha Ecommerce') }}</title> --}}
 
-    <title>test6 Prempracha Online Store </title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    <title>Prempracha Online Store</title>
 
     @vite([
         'resources/css/reset.css',
         'resources/css/app.css',
+        'resources/css/style3.css',
+        'resources/css/queries.css',
+        'resources/css/loader.css',
         'resources/js/app.js',
         'resources/js/nav.js',
-        'resources/css/style3.css'
+        // 'resources/js/cookieconsent-config.js',
         ])
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
 
 
     <!-- Scripts -->
@@ -41,6 +47,17 @@
         -moz-appearance: textfield;
         }
 
+        /* @media only screen (min-width: 700px) { 
+            .pccoll{
+                    width: 70%;
+                    }
+
+            .pccollc{
+                    width: 70%;
+                    }
+        
+        } */
+
     </style>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -50,15 +67,28 @@
 
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<script  src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.umd.js"></script>
+
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    </script>
+    
 
     @livewireStyles
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css">
 
 </head>
 
 <body>
 @include('layouts.navigation')
 
-    <main >
+    <main>
+
         {{ $slot }}
     </main>
 
@@ -106,6 +136,16 @@
 <!--/ Toast -->
 @livewireScripts
 
+<script>
+    // $('#loader').show()
+    $(function() {
+        $( "form" ).submit(function() {
+            $('#loader').show();
+        });
+    });
+
+</script>
+<script type="module" src="cookieconsent-config.js"></script>
 
 </body>
 
