@@ -168,6 +168,7 @@ Route::get('/webhookmail',[kCheckoutController::class,'webhook']);
 Route::get('test/mailhub', [MailTestController::class, 'view']);
 // Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
 
+Route::post('test/mail/cancelorder', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
 Route::post('test/mail/neworder', [MailTestController::class, 'newOrder_created'])->name('testmail_newOrder');
 Route::post('test/mail/showroomorder', [MailTestController::class, 'showroomOrder'])->name('testmail_showroomOrder');
 Route::post('test/mail/showroomorder_fin', [MailTestController::class, 'showroomOrder_final'])->name('showroomOrder_fin');

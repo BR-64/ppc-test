@@ -209,6 +209,24 @@
                     </div>
                 </form>
             </div>
+
+        <div class="pccoll" style="width:400px;">
+            <h2>Test order delete function (get stock back)</h2>
+                <form method="POST" action="{{route('delOrder')}}">
+                    @csrf
+                    <!-- Password -->
+                    <div >
+                        <input type="text" style="color:black;" id="OrderID" name="OrderID" value="" required>
+                    </br>
+                    </div>
+        
+                    <div class="flex justify-end mt-4">
+                        <x-button>
+                            {{ __('Confirm') }}
+                        </x-button>
+                    </div>
+                </form>
+            </div>
 {{-- PDF - Order info --}}
         {{-- <div class="pccoll" style="width:400px;">
             <h2>PDF : Order info</br></h2>
