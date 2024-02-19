@@ -99,7 +99,7 @@ class OrderController extends Controller
                         ->where(['order_id' => $OrderId])
                         ->get();
     
-            if ($Order !== 'Cancel'){
+            if ($Order !== 'Cancelled'){
     
                 $toDelItems=[];
     
@@ -133,7 +133,7 @@ class OrderController extends Controller
                 dd('Order already Cancelled');
                 }
             //update Order status to 'cancel'
-                Order::where('id',$OrderId)->update(['status'=>'Cancel']); 
+                Order::where('id',$OrderId)->update(['status'=>'Cancelled']); 
     
                 dd('Order no.['.$OrderId.'] has been calcelled');
     
