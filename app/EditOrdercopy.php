@@ -24,6 +24,9 @@ class EditOrderrr extends EditRecord
             Action::make('email')
             ->icon('heroicon-s-external-link')
             ->action(fn()=>redirect()-> route('admail_control')),
+            Action::make('email')
+            ->icon('heroicon-s-external-link')
+            ->action(fn()=>redirect()-> route('admail_control')),
 
             // Action::make('Cancel Order')
             //     ->requiresConfirmation()

@@ -19,7 +19,36 @@ class EditO extends EditRecord
             // Actions\DeleteAction::make()
             // ->requiresConfirmation(),
             
-            Action::make('email')
+            // Action::make('Cancel Order') 
+            // ->requiresConfirmation()
+            // ->icon('heroicon-s-external-link')
+            // // ->form([
+            // //         TextInput::make('id')
+            // //         ->label('Order Id')
+            // //         ->required(),
+            // //     ])
+            // ->action(function (){
+            //     $jsonData = [
+            //         '_token'=>csrf_token(),
+            //         // 'OrderID' => $data['id'],
+            //         // 'OrderID' => $this->record->id,
+            //         'OrderID' => 279,
+            //      ];
+
+            //      $url= route('cancelOrder');
+            //     // $response = Http::post($url,$jsonData);
+            //     // $response = Http::post($url,['OrderID' => 279]);
+            //     $response = Http::asForm()->post($url,['OrderID' => 279]);
+            //     // $response = Http::post($url);
+            // // $response = Http::withToken('token')->post($url,['OrderID'=> 279]);
+            
+            // }),
+
+            // Action::make('settings')
+            //     ->label('Settings')
+            //     ->action('openSettingsModal'),
+            
+            Action::make('Admin Control')
             ->icon('heroicon-s-external-link')
             ->action(fn()=>redirect()-> route('admail_control')),
 

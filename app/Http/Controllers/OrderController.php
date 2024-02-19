@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -87,6 +88,8 @@ class OrderController extends Controller
         }
 
     public function cancelOrder(Request $request){
+        // set_time_limit(300000);
+
             /// get order data
             $OrderId = $request->OrderID;
             $Order = (Order::query()
@@ -135,6 +138,43 @@ class OrderController extends Controller
                 dd('Order no.['.$OrderId.'] has been calcelled');
     
             }
+
+    public function testHttp(){
+        $jsonData = [
+            '_token'=>csrf_token(),
+            // 'OrderID' => $data['id'],
+            // 'OrderID' => $this->record->id,
+            'OrderID' => 279,
+         ];
+
+         dd($jsonData);
+
+         $url= route('cancelOrder');
+        // $response = Http::post($url,$jsonData);
+        // $response = Http::post($url);
+        $response = Http::get('www.pantip.com');
+        // $response = Http::post($url,['OrderID' => 279]);
+        // $response = Http::asForm()->post($url,['OrderID' => 279]);
+        // $response = Http::asForm()->post($url,$jsonData);
+
+        dd($response);
+    }
+    public function testHttp_ob(){
+        $url= route('cancelOrder');
+
+        $response = Http::withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+            'Content-Type' => 'application/x-www-form-urlencoded',
+        ])->withBody(http_build_query([
+                'OrderID' => 279,
+
+                ]), 'application/json')->post(
+                    $url);
+        // )->collect()->toArray();
+    
+
+        dd($response);
+    }
     
     
 }

@@ -229,5 +229,8 @@ Route::middleware(['admin'])->group(function () {
 
 });
 
+Route::get('testhttp',[OrderController::class,'testHttp'])->name('test_http');
+
+
 
 require __DIR__ . '/auth.php';
