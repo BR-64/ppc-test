@@ -28,10 +28,10 @@ Payment has been completed. You order number **#{{$order['id']}}** has been conf
 {{-- /// order summary --}}
 |  |  |
 |--|--|
-|**subtotal**| {{number_format($order['total_price'],2)}}|
-|**discount**| - {{number_format($order['discount_amount'],2)}}|
-|**shipping fee**| {{number_format($order['shipping'],2)}} |
-|**insurance**| {{number_format($order['insurance'],2)}}|
+|**Subtotal**| {{number_format($order['total_price'],2)}}|
+|**Discount**| - {{number_format($order['discount_amount'],2)}}|
+|**Shipping fee**| {{number_format($order['shipping'],2)}} |
+|**Insurance**| {{number_format($order['insurance'],2)}}|
 |**Total Payment (THB)**|{{number_format($order['fullprice'],2)}}|
 <br>
 

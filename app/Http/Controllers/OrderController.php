@@ -39,8 +39,6 @@ class OrderController extends Controller
 
     public function mail_order_confirmed(Payment $payment)
     {
-
-
         $order = $payment->order;
         // echo $payload;
 

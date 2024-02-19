@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Forms\Components\pAvatar;
 use App\Models\att_category;
 use App\Models\pProduct;
 use App\Models\Product;
@@ -48,6 +49,7 @@ class ProductResource extends Resource
             ->schema([
                 // ViewField::make('enpro image')->view('filament.components.Image'),
                 // ViewField::make('image')->view('image'),
+                pAvatar::make(''),
                 FileUpload::make('webimage')
                 ->directory('img')
                 ->preserveFilenames()

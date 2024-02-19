@@ -35,7 +35,6 @@ Link to your order : #{{$order->id}}
 |**Insurance**| {{number_format($order['insurance'],2)}}|
 |**Total Payment (THB)**|{{number_format($order['fullprice'],2)}}|
 <br>
-<br>
 
 {{-- /// shipping --}}
 Shipping Details

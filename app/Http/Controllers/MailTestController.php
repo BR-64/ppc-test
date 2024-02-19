@@ -69,11 +69,9 @@ class MailTestController extends Controller
     {
 
         $OrderId = $request->OrderID;
-
         $order = (Order::query()
                 ->where(['id' => $OrderId])
                 ->first());
-        
         $buyer = $order->user;
 
         $payment = Payment::query()
@@ -81,11 +79,9 @@ class MailTestController extends Controller
                     ->first();
 
         // $this->OrderConfirmedMail($payment);
-
         
         $adminUsers = User::where('is_admin', 1)->get();
         $ppc_team = User::where('is_admin', 2)->get();
-
 
         foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
             // print_r($user->email);
@@ -164,15 +160,9 @@ class MailTestController extends Controller
         set_time_limit(30000);
         
         $OrderId = $request->OrderID;
-
-        // dd( $request);
-        // dd( $OrderId);
-
         $order = Order::query()
                     ->where(['id' => $OrderId])
                     ->first();
-
-        // dd($order->status);
 
         if ($order->status == 'paid') {  
     //// create SC
@@ -180,8 +170,6 @@ class MailTestController extends Controller
             if (is_null($order->enpro_doc) ){
                 $this->createSCauto($order->id);
             }; 
-
-            // $this->createSCauto($order->id);
     
             $buyer = $order->user;
 
@@ -214,13 +202,10 @@ class MailTestController extends Controller
                     ->first();
         $buyer = $order->user;
 
-        // Mail::to($this->sr_mail3)->send(new OrderShippedEmail($order));
-
         $adminUsers = User::where('is_admin', 1)->get();
         $ppc_team = User::where('is_admin', 2)->get();
 
         foreach ([...$adminUsers, ...$ppc_team,  $buyer] as $user) {
-            // print_r($user->email);
             Mail::to($user->email)->send(new OrderShippedEmail($order));
         }
 
