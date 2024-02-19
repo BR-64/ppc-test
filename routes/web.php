@@ -174,6 +174,7 @@ Route::post('test/mail/showroomorder_fin', [MailTestController::class, 'showroom
 
 // Route::post('test/mail/paycom', [MailTestController::class, 'PaymentCompleted'])->name('mail.paycom');
 Route::get('test/mail/paycom', [MailTestController::class, 'PaymentCompleted'])->name('mail.paycom');
+Route::post('test/mail/cancelorder', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
 
 
 Route::post('test/mail/orderShipped', [MailTestController::class, 'orderShipped'])->name('testmail_orderShipped');
@@ -190,13 +191,9 @@ Route::get('generate-pdf',[PdfController::class,'generatePdf'])->name('generate-
 // Route::post('generate-pdf',[MailTestController::class, 'PdfOrderinfo'])->name('pdf-orderinfo');
 
 Route::get('/genpdf-oinfo/{OrderID}',[PdfController::class, 'Pdf_orderinfo_test'])->name('pdf-orderinfo');
-
 Route::get('/genpdf-blabel/{OrderID}',[PdfController::class, 'Pdf_boxlabel_test'])->name('pdf-boxlabel');
-
 Route::get('/genpdf-quo/{OrderID}',[PdfController::class, 'Pdf_quotation_test'])->name('pdf-quotation');
-
 Route::get('/genpdf-inv/{OrderID}',[PdfController::class, 'Pdf_invoice'])->name('pdf-invoice');
-
 Route::view('/pdf.invoice', 'pdf.invoice');
 
 ////// voucher

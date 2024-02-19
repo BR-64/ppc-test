@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\NewOrderEmail;
 use App\Mail\OrderConfirmedMail;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -83,4 +85,56 @@ class OrderController extends Controller
             'mid'=> $mid,
         ]);
         }
+
+    public function cancelOrder(Request $request){
+            /// get order data
+            $OrderId = $request->OrderID;
+            $Order = (Order::query()
+                ->where(['id' => $OrderId])
+                ->value('status'));
+            $Items = OrderItem::query()
+                        ->where(['order_id' => $OrderId])
+                        ->get();
+    
+            if ($Order !== 'Cancel'){
+    
+                $toDelItems=[];
+    
+                // create normal array
+                // foreach ($Items as $Item){
+                //     $toDelItems[]=[
+                //         'item_code'=> $Item->product->item_code,
+                //         'quantity'=> $Item->quantity
+                //     ];
+                // }
+    
+            // create associative array
+                foreach ($Items as $Item){
+                    $toDelItems[$Item->product->item_code]= $Item->quantity;
+                }
+    
+            /// add stock back to web stock
+                foreach ($toDelItems as $Item=>$value){
+    
+                    $curStock = (Stock::query()
+                    ->where(['item_code' => $Item])
+                    ->value('stock'));
+    
+                    $newStock=$curStock+ $value;
+    
+                    Stock::where('item_code',$Item)->update(['stock'=>$newStock]);   
+    
+                    echo('Item : ['.$Item.'] added ['.$value.'] stock back.'."<br/>");
+                }
+            } else {
+                dd('Order already Cancelled');
+                }
+            //update Order status to 'cancel'
+                Order::where('id',$OrderId)->update(['status'=>'Cancel']); 
+    
+                dd('Order no.['.$OrderId.'] has been calcelled');
+    
+            }
+    
+    
 }
