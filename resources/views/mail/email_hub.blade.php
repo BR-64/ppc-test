@@ -230,8 +230,6 @@
                 </form>
             </div> --}}
 
-
-
         <div class="pccoll" style="width:400px;">
             <h2>Test order delete function (get stock back)</h2>
                 <form method="POST" action="{{route('cancelOrder')}}">
