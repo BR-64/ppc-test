@@ -54,12 +54,11 @@ class ProductUploadController extends Controller
             ->where('id','>',0)
             ->get();
 
-        // get stock data
+        // get stock data from enpro
             foreach($webItem as $key=>$product){
 
             $item_code =$product['item_code'];
 
-            //// get data from enpro
             $url='http://1.1.220.113:7000/PrempApi.asmx/getStockBalance?strItemCodeList='.$item_code;
             
             $ch = curl_init();
@@ -86,7 +85,7 @@ class ProductUploadController extends Controller
                     ]);
             }
 
-        // get products data
+        // get products data from enpro
             foreach($webItem as $key=>$product){
 
                 $item_code =$product['item_code'];
@@ -113,10 +112,14 @@ class ProductUploadController extends Controller
             
                     } catch (Exception $e){
                         echo ('Error: '.$item_code."<br>\n");
-                    };                       
-                        //// update data to database
-                        ProductNew::where('item_code','=',$dataEnpro['item_code'])
-                        ->update([
+                    };       
+        //// cubic cm (cbcm) cal
+            
+                    
+
+        //// update data to database          
+            ProductNew::where('item_code','=',$dataEnpro['item_code'])
+                ->update([
                             'weight_g'=>$dataEnpro['weight_g'],
                             'width'=>$dataEnpro['width_cm'],
                             'length'=>$dataEnpro['length_cm'],

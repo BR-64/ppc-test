@@ -24,7 +24,7 @@ class pProduct extends Model
     protected $table = 'p_products';
     protected $fillable = ['item_code','description', 
     'form', 'glaze', 'ฺBZ','technique','collection','category','type','brand_name','product_description','color','finish',
-    'image', 'published', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by', 'webimage','Highlight','newp','sp','sp_price'];
+    'image', 'published', 'color','finish', 'tags', 'image_size', 'created_by', 'updated_by', 'webimage','Highlight','newp','sp','sp_price','cubic_width','cubic_length','cubic_height'];
 
     protected $casts=[
         'webimage'=>'array'

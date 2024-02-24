@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CubicCal;
 use App\Models\pProduct;
 use App\Models\pCollection;
 use Illuminate\Http\Request;
@@ -699,6 +700,29 @@ class pProductController extends Controller
         $time_elapsed_secs = microtime(true) - $start;
 
         echo('/// update finished // Time used '.$time_elapsed_secs.' sec');
+
+    }
+
+    public function cbcmCal(){
+        $webItem = pProduct::query()
+        ->where('id','>',0)
+        ->get();
+
+        $cbcal = CubicCal::query()
+            ->where('id','>',0)
+            ->get();
+
+
+        // $cb_w = $webItem['width_cm']+$cbcal
+        // $cb_l = $webItem['length_cm']+
+        // $cb_h = $webItem['height_cm']+
+
+        pProduct::where('item_code','=',$dataEnpro['item_code'])
+                ->update([
+                    'cubic_width'=>$dataEnpro['width_cm'],
+                    'cubic_length'=>$dataEnpro['length_cm'],
+                    'cubic_height'=>$dataEnpro['height_cm'],
+                ]);
 
     }
 
