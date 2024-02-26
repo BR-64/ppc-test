@@ -1334,7 +1334,8 @@ if($nonFullCubicBoxCubic<>0){
                 $boxShipCost_TH += $costPerBox;
             }
 
-            $shipCost_TH = $boxShipCost_TH*1.07;
+            // $shipCost_TH = $boxShipCost_TH*1.07;
+            $shipCost_TH = $boxShipCost_TH;
             
         } else {
             // Ship by EMS
@@ -1352,13 +1353,14 @@ if($nonFullCubicBoxCubic<>0){
                 $shipPricenonFullBox_ems =0;
             }
 
-            $shipCost_EMS = (($fullBox * $maxrate) + ($nonFullBox* $shipPricenonFullBox_ems))*1.07;
+            // $shipCost_EMS = (($fullBox * $maxrate) + ($nonFullBox* $shipPricenonFullBox_ems))*1.07;
+            $shipCost_EMS = (($fullBox * $maxrate) + ($nonFullBox* $shipPricenonFullBox_ems));
 
             $EMS_insurance= max(ceil((($subtotalPrice + $shipCost_EMS)*1.1)*0.02),550);
 
-            if($EMS_insurance > 550){
-                $EMS_insurance = $EMS_insurance*1.07;
-            }; 
+            // if($EMS_insurance > 550){
+            //     $EMS_insurance = $EMS_insurance*1.07;
+            // }; 
 
             // Ship by Air
             $shippingZone_air= Country::query()->where(['code'=>$shipcountry])->value('zone_air');
@@ -1374,13 +1376,14 @@ if($nonFullCubicBoxCubic<>0){
                 $shipPricenonFullBox_air =0;
             }
 
-            $shipCost_Air = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_air))*1.07;
+            // $shipCost_Air = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_air))*1.07;
+            $shipCost_Air = (($fullBox * $maxrate) + ($nonFullBox * $shipPricenonFullBox_air));
 
             $Air_insurance= max(ceil((($subtotalPrice + $shipCost_Air)*1.1)*0.02),550);
 
-            if($Air_insurance > 550){
-                $Air_insurance = $Air_insurance*1.07;
-            }; 
+            // if($Air_insurance > 550){
+            //     $Air_insurance = $Air_insurance*1.07;
+            // }; 
 
         }
 
