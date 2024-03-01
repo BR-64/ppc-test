@@ -180,6 +180,7 @@ class kCheckoutController extends Controller
                 "source_type" => "card",
                 "mode" => "token",
                 "token" => $R_TOKEN,
+                // "reference_order" => $reforder,
                 "reference_order" => $reforder,
                 "additional_data" => [
                   "mid"=> $this->MID,
@@ -263,11 +264,12 @@ class kCheckoutController extends Controller
             $data_array =  array(
             "amount"=> $R_amount,
             "currency"=> "THB",
-            "description"=> "TESTPRODUCT alipay",
+            "description"=> "Alipay - prempracha online shop",
             "source_type"=> "alipay",
-            "reference_order" => $reforder,
+            "reference_order" => 'ppc'.$reforder,
             "additional_data" => [
-                "mid"=> $this->MID
+                // "mid"=> $this->MID
+                "mid"=> '401012148319001'
          ]
             );
 
@@ -277,7 +279,8 @@ class kCheckoutController extends Controller
             // echo $make_call;
              $response = json_decode($make_call, true);
 
-            //  var_dump($response);
+            //  var_dump($reforder,$response);
+            //  dd($response);
     
              $rediurl=$response["redirect_url"];
              return redirect($rediurl);

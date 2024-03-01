@@ -19,14 +19,27 @@ class EditOrder extends EditRecord
             // Actions\DeleteAction::make()
             // ->requiresConfirmation(),
             
-            Action::make('email')
-            ->icon('heroicon-s-external-link')
-            ->action(fn()=>redirect()-> route('admail_control')),
+            // Action::make('email')
+            // ->icon('heroicon-s-external-link')
+            // ->action(fn()=>redirect()-> route('admail_control')),
 
             // Action::make('payconfirm')
             // ->icon('heroicon-s-external-link')
             // ->url(fn (Order $record): string => route('mail.paycom', ['OrderID' =>$record]))
             // ->requiresConfirmation()
+
+            // Action::make('Cancel Order')
+            //     ->requiresConfirmation()
+            //     ->icon('heroicon-s-external-link')
+                // ->action(function (Order $order){
+                //     $jsonData = [
+                //         '_token'=>csrf_token(),
+                //         'OrderID' => $trans_id,
+                //      ];
+
+                     
+                //     Http::get(route('admail_control'));
+                // })
         ];
     }
 }

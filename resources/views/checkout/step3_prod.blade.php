@@ -85,7 +85,7 @@ header("Pragma: no-cache");
             </form>
         </div>
 
-        {{-- <div>
+        <div>
             <h3>Alipay</h3>
             <form class="qrform" method="POST" action="{{route('kpayment')}}">
                 @csrf
@@ -95,7 +95,7 @@ header("Pragma: no-cache");
                 <button class="subbut" type="submit"value="Pay with Ali"  onclick="clicked(Alipay)"> Pay with Ali
                 </button>
             </form>
-        </div> --}}
+        </div>
         </div>
     </div>
 

@@ -285,7 +285,7 @@ class MailTestController extends Controller
   
         dd('Mail sent successfully');
     }
-    public function mailpdf_test2(Request $request)
+    public function mailpdf_test2(Request $request) // current use
     {
         
         $OrderId = $request->OrderID;

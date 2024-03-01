@@ -12,7 +12,7 @@
         {{-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai&display=swap" rel="stylesheet">  --}}
 
         <title>Shipping Label</title>
-
+ 
         <style type="text/css">
             @page {
                 size: a4 landscape;
