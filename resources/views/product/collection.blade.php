@@ -165,7 +165,8 @@
                         <img
                         src="{{ asset ('/storage/'.$product->image) }}"
                         alt="{{ $product->collection_name }}"
-                            class="pimage hover:scale-105 hover:rotate-1 transition-transform"
+                            {{-- class="pimage hover:scale-105 hover:rotate-1 transition-transform" --}}
+                            class="SCpic"
                         />
                     </a>
                     <div>

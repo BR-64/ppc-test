@@ -14,7 +14,7 @@ class pCollectionController extends Controller
         $colls = pCollection::query()
         ->where('published', '=', 1)
         ->orderBy('id', 'desc')
-        ->paginate(10);
+        ->paginate(100);
         
         return view('product.collection', ['products' => $colls]);
     }
