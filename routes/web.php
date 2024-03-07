@@ -67,6 +67,13 @@ Route::middleware(['guestOrVerified'])->group(function () {
     Route::get('/collection/{col?}', [pCollectionController::class, 'view'])->name('product.collection.view');
     Route::get('/prem', [pCollectionController::class, 'prem'])->name('homeprem');
 
+    Route::get('/category', [pProductController::class, 'qfilter'])->name('shopf');
+    Route::get('/type', [pProductController::class, 'qfilter'])->name('shopf');
+    Route::get('/brand', [pProductController::class, 'qfilter'])->name('shopf');
+    Route::get('/color', [pProductController::class, 'qfilter'])->name('shopf');
+    Route::get('/finish', [pProductController::class, 'qfilter'])->name('shopf');
+
+
 
     
 

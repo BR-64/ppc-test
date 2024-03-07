@@ -1690,3 +1690,12 @@ ul.thumb li .thumbnail-wrap.hover {
   text-align: center;
   margin: 0;
 }
+
+.collhitbox {
+  position: relative;
+  min-height: 25px;
+  width: 200px;
+  z-index: 10;
+  margin: auto;
+  margin-bottom: -20px;
+}

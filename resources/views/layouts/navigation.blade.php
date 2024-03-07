@@ -50,10 +50,11 @@
             <div class="dropdown-one">
                 <a href="/prem" class="dItem">PREM</a>
                 @foreach($sharedData['filterables'] as $key=>$filter)
-                <div id="link1" class="dItem" href="#">
-                    <h3 class="drop1">{{$key}}</h3>
+                <div id="link1" class="dItem" >
+                    <a href="/{{$key}}">
+                        <h3 class="drop1">{{$key}}</h3>
+                    </a>
                         <div class="dropdown-two">
-
                             {{-- <h1 class="">{{$key}}</h1> --}}
             
                     @foreach($filter as $key=>$cat)

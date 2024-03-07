@@ -9,14 +9,14 @@
     "src": "resources/js/nav.js",
     "isEntry": true
   },
+  "resources/js/cookieconsent-config.js": {
+    "file": "assets/cookieconsent-config.07c51324.js",
+    "src": "resources/js/cookieconsent-config.js",
+    "isEntry": true
+  },
   "resources/css/reset.css": {
     "file": "assets/reset.4b167f23.css",
     "src": "resources/css/reset.css",
-    "isEntry": true
-  },
-  "resources/css/loader.css": {
-    "file": "assets/loader.3737d124.css",
-    "src": "resources/css/loader.css",
     "isEntry": true
   },
   "resources/css/queries.css": {
@@ -24,13 +24,18 @@
     "src": "resources/css/queries.css",
     "isEntry": true
   },
+  "resources/css/loader.css": {
+    "file": "assets/loader.3737d124.css",
+    "src": "resources/css/loader.css",
+    "isEntry": true
+  },
   "resources/css/style3.css": {
-    "file": "assets/style3.a52fc7b7.css",
+    "file": "assets/style3.dcfb1e2b.css",
     "src": "resources/css/style3.css",
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app.6044abed.css",
+    "file": "assets/app.811322ec.css",
     "src": "resources/css/app.css",
     "isEntry": true
   }

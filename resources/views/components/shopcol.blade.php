@@ -4,6 +4,7 @@
   .swiper {
     height: 100%;
     max-width: 900px;
+    /* height: 200px; */
 
   }
 
@@ -31,7 +32,11 @@
 </style>
 
 <div class="shopcoll_main">
-    <a href="{{ route('product.collection') }}"><h4 class="deco_col">Shop by Collection</h4></a>
+  <div class="collhitbox">
+    <a href="{{ route('product.collection') }}">
+      <h4 class="deco">Shop by Collection</h4>
+    </a>
+  </div>
 
     <div class="swiper mySwiper_col">
       <div class="swiper-wrapper" style='margin-bottom:10px;'>
