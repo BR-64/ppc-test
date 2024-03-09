@@ -34,10 +34,10 @@ class CheckoutSummaryController extends Controller
 {
     private $b_discount;
     private  $ppcBoxInfo = [
-        'S' =>['weight'=>2500, 'cubic'=>13671, 'shipcost'=>80],
-        'M' =>['weight'=>9500, 'cubic'=>46656, 'shipcost'=>180],
-        'L' =>['weight'=>12000, 'cubic'=>66096, 'shipcost'=>220],
-        'XL' =>['weight'=>20000, 'cubic'=>97336, 'shipcost'=>320],
+        'S' =>['weight'=>2500, 'cubic'=>20181, 'shipcost'=>80],
+        'M' =>['weight'=>9500, 'cubic'=>69984, 'shipcost'=>180],
+        'L' =>['weight'=>15000, 'cubic'=>90720, 'shipcost'=>220],
+        'XL' =>['weight'=>20000, 'cubic'=>148120, 'shipcost'=>320],
 
         /// dummy for box shipping cost calculation
         'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
@@ -47,6 +47,7 @@ class CheckoutSummaryController extends Controller
 
     ];
     private $shipbox_info;
+    private $cubicBuffer= 2.4;
 
     private $MID= "451005592743001"; // real
     // private $MID= "401232949944001"; // test MMC
@@ -1181,36 +1182,36 @@ if($nonFullCubicBoxCubic<>0){
         $shipCost = 0;
 
         //cubic cm cal
-        foreach ($products as $product) {
+        // foreach ($products as $product) {
 
-            $span1 = $product->width;
-            switch($span1){
-                case $span1 <= 10 : $shipcubic=3; break;
-                case $span1 <= 30 : $shipcubic=6; break;
-                case $span1 > 30 : $shipcubic=9; break;
-            }
-                $cubicW = $span1 + $shipcubic;
+        //     $span1 = $product->width;
+        //     switch($span1){
+        //         case $span1 <= 10 : $shipcubic=3; break;
+        //         case $span1 <= 30 : $shipcubic=6; break;
+        //         case $span1 > 30 : $shipcubic=9; break;
+        //     }
+        //         $cubicW = $span1 + $shipcubic;
 
-            $span2 = $product->length;
-            switch($span2){
-                case $span2 <= 10 : $shipcubic=3; break;
-                case $span2 <= 30 : $shipcubic=6; break;
-                case $span2 > 30 : $shipcubic=9; break;
-            }
-                $cubicL = $span2 + $shipcubic;
+        //     $span2 = $product->length;
+        //     switch($span2){
+        //         case $span2 <= 10 : $shipcubic=3; break;
+        //         case $span2 <= 30 : $shipcubic=6; break;
+        //         case $span2 > 30 : $shipcubic=9; break;
+        //     }
+        //         $cubicL = $span2 + $shipcubic;
 
-            $span3 = $product->height;
-            switch($span3){
-                case $span3 <= 10 : $shipcubic=3; break;
-                case $span3 <= 30 : $shipcubic=6; break;
-                case $span3 > 30 : $shipcubic=9; break;
-            }
-                $cubicH = $span3 + $shipcubic;
+        //     $span3 = $product->height;
+        //     switch($span3){
+        //         case $span3 <= 10 : $shipcubic=3; break;
+        //         case $span3 <= 30 : $shipcubic=6; break;
+        //         case $span3 > 30 : $shipcubic=9; break;
+        //     }
+        //         $cubicH = $span3 + $shipcubic;
 
 
-            $cubic_cm = $cubicW * $cubicL * $cubicH;
+        //     $cubic_cm = $cubicW * $cubicL * $cubicH;
 
-        }
+        // }
 
         foreach ($products as $product) {
             $quantity = $cartItems[$product->id]['quantity'];
@@ -1218,33 +1219,46 @@ if($nonFullCubicBoxCubic<>0){
             $totalWeight += $product->weight_g * $quantity;
             // $totalCubic += $product->cubic_cm * $quantity; /// production use
 
-    //// cubic cal
+    //// cubic cal buffer vary
+            // $span1 = $product->width;
+            //         switch($span1){
+            //             case $span1 <= 10 : $shipcubic=3; break;
+            //             case $span1 <= 30 : $shipcubic=6; break;
+            //             case $span1 > 30 : $shipcubic=9; break;
+            //         }
+            //             $cubicW = $span1 + $shipcubic;
 
+            // $span2 = $product->length;
+            //         switch($span2){
+            //             case $span2 <= 10 : $shipcubic=3; break;
+            //             case $span2 <= 30 : $shipcubic=6; break;
+            //             case $span2 > 30 : $shipcubic=9; break;
+            //         }
+            //             $cubicL = $span2 + $shipcubic;
+
+            // $span3 = $product->height;
+            //         switch($span3){
+            //             case $span3 <= 10 : $shipcubic=3; break;
+            //             case $span3 <= 30 : $shipcubic=6; break;
+            //             case $span3 > 30 : $shipcubic=9; break;
+            //         }
+            //             $cubicH = $span3 + $shipcubic;
+
+    //// cubic cal buffer not vary
             $span1 = $product->width;
-                    switch($span1){
-                        case $span1 <= 10 : $shipcubic=3; break;
-                        case $span1 <= 30 : $shipcubic=6; break;
-                        case $span1 > 30 : $shipcubic=9; break;
-                    }
-                        $cubicW = $span1 + $shipcubic;
+                $cubicW = $span1 + $this->cubicBuffer;
 
-                    $span2 = $product->length;
-                    switch($span2){
-                        case $span2 <= 10 : $shipcubic=3; break;
-                        case $span2 <= 30 : $shipcubic=6; break;
-                        case $span2 > 30 : $shipcubic=9; break;
-                    }
-                        $cubicL = $span2 + $shipcubic;
+            $span2 = $product->length;
+                $cubicL = $span2 + $this->cubicBuffer;
 
-                    $span3 = $product->height;
-                    switch($span3){
-                        case $span3 <= 10 : $shipcubic=3; break;
-                        case $span3 <= 30 : $shipcubic=6; break;
-                        case $span3 > 30 : $shipcubic=9; break;
-                    }
-                        $cubicH = $span3 + $shipcubic;
+            $span3 = $product->height;
+                $cubicH = $span3 + $this->cubicBuffer;
 
-                    $cubic_cm = $cubicW * $cubicL * $cubicH;
+            
+
+
+
+            $cubic_cm = $cubicW * $cubicL * $cubicH;
     //// end cubic cal
 
             $totalCubic += $cubic_cm * $quantity; // test cbcmcal
@@ -1391,14 +1405,22 @@ if($nonFullCubicBoxCubic<>0){
         $total_EMS = $subtotalPrice+$shipCost_EMS+$EMS_insurance;
         $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
-
+/// cal info for test
         // foreach($products as $product){
         //     var_dump(
         //         'Item : '.$product->item_code,
         //         'Width : '.$product->width,
         //         'Length : '.$product->length,
         //         'Height : '.$product->height,
-        //         ''
+        //         '',
+        //         $span1 = $product->width,
+        //             $cubicW = $span1 + $this->cubicBuffer,
+
+        //         $span2 = $product->length,
+        //             $cubicL = $span2 + $this->cubicBuffer,
+
+        //         $span3 = $product->height,
+        //             $cubicH = $span3 + $this->cubicBuffer,
         //     );
         // }
         //     var_dump(
