@@ -29,14 +29,14 @@
     "src": "resources/css/queries.css",
     "isEntry": true
   },
-  "resources/css/app.css": {
-    "file": "assets/app.92887d16.css",
-    "src": "resources/css/app.css",
+  "resources/css/style3.css": {
+    "file": "assets/style3.670f944d.css",
+    "src": "resources/css/style3.css",
     "isEntry": true
   },
-  "resources/css/style3.css": {
-    "file": "assets/style3.1949c20b.css",
-    "src": "resources/css/style3.css",
+  "resources/css/app.css": {
+    "file": "assets/app.7740d76d.css",
+    "src": "resources/css/app.css",
     "isEntry": true
   }
 }

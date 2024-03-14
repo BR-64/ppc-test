@@ -1,4 +1,4 @@
-{{-- <div class="shopcat">
+<div class="shopcat">
     <h4>shop by category</h4>
     <div class="gridShopCat">
       <div class="SCat">
@@ -74,7 +74,7 @@
             </div>
       </div>
     </div>
-  </div> --}}
+  </div>
 
     <div class="shopcat">
       <h4>shop by category</h4>

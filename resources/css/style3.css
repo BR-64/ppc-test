@@ -572,16 +572,16 @@ header {
 
 .SCat {
   color: white;
-
   justify-content: center;
   align-items: center;
   width: 116px;
   height: 49px;
   /* border: 1px solid yellow; */
   background-color: black;
-  background-size: cover;
+  /* background-size: cover; */
   /* background-position: center; */
   margin: auto;
+  /* overflow: hidden; */
 }
 
 .filchild {
@@ -592,7 +592,7 @@ header {
 
 .SCat img {
   opacity: 0.5;
-  max-width: 116px;
+  width: 100%;
   height: 49px;
   object-fit: cover;
   z-index: 1;
