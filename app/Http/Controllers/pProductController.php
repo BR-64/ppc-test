@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 class pProductController extends Controller
 
 {
+
     public function index()
     {
         $products = pProduct::query()
@@ -116,13 +117,18 @@ class pProductController extends Controller
         ->where('item_code', '=',$product->item_code)
         ->latest()->get(); ;
 
-        $stock = pProduct::realtimeStock($product['item_code']);
-        // $stock=$product->stock->stock;
+        try{
+            $stock = pProduct::realtimeStock($product['item_code']);
+
+            } catch (Exception $e) {
+                $stock= Stock::query()
+                ->where('item_code', '=',$product['item_code'])
+                ->value('stock');    
+            }
 
         return view('product.view', [
             'product' => $product,
             'gallery'=>$gallery,
-            // 'stock'=>$product->stock->stock
             'stock'=>$stock
         ]);
     }
