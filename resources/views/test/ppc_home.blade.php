@@ -22,7 +22,7 @@
       </div>
 
 {{-- Highlight slider --}}
-@include('components.shopcol')
+  @include('components.shopcol')
 
   @include('components.hl_product')
 

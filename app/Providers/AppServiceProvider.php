@@ -34,9 +34,18 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
         }
 
-        $filterables = [
-            'collection' => pProduct::distinct()->get(['collection']),
-            // 'collection' => pProduct::collection->get(),
+        // $filterables = [
+        //     'collection' => pProduct::distinct()->get(['collection']),
+        //     // 'collection' => pProduct::collection->get(),
+        //     'category' => pProduct::distinct()->get('category'),
+        //     'type' => pProduct::distinct()->get('type'),
+        //     'brand' => pProduct::distinct()->get('brand_name'),
+        //     'color' => pProduct::distinct()->get('color'),
+        //     'finish' => pProduct::distinct()->get('finish'),
+        // ];
+
+                $filterables = [
+            'collection' => pProduct::distinct()->get('collection'),
             'category' => pProduct::distinct()->get('category'),
             'type' => pProduct::distinct()->get('type'),
             'brand' => pProduct::distinct()->get('brand_name'),

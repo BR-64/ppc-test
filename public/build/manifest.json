@@ -19,24 +19,24 @@
     "src": "resources/css/reset.css",
     "isEntry": true
   },
-  "resources/css/queries.css": {
-    "file": "assets/queries.53d58dc3.css",
-    "src": "resources/css/queries.css",
-    "isEntry": true
-  },
   "resources/css/loader.css": {
     "file": "assets/loader.3737d124.css",
     "src": "resources/css/loader.css",
     "isEntry": true
   },
-  "resources/css/style3.css": {
-    "file": "assets/style3.dcfb1e2b.css",
-    "src": "resources/css/style3.css",
+  "resources/css/queries.css": {
+    "file": "assets/queries.53d58dc3.css",
+    "src": "resources/css/queries.css",
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app.811322ec.css",
+    "file": "assets/app.92887d16.css",
     "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/style3.css": {
+    "file": "assets/style3.1949c20b.css",
+    "src": "resources/css/style3.css",
     "isEntry": true
   }
 }

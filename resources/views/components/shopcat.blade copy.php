@@ -1,4 +1,4 @@
-{{-- <div class="shopcat">
+<div class="shopcat">
     <h4>shop by category</h4>
     <div class="gridShopCat">
       <div class="SCat">
@@ -20,6 +20,7 @@
       <div class="SCat">
           <img src="https://smoootstudio.com/pic/prempracha/pic/cat3.jpg" alt="" />
           <div class="centered">
+              {{-- <a href="{{ route('shop.cat', "Cup & Mug") }}"> --}}
               <a href="{{ route('shop.cat', "cups and mugs") }}">
               Cup & Mug
             </a>
@@ -36,6 +37,7 @@
       <div class="SCat">
           <img src="https://smoootstudio.com/pic/prempracha/pic/cat5.jpg" alt="" />
           <div class="centered">
+              {{-- <a href="{{ route('shop.cat', "bathroom") }}"> --}}
               <a href="{{ route('shop.cat', "Bathroom Accessories") }}">
                 Bathroom
               </a>
@@ -74,20 +76,4 @@
             </div>
       </div>
     </div>
-  </div> --}}
-
-    <div class="shopcat">
-      <h4>shop by category</h4>
-      <div class="gridShopCat">
-        @foreach($sharedData['categories'] as $product)
-          <div class="SCat">
-            <img src="{{ asset ('/storage/'.$product->image) }}" alt="{{ $product->label }}"/>
-              <div class="centered">
-                <a href="{{ route('shop.cat', $product->name) }}">
-                  {{$product->label}}
-                </a>
-              </div>
-          </div>
-        @endforeach
-      </div>
-    </div>
+  </div>

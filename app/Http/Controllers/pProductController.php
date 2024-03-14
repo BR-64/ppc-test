@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\CubicCal;
 use App\Models\pProduct;
 use App\Models\pCollection;
@@ -20,7 +21,6 @@ use Illuminate\Support\Facades\DB;
 class pProductController extends Controller
 
 {
-
     public function index()
     {
         $products = pProduct::query()
@@ -77,6 +77,10 @@ class pProductController extends Controller
                 ->where('published', '=', 1)
                 ->orderBy('id', 'desc')
                 ->paginate(20);
+        $categories=Category::query()
+                ->where('published', '=', 1)
+                ->orderBy('col_order', 'asc')
+                ->paginate(20);
 
         // $filterables = pProduct::select('collection')->distinct()->get();
         $filterables = [
@@ -89,8 +93,13 @@ class pProductController extends Controller
         ];
 
         View::share('sharedData', [
-            'filterables'=>$filterables
+            'filterables'=>$filterables,
+            'categories' => $categories,
+
         ]);
+
+        // dd($categories);
+
 
         return view('test.ppc_home', [
             'products' => $products,
@@ -211,24 +220,30 @@ class pProductController extends Controller
 
     public function catFilter($cat){
 
-        if($cat=="sp"){
-            $products = pProduct::query()
-            ->where('sp','=',1)
-            ->orderBy('updated_at', 'desc')
-            ->paginate(300);
+        // if($cat=="sp"){
+        //     $products = pProduct::query()
+        //     ->where('sp','=',1)
+        //     ->orderBy('updated_at', 'desc')
+        //     ->paginate(300);
 
-            return view('product.index_fil_sp',[
-                    'products'=>$products,
-                ]);
-        }
+        //     return view('product.index_fil_sp',[
+        //             'products'=>$products,
+        //         ]);
+        // }
 
-        else{   
+        // else{   
             $products = pProduct::query()
                 ->where('category','=',$cat)
                 ->where('published', '=', 1)
                 ->orderBy('updated_at', 'desc')
                 ->paginate(300);
-        }
+
+            $categories=Category::query()
+                ->where('published', '=', 1)
+                ->orderBy('col_order', 'asc')
+                ->paginate(20);
+
+        // }
 
         $filterables = [
             'collection' => pProduct::distinct()->get('collection'),
@@ -239,18 +254,18 @@ class pProductController extends Controller
             'finish' => pProduct::distinct()->get('finish'),
         ];
 
-        // dd($filterables);
-        // dd($filterables);
-        // dd($products);
-
         View::share('sharedData', [
-            'filterables'=>$filterables
+            'filterables'=>$filterables,
+            'categories' => $categories,
         ]);
+
+        // dd($categories);
 
         return view('product.index_fil',[
         // return view('livewire.shop-scroll',[
             'products'=>$products,
             'filterables'=> $filterables,
+            // 'cate'=> $categories,
         ]);
 
     }
@@ -285,8 +300,11 @@ class pProductController extends Controller
             ->where('stock', '>', 0)
             // ->where('published', '=', 1)
             ->get();
-
-            // dd($showProducts);
+        
+        $categories=Category::query()
+            ->where('published', '=', 1)
+            ->orderBy('col_order', 'asc')
+            ->paginate(20);
 
         $filterables = [
             'collection' => pProduct::distinct()->get('collection'),
@@ -296,11 +314,11 @@ class pProductController extends Controller
             'color' => pProduct::distinct()->get('color'),
             'finish' => pProduct::distinct()->get('finish'),
         ];
-                // dd($qproducts);
 
         View::share('sharedData', [
             // 'products' => $qproducts,
             'filterables'=>$filterables,
+            'categories' => $categories,
             // 'products'=>$allproducts
         ]);
 
@@ -325,8 +343,10 @@ class pProductController extends Controller
             ->where('published', '=', 1)
             ->get();
 
-            // ->paginate(20);
-
+        $categories=Category::query()
+            ->where('published', '=', 1)
+            ->orderBy('col_order', 'asc')
+            ->paginate(20);
 
         $filterables = [
             'collection' => pProduct::distinct()->get('collection'),
@@ -336,16 +356,14 @@ class pProductController extends Controller
             'color' => pProduct::distinct()->get('color'),
             'finish' => pProduct::distinct()->get('finish'),
         ];
-                // dd($qproducts);
 
         View::share('sharedData', [
-            // 'products' => $qproducts,
-            'filterables'=>$filterables
+            'filterables'=>$filterables,
+            'categories' => $categories,
         ]);
 
         return view('product.index_fil', [
             'products' => $qproducts,
-            // 'filterables'=>$filterables
         ]);
     }
 

@@ -4,6 +4,7 @@
 ?>
 
 <x-shop>
+    {{-- @include('components.shopcat') --}}
 
 {{-- products --}}
     <?php if ($products->count() === 0): ?>
@@ -15,9 +16,34 @@
     <br>
 
     {{-- @livewire('shop-scroll') --}}
+    {{-- @foreach($categories as $product)
+    {{$product->name}}
 
-    <div class="pccoll">
-        <div class="gridHL">
+    @endforeach --}}
+
+
+
+
+    {{-- <div class="pccoll">
+        <div class="shopcat">
+            <h4>shop by category</h4>
+            <div class="gridShopCat">
+            @foreach($categories as $product)
+                <div class="SCat">
+                <img src="{{ asset ('/storage/'.$product->image) }}" alt="{{ $product->label }}"/>
+                    <div class="centered">
+                    <a href="{{ route('shop.cat', $product->name) }}">
+                        {{$product->label}}
+                    </a>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </div --}}
+    
+
+        <div class="pccoll">
+            <div class="gridHL">
     <!-- Product Item -->
           @foreach($products as $product)
                 {{-- <div> --}}
@@ -42,15 +68,11 @@
                             {{-- <p class="text2 undertext">Stock {{$product->stock->stock}}</p> --}}
                         </div>
                         
-
-
-  
-  
                     </div>
                 {{-- </div> --}}
             @endforeach
+            </div>
         </div>
-    </div>
 
 
 
