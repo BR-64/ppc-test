@@ -69,7 +69,7 @@ class CheckoutSummaryController extends Controller
 
     private function ShippingBoxCal($totalCubic){
             // $ppcBoxInfo = boxinfo::all()->map->toArray();
-            $ppcBoxInfo = boxinfo::pluck('cubic', 'size');
+            // $ppcBoxInfo = boxinfo::pluck('cubic', 'size');
             // $ppcBoxInfo = boxinfo::get()->pluck('size');
             // $ppcBoxInfo = boxinfo::all()->pluck('size')->toArray();
             // dd($ppcBoxInfo);
