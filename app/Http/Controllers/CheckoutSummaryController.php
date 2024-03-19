@@ -13,6 +13,7 @@ use App\Models\webhook;
 use App\Helpers\Cart;
 use App\Mail\WebhookMail;
 use App\Models\BillingAddress;
+use App\Models\boxinfo;
 use App\Models\CartItem;
 use App\Models\Country;
 use App\Models\Order;
@@ -47,7 +48,8 @@ class CheckoutSummaryController extends Controller
 
     ];
     private $shipbox_info;
-    private $cubicBuffer= 2.4;
+    // private $cubicBuffer= 2.4;
+    private $cubicBuffer= 1;
 
     private $MID= "451005592743001"; // real
     // private $MID= "401232949944001"; // test MMC
@@ -66,7 +68,15 @@ class CheckoutSummaryController extends Controller
     }
 
     private function ShippingBoxCal($totalCubic){
+            // $ppcBoxInfo = boxinfo::all()->map->toArray();
+            $ppcBoxInfo = boxinfo::pluck('cubic', 'size');
+            // $ppcBoxInfo = boxinfo::get()->pluck('size');
+            // $ppcBoxInfo = boxinfo::all()->pluck('size')->toArray();
+            // dd($ppcBoxInfo);
+            // dd($ppcBoxInfo->size);
+            // dd($ppcBoxInfo['size']['XL']);
         /////////////////////// shipping cal
+            // $xlCubicBox=$this->ppcBoxInfo['XL']['cubic'];
             $xlCubicBox=$this->ppcBoxInfo['XL']['cubic'];
             $LastCubicBoxWeight=0;
 
