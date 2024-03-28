@@ -4,13 +4,13 @@
     
 
 <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YD7XP8E8D"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PS6S69PT9Q"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-6YD7XP8E8D');
+    gtag('config', 'G-PS6S69PT9Q');
     </script>
 
 
