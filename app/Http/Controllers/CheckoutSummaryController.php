@@ -47,6 +47,7 @@ class CheckoutSummaryController extends Controller
         'lastbox_weight' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
 
     ];
+
     private $shipbox_info;
     // private $cubicBuffer= 2.4;
     private $cubicBuffer= 1;
@@ -1355,13 +1356,18 @@ if($nonFullCubicBoxCubic<>0){
 
             foreach ($this->shipbox_info as $size=>$qty){
                 $costPerBox = $this->ppcBoxInfo[$size]['shipcost']*$qty;
+                // dd($this->ppcBoxInfo[$size]['shipcost']);
                 $boxShipCost_TH += $costPerBox;
             }
 
             // $shipCost_TH = $boxShipCost_TH*1.07;
             $shipCost_TH = $boxShipCost_TH;
+
+            // dd($shipCost_TH);
             
         } else {
+
+    // shipping international cal
             // Ship by EMS
             $shippingZone_ems= Country::query()->where(['code'=>$shipcountry])->value('zone_ems');
 
@@ -1498,6 +1504,8 @@ if($nonFullCubicBoxCubic<>0){
     public function chkout_step3_v2(Request $request){
         $user = $request->user();
         $shipcostArray=explode('|',$_POST["Shipcost"]);
+
+        dd($shipcostArray);
 
         $R_chkouttype=$_POST["checkouttype"];
         $R_shipcost=$shipcostArray[0];
