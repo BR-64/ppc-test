@@ -1505,7 +1505,7 @@ if($nonFullCubicBoxCubic<>0){
         $user = $request->user();
         $shipcostArray=explode('|',$_POST["Shipcost"]);
 
-        dd($shipcostArray);
+        // dd($shipcostArray);
 
         $R_chkouttype=$_POST["checkouttype"];
         $R_shipcost=$shipcostArray[0];
