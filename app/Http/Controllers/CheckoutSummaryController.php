@@ -1276,7 +1276,7 @@ if($nonFullCubicBoxCubic<>0){
 
 // test cubic input
             // $totalCubic =50000;
-            // dd($totalCubic);
+            dd($totalCubic);
 
 /////  end of test            
             $totalw = $totalWeight += $product->weight_g * $quantity;
