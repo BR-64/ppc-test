@@ -1275,7 +1275,7 @@ if($nonFullCubicBoxCubic<>0){
             $totalCubic += $cubic_cm * $quantity; // test cbcmcal
 
 // test cubic input
-            $totalCubic =9108;
+            // $totalCubic =9108;
             // dd($totalCubic);
 
 /////  end of test            
