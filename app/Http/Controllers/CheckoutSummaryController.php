@@ -150,6 +150,8 @@ class CheckoutSummaryController extends Controller
             'XL' =>$fullBox+$Xlbox,
             ];
 
+            // dd($this->shipbox_info);
+
             return $this->shipbox_info;
         
     }
@@ -1524,7 +1526,6 @@ if($nonFullCubicBoxCubic<>0){
 
         // dd($_POST);
         // dd($R_ShipBoxes);
-
         // dd($user->id);
 
         [$products, $cartItems] = Cart::getProductsAndCartItems();
@@ -1540,7 +1541,22 @@ if($nonFullCubicBoxCubic<>0){
             $subtotalPrice += $product->retail_price * $quantity;
 
             $totalWeight += $product->weight_g * $quantity;
-            $totalCubic += $product->cubic_cm * $quantity;
+//// old cubic_cm cal        
+            // $totalCubic += $product->cubic_cm * $quantity;
+//// end of old cubic_cm cal
+
+//// new cubic_cm cal
+            $span1 = $product->width;
+                $cubicW = $span1 + $this->cubicBuffer;
+            $span2 = $product->length;
+                $cubicL = $span2 + $this->cubicBuffer;
+            $span3 = $product->height;
+                $cubicH = $span3 + $this->cubicBuffer;
+
+            $cubic_cm = $cubicW * $cubicL * $cubicH;
+//// end of new cubic_cm cal
+            $totalCubic += $cubic_cm * $quantity; // test cbcmcal
+
 
             $lineItems[] = [
                 'price_data' => [
