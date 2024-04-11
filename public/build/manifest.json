@@ -19,14 +19,14 @@
     "src": "resources/css/reset.css",
     "isEntry": true
   },
-  "resources/css/loader.css": {
-    "file": "assets/loader.3737d124.css",
-    "src": "resources/css/loader.css",
-    "isEntry": true
-  },
   "resources/css/queries.css": {
     "file": "assets/queries.53d58dc3.css",
     "src": "resources/css/queries.css",
+    "isEntry": true
+  },
+  "resources/css/loader.css": {
+    "file": "assets/loader.3737d124.css",
+    "src": "resources/css/loader.css",
     "isEntry": true
   },
   "resources/css/style3.css": {
@@ -35,7 +35,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app.7740d76d.css",
+    "file": "assets/app.9aebcbcc.css",
     "src": "resources/css/app.css",
     "isEntry": true
   }

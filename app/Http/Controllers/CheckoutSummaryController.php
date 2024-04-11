@@ -35,10 +35,17 @@ class CheckoutSummaryController extends Controller
 {
     private $b_discount;
     private  $ppcBoxInfo = [
-        'S' =>['weight'=>2500, 'cubic'=>20181, 'shipcost'=>80],
-        'M' =>['weight'=>9500, 'cubic'=>69984, 'shipcost'=>180],
-        'L' =>['weight'=>15000, 'cubic'=>90720, 'shipcost'=>220],
-        'XL' =>['weight'=>20000, 'cubic'=>148120, 'shipcost'=>320],
+    //// old data    
+        // 'S' =>['weight'=>2500, 'cubic'=>20181, 'shipcost'=>80],
+        // 'M' =>['weight'=>9500, 'cubic'=>69984, 'shipcost'=>180],
+        // 'L' =>['weight'=>15000, 'cubic'=>90720, 'shipcost'=>220],
+        // 'XL' =>['weight'=>20000, 'cubic'=>148120, 'shipcost'=>320],
+
+    //// updated on 16 mar 2024
+        'S' =>['weight'=>2500, 'cubic'=>11154, 'shipcost'=>80],
+        'M' =>['weight'=>9500, 'cubic'=>49252, 'shipcost'=>180],
+        'L' =>['weight'=>15000, 'cubic'=>66043, 'shipcost'=>220],
+        'XL' =>['weight'=>20000, 'cubic'=>116675, 'shipcost'=>320],
 
         /// dummy for box shipping cost calculation
         'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
@@ -1258,22 +1265,20 @@ if($nonFullCubicBoxCubic<>0){
     //// cubic cal buffer not vary
             $span1 = $product->width;
                 $cubicW = $span1 + $this->cubicBuffer;
-
             $span2 = $product->length;
                 $cubicL = $span2 + $this->cubicBuffer;
-
             $span3 = $product->height;
                 $cubicH = $span3 + $this->cubicBuffer;
 
-            
-
-
-
             $cubic_cm = $cubicW * $cubicL * $cubicH;
     //// end cubic cal
-
             $totalCubic += $cubic_cm * $quantity; // test cbcmcal
 
+// test cubic input
+            // $totalCubic =50000;
+            // dd($totalCubic);
+
+/////  end of test            
             $totalw = $totalWeight += $product->weight_g * $quantity;
 
             $lineItems[] = [
@@ -1354,16 +1359,20 @@ if($nonFullCubicBoxCubic<>0){
         if ($domestic){
             $boxShipCost_TH=0;
 
+            // dd($this->ppcBoxInfo);
+
             foreach ($this->shipbox_info as $size=>$qty){
                 $costPerBox = $this->ppcBoxInfo[$size]['shipcost']*$qty;
                 // dd($this->ppcBoxInfo[$size]['shipcost']);
+                // print($this->ppcBoxInfo[$size]['shipcost'].PHP_EOL);
+                // print($costPerBox);
                 $boxShipCost_TH += $costPerBox;
             }
 
             // $shipCost_TH = $boxShipCost_TH*1.07;
             $shipCost_TH = $boxShipCost_TH;
 
-            // dd($shipCost_TH);
+            // dd($costPerBox ,$shipCost_TH);
             
         } else {
 
@@ -1505,7 +1514,7 @@ if($nonFullCubicBoxCubic<>0){
         $user = $request->user();
         $shipcostArray=explode('|',$_POST["Shipcost"]);
 
-        dd($shipcostArray);
+        // dd($shipcostArray);
 
         $R_chkouttype=$_POST["checkouttype"];
         $R_shipcost=$shipcostArray[0];
