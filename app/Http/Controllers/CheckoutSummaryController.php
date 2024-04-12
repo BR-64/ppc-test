@@ -42,10 +42,16 @@ class CheckoutSummaryController extends Controller
         // 'XL' =>['weight'=>20000, 'cubic'=>148120, 'shipcost'=>320],
 
     //// updated on 16 mar 2024
-        'S' =>['weight'=>2500, 'cubic'=>11154, 'shipcost'=>80],
-        'M' =>['weight'=>9500, 'cubic'=>49252, 'shipcost'=>180],
-        'L' =>['weight'=>15000, 'cubic'=>66043, 'shipcost'=>220],
-        'XL' =>['weight'=>20000, 'cubic'=>116675, 'shipcost'=>320],
+        // 'S' =>['weight'=>2500, 'cubic'=>11154, 'shipcost'=>80],
+        // 'M' =>['weight'=>9500, 'cubic'=>49252, 'shipcost'=>180],
+        // 'L' =>['weight'=>15000, 'cubic'=>66043, 'shipcost'=>220],
+        // 'XL' =>['weight'=>20000, 'cubic'=>116675, 'shipcost'=>320],
+
+    //// updated on 11 apr 2024
+        'S' =>['weight'=>2500, 'cubic'=>11154, 'shipcost'=>100],
+        'M' =>['weight'=>9500, 'cubic'=>49252, 'shipcost'=>160],
+        'L' =>['weight'=>15000, 'cubic'=>66043, 'shipcost'=>230],
+        'XL' =>['weight'=>20000, 'cubic'=>116675, 'shipcost'=>300],
 
         /// dummy for box shipping cost calculation
         'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
