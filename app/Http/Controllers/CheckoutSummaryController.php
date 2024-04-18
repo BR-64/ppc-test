@@ -53,7 +53,7 @@ class CheckoutSummaryController extends Controller
         'L' =>['weight'=>15000, 'cubic'=>66043, 'shipcost'=>230],
         'XL' =>['weight'=>20000, 'cubic'=>116675, 'shipcost'=>300],
 
-        /// dummy for box shipping cost calculation
+    /// dummy for box shipping cost calculation
         'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
         'full_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
         'nonfull_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
@@ -82,13 +82,6 @@ class CheckoutSummaryController extends Controller
     }
 
     private function ShippingBoxCal($totalCubic){
-            // $ppcBoxInfo = boxinfo::all()->map->toArray();
-            // $ppcBoxInfo = boxinfo::pluck('cubic', 'size');
-            // $ppcBoxInfo = boxinfo::get()->pluck('size');
-            // $ppcBoxInfo = boxinfo::all()->pluck('size')->toArray();
-            // dd($ppcBoxInfo);
-            // dd($ppcBoxInfo->size);
-            // dd($ppcBoxInfo['size']['XL']);
         /////////////////////// shipping cal
             // $xlCubicBox=$this->ppcBoxInfo['XL']['cubic'];
             $xlCubicBox=$this->ppcBoxInfo['XL']['cubic'];
@@ -161,6 +154,96 @@ class CheckoutSummaryController extends Controller
             return $this->shipbox_info;
         
     }
+
+    private function ShippingBoxCal_v2($totalCubic){
+
+    // build array from data in database
+        $collection = boxinfo::get(['size','weight','cubic','shipcost_v1']);
+        $ppcBoxInfo_db=[];
+        foreach ($collection as $item){
+            $ppcBoxInfo_db[$item->size] =[
+                'weight' => $item->weight,
+                'cubic' => $item->cubic,
+                'shipcost' => $item->shipcost_v1];
+        }
+
+        $shipCalDummy = array(
+            'box_count' =>[],
+            'full_box' =>[],
+            'nonfull_box' =>[],
+            'lastbox_weight' =>[],
+        );
+
+        $ppcBoxInfo_db= array_merge($ppcBoxInfo_db,$shipCalDummy);
+
+        $xlCubicBox=$ppcBoxInfo_db['XL']['cubic'];
+        $LastCubicBoxWeight=0;
+
+    // Total cubic box calculation
+        $totalCubicBox = ceil($totalCubic/$xlCubicBox);
+        $fullCubicBox=floor($totalCubic/$xlCubicBox);         // number of full box needed 
+        $nonFullCubicBoxCubic = $totalCubic-($fullCubicBox * $xlCubicBox);  // non-full box weight
+        $nonFullCubicBox = $totalCubicBox-$fullCubicBox;
+        $LastCubicboxSize ='none';
+
+    // LastCubicbox calculation weight in gram
+    if($nonFullCubicBoxCubic<>0){    
+        switch($nonFullCubicBoxCubic){
+            case $nonFullCubicBoxCubic < $ppcBoxInfo_db['S']['cubic']:
+                $LastCubicboxSize='S';
+                break;
+                case $nonFullCubicBoxCubic < $ppcBoxInfo_db['M']['cubic']:
+                    $LastCubicboxSize='M';
+                    break;
+                    case $nonFullCubicBoxCubic < $ppcBoxInfo_db['L']['cubic']:
+                        $LastCubicboxSize='L';
+                        break;
+                        case $nonFullCubicBoxCubic < $ppcBoxInfo_db['XL']['cubic']:
+                            $LastCubicboxSize='XL';
+                            break;       
+                        }
+        }
+
+        $shippingBoxes = $totalCubicBox; // number of box needed 
+        $fullBox=$fullCubicBox;         // number of full box needed (always biggest box)
+        $LastBoxWeight = $ppcBoxInfo_db[$LastCubicboxSize]['weight'];  // Last box weight
+        $nonFullBox=(int)($LastBoxWeight>0);
+
+        // shipping boxes data
+        $Sbox=0;
+        $Mbox=0;
+        $Lbox=0;
+        $Xlbox=0;
+
+        switch($LastCubicboxSize){
+            case $LastCubicboxSize == 'S':
+                $Sbox=1;
+                break;
+            case $LastCubicboxSize == 'M':
+                $Mbox=1;
+                break;
+            case $LastCubicboxSize == 'L':
+                $Lbox=1;
+                break;
+            case $LastCubicboxSize == 'XL':
+                $Xlbox=1;
+                break;
+                        }
+
+        $this->shipbox_info=[
+        'box_count' => $shippingBoxes,
+        'full_box' => $fullBox,
+        'nonfull_box' => $nonFullBox,
+        'lastbox_weight' => $LastBoxWeight,
+        'S' =>$Sbox,
+        'M' =>$Mbox,
+        'L' =>$Lbox,
+        'XL' =>$fullBox+$Xlbox,
+        ];
+
+        return $this->shipbox_info;
+    
+}
 
     public function voucher_discount($apply_voucher){
         $voucher = Voucher::query()
@@ -1355,7 +1438,8 @@ if($nonFullCubicBoxCubic<>0){
 
 
     // shipping box cal
-    $this->ShippingBoxCal($totalCubic);
+    // $this->ShippingBoxCal($totalCubic);
+    $this->ShippingBoxCal_v2($totalCubic);
         // dd($this->shipbox_info);
 
         $fullBox = $this->shipbox_info['full_box'];
@@ -1624,7 +1708,8 @@ if($nonFullCubicBoxCubic<>0){
         $totalpayment = $subtotalPrice-$baseDis_amt+$R_shipcost+$R_Insurance;
 
      // shipping box cal
-    $this->ShippingBoxCal($totalCubic);
+    // $this->ShippingBoxCal($totalCubic);
+    $this->ShippingBoxCal_v2($totalCubic);
 
 ///// box calculation
         $box_info= $this->shipbox_info;

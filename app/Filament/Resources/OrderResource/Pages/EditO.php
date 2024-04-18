@@ -49,8 +49,8 @@ class EditO extends EditRecord
             //     ->action('openSettingsModal'),
             
             Action::make('Admin Control')
-            ->icon('heroicon-s-external-link')
-            ->action(fn()=>redirect()-> route('admail_control')),
+                ->icon('heroicon-s-external-link')
+                ->action(fn()=>redirect()-> route('admail_control')),
 
             // Action::make('payconfirm')
             // ->icon('heroicon-s-external-link')

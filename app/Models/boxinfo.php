@@ -10,6 +10,6 @@ class boxinfo extends Model
     use HasFactory;
     protected $table = 'box_info';
 
-    protected $fillable = ['max_weight_g', 'max_cubic_cbcm', 'shipcost_v1', 'shipcost_v2', 'shipcost_v3'];
+    protected $fillable = ['size','weight','cubic','shipcost_v1'];
 
 }

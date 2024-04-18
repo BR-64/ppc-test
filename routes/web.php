@@ -18,6 +18,7 @@ use App\Http\Controllers\kCheckoutController;
 use App\Http\Controllers\CheckoutSummaryController;
 use App\Http\Controllers\FileControllerDemo;
 use App\Http\Controllers\MailTestController;
+use App\Http\Controllers\BoxinfoController;
 use App\Http\Controllers\PdfController;
 use App\Mail\testmarkdown;
 
@@ -233,6 +234,7 @@ Route::middleware(['admin'])->group(function () {
 
 //// mailhubg
     Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
+    Route::get('test/box_cal_test', [BoxinfoController::class, 'box_cal_test'])->name('box_cal_test');
 
 });
 
