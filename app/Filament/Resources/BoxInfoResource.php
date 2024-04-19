@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BoxInfoResource extends Resource
 {
-    protected static ?string $model = boxinfo::class;
+    protected static ?string $model = BoxInfo::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
