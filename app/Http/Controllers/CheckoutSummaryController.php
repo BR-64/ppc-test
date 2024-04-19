@@ -231,6 +231,7 @@ class CheckoutSummaryController extends Controller
                         }
 
         $this->shipbox_info=[
+        'db'=>$ppcBoxInfo_db,
         'box_count' => $shippingBoxes,
         'full_box' => $fullBox,
         'nonfull_box' => $nonFullBox,
@@ -244,6 +245,16 @@ class CheckoutSummaryController extends Controller
         return $this->shipbox_info;
     
 }
+
+    public function BoxCal(Request $request){
+        $R_cbcm=$_POST["CBCM"];
+
+        $this->ShippingBoxCal_v2($R_cbcm);
+
+        echo '<pre>'; print_r($this->shipbox_info['db']); echo '</pre>';
+        dd('CBCM = '.number_format($R_cbcm),$this->shipbox_info);
+
+    }
 
     public function voucher_discount($apply_voucher){
         $voucher = Voucher::query()

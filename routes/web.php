@@ -235,6 +235,7 @@ Route::middleware(['admin'])->group(function () {
 //// mailhubg
     Route::get('test/adcon_m', [MailTestController::class, 'admail'])->name('admail_control');
     Route::get('test/box_cal_test', [BoxinfoController::class, 'box_cal_test'])->name('box_cal_test');
+    Route::post('cal/boxcal', [CheckoutSummaryController::class, 'BoxCal'])->name('boxcal');
 
 });
 
