@@ -13,7 +13,7 @@ use App\Models\webhook;
 use App\Helpers\Cart;
 use App\Mail\WebhookMail;
 use App\Models\BillingAddress;
-use App\Models\boxinfo;
+use App\Models\BoxInfo;
 use App\Models\CartItem;
 use App\Models\Country;
 use App\Models\Order;
@@ -158,7 +158,7 @@ class CheckoutSummaryController extends Controller
     private function ShippingBoxCal_v2($totalCubic){
 
     // build array from data in database
-        $collection = boxinfo::get(['size','weight','cubic','shipcost_v1']);
+        $collection = BoxInfo::get(['size','weight','cubic','shipcost_v1']);
         $ppcBoxInfo_db=[];
         foreach ($collection as $item){
             $ppcBoxInfo_db[$item->size] =[
@@ -231,7 +231,6 @@ class CheckoutSummaryController extends Controller
                         }
 
         $this->shipbox_info=[
-        'db'=>$ppcBoxInfo_db,
         'box_count' => $shippingBoxes,
         'full_box' => $fullBox,
         'nonfull_box' => $nonFullBox,
@@ -249,9 +248,18 @@ class CheckoutSummaryController extends Controller
     public function BoxCal(Request $request){
         $R_cbcm=$_POST["CBCM"];
 
+        $collection = BoxInfo::get(['size','weight','cubic','shipcost_v1']);
+        $ppcBoxInfo_db=[];
+        foreach ($collection as $item){
+            $ppcBoxInfo_db[$item->size] =[
+                'weight' => $item->weight,
+                'cubic' => $item->cubic,
+                'shipcost' => $item->shipcost_v1];
+        }
+
         $this->ShippingBoxCal_v2($R_cbcm);
 
-        echo '<pre>'; print_r($this->shipbox_info['db']); echo '</pre>';
+        echo '<pre>'; print_r($ppcBoxInfo_db); echo '</pre>';
         dd('CBCM = '.number_format($R_cbcm),$this->shipbox_info);
 
     }
