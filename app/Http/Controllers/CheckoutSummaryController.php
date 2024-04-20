@@ -280,7 +280,7 @@ class CheckoutSummaryController extends Controller
 
         echo '<pre>'; print_r($ppcBoxInfo_db); echo '</pre>';
             dd('CBCM = '.number_format($R_cbcm),
-            'ShippingCost = '.$boxShipCost_TH,
+            'ShippingCost = '.number_format($boxShipCost_TH),
             $this->shipbox_info
         );
 
