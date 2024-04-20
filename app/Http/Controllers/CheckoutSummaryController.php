@@ -256,11 +256,33 @@ class CheckoutSummaryController extends Controller
                 'cubic' => $item->cubic,
                 'shipcost' => $item->shipcost_v1];
         }
+        $shipCalDummy = array(
+            'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+            'full_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+            'nonfull_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+            'lastbox_weight' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+        );
 
+        $ppcBoxInfo_db= array_merge($ppcBoxInfo_db,$shipCalDummy);
+
+        // dd($ppcBoxInfo_db);
         $this->ShippingBoxCal_v2($R_cbcm);
 
+        $boxShipCost_TH=0;
+
+        // dd($this->shipbox_info);
+
+        foreach ($this->shipbox_info as $size=>$qty){
+            // dd($ppcBoxInfo_db[$size]['shipcost']);
+            $costPerBox = $ppcBoxInfo_db[$size]['shipcost']*$qty;
+            $boxShipCost_TH += $costPerBox;
+        }
+
         echo '<pre>'; print_r($ppcBoxInfo_db); echo '</pre>';
-        dd('CBCM = '.number_format($R_cbcm),$this->shipbox_info);
+            dd('CBCM = '.number_format($R_cbcm),
+            'ShippingCost = '.$boxShipCost_TH,
+            $this->shipbox_info
+        );
 
     }
 
