@@ -58,7 +58,7 @@ Route::middleware(['guestOrVerified'])->group(function () {
 
     Route::get('/shop', [pProductController::class, 'index'])->name('shop');
     // Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf'); error shopscroll to check
-    Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopf');
+    Route::get('/shop/f', [pProductController::class, 'qfilter'])->name('shopmain');
     Route::get('/shop/f2', [pProductController::class, 'qfilter2'])->name('shopf2');
     Route::get('/shop/{cat?}', [pProductController::class, 'catFilter'])->name('shop.cat');
     Route::get('/product/{product:item_code}', [pProductController::class, 'view'])->name('product.view');
@@ -68,11 +68,11 @@ Route::middleware(['guestOrVerified'])->group(function () {
     Route::get('/collection/{col?}', [pCollectionController::class, 'view'])->name('product.collection.view');
     Route::get('/prem', [pCollectionController::class, 'prem'])->name('homeprem');
 
-    Route::get('/category', [pProductController::class, 'qfilter'])->name('shopf');
-    Route::get('/type', [pProductController::class, 'qfilter'])->name('shopf');
-    Route::get('/brand', [pProductController::class, 'qfilter'])->name('shopf');
-    Route::get('/color', [pProductController::class, 'qfilter'])->name('shopf');
-    Route::get('/finish', [pProductController::class, 'qfilter'])->name('shopf');
+    Route::get('/category', [pProductController::class, 'qfilter']);
+    Route::get('/type', [pProductController::class, 'qfilter']);
+    Route::get('/brand', [pProductController::class, 'qfilter']);
+    Route::get('/color', [pProductController::class, 'qfilter']);
+    Route::get('/finish', [pProductController::class, 'qfilter']);
 
 
 

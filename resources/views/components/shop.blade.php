@@ -1,6 +1,7 @@
 <x-app-layout>
   @include('components.shopcat')
 
+  
 
 {{-- Filter --}}
     <div class="centercontainer" x-data="{ 
@@ -12,6 +13,22 @@
       Fil_color: [],
       Fil_finish: []}
       ">
+
+<!--=============================
+    SEARCH MENU START
+==============================-->
+      <div class="searchbar">
+        <form class="fp__search_menu_form" method="GET" action="{{ route('shopmain') }}">
+            {{-- <div class="row"> --}}
+                <div >
+                    <input type="text" placeholder="Search..." name="search" value="{{ @request()->search }}">
+                    <button type="submit" class="button3">search</button>
+                </div>
+        </form>
+      </div>
+<!--=============================
+    SEARCH MENU END
+==============================-->
 
       <button class="button1 upp" x-on:click="open = ! open">shop by attributes</button>
 

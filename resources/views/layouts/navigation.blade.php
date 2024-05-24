@@ -92,7 +92,7 @@
 
     <div class="dropdown2 ">
         <div class="navitem">
-            <a href="{{ route('shopf') }}" > Shop </a>
+            <a href="{{ route('shopmain') }}" > Shop </a>
         </div>
     </div>
     <div>

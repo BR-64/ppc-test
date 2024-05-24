@@ -276,28 +276,26 @@ class pProductController extends Controller
 
     }
 
-    public function qfilter(){
-        $allproducts = pProduct::query()
+    public function qfilter(Request $request){
+        $qproducts = pProduct::query()
             ->where('published', '=', 1)
-            // ->where('published', '>', 0)
             ->orderBy('updated_at', 'desc')
             ->paginate(30);
         
             // print ($allproducts);
 
-        $qproducts = QueryBuilder::for (pProduct::class)
-            // ->where('stock', '>', 0)
-            ->allowedFilters([
-                AllowedFilter::exact('collection'),
-                AllowedFilter::exact('category'),
-                AllowedFilter::exact('type'),
-                AllowedFilter::exact('brand'),
-                AllowedFilter::exact('color'),
-                AllowedFilter::exact('finish'),
-                ])
-            ->where('published', '=', 1)
-            ->inRandomOrder()
-            ->get();
+        // $qproducts = QueryBuilder::for (pProduct::class)
+        //     ->allowedFilters([
+        //         AllowedFilter::exact('collection'),
+        //         AllowedFilter::exact('category'),
+        //         AllowedFilter::exact('type'),
+        //         AllowedFilter::exact('brand'),
+        //         AllowedFilter::exact('color'),
+        //         AllowedFilter::exact('finish'),
+        //         ])
+        //     ->where('published', '=', 1)
+        //     ->inRandomOrder()
+        //     ->get();
             // ->paginate(20);
 
             // dd($qproducts);
@@ -321,6 +319,24 @@ class pProductController extends Controller
             'finish' => pProduct::distinct()->get('finish'),
         ];
 
+/// for searchbar        
+        if($request->has('search') && $request->filled('search')) {
+            // $qproducts = pProduct::where('published', '=', 1)->orderBy('id', 'DESC')->get();
+
+            $qproducts = pProduct::where('published', '=', 1)
+                ->where('item_code', 'like', '%'.$request->search.'%')
+                ->orWhere('collection', 'like', '%'.$request->search.'%')
+                ->orWhere('category', 'like', '%'.$request->search.'%')
+                ->orWhere('type', 'like', '%'.$request->search.'%')
+                ->orWhere('color', 'like', '%'.$request->search.'%')
+                ->orWhere('finish', 'like', '%'.$request->search.'%')
+                ->get();
+
+            }
+            ////
+            
+        // dd($qproducts);
+
         View::share('sharedData', [
             // 'products' => $qproducts,
             'filterables'=>$filterables,
@@ -328,7 +344,8 @@ class pProductController extends Controller
             // 'products'=>$allproducts
         ]);
 
-        return view('product.index2', [
+        // return view('product.index2', [
+        return view('product.index_fil', [
             'products' => $qproducts,
             // 'showproducts' => $showProducts,
             // 'filterables'=>$filterables,
@@ -362,6 +379,7 @@ class pProductController extends Controller
             'color' => pProduct::distinct()->get('color'),
             'finish' => pProduct::distinct()->get('finish'),
         ];
+
 
         View::share('sharedData', [
             'filterables'=>$filterables,
