@@ -31,7 +31,7 @@
   <!-- portfolio-area-end -->
 
       <div class="shopall">
-        <a href="{{ route('shopf') }}"><button>Shop All</button></a>
+        <a href="{{ route('shopmain') }}"><button>Shop All</button></a>
       </div>
       <div class="bottom"></div>
 
