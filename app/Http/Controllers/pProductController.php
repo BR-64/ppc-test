@@ -276,7 +276,7 @@ class pProductController extends Controller
 
     }
 
-    public function qfilter(Request $request){
+    public function qfilter(){
         $qproducts = pProduct::query()
             ->where('published', '=', 1)
             ->orderBy('updated_at', 'desc')
@@ -318,21 +318,6 @@ class pProductController extends Controller
             'color' => pProduct::distinct()->get('color'),
             'finish' => pProduct::distinct()->get('finish'),
         ];
-
-/// for searchbar        
-        if($request->has('search') && $request->filled('search')) {
-            // $qproducts = pProduct::where('published', '=', 1)->orderBy('id', 'DESC')->get();
-
-            $qproducts = pProduct::where('published', '=', 1)
-                ->where('item_code', 'like', '%'.$request->search.'%')
-                ->orWhere('collection', 'like', '%'.$request->search.'%')
-                ->orWhere('category', 'like', '%'.$request->search.'%')
-                ->orWhere('type', 'like', '%'.$request->search.'%')
-                ->orWhere('color', 'like', '%'.$request->search.'%')
-                ->orWhere('finish', 'like', '%'.$request->search.'%')
-                ->get();
-
-            }
             ////
             
         // dd($qproducts);
@@ -352,7 +337,7 @@ class pProductController extends Controller
             // 'products'=>$allproducts
         ]);
     }
-    public function qfilter2(){
+    public function qfilter2(Request $request){
         $qproducts = QueryBuilder::for (pProduct::class)
             // ->allowedFilters(['collection'])
             ->allowedFilters([
@@ -380,6 +365,20 @@ class pProductController extends Controller
             'finish' => pProduct::distinct()->get('finish'),
         ];
 
+        /// for searchbar        
+        if($request->has('search') && $request->filled('search')) {
+            // $qproducts = pProduct::where('published', '=', 1)->orderBy('id', 'DESC')->get();
+
+            $qproducts = pProduct::where('published', '=', 1)
+                ->where('item_code', 'like', '%'.$request->search.'%')
+                ->orWhere('collection', 'like', '%'.$request->search.'%')
+                ->orWhere('category', 'like', '%'.$request->search.'%')
+                ->orWhere('type', 'like', '%'.$request->search.'%')
+                ->orWhere('color', 'like', '%'.$request->search.'%')
+                ->orWhere('finish', 'like', '%'.$request->search.'%')
+                ->get();
+
+            }
 
         View::share('sharedData', [
             'filterables'=>$filterables,

@@ -18,7 +18,7 @@
     SEARCH MENU START
 ==============================-->
       <div class="searchbar">
-        <form class="fp__search_menu_form" method="GET" action="{{ route('shopmain') }}">
+        <form class="fp__search_menu_form" method="GET" action="{{ route('shopf2') }}">
             {{-- <div class="row"> --}}
                 <div >
                     <input type="text" placeholder="Search..." name="search" value="{{ @request()->search }}">
