@@ -344,8 +344,8 @@ class pProductController extends Controller
             // 'products'=>$allproducts
         ]);
 
-        // return view('product.index2', [
-        return view('product.index_fil', [
+        return view('product.index2', [
+        // return view('product.index_fil', [
             'products' => $qproducts,
             // 'showproducts' => $showProducts,
             // 'filterables'=>$filterables,
