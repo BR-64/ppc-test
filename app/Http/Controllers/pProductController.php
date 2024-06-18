@@ -355,7 +355,7 @@ class pProductController extends Controller
             ->where('published', '=', 1)
             ->orderBy('col_order', 'asc')
             ->paginate(20);
-
+ 
         $filterables = [
             'collection' => pProduct::distinct()->get('collection'),
             'category' => pProduct::distinct()->get('category'),

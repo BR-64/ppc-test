@@ -13,6 +13,7 @@ use App\Models\webhook;
 use App\Helpers\Cart;
 use App\Mail\WebhookMail;
 use App\Models\BillingAddress;
+use App\Models\boxbuffer;
 use App\Models\BoxInfo;
 use App\Models\CartItem;
 use App\Models\Country;
@@ -155,8 +156,172 @@ class CheckoutSummaryController extends Controller
         
     }
 
-    private function ShippingBoxCal_v2($totalCubic){
+    private function ShippingBoxCal_v3($request){
+        $R_weight=$_POST["Grams"];
+        $R_shipCountry=$_POST["shipCountry"];
 
+        $totalWeight=$R_weight;
+        $shipcountry=$R_shipCountry;
+
+        $countryName= Country::query()->where(['code'=>$shipcountry])->value('name');
+
+
+    /// calculation by weight
+        // $Domestic_buffer=1.30;
+        $Domestic_buffer=boxbuffer::where('ship_to', '=', 'domestic')->value('buffer_percent');
+        $Inter_buffer=boxbuffer::where('ship_to', '=', 'inter')->value('buffer_percent');
+
+        // dd($Domestic_buffer,$Inter_buffer);
+
+        $totalWeight_Domes=$totalWeight*(1+$Domestic_buffer);
+        $totalWeight_Inter=$totalWeight*(1+$Inter_buffer);
+    //// key variable
+        $max_grams_range=20000;
+
+    // build array from data in database
+        $collection = BoxInfo::get(['size','weight','cubic','shipcost_v1']);
+        $ppcBoxInfo_db=[];
+        foreach ($collection as $item){
+            $ppcBoxInfo_db[$item->size] =[
+                'weight' => $item->weight,
+                'cubic' => $item->cubic,
+                'shipcost' => $item->shipcost_v1];
+        }
+
+        $shipCalDummy = array(
+            'box_count' =>[],
+            'full_box' =>[],
+            'nonfull_box' =>[],
+            'lastbox_weight' =>[],
+        );
+
+        $ppcBoxInfo_db= array_merge($ppcBoxInfo_db,$shipCalDummy);
+        $xlWeightBox=$ppcBoxInfo_db['XL']['weight'];
+        $LastCubicBoxWeight=0;
+
+    // Total Weight range calculation
+        $totalWeightBox = ceil($totalWeight/$xlWeightBox);
+        $fullWeightBox=floor($totalWeight/$xlWeightBox);         // number of full box needed 
+        $nonFullWeightBoxWeight = $totalWeight-($fullWeightBox * $xlWeightBox);  // non-full box weight
+        $nonFullWeightBox = $totalWeightBox-$fullWeightBox;
+        $LastWeightboxSize ='none';
+
+    // Total Weight shiprate calculation 17june24
+        $MaxWeightQty = floor($totalWeight/$max_grams_range); // qty of max weight
+        $WeightLeft = fmod($totalWeight,$max_grams_range);  // weight left
+
+    // Shiprate Thailand
+        $MaxWeightPrice = ShiprateThai::query()->where(['id'=>ShiprateThai::max('id')])->value('price');  
+
+        if ($WeightLeft > 0){
+            $WeightLeftPriceIndex = ceil(($WeightLeft/2500)+1);
+            $WeightLeftPrice= ShiprateThai::query()->where(['id'=>$WeightLeftPriceIndex])->value('price');
+        } else {
+            $WeightLeftPrice = 0;
+        }
+        $shipPrice_TH = (($MaxWeightQty * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
+
+        if ($shipcountry != 'THA'){
+    ///// Shiprate Inter EMS
+            $shippingZone_ems= Country::query()->where(['code'=>$shipcountry])->value('zone_ems');
+            // dd($shippingZone_ems);
+            $MaxWeightPrice = ShipEMS::query()->where(['id'=>ShipEMS::max('id')])->value($shippingZone_ems);  
+
+            if ($WeightLeft > 0){
+                $WeightLeftPriceIndex = ceil(($WeightLeft/500)+1);
+                $WeightLeftPrice= ShipEMS::query()->where(['id'=>$WeightLeftPriceIndex])->value($shippingZone_ems);
+            } else {
+                $WeightLeftPrice = 0;
+            }
+            $shipPrice_EMS = (($MaxWeightQty * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
+
+    ///// Shiprate Inter Air
+            $shippingZone_air= Country::query()->where(['code'=>$shipcountry])->value('zone_air');
+            $MaxWeightPrice = ShipAir::query()->where(['id'=>ShipAir::max('id')])->value($shippingZone_air);  
+
+            if ($WeightLeft > 0){
+                $WeightLeftPriceIndex = ceil(($WeightLeft/1000)+1);
+                $WeightLeftPrice= ShipAir::query()->where(['id'=>$WeightLeftPriceIndex])->value($shippingZone_air);
+            } else {
+                $WeightLeftPrice = 0;
+            }
+            $shipPrice_Air = (($MaxWeightQty * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
+
+
+        } else {
+            $shipPrice_EMS=0;
+            $shipPrice_Air=0;
+        }
+
+        // dd('Thailand Shiprate : '.$shipPrice_TH,
+        //     'Inter EMS : '.$shipPrice_EMS,
+        //     'Inter Air : '.$shipPrice_Air
+        // );
+
+    // LastCubicbox calculation weight in gram
+    if($nonFullWeightBoxWeight<>0){    
+        switch($nonFullWeightBoxWeight){
+            case $nonFullWeightBoxWeight < $ppcBoxInfo_db['S']['weight']:
+                $LastWeightboxSize='S';
+                break;
+                case $nonFullWeightBoxWeight < $ppcBoxInfo_db['M']['weight']:
+                    $LastWeightboxSize='M';
+                    break;
+                    case $nonFullWeightBoxWeight < $ppcBoxInfo_db['L']['weight']:
+                        $LastWeightboxSize='L';
+                        break;
+                        case $nonFullWeightBoxWeight < $ppcBoxInfo_db['XL']['weight']:
+                            $LastWeightboxSize='XL';
+                            break;       
+                        }
+        }
+
+        $shippingBoxes = $totalWeightBox; // number of box needed 
+        $fullBox=$fullWeightBox;         // number of full box needed (always biggest box)
+        $LastBoxWeight = $ppcBoxInfo_db[$LastWeightboxSize]['weight'];  // Last box weight
+        $nonFullBox=(int)($LastBoxWeight>0);
+
+        // shipping boxes data
+        $Sbox=0;
+        $Mbox=0;
+        $Lbox=0;
+        $Xlbox=0;
+
+        switch($LastWeightboxSize){
+            case $LastWeightboxSize == 'S':
+                $Sbox=1;
+                break;
+            case $LastWeightboxSize == 'M':
+                $Mbox=1;
+                break;
+            case $LastWeightboxSize == 'L':
+                $Lbox=1;
+                break;
+            case $LastWeightboxSize == 'XL':
+                $Xlbox=1;
+                break;
+                        }
+
+        $this->shipbox_info=[
+        'box_count' => $shippingBoxes,
+        'full_box' => $fullBox,
+        'nonfull_box' => $nonFullBox,
+        'lastbox_weight' => $LastBoxWeight, /// from box info
+        'S' =>$Sbox,
+        'M' =>$Mbox,
+        'L' =>$Lbox,
+        'XL' =>$fullBox+$Xlbox,
+        'Domestic buffer %' =>$Domestic_buffer,
+        'Inter buffer %' =>$Inter_buffer,
+        'Ship_Thailand' =>$shipPrice_TH,
+        'Ship_Inter_EMS' =>$shipPrice_EMS,
+        'Ship_Inter_AIR' =>$shipPrice_Air
+        ];
+
+        return $this->shipbox_info;
+}
+
+    private function ShippingBoxCal_v2($totalCubic){
     // build array from data in database
         $collection = BoxInfo::get(['size','weight','cubic','shipcost_v1']);
         $ppcBoxInfo_db=[];
@@ -234,7 +399,7 @@ class CheckoutSummaryController extends Controller
         'box_count' => $shippingBoxes,
         'full_box' => $fullBox,
         'nonfull_box' => $nonFullBox,
-        'lastbox_weight' => $LastBoxWeight,
+        'lastbox_weight' => $LastBoxWeight, // from box info
         'S' =>$Sbox,
         'M' =>$Mbox,
         'L' =>$Lbox,
@@ -245,7 +410,7 @@ class CheckoutSummaryController extends Controller
     
 }
 
-    public function BoxCal(Request $request){
+    public function BoxCal_cubic(Request $request){
         $R_cbcm=$_POST["CBCM"];
 
         $collection = BoxInfo::get(['size','weight','cubic','shipcost_v1']);
@@ -281,6 +446,44 @@ class CheckoutSummaryController extends Controller
         echo '<pre>'; print_r($ppcBoxInfo_db); echo '</pre>';
             dd('CBCM = '.number_format($R_cbcm),
             'ShippingCost = '.number_format($boxShipCost_TH),
+            $this->shipbox_info
+        );
+
+    }
+    public function BoxCal_weight(Request $request){
+        $R_weight=$_POST["Grams"];
+
+        $collection = BoxInfo::get(['size','weight','cubic','shipcost_v1']);
+        $ppcBoxInfo_db=[];
+        foreach ($collection as $item){
+            $ppcBoxInfo_db[$item->size] =[
+                'weight' => $item->weight,
+                'cubic' => $item->cubic,
+                'shipcost' => $item->shipcost_v1];
+        }
+        $shipCalDummy = array(
+            'box_count' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+            'full_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+            'nonfull_box' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+            'lastbox_weight' =>['weight'=>0, 'cubic'=>0, 'shipcost'=>0],
+        );
+
+        $ppcBoxInfo_db= array_merge($ppcBoxInfo_db,$shipCalDummy);
+
+        // dd($ppcBoxInfo_db);
+        $this->ShippingBoxCal_v3($request);
+
+        // dd($this->shipbox_info);
+
+        // foreach ($this->shipbox_info as $size=>$qty){
+        //     // dd($ppcBoxInfo_db[$size]['shipcost']);
+        //     $costPerBox = $ppcBoxInfo_db[$size]['shipcost']*$qty;
+        //     $boxShipCost_TH += $costPerBox;
+        // }
+
+        echo '<pre>'; print_r($ppcBoxInfo_db); echo '</pre>';
+            dd('Weight_grams = '.number_format($R_weight),
+            // 'ShippingCost = '.number_format($boxShipCost_TH),
             $this->shipbox_info
         );
 
@@ -1479,8 +1682,9 @@ if($nonFullCubicBoxCubic<>0){
 
 
     // shipping box cal
-    // $this->ShippingBoxCal($totalCubic);
-    $this->ShippingBoxCal_v2($totalCubic);
+        // $this->ShippingBoxCal($totalCubic);
+        $this->ShippingBoxCal_v2($totalCubic);
+        // $this->ShippingBoxCal_v3($totalWeight);
         // dd($this->shipbox_info);
 
         $fullBox = $this->shipbox_info['full_box'];
