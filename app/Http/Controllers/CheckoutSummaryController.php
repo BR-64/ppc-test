@@ -173,8 +173,8 @@ class CheckoutSummaryController extends Controller
 
         // dd($Domestic_buffer,$Inter_buffer);
 
-        $totalWeight_Domes=$totalWeight*(1+$Domestic_buffer);
-        $totalWeight_Inter=$totalWeight*(1+$Inter_buffer);
+        $totalWeight_Domes=$totalWeight*(1+($Domestic_buffer/100));
+        $totalWeight_Inter=$totalWeight*(1+($Inter_buffer/100));
     //// key variable
         $max_grams_range=20000;
 
@@ -201,25 +201,41 @@ class CheckoutSummaryController extends Controller
 
     // Total Weight range calculation
         $totalWeightBox = ceil($totalWeight/$xlWeightBox);
+        $totalWeightBox_Domes = ceil($totalWeight_Domes/$xlWeightBox);
+        $totalWeightBox_Inter = ceil($totalWeight_Inter/$xlWeightBox);
+
+
         $fullWeightBox=floor($totalWeight/$xlWeightBox);         // number of full box needed 
+        $fullWeightBox_Domes=floor($totalWeight_Domes/$xlWeightBox);         
+        $fullWeightBox_Inter=floor($totalWeight_Inter/$xlWeightBox);         
+
         $nonFullWeightBoxWeight = $totalWeight-($fullWeightBox * $xlWeightBox);  // non-full box weight
+        $nonFullWeightBoxWeight_Domes = $totalWeight_Domes-($fullWeightBox * $xlWeightBox);  
+        $nonFullWeightBoxWeight_Inter = $totalWeight_Inter-($fullWeightBox * $xlWeightBox);  
+
         $nonFullWeightBox = $totalWeightBox-$fullWeightBox;
         $LastWeightboxSize ='none';
 
     // Total Weight shiprate calculation 17june24
         $MaxWeightQty = floor($totalWeight/$max_grams_range); // qty of max weight
+        $MaxWeightQty_Domes = floor($totalWeight_Domes/$max_grams_range); 
+        $MaxWeightQty_Inter = floor($totalWeight_Inter/$max_grams_range); 
+
+
         $WeightLeft = fmod($totalWeight,$max_grams_range);  // weight left
+        $WeightLeft_Domes = fmod($totalWeight_Domes,$max_grams_range);  
+        $WeightLeft_Inter = fmod($totalWeight_Inter,$max_grams_range);  
 
     // Shiprate Thailand
         $MaxWeightPrice = ShiprateThai::query()->where(['id'=>ShiprateThai::max('id')])->value('price');  
 
-        if ($WeightLeft > 0){
-            $WeightLeftPriceIndex = ceil(($WeightLeft/2500)+1);
-            $WeightLeftPrice= ShiprateThai::query()->where(['id'=>$WeightLeftPriceIndex])->value('price');
+        if ($WeightLeft_Domes > 0){
+            $WeightLeftPriceIndex_Domes = ceil(($WeightLeft_Domes/2500));
+            $WeightLeftPrice= ShiprateThai::query()->where(['id'=>$WeightLeftPriceIndex_Domes])->value('price');
         } else {
             $WeightLeftPrice = 0;
         }
-        $shipPrice_TH = (($MaxWeightQty * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
+        $shipPrice_TH = (($MaxWeightQty_Domes * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
 
         if ($shipcountry != 'THA'){
     ///// Shiprate Inter EMS
@@ -227,25 +243,25 @@ class CheckoutSummaryController extends Controller
             // dd($shippingZone_ems);
             $MaxWeightPrice = ShipEMS::query()->where(['id'=>ShipEMS::max('id')])->value($shippingZone_ems);  
 
-            if ($WeightLeft > 0){
-                $WeightLeftPriceIndex = ceil(($WeightLeft/500)+1);
-                $WeightLeftPrice= ShipEMS::query()->where(['id'=>$WeightLeftPriceIndex])->value($shippingZone_ems);
+            if ($WeightLeft_Inter > 0){
+                $WeightLeftPriceIndex_Ems = ceil(($WeightLeft_Inter/500)+1);
+                $WeightLeftPrice= ShipEMS::query()->where(['id'=>$WeightLeftPriceIndex_Ems])->value($shippingZone_ems);
             } else {
                 $WeightLeftPrice = 0;
             }
-            $shipPrice_EMS = (($MaxWeightQty * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
+            $shipPrice_EMS = (($MaxWeightQty_Inter * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
 
     ///// Shiprate Inter Air
             $shippingZone_air= Country::query()->where(['code'=>$shipcountry])->value('zone_air');
             $MaxWeightPrice = ShipAir::query()->where(['id'=>ShipAir::max('id')])->value($shippingZone_air);  
 
-            if ($WeightLeft > 0){
-                $WeightLeftPriceIndex = ceil(($WeightLeft/1000)+1);
-                $WeightLeftPrice= ShipAir::query()->where(['id'=>$WeightLeftPriceIndex])->value($shippingZone_air);
+            if ($WeightLeft_Inter > 0){
+                $WeightLeftPriceIndex_Air = ceil(($WeightLeft_Inter/1000));
+                $WeightLeftPrice= ShipAir::query()->where(['id'=>$WeightLeftPriceIndex_Air])->value($shippingZone_air);
             } else {
                 $WeightLeftPrice = 0;
             }
-            $shipPrice_Air = (($MaxWeightQty * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
+            $shipPrice_Air = (($MaxWeightQty_Inter * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
 
 
         } else {
@@ -307,6 +323,9 @@ class CheckoutSummaryController extends Controller
         'full_box' => $fullBox,
         'nonfull_box' => $nonFullBox,
         'lastbox_weight' => $LastBoxWeight, /// from box info
+        'Weightleft_index_TH' =>$WeightLeftPriceIndex_Domes,
+        'Weightleft_index_Ems' =>$WeightLeftPriceIndex_Ems,
+        'Weightleft_index_Air' =>$WeightLeftPriceIndex_Air,
         'S' =>$Sbox,
         'M' =>$Mbox,
         'L' =>$Lbox,

@@ -11,5 +11,5 @@ class BoxBuffer extends Model
 
     protected $table = 'box_buffer';
 
-    protected $fillable = ['ship_to','buffer_percent'];
+    protected $fillable = ['buffer_percent'];
 }

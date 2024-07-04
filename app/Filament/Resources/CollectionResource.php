@@ -69,7 +69,8 @@ class CollectionResource extends Resource
                 // pCollection::withCount('products')
                     ->counts('products')
                     ->label('no. of products'),
-                ToggleColumn::make('published')
+                ToggleColumn::make('published'),
+                Tables\Columns\TextInputColumn::make('col_order')->sortable()->searchable(),
                 //
             ])
             ->filters([

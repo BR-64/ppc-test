@@ -76,7 +76,7 @@ class pProductController extends Controller
                 ->paginate(30);
         $collections=pCollection::query()
                 ->where('published', '=', 1)
-                ->orderBy('id', 'desc')
+                ->orderBy('col_order', 'asc')
                 ->paginate(20);
         $categories=Category::query()
                 ->where('published', '=', 1)
@@ -102,7 +102,7 @@ class pProductController extends Controller
         // dd($categories);
 
 
-        return view('test.ppc_home', [
+        return view('test.ppc_homev2', [
             'products' => $products,
             'newproducts' => $newproducts,
             'hlproducts' => $hlproducts,

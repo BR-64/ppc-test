@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BoxInfoResource\Pages;
 use App\Filament\Resources\BoxInfoResource\RelationManagers;
+use App\Models\BoxBuffer;
 use App\Models\BoxInfo;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Modal\Actions\Action;
@@ -21,6 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class BoxInfoResource extends Resource
 {
     protected static ?string $model = BoxInfo::class;
+
+    protected static bool $shouldRegisterNavigation = false;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 

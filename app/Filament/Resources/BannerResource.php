@@ -26,14 +26,13 @@ class BannerResource extends Resource
 
     protected static ?string $navigationLabel = 'Banners';
 
-
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name')->disabled(),
+                TextInput::make('name'),
                 FileUpload::make('image')
                 ->directory('img')
                 ->image(),

@@ -1414,9 +1414,23 @@ swiper-slide {
   border: none;
   outline: none;
   color: white;
-  padding: 14px 16px;
+  padding: 14px 10px;
   background-color: inherit;
   font-family: inherit;
+  margin: 0;
+}
+
+.dropdown .dropbtn2 {
+  font-size: 16px;
+  color: white;
+  padding: 16px 6px;
+  margin: 0;
+}
+
+.dropdown .dropbtn3 {
+  font-size: 16px;
+  color: white;
+  padding: 14px 14px 14px 12px;
   margin: 0;
 }
 
@@ -1499,6 +1513,7 @@ swiper-slide {
   float: left;
   position: relative;
   margin-top: 10px;
+  /* margin: auto; */
 }
 
 .dropdown3 {
@@ -1724,3 +1739,78 @@ ul.thumb li .thumbnail-wrap.hover {
   margin-bottom: 20px;
   color: black;
 }
+
+/* searchbox */
+/* The overlay effect with black background */
+.overlay {
+  height: 70px;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 65px;
+  left: 0;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.9
+  ); /* Black with a little bit see-through */
+}
+
+.overlay_layout {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
+  height: 70px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+/* The content */
+.overlay-content {
+  position: relative;
+  margin-top: 10%;
+  width: 80%;
+  text-align: center;
+  /* margin-top: 30px; */
+  margin: auto;
+  color: black;
+}
+
+/* Close button */
+.closebtn {
+  /* top: 20%; */
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+
+/* Style the search field */
+.overlay input[type="text"] {
+  padding: 15px;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 90%;
+  background: white;
+}
+
+.overlay input[type="text"]:hover {
+  background: #f1f1f1;
+}
+
+.searchsubmit {
+  margin: auto;
+  /* margin-left: -30px; */
+  color: white;
+  /* margin-top: 30%; */
+}
+
+/* Style the submit button */

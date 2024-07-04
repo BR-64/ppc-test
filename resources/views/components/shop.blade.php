@@ -17,15 +17,14 @@
 <!--=============================
     SEARCH MENU START
 ==============================-->
-      <div class="searchbar">
+      {{-- <div class="searchbar">
         <form class="fp__search_menu_form" method="GET" action="{{ route('shopf2') }}">
-            {{-- <div class="row"> --}}
                 <div >
                     <input type="text" placeholder="Search..." name="search" value="{{ @request()->search }}">
                     <button type="submit" class="button3">search</button>
                 </div>
         </form>
-      </div>
+      </div> --}}
 <!--=============================
     SEARCH MENU END
 ==============================-->

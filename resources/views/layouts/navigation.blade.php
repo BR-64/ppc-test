@@ -44,10 +44,21 @@
     {{-- <div class="dropbtn">
         <p>Contact Us</p>
     </div> --}}
+    <div class="dropdown search">
+        <div class="dropbtn2" onclick="openSearch()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                  </svg>
+        </div>
+    </div>
         <div class="dropdown ">
-            <div class="dropbtn">Products</div>
-
+            {{-- <div class="dropbtn">Products</div> --}}
+            <div class="dropbtn3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
+                <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5m2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5"/>
+            </svg>
             <div class="dropdown-one">
+                <a href="{{ route('shopmain') }}" class="dItem">Shop All</a>
                 <a href="/prem" class="dItem">PREM</a>
                 @foreach($sharedData['filterables'] as $key=>$filter)
                 <div id="link1" class="dItem" >
@@ -87,45 +98,45 @@
 
         
             </div>
+            </div>
         </div>
-{{-- //////////////////////////////////////////////////////// --}}
 
-    <div class="dropdown2 ">
-        <div class="navitem">
-            <a href="{{ route('shopmain') }}" > Shop </a>
-        </div>
-    </div>
-    <div>
-        <a
-        href="{{ route('cart.index') }}"
-        class="relative flex justify-end py-6 transition-colors "
-    >
-        <div class="flex items-center">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2 "
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
+        <div class="dropbtn3">
+            <a
+            href="{{ route('cart.index') }}"
+            class="relative flex justify-end py-6 transition-colors ">
+            {{-- <div class="flex items-center">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2 "
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                </svg>
+            </div> --}}
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
             </svg>
+            <!-- Cart Items Counter -->
+            <small
+                x-show="cartItemsCount"
+                x-transition
+                x-text="cartItemsCount"
+                x-cloak
+                class="py-[2px] px-[8px] rounded-full bg-red-500"
+            ></small>
+            <!--/ Cart Items Counter -->
+            </a>
         </div>
-        <!-- Cart Items Counter -->
-        <small
-            x-show="cartItemsCount"
-            x-transition
-            x-text="cartItemsCount"
-            x-cloak
-            class="py-[2px] px-[8px] rounded-full bg-red-500"
-        ></small>
-        <!--/ Cart Items Counter -->
-    </a></div>
+
+
     <!-- Responsive Menu -->
     <div
         class="block fixed z-10 top-0 bottom-0 height h-full w-[220px] transition-all bg-slate-900 md:hidden"
@@ -446,7 +457,7 @@
 
     <button
         @click="mobileMenuOpen = !mobileMenuOpen"
-        class="p-4 block md:hidden"
+        class="p-3 block md:hidden"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -463,4 +474,29 @@
             />
         </svg>
     </button>
+
+{{-- search box --}}
+    <div id="myOverlay" class="overlay">
+        <div class='overlay_layout'>
+            <div class="overlay-content">
+                <form action="{{ route('shopf2') }}">
+                    <input type="text" placeholder="Search..." name="search" value="{{ @request()->search }}">
+                    <button type="submit" class="searchsubmit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <span class="closebtn" onclick="closeSearch()" title="Close Overlay">x</span>
+        </div>
+      </div> 
+
+    <script>
+        // Open the full screen search box
+        function openSearch() {
+        document.getElementById("myOverlay").style.display = "block";
+        }
+
+        // Close the full screen search box
+        function closeSearch() {
+        document.getElementById("myOverlay").style.display = "none";
+        } 
+    </script>
 </header>
