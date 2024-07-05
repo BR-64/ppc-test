@@ -157,14 +157,28 @@ class CheckoutSummaryController extends Controller
     }
 
     private function ShippingBoxCal_v3($request){
-        $R_weight=$_POST["Grams"];
-        $R_shipCountry=$_POST["shipCountry"];
+
+        // dd($request);
+        switch (gettype($request)) {
+            case 'object':
+                $R_weight=$_POST["Grams"];
+                $R_shipCountry=$_POST["shipCountry"];  
+            break;
+    
+            case 'array':
+                $R_weight=$request["Grams"];
+                $R_shipCountry=$request["shipCountry"];    
+            break;
+    
+            default:
+                // invalid request
+                break;
+        }
 
         $totalWeight=$R_weight;
         $shipcountry=$R_shipCountry;
 
         $countryName= Country::query()->where(['code'=>$shipcountry])->value('name');
-
 
     /// calculation by weight
         // $Domestic_buffer=1.30;
@@ -236,6 +250,10 @@ class CheckoutSummaryController extends Controller
             $WeightLeftPrice = 0;
         }
         $shipPrice_TH = (($MaxWeightQty_Domes * $MaxWeightPrice) + $WeightLeftPrice)*1.07;
+
+        $WeightLeftPriceIndex_Ems =0;
+        $WeightLeftPriceIndex_Air =0;
+
 
         if ($shipcountry != 'THA'){
     ///// Shiprate Inter EMS
@@ -1845,6 +1863,162 @@ if($nonFullCubicBoxCubic<>0){
         //     'Air_insurance: '.number_format($Air_insurance),
         //     'Total_Air: '.number_format($total_Air),
         // );
+
+                return view('checkout.step2',[
+                    'items'=>$lineItems,
+                    'orderitems'=> $orderItems,
+                    'subtotal'=> $subtotalPrice,
+                    'dis_percent'=> $dispercent,
+                    'baseDis_amt'=> number_format($baseDis_amt),
+                    'totalpriceShow'=> number_format($totalPrice),
+                'totalweight'=> $totalWeight,
+                    'shipcountry'=>$shipcountry,
+                    'ship_th'=>$shipCost_TH,
+                    'ship_ems'=>$shipCost_EMS,
+                    'ship_air'=>$shipCost_Air,
+                    'domescheck'=>$domestic,
+                    'TH_insurance'=>$TH_insurance,
+                    'EMS_insurance'=>$EMS_insurance,
+                    'Air_insurance'=>$Air_insurance,
+                    // 'Ship_boxes'=>$box_info,
+                ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
+    }    
+    public function chkout_step2_v3(Request $request){
+        // v3 effective after 5july
+        
+
+        $user = $request->user();
+        $customer = $user->customer;
+
+        // shipping info
+        $shippingAddress = $customer->Ship_Address;
+        $billingAddress = $customer->Bill_Address;
+        $shipcountry = $customer->Ship_Address->country_code;
+        $domestic= $shipcountry==='THA'; 
+        $countries = Country::query()->orderBy('name')->get();
+
+        [$products, $cartItems] = Cart::getProductsAndCartItems();
+
+        // order info
+        $orderItems = [];
+        $lineItems = [];
+        $subtotalPrice = 0;
+        $totalCubic = 0;
+        $totalWeight = 0;
+        $shipCost = 0;
+
+        foreach ($products as $product) {
+            $quantity = $cartItems[$product->id]['quantity'];
+            $subtotalPrice += $product->retail_price * $quantity;
+            $totalWeight += $product->weight_g * $quantity;
+
+    //// cubic cal buffer not vary
+            $span1 = $product->width;
+                $cubicW = $span1 + $this->cubicBuffer;
+            $span2 = $product->length;
+                $cubicL = $span2 + $this->cubicBuffer;
+            $span3 = $product->height;
+                $cubicH = $span3 + $this->cubicBuffer;
+
+            $cubic_cm = $cubicW * $cubicL * $cubicH;
+    //// end cubic cal
+            $totalCubic += $cubic_cm * $quantity; // test cbcmcal
+
+/////  end of test            
+            $totalw = $totalWeight += $product->weight_g * $quantity;
+
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'thb',
+                    'product_data' => [
+                        'name' => $product->item_code,
+                       'images' => [$product->image]
+                    ],
+                    'unit_amount' => $product->retail_price * 100,
+                    'price' => $product->retail_price
+                ],
+                'quantity' => $quantity,
+                'itemtotal'=> $quantity * $product->retail_price
+            ];
+
+            $orderItems[] = [
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'unit_price' => $product->retail_price
+            ];
+        }
+
+// base discount cal
+        $this->baseDiscount($subtotalPrice);
+        $dispercent =0;
+
+//// voucher dis new
+        $apply_voucher=$request->apply_voucher;
+        $vvalid=$request->vvalid;
+
+        $voucher = Voucher::query()
+                ->where(['code'=>$apply_voucher])
+                ->first();
+
+        if($vvalid){
+            $vdis_percent=$voucher->discount_percent/100;
+                if($this->b_discount['cal'] > $vdis_percent){
+                    $dispercent = $this->b_discount['percent'];
+                } else {
+                    $dispercent = ($voucher->discount_percent).'%';
+                }
+        } else {
+            $vdis_percent=0;
+        }
+
+        $dis_percent= max($this->b_discount['cal'],$vdis_percent);
+        $baseDis_amt = $dis_percent * $subtotalPrice;
+
+/// total price        
+        $totalPrice = $subtotalPrice-$baseDis_amt;
+
+        $shipPricenonFullBox_ems=0;
+        $shipPricenonFullBox_air=0;
+
+        $shippingZone_ems=0; 
+        $shippingZone_air= 0;
+
+        $shipCost_TH=0;
+        $shipCost_EMS =0;
+        $shipCost_Air = 0;
+
+        $TH_insurance = 0;
+        $EMS_insurance = 0;
+        $Air_insurance = 0;
+
+
+    // shipping box cal
+
+        $shipcal_data=[
+            'Grams'=>$totalw,
+            'shipCountry'=>$shipcountry
+        ];
+
+        // var_dump($shipcal_data);
+        // dd($shipcal_data);
+        $this->ShippingBoxCal_v3($shipcal_data);
+
+        $fullBox = $this->shipbox_info['full_box'];
+        $nonFullBox = $this->shipbox_info['nonfull_box'];
+        $LastBoxWeight = $this->shipbox_info['lastbox_weight'];
+
+        $shipCost_TH = $this->shipbox_info['Ship_Thailand'];
+        $shipCost_EMS = $this->shipbox_info['Ship_Inter_EMS'];
+        $shipCost_Air = $this->shipbox_info['Ship_Inter_AIR'];
+
+        $EMS_insurance= max(ceil((($subtotalPrice + $shipCost_EMS)*1.1)*0.02),550);
+        $Air_insurance= max(ceil((($subtotalPrice + $shipCost_Air)*1.1)*0.02),550);
+        
+        // dd($totalWeight);
+
+        $total_TH = $subtotalPrice+$shipCost_TH+$TH_insurance;
+        $total_EMS = $subtotalPrice+$shipCost_EMS+$EMS_insurance;
+        $total_Air = $subtotalPrice+$shipCost_Air+$Air_insurance;
 
                 return view('checkout.step2',[
                     'items'=>$lineItems,

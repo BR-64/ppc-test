@@ -13,7 +13,7 @@
   {{-- @include('mkt.col_slider') --}}
   @include('components.announceBar')
   @include('mkt.col_slider_v2')
-  @include('components.shopcol_v2')
+  {{-- @include('components.shopcol_v2') --}}
 
   @include('components.shopcat')
 
@@ -36,7 +36,8 @@
               </br>
               </br>
               Tel.: 66 5333 8540, 66 5333 8857
-            </br> Email: <a href="mailto:info@prempracha.com">info@prempracha.com</a>
+            </br> Email: <a href="mailto:showroom@prempracha.com">info@prempracha.com</a>
+          </br> Line ID : showroomprem
           </br></br>Operating Hour: 8:30 - 17:30 hrs, 
         </br>Monday - Saturday<br>
         <div class="footericon">

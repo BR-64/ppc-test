@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\CubicCal;
 use App\Models\pProduct;
@@ -78,10 +79,18 @@ class pProductController extends Controller
                 ->where('published', '=', 1)
                 ->orderBy('col_order', 'asc')
                 ->paginate(20);
+
         $categories=Category::query()
                 ->where('published', '=', 1)
                 ->orderBy('col_order', 'asc')
                 ->paginate(20);
+        
+        $announce=Announcement::query()
+            ->where('published', '=', 1)
+            ->orderBy('id', 'asc')->get();
+            // ->paginate(20);
+
+
 
         // $filterables = pProduct::select('collection')->distinct()->get();
         $filterables = [
@@ -96,10 +105,10 @@ class pProductController extends Controller
         View::share('sharedData', [
             'filterables'=>$filterables,
             'categories' => $categories,
-
+            'announce'=>$announce
         ]);
 
-        // dd($categories);
+        // dd($announce);
 
 
         return view('test.ppc_homev2', [

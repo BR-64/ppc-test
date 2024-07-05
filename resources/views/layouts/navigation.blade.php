@@ -139,8 +139,8 @@
 
     <!-- Responsive Menu -->
     <div
-        class="block fixed z-10 top-0 bottom-0 height h-full w-[220px] transition-all bg-slate-900 md:hidden"
-        :class="mobileMenuOpen ? 'left-0' : '-left-[220px]'"
+        class="mobilemenu block fixed z-10 top-70 height h-60 w-[220px] transition-all  md:hidden"
+        :class="mobileMenuOpen ? 'right-0' : '-right-[220px]'"
     >
         <ul>
             <li>
@@ -184,10 +184,10 @@
                     <ul
                         x-show="open"
                         x-transition
-                        class="z-10 right-0 bg-slate-800 py-2"
+                        class="z-10 right-0 py-2"
                     >
                         <li>
-                            <a href="{{ route('profile') }}" class="flex px-3 py-2 hover:bg-slate-900">
+                            <a href="{{ route('profile') }}" class="flex px-3 py-2 ">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-5 w-5 mr-2"
@@ -296,15 +296,15 @@
     <!--/ Responsive Menu -->
     <div>
 
-    <nav class="hidden md:block">
+    <nav class="hidden md:block deskmenu">
         <ul class="grid grid-flow-col items-center">
             <li>
             </li>
             @if (!Auth::guest())
-                <li x-data="{open: false}" class="relative">
+                <li x-data="{open: false}" class="relative desk-menu-main">
                     <a
                         @click="open = !open"
-                        class="cursor-pointer flex items-center py-navbar-item px-navbar-item pr-5 hover:bg-slate-900"
+                        class="cursor-pointer flex items-center py-navbar-item px-navbar-item "
                     >
               <span class="flex items-center">
                 <svg
@@ -341,12 +341,12 @@
                         x-show="open"
                         x-transition
                         x-cloak
-                        class="absolute z-10 right-0 bg-slate-800 py-2 w-48"
+                        class="absolute z-10 right-0  py-2 w-48"
                     >
                         <li>
                             <a
                                 href="{{ route('profile') }}"
-                                class="flex px-3 py-2 hover:bg-slate-900"
+                                class="flex px-3 py-2 "
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
