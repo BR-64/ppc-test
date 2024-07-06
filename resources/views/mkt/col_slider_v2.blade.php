@@ -1,11 +1,11 @@
 
-    @php
+    {{-- @php
     $mktSliders = App\Models\Banner::query()
         ->where('name', '=', 'collection')
         ->latest()->get();
         
     $imgs = count($mktSliders[0]['extra_image']);
-    @endphp
+    @endphp --}}
 
 <style>
   .swiper_banner {
