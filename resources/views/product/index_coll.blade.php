@@ -25,7 +25,6 @@
                 }})" 
                 
                 x-show="{{$product->stock->stock}} > 0" class="card2">
-
                 <div>
                     <a href="{{ route('product.view', $product->item_code) }}"
                        class="">
@@ -36,8 +35,8 @@
                         />
                     </a>
                     <div>
+                        <p class="text2 undertext">{{$product->item_code}}</p>
                         <h5 class="text2 undertext">THB {{$product->retail_price}}</h5>
-                        {{-- <h5 class="text2 udertext"> {{$product->stock->stock}} </h5> --}}
                     </div>
                 </div>
             </div>

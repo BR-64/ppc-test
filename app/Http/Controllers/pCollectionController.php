@@ -42,9 +42,9 @@ class pCollectionController extends Controller
         ->get('collection');
 
         return view('product.index_coll', [
+        // return view('product.index2', [
             'products' => $products,
             'colname'=>$colname[0]['collection']]);
-
     }
 
     //
