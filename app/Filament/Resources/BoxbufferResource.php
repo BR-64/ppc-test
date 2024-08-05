@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BoxbufferResource extends Resource
 {
-    protected static ?string $model = Boxbuffer::class;
+    protected static ?string $model = BoxBuffer::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
