@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BoxbufferResource\Pages;
 use App\Filament\Resources\BoxbufferResource\RelationManagers;
-use App\Models\BoxBuffer;
+use App\Models\Boxbuffer;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BoxbufferResource extends Resource
 {
-    protected static ?string $model = BoxBuffer::class;
+    protected static ?string $model = Boxbuffer::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
