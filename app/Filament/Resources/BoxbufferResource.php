@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BoxbufferResource\Pages;
 use App\Filament\Resources\BoxbufferResource\RelationManagers;
-use App\Models\Boxbuffer;
+use App\Models\BoxBuffer;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
