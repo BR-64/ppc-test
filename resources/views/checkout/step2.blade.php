@@ -146,8 +146,7 @@
         <form x-data="{ship:''}" action="{{route('checkout.step3')}}" method="post">
             <div class="chksum summarytable">
                 <p class="underline">Shipping Method</p>
-                <div x-show="{{$ship_ems}} = 0">
-                {{-- <div x-show="{{$ship_th}} > 0"> --}}
+                <div x-show="{{$ship_ems}} == 0">
                         <input type="radio" id="TH" name="Shipcost" value="{{$ship_th}}|TH EMS" x-model='ship' required>
                         <label for="EMS">Domestic : THB {{number_format($ship_th)}}</label>
                     </br>
