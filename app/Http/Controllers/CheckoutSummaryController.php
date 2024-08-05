@@ -13,7 +13,7 @@ use App\Models\webhook;
 use App\Helpers\Cart;
 use App\Mail\WebhookMail;
 use App\Models\BillingAddress;
-use App\Models\boxBuffer;
+use App\Models\BoxBuffer;
 use App\Models\BoxInfo;
 use App\Models\CartItem;
 use App\Models\Country;
