@@ -59,4 +59,9 @@ class Customer extends Model
         return $this->hasOne(BillingAddress::class,'customer_id','user_id');
     }
 
+    public function Email(): HasOne
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
 }

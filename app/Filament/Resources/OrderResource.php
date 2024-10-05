@@ -91,6 +91,7 @@ class OrderResource extends Resource
                         TextInput::make('last_name'),
                         TextInput::make('customer_name'),
                         TextInput::make('customer_taxid'),
+                        TextInput::make('Email.email'),
                         TextInput::make('phone'),
                         Textarea::make('comment'),
                     ]),
@@ -196,6 +197,7 @@ class OrderResource extends Resource
                 // Tables\Columns\TextColumn::make('id')->label('Doc Code'),
                TextColumn::make('customer.first_name')->searchable(),
                TextColumn::make('customer.phone')->searchable()->label('phone'),
+               TextColumn::make('customer.Email.email')->searchable()->label('Email'),
 
             //    TextColumn::make('bill.address1')->label('billing'),
                TextColumn::make('items_sum_quantity')

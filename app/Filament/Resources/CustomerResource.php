@@ -46,6 +46,7 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('user_id')->label('id')->sortable(),
                 Tables\Columns\TextColumn::make('first_name')->searchable(),
                 Tables\Columns\TextColumn::make('phone'),
+                Tables\Columns\TextColumn::make('Email.email'),
                 // Tables\Columns\TextColumn::make('Bill_Address.address1'),
                 //
             ])

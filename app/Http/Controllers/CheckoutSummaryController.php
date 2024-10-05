@@ -246,6 +246,8 @@ class CheckoutSummaryController extends Controller
         if ($WeightLeft_Domes > 0){
             $WeightLeftPriceIndex_Domes = ceil(($WeightLeft_Domes/2500));
             $WeightLeftPrice= ShiprateThai::query()->where(['id'=>$WeightLeftPriceIndex_Domes])->value('price');
+
+            // dd($WeightLeftPriceIndex_Domes,$WeightLeftPrice);
         } else {
             $WeightLeftPrice = 0;
         }
@@ -337,6 +339,7 @@ class CheckoutSummaryController extends Controller
                         }
 
         $this->shipbox_info=[
+        'products_weight' =>$totalWeight,
         'box_count' => $shippingBoxes,
         'full_box' => $fullBox,
         'nonfull_box' => $nonFullBox,
@@ -350,6 +353,8 @@ class CheckoutSummaryController extends Controller
         'XL' =>$fullBox+$Xlbox,
         'Domestic buffer %' =>$Domestic_buffer,
         'Inter buffer %' =>$Inter_buffer,
+        'shipping_weight_Domes (products weight + buffer): ' =>$totalWeight_Domes,
+        'shipping_weight_Inter (products weight + buffer): ' =>$totalWeight_Inter,
         'Ship_Thailand' =>$shipPrice_TH,
         'Ship_Inter_EMS' =>$shipPrice_EMS,
         'Ship_Inter_AIR' =>$shipPrice_Air
@@ -2169,7 +2174,8 @@ if($nonFullCubicBoxCubic<>0){
                     'boxcount'=>$box_info['box_count'],
                     'vc'=>$vid,
                     'discount_percent'=>$dispercent_v,
-                    'fullprice'=>$totalpayment
+                    'fullprice'=>$totalpayment,
+                    'products_total_weight_g'=>$totalWeight,
                 ];
 
 // dd($orderData);
