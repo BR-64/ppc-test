@@ -189,6 +189,9 @@ class CheckoutSummaryController extends Controller
 
         $totalWeight_Domes=$totalWeight*(1+($Domestic_buffer/100));
         $totalWeight_Inter=$totalWeight*(1+($Inter_buffer/100));
+
+        // dd($totalWeight_Domes,$totalWeight_Inter);
+
     //// key variable
         $max_grams_range=20000;
 
@@ -260,7 +263,6 @@ class CheckoutSummaryController extends Controller
         if ($shipcountry != 'THA'){
     ///// Shiprate Inter EMS
             $shippingZone_ems= Country::query()->where(['code'=>$shipcountry])->value('zone_ems');
-            // dd($shippingZone_ems);
             $MaxWeightPrice = ShipEMS::query()->where(['id'=>ShipEMS::max('id')])->value($shippingZone_ems);  
 
             if ($WeightLeft_Inter > 0){
@@ -473,7 +475,7 @@ class CheckoutSummaryController extends Controller
         $ppcBoxInfo_db= array_merge($ppcBoxInfo_db,$shipCalDummy);
 
         // dd($ppcBoxInfo_db);
-        $this->ShippingBoxCal_v3($R_cbcm);
+        $this->ShippingBoxCal_v($R_cbcm);
 
         $boxShipCost_TH=0;
 
@@ -1656,7 +1658,7 @@ if($nonFullCubicBoxCubic<>0){
             // dd($totalCubic);
 
 /////  end of test            
-            $totalw = $totalWeight += $product->weight_g * $quantity;
+            // $totalw = $totalWeight += $product->weight_g * $quantity;
 
             $lineItems[] = [
                 'price_data' => [
@@ -1928,7 +1930,10 @@ if($nonFullCubicBoxCubic<>0){
             $totalCubic += $cubic_cm * $quantity; // test cbcmcal
 
 /////  end of test            
-            $totalw = $totalWeight += $product->weight_g * $quantity;
+            $totalw = $totalWeight;
+            // var_dump($totalWeight,$quantity);
+            // dd($product->weight_g);
+
 
             $lineItems[] = [
                 'price_data' => [
@@ -2150,7 +2155,10 @@ if($nonFullCubicBoxCubic<>0){
 
      // shipping box cal
     // $this->ShippingBoxCal($totalCubic);
-    $this->ShippingBoxCal_v3($totalCubic);
+    $this->ShippingBoxCal_v2($totalCubic);
+    // $this->ShippingBoxCal_v3($totalCubic);
+    // $this->ShippingBoxCal_v3($totalWeight);
+    // $this->ShippingBoxCal_v3($shipcal_data);
 
 ///// box calculation
         $box_info= $this->shipbox_info;
