@@ -473,7 +473,7 @@ class CheckoutSummaryController extends Controller
         $ppcBoxInfo_db= array_merge($ppcBoxInfo_db,$shipCalDummy);
 
         // dd($ppcBoxInfo_db);
-        $this->ShippingBoxCal_v2($R_cbcm);
+        $this->ShippingBoxCal_v3($R_cbcm);
 
         $boxShipCost_TH=0;
 
@@ -1726,8 +1726,6 @@ if($nonFullCubicBoxCubic<>0){
     // shipping box cal
         // $this->ShippingBoxCal($totalCubic);
         $this->ShippingBoxCal_v2($totalCubic);
-        // $this->ShippingBoxCal_v3($totalWeight);
-        // dd($this->shipbox_info);
 
         $fullBox = $this->shipbox_info['full_box'];
         $nonFullBox = $this->shipbox_info['nonfull_box'];
@@ -2152,7 +2150,7 @@ if($nonFullCubicBoxCubic<>0){
 
      // shipping box cal
     // $this->ShippingBoxCal($totalCubic);
-    $this->ShippingBoxCal_v2($totalCubic);
+    $this->ShippingBoxCal_v3($totalCubic);
 
 ///// box calculation
         $box_info= $this->shipbox_info;
