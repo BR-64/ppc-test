@@ -3,7 +3,7 @@
 
 
     <div class="pccollc">
-        <h1 class="pagehead2">Checkout Summary </h1>
+        <h1 class="pagehead2">Checkout Summary : step 1 of 3</h1>
         <h1>{{$hasAddress}}</h1>
         {{-- <h2 class ="pprice">Order Type : [{{$ordertype}}]</h2> --}}
         {{-- <p>OrderNumber #{{$paydata['order_id']}}</p> --}}

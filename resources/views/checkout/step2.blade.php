@@ -1,13 +1,7 @@
 <x-app-layout>
     <div class="pccollc">
 
-        <h1 class="pagehead2">Checkout Summary</h1>
-        {{-- <h2 class ="pprice">Order Type : [{{$ordertype}}]</h2> --}}
-        {{-- <p>OrderNumber #{{$paydata['order_id']}}</p> --}}
-
-        {{-- <p>Weight : {{$totalweight}}</p> --}}
-        {{-- <p>{{$shipzonezone_air}}</p> --}}
-        {{-- <p>{{$shipcountry}}</p> --}}
+        <h1 class="pagehead2">Checkout Summary : step 2 of 3</h1>
 
         <div x-data="{
             flashMessage: '{{\Illuminate\Support\Facades\Session::get('flash_message')}}',
@@ -114,6 +108,7 @@
                     </div>
                 </div>
             </br>
+
 {{-- /// order detail section --}}
         <div class="chksum">
             <p class="underline summarytable">Item(s) Info</p>
@@ -207,6 +202,8 @@
                     <input type="hidden" name="checkouttype"  value="paynow">
                     <input type="hidden" name="apply_voucher" value="{{$apply_voucher}}"> 
                     <input type="hidden" name="vvalid"  value="{{$vvalid}}">
+                    <input type="hidden" name="Grams"  value="{{$totalweight}}">
+                    <input type="hidden" name="shipcountry"  value="{{$shipcountry}}">
                
                     {{-- <input type="hidden" name="ship_boxes" value="">                 --}}
                 </div>

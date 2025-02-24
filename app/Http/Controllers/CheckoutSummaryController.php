@@ -1556,7 +1556,7 @@ if($nonFullCubicBoxCubic<>0){
     }
 
     public function chkout_step2_v2(Request $request){
-        // v2 effective after 16feb
+        // v2 effective after 16feb2024
 
         $user = $request->user();
         $customer = $user->customer;
@@ -1889,7 +1889,7 @@ if($nonFullCubicBoxCubic<>0){
                 ],compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries','apply_voucher','vvalid'));
     }    
     public function chkout_step2_v3(Request $request){
-        // v3 effective after 5july
+        // v3 effective after 5july2024
         
 
         $user = $request->user();
@@ -2058,6 +2058,9 @@ if($nonFullCubicBoxCubic<>0){
         $R_shipcost=$shipcostArray[0];
         $R_Insurance=$_POST["Insurance"];
         $R_ShipMethod=$shipcostArray[1];
+
+        $R_grams=$_POST["Grams"];
+        $R_shipcountry=$_POST["shipcountry"];
         // $R_ShipBoxes=$_POST["ship_boxes"];
 
         // dd($_POST);
@@ -2079,6 +2082,7 @@ if($nonFullCubicBoxCubic<>0){
             $totalWeight += $product->weight_g * $quantity;
 //// old cubic_cm cal        
             // $totalCubic += $product->cubic_cm * $quantity;
+
 //// end of old cubic_cm cal
 
 //// new cubic_cm cal
@@ -2153,12 +2157,15 @@ if($nonFullCubicBoxCubic<>0){
 //////
         $totalpayment = $subtotalPrice-$baseDis_amt+$R_shipcost+$R_Insurance;
 
+
+        $shipcal_data=[
+            'Grams'=>$R_grams,
+            'shipCountry'=>$R_shipcountry
+        ];
+
      // shipping box cal
-    // $this->ShippingBoxCal($totalCubic);
-    $this->ShippingBoxCal_v2($totalCubic);
-    // $this->ShippingBoxCal_v3($totalCubic);
-    // $this->ShippingBoxCal_v3($totalWeight);
-    // $this->ShippingBoxCal_v3($shipcal_data);
+
+    $this->ShippingBoxCal_v3($shipcal_data);
 
 ///// box calculation
         $box_info= $this->shipbox_info;
