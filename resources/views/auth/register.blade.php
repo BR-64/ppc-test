@@ -6,10 +6,11 @@
         action="{{ route('register') }}"
         method="post"
         class="w-[400px] mx-auto blacktext"
+        id="registerForm"
     >
         @csrf
 
-        <h2 class="pagehead ">Create an account</h2>
+        <h2 class="pagehead ">Create an account for Prempracha</h2>
         <p class="text-center text-gray-500 mb-3">
             or
             <a
@@ -26,7 +27,7 @@
         <h2 class="text-xl font-semibold mb-2">Account Info</h2>
 
             <div class="mb-4">
-            <x-input placeholder="Your name" type="text" name="name" :value="old('name')" />
+                <x-input placeholder="Your name" type="text" name="name" :value="old('name')" />
             </div>
             <div class="mb-4">
                 <x-input placeholder="Your Email" type="email" name="email" :value="old('email')" />
@@ -182,11 +183,31 @@
                 </div>
             </div>    
     </div> --}}
+
+    <input type="hidden" class="g-recaptcha" name="recaptcha_token" id="recaptcha_token">
+
         <div style="text-align: center">
-            <button class="addtocart">Signup</button>
+            {{-- <input type="submit" class="addtocart">Signup</input> --}}
+            <button type="submit" class="addtocart">Signup</button>
         </div>
     </form>
 
     <div class="footspace"></div>
+
+    @push('scripts')
+    <script>
+        grecaptcha.ready(function () {
+            document.getElementById('registerForm').addEventListener("submit", function (event) {
+                event.preventDefault();
+                grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', { action: 'register' })
+                    .then(function (token) {
+                        document.getElementById("recaptcha_token").value = token;
+                        document.getElementById('registerForm').submit();
+                    });
+            });
+        });
+    </script>
+@endpush
+
 
 </x-app-layout>

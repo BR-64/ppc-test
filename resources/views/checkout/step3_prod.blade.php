@@ -11,7 +11,7 @@ header("Pragma: no-cache");
 <x-app-layout>
     <div class="pccollc">
 
-        <h1 class="pagehead2">Step 3 : Payment</h1>
+        <h1 class="pagehead2">Checkout Summary : step 3 of 3 [Payment]</h1>
 
 {{-- /// order detail section --}}
 <div class="chksum">

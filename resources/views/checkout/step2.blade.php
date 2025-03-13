@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="pccollc">
 
-        <h1 class="pagehead2">Checkout Summary : step 2 of 3</h1>
+        <h1 class="pagehead2">Checkout Summary : step 2 of 3 [Shipping Calculation] </h1>
 
         <div x-data="{
             flashMessage: '{{\Illuminate\Support\Facades\Session::get('flash_message')}}',

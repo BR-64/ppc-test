@@ -66,6 +66,8 @@
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
 <script  src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.umd.js"></script>
 
+<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -103,6 +105,8 @@
 
 </script>
 <script type="module" src="cookieconsent-config.js"></script>
+
+@stack('scripts')
 
 </body>
 
