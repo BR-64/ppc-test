@@ -245,7 +245,7 @@ class pProductController extends Controller
                 ->where('published', '=', 1)
                 ->orderBy('col_order', 'asc')
                 // ->paginate(50);
-                ->get;
+                ->get();
 
         // }
 
