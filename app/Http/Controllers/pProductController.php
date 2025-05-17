@@ -358,6 +358,7 @@ class pProductController extends Controller
                 AllowedFilter::exact('finish'),
                 ])
             ->where('published', '=', 1)
+            // ->paginate(50);
             ->get();
 
         $categories=Category::query()
@@ -385,6 +386,7 @@ class pProductController extends Controller
                 ->orWhere('type', 'like', '%'.$request->search.'%')
                 ->orWhere('color', 'like', '%'.$request->search.'%')
                 ->orWhere('finish', 'like', '%'.$request->search.'%')
+                // ->paginate(50);
                 ->get();
 
             }
@@ -394,7 +396,7 @@ class pProductController extends Controller
             'categories' => $categories,
         ]);
 
-        return view('product.index_fil', [
+        return view('product.index_fil_all', [
             'products' => $qproducts,
         ]);
     }

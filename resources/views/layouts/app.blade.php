@@ -55,6 +55,10 @@
         input[type=number] {
         -moz-appearance: textfield;
         }
+
+        .grecaptcha-badge {
+  visibility: hidden;
+}
     </style>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -88,6 +92,11 @@
 
     <main>
         {{ $slot }}
+        <p>
+  This site is protected by reCAPTCHA and the Google
+  <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and
+  <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
+</p>
     </main>
 
 @include('layouts.footer')

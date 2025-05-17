@@ -46,8 +46,8 @@
 
 
     <?php endif; ?>
-    <!-- Pagination links -->
-{{ $products->links() }}
+    {{-- <!-- Pagination links -->
+{{ $products->links() }} --}}
 <br>
 <br>
     <div class="footspace"></div>
