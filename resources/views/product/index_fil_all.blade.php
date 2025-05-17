@@ -36,18 +36,22 @@
                         <div>
                             <p class="text2 undertext">{{$product->item_code}}</p>
                             <h5 class="text2 undertext">THB {{number_format($product->retail_price)}}</h5>
-                        </div>
-                        
+                        </div>                       
                     </div>
             @endforeach
+            <div>
+
+                <!-- Pagination links -->
+                {{ $products->links() }}
             </div>
+            </div>
+                
         </div>
 
 
 
     <?php endif; ?>
-    {{-- <!-- Pagination links -->
-{{ $products->links() }} --}}
+
 <br>
 <br>
     <div class="footspace"></div>

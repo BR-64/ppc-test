@@ -358,8 +358,8 @@ class pProductController extends Controller
                 AllowedFilter::exact('finish'),
                 ])
             ->where('published', '=', 1)
-            // ->paginate(50);
-            ->get();
+            ->paginate(50);
+            // ->get();
 
         $categories=Category::query()
             ->where('published', '=', 1)
@@ -386,17 +386,19 @@ class pProductController extends Controller
                 ->orWhere('type', 'like', '%'.$request->search.'%')
                 ->orWhere('color', 'like', '%'.$request->search.'%')
                 ->orWhere('finish', 'like', '%'.$request->search.'%')
-                // ->paginate(50);
-                ->get();
+                ->paginate(50);
+                // ->get();
 
             }
+
+            $qproducts->appends($request->all());
 
         View::share('sharedData', [
             'filterables'=>$filterables,
             'categories' => $categories,
         ]);
 
-        return view('product.index_fil_all', [
+        return view('product.index_fil', [
             'products' => $qproducts,
         ]);
     }
