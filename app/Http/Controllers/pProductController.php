@@ -251,7 +251,7 @@ class pProductController extends Controller
                 ->where('category','=',$cat)
                 ->where('published', '=', 1)
                 ->orderBy('updated_at', 'desc')
-                ->paginate(2000);
+                ->paginate(50);
 
             $categories=Category::query()
                 ->where('published', '=', 1)
@@ -317,7 +317,7 @@ class pProductController extends Controller
         $categories=Category::query()
             ->where('published', '=', 1)
             ->orderBy('col_order', 'asc')
-            ->paginate(20);
+            ->paginate(40);
 
         $filterables = [
             'collection' => pProduct::distinct()->get('collection'),

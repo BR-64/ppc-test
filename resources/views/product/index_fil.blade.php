@@ -46,6 +46,8 @@
 
 
     <?php endif; ?>
+    <!-- Pagination links -->
+{{ $products->links() }}
     <div class="footspace"></div>
 </x-shop>
 
