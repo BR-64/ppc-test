@@ -256,7 +256,7 @@ class pProductController extends Controller
             $categories=Category::query()
                 ->where('published', '=', 1)
                 ->orderBy('col_order', 'asc')
-                ->paginate(20);
+                ->paginate(50);
 
         // }
 
