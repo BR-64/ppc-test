@@ -235,18 +235,6 @@ class pProductController extends Controller
 
     public function catFilter($cat){
 
-        // if($cat=="sp"){
-        //     $products = pProduct::query()
-        //     ->where('sp','=',1)
-        //     ->orderBy('updated_at', 'desc')
-        //     ->paginate(300);
-
-        //     return view('product.index_fil_sp',[
-        //             'products'=>$products,
-        //         ]);
-        // }
-
-        // else{   
             $products = pProduct::query()
                 ->where('category','=',$cat)
                 ->where('published', '=', 1)
@@ -256,7 +244,8 @@ class pProductController extends Controller
             $categories=Category::query()
                 ->where('published', '=', 1)
                 ->orderBy('col_order', 'asc')
-                ->paginate(50);
+                // ->paginate(50);
+                ->get;
 
         // }
 
@@ -277,10 +266,8 @@ class pProductController extends Controller
         // dd($categories);
 
         return view('product.index_fil',[
-        // return view('livewire.shop-scroll',[
             'products'=>$products,
             'filterables'=> $filterables,
-            // 'cate'=> $categories,
         ]);
 
     }
