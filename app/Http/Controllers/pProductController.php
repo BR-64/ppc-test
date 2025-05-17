@@ -235,11 +235,24 @@ class pProductController extends Controller
 
     public function catFilter($cat){
 
-            $products = pProduct::query()
+            // $products = pProduct::query()
+            //     ->where('category','=',$cat)
+            //     ->where('published', '=', 1)
+            //     ->where('published', '=', 1)
+            //     ->orderBy('updated_at', 'desc')
+            //     ->paginate(50);
+
+/// test query
+            $products = pProduct::whereHas('stock',function($query){
+                $query->where('stock','>',0);
+            })
                 ->where('category','=',$cat)
+                ->where('published', '=', 1)
                 ->where('published', '=', 1)
                 ->orderBy('updated_at', 'desc')
                 ->paginate(50);
+
+
 
             $categories=Category::query()
                 ->where('published', '=', 1)
