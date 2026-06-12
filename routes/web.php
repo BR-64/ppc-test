@@ -117,8 +117,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
     // Route::post('/order-payment', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
     Route::post('/order-payment/{order}', [kCheckoutController::class, 'chkout_order'])->name('order.payment');
     // Route::get('/testCreateSC/{OrderID}', [CheckoutSummaryController::class,'createSC'])->name('test.sc');
-
-
     // Route::post('/pay', [kCheckoutController::class, 'payment'])->name('payment');
     //  Quotation 
     Route::post('/kpayment', [kCheckoutController::class, 'kpayment'])->name('kpayment');
@@ -138,6 +136,14 @@ Route::post('/payment', [kCheckoutController::class, 'paymentresult'])->name('pa
 Route::post('/qr', [kCheckoutController::class, 'webhook'])->name('noti_qr');
 Route::post('/credit', [kCheckoutController::class, 'webhook'])->name('noti_card');
 Route::post('/walletali', [kCheckoutController::class, 'webhook'])->name('noti_ali');
+
+// browser comes back here after payment (GET)
+Route::get('/payment/return', [kCheckoutController::class, 'paymentresult'])->name('payment.return');
+
+// KBank server posts the notification here (POST) — keep separate
+Route::post('/payment/webhook', [kCheckoutController::class, 'webhook'])->name('payment.webhook');
+
+
 
 Route::get('/paytest', function(){
     return view('checkout.paytest');

@@ -19,6 +19,8 @@ use App\Models\Stock;
 use App\Models\Voucher;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class kCheckoutController extends Controller
 {
@@ -92,7 +94,7 @@ class kCheckoutController extends Controller
 
 
     }
-    public function kpayment(Request $request){
+    public function kpayment_beforeai(Request $request){
     $R_amount=$_POST["amount"];
     // $R_paymentmethod=$_POST["paymentMethods"];
     $R_paytype=$_POST["paytype"];
@@ -194,16 +196,14 @@ class kCheckoutController extends Controller
             //call charge API with Token
             // $make_call = callAPI('POST','https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge',json_encode($data_array));
             $make_call = callAPI('POST',$cardApi_url,json_encode($data_array));
-
              
-             echo ($make_call);
+            //  echo ($make_call);
              $response = json_decode($make_call, true);
 
             // var_dump($response);
-            print_r($data_array);
-
-            echo('response');
-            print_r($response);
+            // print_r($data_array);
+            // echo('response');
+            // print_r($response);
     
              $rediurl=$response["redirect_url"];
              return redirect($rediurl);
@@ -276,11 +276,7 @@ class kCheckoutController extends Controller
             //call charge API with Token
             $make_call = callAPI('POST',$aliApi_url,json_encode($data_array));
 
-            // echo $make_call;
              $response = json_decode($make_call, true);
-
-            //  var_dump($reforder,$response);
-            //  dd($response);
     
              $rediurl=$response["redirect_url"];
              return redirect($rediurl);
@@ -1059,6 +1055,159 @@ class kCheckoutController extends Controller
                 'ordertype'=> 'paynow',
             ]);
     }
+
+    public function kpayment(Request $request)
+{
+    $request->validate([
+        'amount'   => 'required|numeric|min:1',
+        'paytype'  => 'required|string',
+        'reforder' => 'required',
+    ]);
+
+    $payType  = $request->input('paytype');
+    $amount    = $request->input('amount');
+    $orderId   = $request->input('reforder');
+
+    // Record which method the customer chose
+    Order::where('id', $orderId)->update(['pay_method' => $payType]);
+
+    try {
+        switch ($payType) {
+
+            case 'card_DCC':
+                return $this->handleCardCharge($request, $orderId, $amount);
+
+            case 'qr':
+                return $this->handleQrCharge($request, $amount);
+
+            case 'alipay':
+                return $this->handleAlipayCharge($request, $amount);
+
+            default:
+                return redirect()
+                    ->route('checkout.failed')
+                    ->with('error', 'Unsupported payment type.');
+        }
+    } catch (\Throwable $e) {
+        Log::error('KBank payment error', [
+            'order_id' => $orderId,
+            'paytype'  => $payType,
+            'message'  => $e->getMessage(),
+        ]);
+
+        return redirect()
+            ->route('checkout.failed')
+            ->with('error', 'Could not process payment. Please try again.');
+    }
+}
+
+/**
+ * Send a request to a KBank K Payment Gateway endpoint.
+ * Returns the decoded JSON array, or throws on a non-2xx / transport error.
+ */
+private function kbankPost(string $url, array $payload): array
+{
+    $response = Http::withHeaders([
+            'x-api-key'    => config('services.kbank.secret_key'),
+            'Content-Type' => 'application/json',
+        ])
+        ->timeout(30)
+        ->connectTimeout(10)
+        ->acceptJson()
+        ->post($url, $payload);
+
+    if ($response->failed()) {
+        Log::warning('KBank API returned an error', [
+            'url'    => $url,
+            'status' => $response->status(),
+            'body'   => $response->json() ?? $response->body(),
+        ]);
+        throw new \RuntimeException('KBank API error: HTTP ' . $response->status());
+    }
+
+    return $response->json();
+}
+
+private function handleCardCharge(Request $request, $orderId, $amount)
+{
+    $response = $this->kbankPost(config('services.kbank.card_url'), [
+        'amount'          => $amount,
+        'currency'        => 'THB',
+        'description'     => 'test product',
+        'source_type'     => 'card',
+        'mode'            => 'token',
+        'token'           => $request->input('token'),
+        'reference_order' => $request->input('reforder'),
+        'additional_data' => [
+            'mid' => config('services.kbank.mid'),
+        ],
+    ]);
+
+    // Persist what KBank gave us, against the order, for reconciliation/refunds.
+    Order::where('id', $orderId)->update([
+        'charge_id'        => $response['id']                ?? null,
+        'approval_code'    => $response['approval_code']     ?? null,
+        'kbank_reference'  => $response['reference_order']   ?? null,
+        'charge_state'     => $response['transaction_state'] ?? null,
+    ]);
+
+    // 3DS required: send the cardholder off to authenticate.
+    if (!empty($response['redirect_url'])) {
+        return redirect()->away($response['redirect_url']);
+    }
+
+    // No redirect — the charge is already resolved. Check the real state.
+    if (($response['transaction_state'] ?? null) === 'Authorized') {
+        return redirect()->route('checkout.success', ['charge' => $response['id'] ?? null]);
+    }
+
+    Log::warning('KBank card charge not authorized', $response);
+
+    return redirect()
+        ->route('checkout.failed')
+        ->with('error', $response['failure_message'] ?? 'Payment was not approved.');
+}
+
+private function handleQrCharge(Request $request, $amount)
+{
+    $response = $this->kbankPost(config('services.kbank.qr_url'), [
+        'amount'          => $amount,
+        'currency'        => 'THB',
+        'description'     => 'QR payment - prempracha online shop',
+        'source_type'     => 'qr',
+        'reference_order' => $request->input('reforder'),
+    ]);
+
+    return view('checkout.payQR', [
+        'src'    => config('services.kbank.prod_url'), // adjust if this view needs a different value
+        'apikey' => config('services.kbank.public_key'),
+        'qrinfo' => $response,
+    ]);
+}
+
+private function handleAlipayCharge(Request $request, $amount)
+{
+    $response = $this->kbankPost(config('services.kbank.alipay_url'), [
+        'amount'          => $amount,
+        'currency'        => 'THB',
+        'description'     => 'Alipay - prempracha online shop',
+        'source_type'     => 'alipay',
+        'reference_order' => 'ppc' . $request->input('reforder'),
+        'additional_data' => [
+            'mid' => config('services.kbank.mid'),
+        ],
+    ]);
+
+    if (!empty($response['redirect_url'])) {
+        return redirect()->away($response['redirect_url']);
+    }
+
+    Log::warning('KBank Alipay charge missing redirect_url', $response);
+
+    return redirect()
+        ->route('checkout.failed')
+        ->with('error', 'Could not start Alipay payment.');
+}
 
 
 }

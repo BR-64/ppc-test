@@ -42,4 +42,14 @@ return [
         'min_score' => env('RECAPTCHA_MIN_SCORE', .5),
         // 'min_score' => env('RECAPTCHA_MIN_SCORE', 5),
     ],
+
+    'kbank' => [
+    'secret_key' => env('KBANK_SECRET_KEY'),
+    'public_key' => env('KBANK_PUBLIC_KEY'),
+    'mid'        => env('KBANK_MID'),
+    'card_url'   => env('KBANK_CARD_URL'),
+    'qr_url'     => env('KBANK_QR_URL'),
+    'alipay_url' => env('KBANK_ALIPAY_URL'),
+    'prod_url' => env('KBANK_PROD_URL'),
+],
 ];
