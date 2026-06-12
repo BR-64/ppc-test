@@ -1144,12 +1144,12 @@ private function handleCardCharge(Request $request, $orderId, $amount)
     ]);
 
     // Persist what KBank gave us, against the order, for reconciliation/refunds.
-    Order::where('id', $orderId)->update([
-        'charge_id'        => $response['id']                ?? null,
-        'approval_code'    => $response['approval_code']     ?? null,
-        'kbank_reference'  => $response['reference_order']   ?? null,
-        'charge_state'     => $response['transaction_state'] ?? null,
-    ]);
+    // Order::where('id', $orderId)->update([
+    //     'charge_id'        => $response['id']                ?? null,
+    //     'approval_code'    => $response['approval_code']     ?? null,
+    //     'kbank_reference'  => $response['reference_order']   ?? null,
+    //     'charge_state'     => $response['transaction_state'] ?? null,
+    // ]);
 
     // 3DS required: send the cardholder off to authenticate.
     if (!empty($response['redirect_url'])) {
