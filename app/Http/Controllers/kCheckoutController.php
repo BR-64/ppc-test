@@ -94,7 +94,7 @@ class kCheckoutController extends Controller
 
 
     }
-    public function kpayment_beforeai(Request $request){
+    public function kpayment(Request $request){
     $R_amount=$_POST["amount"];
     // $R_paymentmethod=$_POST["paymentMethods"];
     $R_paytype=$_POST["paytype"];
@@ -1056,7 +1056,7 @@ class kCheckoutController extends Controller
             ]);
     }
 
-    public function kpayment(Request $request)
+    public function kpayment_ai(Request $request)
 {
     $request->validate([
         'amount'   => 'required|numeric|min:1',
