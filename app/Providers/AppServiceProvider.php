@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Models\pProduct;
 
@@ -44,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
         //     'finish' => pProduct::distinct()->get('finish'),
         // ];
 
+        // Skip when the products table is not yet migrated (e.g. fresh install / migrate).
+        if (! Schema::hasTable('p_products')) {
+            return;
+        }
+
                 $filterables = [
             'collection' => pProduct::distinct()->get('collection'),
             'category' => pProduct::distinct()->get('category'),
@@ -53,8 +59,13 @@ class AppServiceProvider extends ServiceProvider
             'finish' => pProduct::distinct()->get('finish'),
         ];
 
+        $categories = \App\Models\Category::where('published', 1)
+            ->orderBy('col_order', 'asc')
+            ->get();
+
         View::share('sharedData', [
-            'filterables'=>$filterables
+            'filterables'=>$filterables,
+            'categories'=>$categories,
         ]);
 
         // View::composer('*', function($view){

@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 use App\Models\Api\pProduct as Product;
 use App\Http\Resources\pProductListResource;
-class ProductController extends Controller
+class pProductController extends Controller
 {
     /**
      * Display a listing of the resource.

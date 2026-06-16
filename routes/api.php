@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\MailTestController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\FileControllerDemo;
 
 use App\Http\Controllers\Api\pProductController;
 /*
