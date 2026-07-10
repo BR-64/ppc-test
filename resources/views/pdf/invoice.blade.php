@@ -4,7 +4,7 @@
         <title>Invoice</title>
 
         <?php 
-            $data = file_get_contents('https://smoootstudio.com/pic/prempracha/pic/ppclogo_black.png');
+            $data = file_get_contents(public_path('images/ppclogo_black.png'));
             $base64 = 'data:image/' .'png' . ';base64,' . base64_encode($data);
             ?>
     
