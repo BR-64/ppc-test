@@ -32,7 +32,7 @@
 <div class="spacebox1 ">
     {{-- <div > --}}
         <a href="{{ route('test') }}" class="block p-2"> 
-            <img class="mainlogo" src="https://smoootstudio.com/pic/prempracha/pic/ppclogo.png" alt=""> 
+<img class="mainlogo" src="{{ asset('images/ppclogo.png') }}" alt="PPC">
         </a>
     {{-- </div> --}}
 </div>

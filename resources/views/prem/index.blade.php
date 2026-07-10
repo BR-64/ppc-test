@@ -22,8 +22,8 @@
 <x-app-layout>
     <div class="header pt-5">
         <a href="#">
-          <img class="mainlogo2" src="https://smoootstudio.com/pic/prempracha/pic/white%20no%20background.png" alt="" />
-        </a>
+<img class="mainlogo2" src="{{ asset('images/ppclogo.png') }}" alt="">
+
     </div>
 
     <div class="premcollhero">
